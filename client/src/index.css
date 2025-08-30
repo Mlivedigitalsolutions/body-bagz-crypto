@@ -90,30 +90,89 @@
   }
 
   .cyber-button {
-    background: var(--jet-black);
-    border: 1px solid transparent;
-    box-shadow: 0 0 0 1px var(--dim-gray), 0 0 20px rgba(231, 53, 44, 0.2);
-    transition: all 0.15s ease;
-    border-radius: 9999px;
+    background: linear-gradient(135deg, var(--jet-black) 0%, var(--onyx) 30%, var(--ash-white-faded) 70%, var(--jet-black) 100%);
+    border: 2px solid var(--blood-red);
+    box-shadow: 
+      0 0 15px rgba(231, 53, 44, 0.3),
+      inset 0 1px 0 rgba(237, 238, 240, 0.1),
+      inset 0 -1px 0 rgba(10, 10, 11, 0.5),
+      0 4px 16px rgba(10, 10, 11, 0.3);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cyber-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.2), rgba(231, 53, 44, 0.2), transparent);
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cyber-button:hover::before {
+    left: 100%;
   }
 
   .cyber-button:hover {
-    box-shadow: 0 0 0 1px var(--toxic-green), 0 0 30px rgba(231, 53, 44, 0.6), 0 0 60px rgba(231, 53, 44, 0.3);
-    transform: translateY(-1px) scale(1.02);
-    background: var(--jet-black);
+    box-shadow: 
+      0 0 40px rgba(231, 53, 44, 0.5), 
+      0 0 80px rgba(57, 255, 20, 0.2),
+      inset 0 0 20px rgba(231, 53, 44, 0.1),
+      inset 0 2px 0 rgba(237, 238, 240, 0.2),
+      0 8px 32px rgba(10, 10, 11, 0.4);
+    border-color: var(--toxic-green);
+    transform: translateY(-3px) scale(1.02);
+    background: linear-gradient(135deg, var(--onyx) 0%, var(--ash-white-faded) 30%, var(--jet-black) 70%, var(--onyx) 100%);
+  }
+
+  .cyber-button:active {
+    transform: translateY(-1px) scale(1.01);
+    transition: all 0.05s;
   }
 
   .neon-card {
-    background: var(--onyx);
-    border: 1px solid var(--dim-gray);
-    box-shadow: inset 0 1px 0 rgba(237, 238, 240, 0.1), 0 0 20px rgba(231, 53, 44, 0.15);
-    transition: all 0.2s ease;
+    background: linear-gradient(135deg, var(--onyx) 0%, var(--jet-black) 40%, var(--ash-white-faded) 80%, var(--onyx) 100%);
+    border: 1px solid var(--ash-white-faded);
+    box-shadow: 
+      0 0 20px rgba(42, 43, 49, 0.4),
+      0 8px 32px rgba(10, 10, 11, 0.3),
+      inset 0 1px 0 rgba(237, 238, 240, 0.08),
+      inset 0 -1px 0 rgba(10, 10, 11, 0.4);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  .neon-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--blood-red) 0%, transparent 30%, transparent 70%, var(--toxic-green) 100%);
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    opacity: 0;
+    transition: opacity 0.3s;
   }
 
   .neon-card:hover {
-    box-shadow: inset 0 1px 0 rgba(237, 238, 240, 0.1), 0 0 30px rgba(231, 53, 44, 0.4), 0 0 60px rgba(231, 53, 44, 0.2), 0 0 2px var(--toxic-green);
-    border-color: rgba(57, 255, 20, 0.3);
-    transform: translateY(-8px);
+    box-shadow: 
+      0 0 40px rgba(231, 53, 44, 0.3),
+      0 0 80px rgba(57, 255, 20, 0.15),
+      0 12px 48px rgba(10, 10, 11, 0.4),
+      inset 0 2px 0 rgba(237, 238, 240, 0.15),
+      inset 0 -2px 0 rgba(231, 53, 44, 0.1);
+    border-color: var(--blood-red);
+    transform: translateY(-6px) scale(1.01);
+  }
+
+  .neon-card:hover::before {
+    opacity: 0.6;
   }
 
   .grid-overlay {

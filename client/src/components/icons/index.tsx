@@ -9,29 +9,74 @@ export function SkullIcon({ className }: { className?: string }) {
 export function GrimReaperIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 300 300" fill="none">
-      {/* Enhanced Hooded Figure - Sleek and Angular */}
-      <path d="M150 45 L115 95 L115 210 L185 210 L185 95 Z" fill="#0A0A0B" stroke="#E7352C" strokeWidth="1.5" strokeLinejoin="miter"/>
-      {/* Angular Hood */}
-      <path d="M150 45 L90 75 L90 125 L150 95 L210 125 L210 75 Z" fill="#0A0A0B" stroke="#E7352C" strokeWidth="1.5" strokeLinejoin="miter"/>
-      {/* Skull Face - More Angular */}
-      <polygon points="150,100 165,110 165,130 150,140 135,130 135,110" fill="#EDEEF0" stroke="#E7352C" strokeWidth="1"/>
-      {/* Sharp Eye Sockets */}
-      <polygon points="142,115 148,115 145,125" fill="#0A0A0B"/>
-      <polygon points="152,115 158,115 155,125" fill="#0A0A0B"/>
-      {/* Angular Money Bags */}
-      <polygon points="110,170 130,170 135,190 105,190" fill="#111214" stroke="#39FF14" strokeWidth="1.5"/>
-      <polygon points="170,170 190,170 195,190 165,190" fill="#111214" stroke="#39FF14" strokeWidth="1.5"/>
-      {/* Dollar Signs */}
-      <text x="120" y="185" textAnchor="middle" fill="#39FF14" fontSize="14" fontWeight="bold" fontFamily="Orbitron">$</text>
-      <text x="180" y="185" textAnchor="middle" fill="#39FF14" fontSize="14" fontWeight="bold" fontFamily="Orbitron">$</text>
-      {/* Neon Rim Lighting */}
-      <path d="M150 45 L90 75 L90 125 L150 95 L210 125 L210 75 Z" fill="none" stroke="#39FF14" strokeWidth="0.5" opacity="0.6"/>
-      <path d="M150 45 L115 95 L115 210 L185 210 L185 95 Z" fill="none" stroke="#7A3BFF" strokeWidth="0.5" opacity="0.4"/>
-      {/* Glitch Effect Lines */}
-      <line x1="85" y1="85" x2="110" y2="80" stroke="#7A3BFF" strokeWidth="1" opacity="0.8"/>
-      <line x1="190" y1="80" x2="215" y2="85" stroke="#7A3BFF" strokeWidth="1" opacity="0.8"/>
-      <line x1="95" y1="100" x2="120" y2="95" stroke="#39FF14" strokeWidth="1" opacity="0.6"/>
-      <line x1="180" y1="95" x2="205" y2="100" stroke="#39FF14" strokeWidth="1" opacity="0.6"/>
+      <defs>
+        <linearGradient id="reaperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E7352C" stopOpacity="0.9"/>
+          <stop offset="50%" stopColor="#0A0A0B" stopOpacity="1"/>
+          <stop offset="100%" stopColor="#7A3BFF" stopOpacity="0.7"/>
+        </linearGradient>
+        <linearGradient id="skullGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#EDEEF0" stopOpacity="1"/>
+          <stop offset="70%" stopColor="#2A2B31" stopOpacity="0.8"/>
+          <stop offset="100%" stopColor="#111214" stopOpacity="1"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      {/* Sophisticated Hooded Figure */}
+      <path d="M150 35 L105 85 L105 220 L125 235 L175 235 L195 220 L195 85 Z" fill="url(#reaperGrad)" stroke="#E7352C" strokeWidth="2" strokeLinejoin="bevel" filter="url(#glow)"/>
+      
+      {/* Premium Hood with Multiple Layers */}
+      <path d="M150 35 L80 65 L80 135 L95 145 L150 105 L205 145 L220 135 L220 65 Z" fill="#0A0A0B" stroke="#E7352C" strokeWidth="2" strokeLinejoin="bevel"/>
+      <path d="M150 40 L85 70 L85 130 L150 100 L215 130 L215 70 Z" fill="none" stroke="#39FF14" strokeWidth="0.8" opacity="0.6"/>
+      
+      {/* Sophisticated Skull with Gradient */}
+      <path d="M150 95 L175 105 L175 140 L165 155 L135 155 L125 140 L125 105 Z" fill="url(#skullGrad)" stroke="#E7352C" strokeWidth="1.5" strokeLinejoin="bevel"/>
+      
+      {/* Detailed Eye Sockets with Depth */}
+      <polygon points="135,120 145,118 143,135 133,133" fill="#0A0A0B" stroke="#E7352C" strokeWidth="0.5"/>
+      <polygon points="155,118 165,120 167,133 157,135" fill="#0A0A0B" stroke="#E7352C" strokeWidth="0.5"/>
+      <circle cx="139" cy="126" r="2" fill="#E7352C" opacity="0.8"/>
+      <circle cx="161" cy="126" r="2" fill="#E7352C" opacity="0.8"/>
+      
+      {/* Nasal Cavity */}
+      <polygon points="148,135 152,135 150,145" fill="#0A0A0B" stroke="#E7352C" strokeWidth="0.5"/>
+      
+      {/* Premium Money Bags with Details */}
+      <path d="M100 165 L135 165 L140 195 L95 195 Z" fill="#111214" stroke="#39FF14" strokeWidth="2" strokeLinejoin="bevel"/>
+      <path d="M165 165 L200 165 L205 195 L160 195 Z" fill="#111214" stroke="#39FF14" strokeWidth="2" strokeLinejoin="bevel"/>
+      
+      {/* Bag Tie Details */}
+      <rect x="115" y="160" width="8" height="5" fill="#39FF14"/>
+      <rect x="177" y="160" width="8" height="5" fill="#39FF14"/>
+      
+      {/* Premium Dollar Signs */}
+      <text x="117" y="185" textAnchor="middle" fill="#39FF14" fontSize="16" fontWeight="900" fontFamily="Orbitron" filter="url(#glow)">$</text>
+      <text x="182" y="185" textAnchor="middle" fill="#39FF14" fontSize="16" fontWeight="900" fontFamily="Orbitron" filter="url(#glow)">$</text>
+      
+      {/* Scythe Handle */}
+      <rect x="195" y="100" width="3" height="120" fill="#2A2B31" stroke="#7A3BFF" strokeWidth="1"/>
+      
+      {/* Scythe Blade */}
+      <path d="M198 85 L230 70 L240 75 L235 85 L215 95 Z" fill="#EDEEF0" stroke="#E7352C" strokeWidth="2" strokeLinejoin="bevel"/>
+      <path d="M200 87 L225 75 L235 78 L220 90" fill="none" stroke="#39FF14" strokeWidth="1" opacity="0.7"/>
+      
+      {/* Multiple Layer Neon Rim Lighting */}
+      <path d="M150 35 L80 65 L80 135 L150 105 L220 135 L220 65 Z" fill="none" stroke="#39FF14" strokeWidth="1.2" opacity="0.5"/>
+      <path d="M150 35 L105 85 L105 220 L195 220 L195 85 Z" fill="none" stroke="#7A3BFF" strokeWidth="1" opacity="0.4"/>
+      <path d="M150 35 L80 65 L220 65 Z" fill="none" stroke="#E7352C" strokeWidth="0.8" opacity="0.8"/>
+      
+      {/* Advanced Glitch Effects */}
+      <rect x="75" y="80" width="15" height="2" fill="#7A3BFF" opacity="0.6"/>
+      <rect x="210" y="85" width="12" height="2" fill="#39FF14" opacity="0.7"/>
+      <rect x="85" y="110" width="20" height="1" fill="#E7352C" opacity="0.8"/>
+      <rect x="195" y="115" width="18" height="1" fill="#7A3BFF" opacity="0.6"/>
     </svg>
   );
 }
@@ -39,16 +84,52 @@ export function GrimReaperIcon({ className }: { className?: string }) {
 export function UrbanGritIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 64 64" fill="none">
-      {/* Angular Building Silhouettes */}
-      <polygon points="8,48 20,45 20,56 8,56" fill="currentColor" stroke="#39FF14" strokeWidth="0.5" opacity="0.8"/>
-      <polygon points="20,45 32,40 32,56 20,56" fill="currentColor" stroke="#39FF14" strokeWidth="0.5" opacity="0.8"/>
-      <polygon points="32,40 44,38 44,56 32,56" fill="currentColor" stroke="#39FF14" strokeWidth="0.5" opacity="0.8"/>
-      <polygon points="44,38 56,42 56,56 44,56" fill="currentColor" stroke="#39FF14" strokeWidth="0.5" opacity="0.8"/>
-      {/* Antenna/Signal */}
-      <rect x="30" y="30" width="4" height="12" fill="currentColor"/>
-      <polygon points="28,28 32,25 36,28 32,32" fill="currentColor"/>
-      {/* Neon Rim Light */}
-      <rect x="8" y="48" width="48" height="8" fill="none" stroke="#39FF14" strokeWidth="0.5" opacity="0.4"/>
+      <defs>
+        <linearGradient id="buildingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="currentColor" stopOpacity="1"/>
+          <stop offset="70%" stopColor="#2A2B31" stopOpacity="0.8"/>
+          <stop offset="100%" stopColor="#111214" stopOpacity="1"/>
+        </linearGradient>
+        <filter id="urbanGlow">
+          <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      {/* Sophisticated Building Silhouettes with Windows */}
+      <g filter="url(#urbanGlow)">
+        <polygon points="6,46 22,42 22,58 6,58" fill="url(#buildingGrad)" stroke="#39FF14" strokeWidth="1" strokeLinejoin="bevel"/>
+        <rect x="10" y="48" width="2" height="2" fill="#39FF14" opacity="0.8"/>
+        <rect x="14" y="52" width="2" height="2" fill="#39FF14" opacity="0.6"/>
+        <rect x="18" y="46" width="2" height="2" fill="#39FF14" opacity="0.9"/>
+        
+        <polygon points="22,42 38,36 38,58 22,58" fill="url(#buildingGrad)" stroke="#39FF14" strokeWidth="1" strokeLinejoin="bevel"/>
+        <rect x="26" y="42" width="2" height="2" fill="#39FF14" opacity="0.7"/>
+        <rect x="30" y="46" width="2" height="2" fill="#39FF14" opacity="0.8"/>
+        <rect x="34" y="40" width="2" height="2" fill="#39FF14" opacity="0.9"/>
+        
+        <polygon points="38,36 54,34 54,58 38,58" fill="url(#buildingGrad)" stroke="#39FF14" strokeWidth="1" strokeLinejoin="bevel"/>
+        <rect x="42" y="40" width="2" height="2" fill="#39FF14" opacity="0.8"/>
+        <rect x="46" y="44" width="2" height="2" fill="#39FF14" opacity="0.6"/>
+        <rect x="50" y="38" width="2" height="2" fill="#39FF14" opacity="0.9"/>
+      </g>
+      
+      {/* Premium Antenna Array */}
+      <rect x="30" y="26" width="4" height="16" fill="currentColor" stroke="#E7352C" strokeWidth="1"/>
+      <polygon points="26,24 32,20 38,24 32,28" fill="currentColor" stroke="#7A3BFF" strokeWidth="1"/>
+      
+      {/* Signal Waves */}
+      <path d="M32 18 Q28 16 24 18" stroke="#39FF14" strokeWidth="1.5" fill="none" opacity="0.8"/>
+      <path d="M32 18 Q36 16 40 18" stroke="#39FF14" strokeWidth="1.5" fill="none" opacity="0.8"/>
+      <path d="M32 15 Q26 12 20 15" stroke="#7A3BFF" strokeWidth="1" fill="none" opacity="0.6"/>
+      <path d="M32 15 Q38 12 44 15" stroke="#7A3BFF" strokeWidth="1" fill="none" opacity="0.6"/>
+      
+      {/* Ground Effect with Texture */}
+      <rect x="6" y="56" width="52" height="4" fill="#2A2B31" stroke="#39FF14" strokeWidth="1" opacity="0.8"/>
+      <rect x="8" y="57" width="48" height="1" fill="#39FF14" opacity="0.3"/>
     </svg>
   );
 }
@@ -56,18 +137,49 @@ export function UrbanGritIcon({ className }: { className?: string }) {
 export function FireSkullIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 64 64" fill="none">
-      {/* Angular Skull */}
-      <polygon points="32,8 48,16 48,32 40,40 24,40 16,32 16,16" fill="currentColor"/>
-      {/* Sharp Eye Sockets */}
-      <polygon points="24,20 30,18 28,28 22,26" fill="#0A0A0B"/>
-      <polygon points="34,18 40,20 42,26 36,28" fill="#0A0A0B"/>
-      {/* Angular Nasal Cavity */}
-      <polygon points="30,28 34,28 32,36" fill="#0A0A0B"/>
-      {/* Fire/Chaos Effect */}
-      <polygon points="18,42 22,38 26,42 30,38 34,42 38,38 42,42 46,38 50,44 46,48 18,48" fill="currentColor"/>
-      {/* Neon Rim Light */}
-      <polygon points="32,8 48,16 48,32 40,40 24,40 16,32 16,16" fill="none" stroke="#E7352C" strokeWidth="1" opacity="0.6"/>
-      <path d="M18,42 L50,44" stroke="#7A3BFF" strokeWidth="1" opacity="0.8"/>
+      <defs>
+        <radialGradient id="skullRadial" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="currentColor" stopOpacity="1"/>
+          <stop offset="60%" stopColor="#2A2B31" stopOpacity="0.9"/>
+          <stop offset="100%" stopColor="#0A0A0B" stopOpacity="1"/>
+        </radialGradient>
+        <linearGradient id="fireGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stopColor="#E7352C" stopOpacity="1"/>
+          <stop offset="40%" stopColor="#39FF14" stopOpacity="0.8"/>
+          <stop offset="80%" stopColor="#7A3BFF" stopOpacity="0.6"/>
+          <stop offset="100%" stopColor="currentColor" stopOpacity="0.4"/>
+        </linearGradient>
+        <filter id="fireGlow">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      {/* Premium Angular Skull with Depth */}
+      <path d="M32 6 L52 14 L52 34 L44 44 L20 44 L12 34 L12 14 Z" fill="url(#skullRadial)" stroke="#E7352C" strokeWidth="1.5" strokeLinejoin="bevel" filter="url(#fireGlow)"/>
+      
+      {/* Detailed Eye Sockets with Inner Glow */}
+      <polygon points="22,18 28,16 26,28 20,26" fill="#0A0A0B" stroke="#E7352C" strokeWidth="1"/>
+      <polygon points="36,16 42,18 44,26 38,28" fill="#0A0A0B" stroke="#E7352C" strokeWidth="1"/>
+      <circle cx="24" cy="22" r="1.5" fill="#E7352C" opacity="0.9"/>
+      <circle cx="40" cy="22" r="1.5" fill="#E7352C" opacity="0.9"/>
+      
+      {/* Refined Nasal Structure */}
+      <polygon points="29,26 35,26 32,38 30,38" fill="#0A0A0B" stroke="#E7352C" strokeWidth="0.8"/>
+      
+      {/* Sophisticated Chaos Fire with Multiple Layers */}
+      <path d="M16 44 L20 40 L24 44 L28 38 L32 44 L36 38 L40 44 L44 40 L48 46 L44 52 L40 48 L36 52 L32 50 L28 52 L24 48 L20 52 L16 48 Z" fill="url(#fireGrad)" filter="url(#fireGlow)"/>
+      
+      {/* Fire Inner Details */}
+      <path d="M20 42 L24 46 L28 42 L32 46 L36 42 L40 46 L44 42" stroke="#39FF14" strokeWidth="2" fill="none" opacity="0.8"/>
+      <path d="M18 46 L22 50 L26 46 L30 50 L34 46 L38 50 L42 46 L46 50" stroke="#E7352C" strokeWidth="1.5" fill="none" opacity="0.9"/>
+      
+      {/* Premium Outer Glow */}
+      <path d="M32 6 L52 14 L52 34 L44 44 L20 44 L12 34 L12 14 Z" fill="none" stroke="#7A3BFF" strokeWidth="0.8" opacity="0.4"/>
+      <circle cx="32" cy="28" r="20" fill="none" stroke="#39FF14" strokeWidth="0.5" opacity="0.3"/>
     </svg>
   );
 }
@@ -75,22 +187,51 @@ export function FireSkullIcon({ className }: { className?: string }) {
 export function RaisedFistIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 64 64" fill="none">
-      {/* Angular Fist Structure */}
-      <polygon points="26,14 38,14 38,18 36,20 36,48 28,48 28,20 26,18" fill="currentColor"/>
-      {/* Fingers */}
-      <polygon points="22,20 26,18 26,36 22,38" fill="currentColor"/>
-      <polygon points="38,18 42,20 42,38 38,36" fill="currentColor"/>
-      <polygon points="18,24 22,20 22,36 18,40" fill="currentColor"/>
-      <polygon points="42,20 46,24 46,40 42,36" fill="currentColor"/>
-      {/* Thumb */}
-      <polygon points="24,12 30,10 32,16 26,18" fill="currentColor"/>
-      {/* Neon Rim Lighting */}
-      <polygon points="26,14 38,14 38,48 28,48 28,18 26,18" fill="none" stroke="#7A3BFF" strokeWidth="1" opacity="0.6"/>
-      {/* Power/Energy Lines */}
-      <line x1="12" y1="28" x2="18" y2="26" stroke="#39FF14" strokeWidth="1.5" opacity="0.8"/>
-      <line x1="46" y1="26" x2="52" y2="28" stroke="#39FF14" strokeWidth="1.5" opacity="0.8"/>
-      <line x1="14" y1="34" x2="20" y2="32" stroke="#E7352C" strokeWidth="1" opacity="0.7"/>
-      <line x1="44" y1="32" x2="50" y2="34" stroke="#E7352C" strokeWidth="1" opacity="0.7"/>
+      <defs>
+        <linearGradient id="fistGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="currentColor" stopOpacity="1"/>
+          <stop offset="50%" stopColor="#2A2B31" stopOpacity="0.9"/>
+          <stop offset="100%" stopColor="#111214" stopOpacity="1"/>
+        </linearGradient>
+        <filter id="powerGlow">
+          <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      {/* Premium Fist Structure with Detailed Geometry */}
+      <path d="M24 12 L40 12 L42 16 L40 18 L40 50 L38 52 L26 52 L24 50 L24 18 L22 16 Z" fill="url(#fistGrad)" stroke="#7A3BFF" strokeWidth="1.5" strokeLinejoin="bevel" filter="url(#powerGlow)"/>
+      
+      {/* Detailed Individual Fingers */}
+      <path d="M20 18 L24 16 L26 20 L26 38 L24 40 L20 38 Z" fill="url(#fistGrad)" stroke="#7A3BFF" strokeWidth="1" strokeLinejoin="bevel"/>
+      <path d="M40 16 L44 18 L44 38 L40 40 L38 38 L38 20 Z" fill="url(#fistGrad)" stroke="#7A3BFF" strokeWidth="1" strokeLinejoin="bevel"/>
+      <path d="M16 22 L20 18 L22 22 L22 38 L20 42 L16 40 Z" fill="url(#fistGrad)" stroke="#7A3BFF" strokeWidth="1" strokeLinejoin="bevel"/>
+      <path d="M44 18 L48 22 L48 40 L44 42 L42 38 L42 22 Z" fill="url(#fistGrad)" stroke="#7A3BFF" strokeWidth="1" strokeLinejoin="bevel"/>
+      
+      {/* Sophisticated Thumb */}
+      <path d="M22 10 L32 8 L34 12 L32 18 L28 20 L24 16 Z" fill="url(#fistGrad)" stroke="#7A3BFF" strokeWidth="1" strokeLinejoin="bevel"/>
+      
+      {/* Knuckle Details */}
+      <rect x="26" y="16" width="12" height="2" rx="1" fill="#2A2B31" stroke="#E7352C" strokeWidth="0.5"/>
+      <circle cx="28" cy="17" r="1" fill="#E7352C" opacity="0.6"/>
+      <circle cx="32" cy="17" r="1" fill="#E7352C" opacity="0.6"/>
+      <circle cx="36" cy="17" r="1" fill="#E7352C" opacity="0.6"/>
+      
+      {/* Premium Power/Energy Emanation */}
+      <path d="M8 26 L16 24 L14 28 L10 30" stroke="#39FF14" strokeWidth="2" fill="none" opacity="0.9" strokeLinecap="round"/>
+      <path d="M48 24 L56 26 L54 30 L50 28" stroke="#39FF14" strokeWidth="2" fill="none" opacity="0.9" strokeLinecap="round"/>
+      <path d="M10 32 L18 30 L16 34 L12 36" stroke="#E7352C" strokeWidth="1.5" fill="none" opacity="0.8" strokeLinecap="round"/>
+      <path d="M46 30 L54 32 L52 36 L48 34" stroke="#E7352C" strokeWidth="1.5" fill="none" opacity="0.8" strokeLinecap="round"/>
+      
+      {/* Lightning/Energy Bolts */}
+      <path d="M12 20 L16 18 L14 22 L18 20 L16 24" stroke="#7A3BFF" strokeWidth="1.5" fill="none" opacity="0.7" strokeLinecap="round"/>
+      <path d="M48 18 L52 20 L50 24 L54 22 L52 26" stroke="#7A3BFF" strokeWidth="1.5" fill="none" opacity="0.7" strokeLinecap="round"/>
+      
+      {/* Outer Aura */}
+      <circle cx="32" cy="30" r="28" fill="none" stroke="#7A3BFF" strokeWidth="0.5" opacity="0.3"/>
     </svg>
   );
 }
@@ -121,22 +262,88 @@ export function GasMaskIcon({ className }: { className?: string }) {
 
 export function TelegramChaosIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 64 64" fill="currentColor">
-      <path d="M32 8C18.7 8 8 18.7 8 32s10.7 24 24 24 24-10.7 24-24S45.3 8 32 8zm8.9 16.9l-3.6 17c-.3 1.4-1 1.7-2.1 1.1L30 38.7l-2.6 2.5c-.3.3-.5.5-.9.5l.3-4.4 8.3-7.5c.4-.3-.1-.5-.5-.2l-10.3 6.5-4.4-1.4c-1-.3-1-.9.2-1.4l17.1-6.6c.8-.4 1.5.2 1.2 1.2z"/>
-      {/* Glitch lines */}
-      <line x1="20" y1="20" x2="25" y2="18" stroke="#E7352C" strokeWidth="2" opacity="0.7"/>
-      <line x1="44" y1="44" x2="39" y2="46" stroke="#7A3BFF" strokeWidth="2" opacity="0.7"/>
+    <svg className={className} viewBox="0 0 64 64" fill="none">
+      <defs>
+        <radialGradient id="telegramGrad" cx="50%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#39FF14" stopOpacity="0.9"/>
+          <stop offset="50%" stopColor="currentColor" stopOpacity="1"/>
+          <stop offset="100%" stopColor="#2A2B31" stopOpacity="1"/>
+        </radialGradient>
+        <filter id="telegramGlow">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      {/* Premium Circular Base */}
+      <circle cx="32" cy="32" r="26" fill="url(#telegramGrad)" stroke="#39FF14" strokeWidth="2" filter="url(#telegramGlow)"/>
+      <circle cx="32" cy="32" r="22" fill="none" stroke="#E7352C" strokeWidth="0.8" opacity="0.6"/>
+      
+      {/* Sophisticated Paper Plane */}
+      <path d="M42 22 L20 30 L26 32 L30 28 L36 34 L38 30 Z" fill="#0A0A0B" stroke="#EDEEF0" strokeWidth="1.5" strokeLinejoin="bevel"/>
+      <path d="M26 32 L30 36 L36 34" fill="#0A0A0B" stroke="#EDEEF0" strokeWidth="1.5" strokeLinejoin="bevel"/>
+      
+      {/* Message Trail Effect */}
+      <circle cx="24" cy="28" r="1" fill="#39FF14" opacity="0.8"/>
+      <circle cx="26" cy="26" r="0.8" fill="#39FF14" opacity="0.6"/>
+      <circle cx="28" cy="24" r="0.6" fill="#39FF14" opacity="0.4"/>
+      
+      {/* Advanced Glitch Effects */}
+      <rect x="16" y="18" width="8" height="1" fill="#E7352C" opacity="0.8"/>
+      <rect x="42" y="42" width="6" height="1" fill="#7A3BFF" opacity="0.7"/>
+      <rect x="48" y="20" width="4" height="1" fill="#39FF14" opacity="0.9"/>
+      <rect x="12" y="40" width="5" height="1" fill="#7A3BFF" opacity="0.6"/>
+      
+      {/* Power Ring */}
+      <circle cx="32" cy="32" r="28" fill="none" stroke="#39FF14" strokeWidth="0.5" opacity="0.4"/>
     </svg>
   );
 }
 
 export function XChaosIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 64 64" fill="currentColor">
-      <path d="M32 8C18.7 8 8 18.7 8 32s10.7 24 24 24 24-10.7 24-24S45.3 8 32 8zm8 20l-8 8-8-8 2.8-2.8L32 30.4l5.2-5.2L40 28zm-8 4l8 8H24l8-8z"/>
-      {/* Glitch lines */}
-      <line x1="16" y1="40" x2="20" y2="36" stroke="#39FF14" strokeWidth="2" opacity="0.7"/>
-      <line x1="48" y1="24" x2="44" y2="28" stroke="#E7352C" strokeWidth="2" opacity="0.7"/>
+    <svg className={className} viewBox="0 0 64 64" fill="none">
+      <defs>
+        <radialGradient id="xGrad" cx="50%" cy="30%" r="80%">
+          <stop offset="0%" stopColor="#7A3BFF" stopOpacity="0.9"/>
+          <stop offset="50%" stopColor="currentColor" stopOpacity="1"/>
+          <stop offset="100%" stopColor="#2A2B31" stopOpacity="1"/>
+        </radialGradient>
+        <filter id="xGlow">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      {/* Premium Circular Base */}
+      <circle cx="32" cy="32" r="26" fill="url(#xGrad)" stroke="#7A3BFF" strokeWidth="2" filter="url(#xGlow)"/>
+      <circle cx="32" cy="32" r="22" fill="none" stroke="#E7352C" strokeWidth="0.8" opacity="0.6"/>
+      
+      {/* Sophisticated X Symbol */}
+      <path d="M20 20 L26 20 L32 26 L38 20 L44 20 L38 26 L44 32 L44 38 L38 38 L32 32 L26 38 L20 38 L20 32 L26 26 Z" fill="#0A0A0B" stroke="#EDEEF0" strokeWidth="1.5" strokeLinejoin="bevel"/>
+      
+      {/* Inner X Details */}
+      <path d="M24 24 L32 32 L40 24" stroke="#7A3BFF" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M24 40 L32 32 L40 40" stroke="#7A3BFF" strokeWidth="2" strokeLinecap="round"/>
+      
+      {/* Chaos Energy Burst */}
+      <circle cx="32" cy="32" r="3" fill="#7A3BFF" opacity="0.8"/>
+      <circle cx="32" cy="32" r="1.5" fill="#EDEEF0"/>
+      
+      {/* Advanced Glitch Matrix */}
+      <rect x="14" y="38" width="6" height="1" fill="#39FF14" opacity="0.8"/>
+      <rect x="46" y="22" width="4" height="1" fill="#E7352C" opacity="0.9"/>
+      <rect x="50" y="40" width="8" height="1" fill="#7A3BFF" opacity="0.7"/>
+      <rect x="10" y="26" width="5" height="1" fill="#39FF14" opacity="0.6"/>
+      
+      {/* Outer Power Ring */}
+      <circle cx="32" cy="32" r="28" fill="none" stroke="#7A3BFF" strokeWidth="0.5" opacity="0.4"/>
     </svg>
   );
 }
@@ -144,31 +351,55 @@ export function XChaosIcon({ className }: { className?: string }) {
 export function BarcodeIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 256 48" fill="none">
-      <rect x="0" y="0" width="4" height="48" fill="#E7352C"/>
-      <rect x="8" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="16" y="0" width="6" height="48" fill="#E7352C"/>
-      <rect x="28" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="36" y="0" width="4" height="48" fill="#E7352C"/>
-      <rect x="48" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="56" y="0" width="8" height="48" fill="#E7352C"/>
-      <rect x="72" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="80" y="0" width="4" height="48" fill="#E7352C"/>
-      <rect x="92" y="0" width="6" height="48" fill="#E7352C"/>
-      <rect x="104" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="112" y="0" width="4" height="48" fill="#E7352C"/>
-      <rect x="124" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="132" y="0" width="8" height="48" fill="#E7352C"/>
-      <rect x="148" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="156" y="0" width="4" height="48" fill="#E7352C"/>
-      <rect x="168" y="0" width="6" height="48" fill="#E7352C"/>
-      <rect x="180" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="188" y="0" width="4" height="48" fill="#E7352C"/>
-      <rect x="200" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="208" y="0" width="8" height="48" fill="#E7352C"/>
-      <rect x="224" y="0" width="2" height="48" fill="#E7352C"/>
-      <rect x="232" y="0" width="4" height="48" fill="#E7352C"/>
-      <rect x="244" y="0" width="6" height="48" fill="#E7352C"/>
-      <rect x="252" y="0" width="4" height="48" fill="#E7352C"/>
+      <defs>
+        <linearGradient id="barcodeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#E7352C" stopOpacity="1"/>
+          <stop offset="33%" stopColor="#39FF14" stopOpacity="0.8"/>
+          <stop offset="66%" stopColor="#7A3BFF" stopOpacity="0.9"/>
+          <stop offset="100%" stopColor="#E7352C" stopOpacity="1"/>
+        </linearGradient>
+        <filter id="barcodeGlow">
+          <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      {/* Premium Barcode Pattern with Gradient */}
+      <g filter="url(#barcodeGlow)">
+        <rect x="0" y="4" width="4" height="40" fill="url(#barcodeGrad)"/>
+        <rect x="8" y="6" width="2" height="36" fill="#E7352C"/>
+        <rect x="16" y="2" width="6" height="44" fill="#39FF14"/>
+        <rect x="28" y="8" width="2" height="32" fill="#E7352C"/>
+        <rect x="36" y="4" width="4" height="40" fill="#7A3BFF"/>
+        <rect x="48" y="6" width="2" height="36" fill="#39FF14"/>
+        <rect x="56" y="0" width="8" height="48" fill="#E7352C"/>
+        <rect x="72" y="5" width="2" height="38" fill="#7A3BFF"/>
+        <rect x="80" y="3" width="4" height="42" fill="#39FF14"/>
+        <rect x="92" y="7" width="6" height="34" fill="#E7352C"/>
+        <rect x="104" y="6" width="2" height="36" fill="#7A3BFF"/>
+        <rect x="112" y="4" width="4" height="40" fill="#39FF14"/>
+        <rect x="124" y="8" width="2" height="32" fill="#E7352C"/>
+        <rect x="132" y="1" width="8" height="46" fill="#7A3BFF"/>
+        <rect x="148" y="6" width="2" height="36" fill="#39FF14"/>
+        <rect x="156" y="4" width="4" height="40" fill="#E7352C"/>
+        <rect x="168" y="3" width="6" height="42" fill="#7A3BFF"/>
+        <rect x="180" y="7" width="2" height="34" fill="#39FF14"/>
+        <rect x="188" y="5" width="4" height="38" fill="#E7352C"/>
+        <rect x="200" y="6" width="2" height="36" fill="#7A3BFF"/>
+        <rect x="208" y="2" width="8" height="44" fill="#39FF14"/>
+        <rect x="224" y="6" width="2" height="36" fill="#E7352C"/>
+        <rect x="232" y="4" width="4" height="40" fill="#7A3BFF"/>
+        <rect x="244" y="3" width="6" height="42" fill="#39FF14"/>
+        <rect x="252" y="5" width="4" height="38" fill="#E7352C"/>
+      </g>
+      
+      {/* Scanning Laser Effect */}
+      <rect x="0" y="22" width="256" height="2" fill="#39FF14" opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite"/>
+      </rect>
     </svg>
   );
 }
