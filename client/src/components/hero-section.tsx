@@ -27,19 +27,18 @@ export default function HeroSection({ titleRef }: HeroSectionProps) {
         {/* Main Title */}
         <h1 
           ref={titleRef}
-          className="font-brand text-6xl md:text-8xl lg:text-9xl text-blood-red mb-4 relative glitch-text font-black tracking-tighter" 
+          className="font-brand text-6xl md:text-8xl lg:text-9xl mb-4 relative glitch-text font-black tracking-tighter enhanced-heading" 
           data-text="BODY BAGZ"
           data-testid="main-title"
-          style={{textShadow: '0 0 20px rgba(231, 53, 44, 0.5)'}}
         >
           BODY BAGZ
         </h1>
         
         {/* Tagline */}
-        <p className="font-brand text-2xl md:text-3xl lg:text-4xl text-ash-white mb-2 font-black tracking-tight">
-          <span className="animate-flicker" data-testid="hero-tagline">ZIP IT. STACK IT. OWN IT.</span>
+        <p className="font-brand text-2xl md:text-3xl lg:text-4xl mb-2 font-black tracking-tight text-primary">
+          <span className="animate-flicker enhanced-text" data-testid="hero-tagline">ZIP IT. STACK IT. OWN IT.</span>
         </p>
-        <p className="font-tech text-lg md:text-xl text-toxic-green mb-12 tracking-widest font-medium" data-testid="hero-subtitle">
+        <p className="font-tech text-lg md:text-xl mb-12 tracking-widest font-medium" data-testid="hero-subtitle">
           THE VILLAIN ERA HAS BEGUN
         </p>
 
