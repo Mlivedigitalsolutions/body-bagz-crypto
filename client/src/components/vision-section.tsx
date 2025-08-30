@@ -1,0 +1,42 @@
+import { UrbanGritIcon, FireSkullIcon, RaisedFistIcon } from "@/components/icons";
+
+export default function VisionSection() {
+  return (
+    <section id="vision" className="relative z-10 py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-16" data-testid="vision-title">
+          OUR VISION
+        </h2>
+        
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* For the Culture Card */}
+          <div className="neon-card p-8 rounded-2xl text-center" data-testid="card-culture">
+            <div className="mb-6 flex justify-center">
+              <UrbanGritIcon className="w-16 h-16 text-toxic-green" />
+            </div>
+            <h3 className="font-tech text-xl text-toxic-green mb-4">FOR THE CULTURE</h3>
+            <p className="text-dim-gray">Street-born, community-driven. We rep the underground and the overlooked.</p>
+          </div>
+
+          {/* For the Chaos Card */}
+          <div className="neon-card p-8 rounded-2xl text-center" data-testid="card-chaos">
+            <div className="mb-6 flex justify-center">
+              <FireSkullIcon className="w-16 h-16 text-blood-red" />
+            </div>
+            <h3 className="font-tech text-xl text-blood-red mb-4">FOR THE CHAOS</h3>
+            <p className="text-dim-gray">Disruption is our language. Order is overrated. Chaos breeds innovation.</p>
+          </div>
+
+          {/* For the People Card */}
+          <div className="neon-card p-8 rounded-2xl text-center" data-testid="card-people">
+            <div className="mb-6 flex justify-center">
+              <RaisedFistIcon className="w-16 h-16 text-glitch-purple" />
+            </div>
+            <h3 className="font-tech text-xl text-glitch-purple mb-4">FOR THE PEOPLE</h3>
+            <p className="text-dim-gray">Power to the holders. Built by the community, owned by the community.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
