@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import { Button } from "@/components/ui/button";
-import { GrimReaperIcon } from "@/components/icons";
+import heroVideo from "@assets/download - 2025-08-26T133538.676_1756571747973.mp4";
 
 interface HeroSectionProps {
   titleRef: RefObject<HTMLHeadingElement>;
@@ -17,10 +17,22 @@ export default function HeroSection({ titleRef }: HeroSectionProps) {
       </div>
       
       <div className="max-w-7xl mx-auto text-center relative z-10">
-        {/* Enhanced Central Grim Reaper SVG */}
+        {/* Hero Video */}
         <div className="mb-8 flex justify-center">
           <div className="relative animate-pulse-glow">
-            <GrimReaperIcon className="w-64 h-64 md:w-80 md:h-80 drop-shadow-2xl" />
+            <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden neon-card">
+              <video 
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                data-testid="hero-video"
+              >
+                <source src={heroVideo} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
           </div>
         </div>
 

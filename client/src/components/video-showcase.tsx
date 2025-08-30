@@ -41,6 +41,7 @@ const videoAssets = [
 
 export default function VideoShowcase() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
 
   return (
     <section className="relative z-10 py-20 px-6">
@@ -53,18 +54,21 @@ export default function VideoShowcase() {
           {videoAssets.map((video) => (
             <div 
               key={video.id}
-              className="neon-card rounded-xl overflow-hidden cursor-pointer transition-all duration-200"
+              className="neon-card rounded-xl overflow-hidden cursor-pointer transition-all duration-200 interactive-scale"
               onClick={() => setActiveVideo(activeVideo === video.id ? null : video.id)}
+              onMouseEnter={() => setHoveredVideo(video.id)}
+              onMouseLeave={() => setHoveredVideo(null)}
               data-testid={`video-card-${video.id}`}
             >
               <div className="relative aspect-video bg-jet-black">
-                {activeVideo === video.id ? (
+                {(activeVideo === video.id || hoveredVideo === video.id) ? (
                   <video 
                     className="w-full h-full object-cover"
-                    controls
+                    controls={activeVideo === video.id}
                     autoPlay
                     loop
                     muted
+                    playsInline
                     data-testid={`video-player-${video.id}`}
                   >
                     <source src={video.src} type="video/mp4" />
@@ -75,11 +79,11 @@ export default function VideoShowcase() {
                     <img 
                       src={video.thumbnail} 
                       alt={video.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-all duration-300"
                       data-testid={`video-thumbnail-${video.id}`}
                     />
-                    <div className="absolute inset-0 bg-jet-black bg-opacity-60 flex items-center justify-center group-hover:bg-opacity-40 transition-all">
-                      <div className="w-16 h-16 border-2 border-toxic-green rounded-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-jet-black bg-opacity-60 flex items-center justify-center hover:bg-opacity-30 transition-all duration-300">
+                      <div className="w-16 h-16 border-2 border-toxic-green rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200">
                         <svg className="w-6 h-6 text-toxic-green ml-1" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M8 5v14l11-7z"/>
                         </svg>
