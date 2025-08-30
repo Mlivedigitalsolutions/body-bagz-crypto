@@ -1,0 +1,61 @@
+Change VISUALS ONLY. Keep existing structure, but restyle everything to feel rare, modern, and intimidating—sleek cyberpunk streetwear, not cartoony.
+
+PALETTE (use these hexes exactly):
+- Jet Black: #0A0A0B (base), Onyx: #111214 (panels)
+- Blood Red (primary glow): #E7352C
+- Toxic Neon Green (accent): #39FF14
+- Glitch Purple (secondary accent): #7A3BFF
+- Ash White (text): #EDEEF0
+- Dim Gray (muted text/borders): #2A2B31
+All accents should glow softly against black (outer/inner shadow + blur). Maintain AA contrast.
+
+TYPOGRAPHY:
+- H1/H2 (brand headers): heavy, condensed, sharp-edged sans (graffiti-tech vibe). Examples: “Anton”/“Oswald”/“Bebas Neue”-style. Track slightly tight. Add subtle glitch/scanline layer.
+- H3/H4 (section labels): narrow all-caps geometric sans (e.g., “Orbitron”/“Exo 2” vibe).
+- Body: clean geometric sans (e.g., “Inter”/“Montserrat”), 16–18px on mobile, 18–20px desktop, 1.6–1.75 line-height.
+- Numerals/metrics: tabular figures. Avoid rounded/cute fonts.
+
+LAYOUT & FEEL:
+- Grid: 12-col desktop, 4-col mobile. Generous negative space. Section max-width ~1200px; gutters 24–32px.
+- Panels/Cards: #111214 with 1px inner border (#2A2B31) and outer neon glow (primary red). Hover: pulse glow + faint green rim.
+- Dividers: custom SVG “glitch lines” or zipper motifs, not plain HRs. Use subtle parallax.
+
+HERO (above the fold):
+- Full-bleed dark scene with *very subtle* animated fog/smoke (low opacity), faint red grid in background.
+- CENTERPIECE: vector grim reaper silhouette SVG (matte black) with minimal neon edges; no cartoon faces. Keep it iconic and simple.
+- Title “BODY BAGZ” in blood red with micro-glitch (offset duplicate + mask jitter); subline:
+  “ZIP IT. STACK IT. OWN IT.” with alternating green/purple flicker.
+- CTA buttons: black pill with red outer glow; hover adds green flicker and slight scale (1.02).
+
+ICONOGRAPHY (SVG only, no emojis):
+- Skull, zipper, body bag tag, barcode, gas mask, chain links. Style: thin-to-medium strokes, angular corners, neon rim-light.
+- Use monotone fills with neon strokes; avoid gradients except subtle edge glow.
+
+ANIMATIONS (subtle, never noisy):
+- Glitch: brief 150–250ms text displacement on hover/scroll reveal.
+- Fog: slow, <10% opacity.
+- Button hover: red→green rim transition, 120–180ms ease.
+- Card reveal: upward 8–12px with fade, slight red glow bloom.
+
+BUTTONS/CHIPS:
+- Primary: #0A0A0B bg, #E7352C outer glow, Ash White text.
+- Secondary: outline neon green with transparent black fill.
+- Small pill chips for tags (“CHAOS”, “CULTURE”, “PEOPLE”) with thin neon borders.
+
+FORMS (tweet/meme/pfp generators):
+- Black inputs with inner glow, square corners, thin neon caret.
+- Placeholder text in Dim Gray; focus ring neon green.
+
+MERCH PREVIEW (coming soon):
+- Black hoodie SVG mock on #0A0A0B with red under-lighting; graffiti “BODY BAGZ” in red with subtle green overspray. Overlay “COMING SOON” as white/green scanline text.
+
+CHART/REAL-TIME DATA:
+- Embed chart within a dark card; legend and ticks in Ash White; accent lines use green/purple; highlight candles with red glow.
+
+ACCESSIBILITY & POLISH:
+- Maintain high contrast for all text (#EDEEF0 on #0A0A0B).
+- Reduce saturation of greens/purples by ~10% on mobile to avoid eye strain.
+- Motion-safe: disable nonessential animations if prefers-reduced-motion.
+
+FINAL FEEL:
+- Sleek, intimidating, and premium. Black canvas, controlled neon glow, glitch micro-effects, crisp typography, generous spacing. No cute/rounded visuals. Everything should look like a high-end underground brand hub.

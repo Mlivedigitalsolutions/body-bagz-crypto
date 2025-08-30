@@ -1,0 +1,75 @@
+Build me a dark, gritty, cyberpunk-styled website for **Body Bagz ($BAGZ)**.  
+The design should feel rare and epic — no generic emojis, only **custom SVG graphics** (grim reaper, body bags, glitch icons, chaos symbols).  
+
+### Theme
+- Colors: Black background, blood red highlights, neon green/purple accents.  
+- Fonts: Bold, cracked, graffiti or distressed style.  
+- Vibe: Post-apocalyptic, villain era, chaos-driven.  
+
+### Sections
+1. **Hero Section**  
+   - Full-width banner with “BODY BAGZ” + tagline **“Zip it. Stack it. Own it. The Villain Era has begun.”**  
+   - Grim reaper SVG holding a bag.  
+   - Animated glitch/streetlight flicker effects.  
+
+2. **Introduction (from Whitepaper)**  
+   - Scrollable section with intro text.  
+   - Stylized divider SVG (body bag zipper or skull glitch).  
+
+3. **Vision**  
+   - Three SVG cards:  
+     - “For the Culture” → Urban grit icon.  
+     - “For the Chaos” → Fire/skull glitch.  
+     - “For the People” → Raised fist + glitch overlay.  
+
+4. **Tokenomics**  
+   - Interactive pie chart SVG showing distribution:  
+     - 50% Liquidity  
+     - 25% Community Incentives  
+     - 15% Treasury  
+     - 10% Team  
+   - Hover animations reveal details.  
+
+5. **Utility Roadmap (Timeline)**  
+   - Horizontal SVG timeline with glowing points for each phase: Chaos Fuel → Merch → NFTs → Expansion.  
+
+6. **Bullish Tweet Generator**  
+   - Input box + “Generate Chaos” button.  
+   - Randomly outputs 1–2 line bullish tweets with Dex link + villain energy.  
+
+7. **Meme Generator**  
+   - Upload/choose base SVG template (grim reaper, bags, collapse scenes).  
+   - Add custom meme text overlay.  
+   - Download/share option.  
+
+8. **Random PFP Generator**  
+   - Button that generates random chaotic PFP (hooded reaper variations, glitch cats, prepper skulls).  
+   - Display in SVG preview.  
+
+9. **Merch Store (Coming Soon)**  
+   - Showcase sample hoodie (black hoodie mockup with “Body Bagz” graffiti SVG).  
+   - “Coming Soon” overlay with glitch effect.  
+
+10. **Real-Time Trading Data**  
+    - Live DexScreener widget integration for $BAGZ chart.  
+    - Price, market cap, volume auto-updating.  
+
+11. **Community Section**  
+    - Links to Telegram + X community.  
+    - SVG chaos icons for each.  
+
+12. **Footer**  
+    - Disclaimer from white paper.  
+    - “Not financial advice. Powered by chaos.”  
+
+Requirements
+- No stock emojis — ONLY SVG-based icons + visuals.  
+- Must be **responsive** (mobile + desktop).  
+- Use dark mode only.  
+- Animations: glitch, hover effects, slow smoke/fog background.  
+
+Deliver a finished, production-ready rare website that feels like a **chaotic digital underground hub**.
+
+📌 Telegram: https://t.me/BodyBagzs  
+📌 X Community: https://twitter.com/i/communities/1960797896896602475  
+📌 Dex: (add link after launch)
