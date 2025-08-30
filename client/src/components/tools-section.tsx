@@ -14,10 +14,18 @@ const bullishTweets = [
 
 const pfpVariants = [
   "Hooded Chaos Reaper #1337",
-  "Glitch Cat Villain #420",
+  "Glitch Cat Villain #420", 
   "Prepper Skull Lord #666",
   "Shadow Bag Keeper #999",
   "Digital Grim #2024"
+];
+
+const pfpPrompts = [
+  "Cyberpunk hooded figure with glowing red eyes, dark hood, angular gas mask, neon green accents, digital art style, villain aesthetic",
+  "Futuristic cat with cyberpunk implants, glowing purple eyes, tech accessories, dark background, streetwear aesthetic",
+  "Skull lord with cyberpunk elements, glowing green skull, tech armor, dark hood, villain energy, digital art",
+  "Shadow figure holding glowing money bags, cyberpunk style, red and green neon lighting, mysterious silhouette",
+  "Digital grim reaper with tech scythe, cyberpunk armor, glowing effects, dark futuristic aesthetic, villain theme"
 ];
 
 export default function ToolsSection() {
@@ -25,6 +33,8 @@ export default function ToolsSection() {
   const [topText, setTopText] = useState("");
   const [bottomText, setBottomText] = useState("");
   const [currentPfp, setCurrentPfp] = useState(pfpVariants[0]);
+  const [generatedPfpImage, setGeneratedPfpImage] = useState("");
+  const [isGeneratingPfp, setIsGeneratingPfp] = useState(false);
   const { toast } = useToast();
 
   const generateTweet = () => {
@@ -32,7 +42,17 @@ export default function ToolsSection() {
     setGeneratedTweet(randomTweet);
     toast({
       title: "Tweet Generated!",
-      description: "Copy and spread the chaos on X",
+      description: "Ready to share on X",
+    });
+  };
+
+  const shareToTwitter = () => {
+    const tweetText = encodeURIComponent(generatedTweet + " #BodyBagz #BAGZ #CryptoVillains");
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+    window.open(twitterUrl, '_blank');
+    toast({
+      title: "Opening Twitter!",
+      description: "Share the chaos with the world",
     });
   };
 
@@ -51,13 +71,60 @@ export default function ToolsSection() {
     });
   };
 
-  const generatePfp = () => {
-    const randomPfp = pfpVariants[Math.floor(Math.random() * pfpVariants.length)];
+  const generatePfp = async () => {
+    setIsGeneratingPfp(true);
+    const randomIndex = Math.floor(Math.random() * pfpVariants.length);
+    const randomPfp = pfpVariants[randomIndex];
+    const randomPrompt = pfpPrompts[randomIndex];
+    
     setCurrentPfp(randomPfp);
-    toast({
-      title: "PFP Generated!",
-      description: "Your villain profile is ready",
-    });
+    
+    try {
+      const response = await fetch('/api/generate-pfp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          prompt: randomPrompt,
+          name: randomPfp
+        }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setGeneratedPfpImage(data.imageUrl);
+        toast({
+          title: "PFP Generated!",
+          description: "Your villain profile is ready to download",
+        });
+      } else {
+        throw new Error('Failed to generate PFP');
+      }
+    } catch (error) {
+      toast({
+        title: "Generation Error",
+        description: "Failed to generate PFP. Try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGeneratingPfp(false);
+    }
+  };
+  
+  const downloadPfp = () => {
+    if (generatedPfpImage) {
+      const link = document.createElement('a');
+      link.href = generatedPfpImage;
+      link.download = `${currentPfp.replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast({
+        title: "Downloaded!",
+        description: "Your villain PFP is saved",
+      });
+    }
   };
 
   return (
@@ -83,13 +150,24 @@ export default function ToolsSection() {
                   {generatedTweet || "Click below to generate a bullish tweet..."}
                 </p>
               </div>
-              <Button 
-                className="cyber-button w-full py-4 text-ash-white font-bold tracking-wide" 
-                onClick={generateTweet}
-                data-testid="button-generate-tweet"
-              >
-                GENERATE CHAOS
-              </Button>
+              <div className="space-y-3">
+                <Button 
+                  className="cyber-button w-full py-4 text-ash-white font-bold tracking-wide" 
+                  onClick={generateTweet}
+                  data-testid="button-generate-tweet"
+                >
+                  GENERATE CHAOS
+                </Button>
+                {generatedTweet && (
+                  <Button 
+                    className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-blue-500"
+                    onClick={shareToTwitter}
+                    data-testid="button-share-twitter"
+                  >
+                    🐦 SHARE TO TWITTER
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
 
@@ -158,44 +236,67 @@ export default function ToolsSection() {
             <div className="space-y-4">
               <div className="bg-jet-black p-6 rounded-lg border border-dim-gray">
                 <div className="w-36 h-36 mx-auto bg-gradient-to-br from-glitch-purple/20 to-jet-black rounded-lg flex items-center justify-center mb-4 border border-glitch-purple border-opacity-30 relative overflow-hidden">
-                  {/* Premium PFP Preview */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-glitch-purple/10 to-transparent"></div>
-                  <svg className="w-24 h-24 text-glitch-purple relative z-10" viewBox="0 0 64 64" fill="none">
-                    <defs>
-                      <linearGradient id="pfpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#7A3BFF" stopOpacity="1"/>
-                        <stop offset="50%" stopColor="#2A2B31" stopOpacity="0.9"/>
-                        <stop offset="100%" stopColor="#0A0A0B" stopOpacity="1"/>
-                      </linearGradient>
-                    </defs>
-                    {/* Hooded Figure Head */}
-                    <path d="M32 8 L48 12 L48 28 L44 32 L20 32 L16 28 L16 12 Z" fill="url(#pfpGrad)" stroke="#7A3BFF" strokeWidth="1.5"/>
-                    {/* Hood */}
-                    <path d="M32 8 L52 16 L52 24 L32 20 L12 24 L12 16 Z" fill="#0A0A0B" stroke="#7A3BFF" strokeWidth="1"/>
-                    {/* Mask/Face */}
-                    <rect x="24" y="20" width="16" height="12" rx="2" fill="#2A2B31" stroke="#EDEEF0" strokeWidth="1"/>
-                    {/* Eye Lenses */}
-                    <circle cx="28" cy="24" r="2" fill="#7A3BFF" opacity="0.8"/>
-                    <circle cx="36" cy="24" r="2" fill="#7A3BFF" opacity="0.8"/>
-                    {/* Filter */}
-                    <rect x="30" y="28" width="4" height="2" fill="#39FF14" rx="1"/>
-                    {/* Body/Cloak */}
-                    <path d="M20 32 L44 32 L42 48 L22 48 Z" fill="url(#pfpGrad)" stroke="#7A3BFF" strokeWidth="1"/>
-                    {/* Glitch Effects */}
-                    <rect x="18" y="26" width="6" height="1" fill="#39FF14" opacity="0.7"/>
-                    <rect x="40" y="30" width="4" height="1" fill="#E7352C" opacity="0.8"/>
-                  </svg>
-                  <div className="absolute bottom-1 right-1 w-2 h-2 bg-glitch-purple rounded-full animate-pulse"></div>
+                  {generatedPfpImage ? (
+                    <img 
+                      src={generatedPfpImage} 
+                      alt={currentPfp}
+                      className="w-full h-full object-cover rounded-lg"
+                      data-testid="generated-pfp-image"
+                    />
+                  ) : (
+                    <>
+                      {/* Premium PFP Preview */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-glitch-purple/10 to-transparent"></div>
+                      <svg className="w-24 h-24 text-glitch-purple relative z-10" viewBox="0 0 64 64" fill="none">
+                        <defs>
+                          <linearGradient id="pfpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#7A3BFF" stopOpacity="1"/>
+                            <stop offset="50%" stopColor="#2A2B31" stopOpacity="0.9"/>
+                            <stop offset="100%" stopColor="#0A0A0B" stopOpacity="1"/>
+                          </linearGradient>
+                        </defs>
+                        {/* Hooded Figure Head */}
+                        <path d="M32 8 L48 12 L48 28 L44 32 L20 32 L16 28 L16 12 Z" fill="url(#pfpGrad)" stroke="#7A3BFF" strokeWidth="1.5"/>
+                        {/* Hood */}
+                        <path d="M32 8 L52 16 L52 24 L32 20 L12 24 L12 16 Z" fill="#0A0A0B" stroke="#7A3BFF" strokeWidth="1"/>
+                        {/* Mask/Face */}
+                        <rect x="24" y="20" width="16" height="12" rx="2" fill="#2A2B31" stroke="#EDEEF0" strokeWidth="1"/>
+                        {/* Eye Lenses */}
+                        <circle cx="28" cy="24" r="2" fill="#7A3BFF" opacity="0.8"/>
+                        <circle cx="36" cy="24" r="2" fill="#7A3BFF" opacity="0.8"/>
+                        {/* Filter */}
+                        <rect x="30" y="28" width="4" height="2" fill="#39FF14" rx="1"/>
+                        {/* Body/Cloak */}
+                        <path d="M20 32 L44 32 L42 48 L22 48 Z" fill="url(#pfpGrad)" stroke="#7A3BFF" strokeWidth="1"/>
+                        {/* Glitch Effects */}
+                        <rect x="18" y="26" width="6" height="1" fill="#39FF14" opacity="0.7"/>
+                        <rect x="40" y="30" width="4" height="1" fill="#E7352C" opacity="0.8"/>
+                      </svg>
+                      <div className="absolute bottom-1 right-1 w-2 h-2 bg-glitch-purple rounded-full animate-pulse"></div>
+                    </>
+                  )}
                 </div>
-                <p className="text-center text-dim-gray text-sm font-medium tracking-wide" data-testid="current-pfp">{currentPfp}</p>
+                <p className="text-center text-dim-gray text-sm font-medium tracking-wide mb-4" data-testid="current-pfp">{currentPfp}</p>
               </div>
-              <Button 
-                className="cyber-button w-full py-4 text-ash-white font-bold tracking-wide" 
-                onClick={generatePfp}
-                data-testid="button-generate-pfp"
-              >
-                GENERATE PFP
-              </Button>
+              <div className="space-y-3">
+                <Button 
+                  className="cyber-button w-full py-4 text-ash-white font-bold tracking-wide" 
+                  onClick={generatePfp}
+                  disabled={isGeneratingPfp}
+                  data-testid="button-generate-pfp"
+                >
+                  {isGeneratingPfp ? "GENERATING..." : "GENERATE PFP"}
+                </Button>
+                {generatedPfpImage && (
+                  <Button 
+                    className="w-full py-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-green-500"
+                    onClick={downloadPfp}
+                    data-testid="button-download-pfp"
+                  >
+                    📥 DOWNLOAD PFP
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>
