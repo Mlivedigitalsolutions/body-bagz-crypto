@@ -67,60 +67,68 @@ export default function TokenomicsSection() {
         </h2>
         
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Interactive Pie Chart */}
+          {/* Enhanced Interactive Pie Chart */}
           <div className="flex justify-center">
-            <div className="relative w-80 h-80" data-testid="tokenomics-chart">
+            <div className="relative w-80 h-80 neon-card p-8 rounded-xl" data-testid="tokenomics-chart">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 160 160">
                 {sections.map((section, index) => (
                   <circle
                     key={section.label}
                     cx="80"
                     cy="80"
-                    r="70"
+                    r="65"
                     fill="none"
                     stroke={section.color}
                     strokeWidth={section.strokeWidth}
                     strokeDasharray={`${section.dashArray} ${circumference - section.dashArray}`}
                     strokeDashoffset={section.dashOffset}
-                    className="transition-all duration-300 cursor-pointer"
+                    className="transition-all duration-200 cursor-pointer drop-shadow-lg"
                     onMouseEnter={() => setHoveredSection(section.label)}
                     onMouseLeave={() => setHoveredSection(null)}
                     data-testid={`chart-section-${section.label.toLowerCase()}`}
+                    style={{
+                      filter: hoveredSection === section.label ? `drop-shadow(0 0 8px ${section.color})` : 'none'
+                    }}
                   />
                 ))}
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="font-brand text-2xl text-blood-red">$BAGZ</div>
-                  <div className="font-tech text-sm text-dim-gray">SUPPLY</div>
+                  <div className="font-brand text-3xl text-blood-red tracking-tight" style={{textShadow: '0 0 10px rgba(231, 53, 44, 0.5)'}}>$BAGZ</div>
+                  <div className="font-tech text-sm text-dim-gray tracking-widest">SUPPLY</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Distribution Details */}
-          <div className="space-y-6">
+          {/* Enhanced Distribution Details */}
+          <div className="space-y-4">
             {tokenomicsData.map((data) => (
               <div 
                 key={data.label}
-                className={`neon-card p-6 rounded-xl transition-all duration-300 ${data.glowClass}`}
+                className={`neon-card p-6 rounded-xl transition-all duration-200 ${data.glowClass} border-l-4`}
+                style={{ borderLeftColor: data.color }}
                 onMouseEnter={() => setHoveredSection(data.label)}
                 onMouseLeave={() => setHoveredSection(null)}
                 data-testid={`tokenomics-card-${data.label.toLowerCase()}`}
               >
-                <div className="flex items-center mb-2">
+                <div className="flex items-center mb-3">
                   <div 
-                    className="w-4 h-4 rounded mr-3" 
-                    style={{ backgroundColor: data.color }}
+                    className="w-3 h-3 mr-3" 
+                    style={{ 
+                      backgroundColor: data.color,
+                      boxShadow: `0 0 8px ${data.color}`,
+                      borderRadius: '1px'
+                    }}
                   ></div>
                   <span 
-                    className="font-tech text-lg"
+                    className="font-tech text-lg font-semibold tracking-wide"
                     style={{ color: data.color }}
                   >
                     {data.percentage}% {data.label}
                   </span>
                 </div>
-                <p className="text-dim-gray">{data.description}</p>
+                <p className="text-dim-gray font-medium leading-relaxed">{data.description}</p>
               </div>
             ))}
           </div>

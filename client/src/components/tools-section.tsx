@@ -116,7 +116,7 @@ export default function ToolsSection() {
                   placeholder="Top text..." 
                   value={topText}
                   onChange={(e) => setTopText(e.target.value)}
-                  className="w-full bg-jet-black border border-dim-gray rounded px-3 py-2 text-ash-white placeholder-dim-gray focus:border-toxic-green focus:outline-none mb-2" 
+                  className="cyber-input w-full px-3 py-2 text-ash-white placeholder-dim-gray rounded mb-2" 
                   data-testid="input-meme-top-text"
                 />
                 <Input 
@@ -124,7 +124,7 @@ export default function ToolsSection() {
                   placeholder="Bottom text..." 
                   value={bottomText}
                   onChange={(e) => setBottomText(e.target.value)}
-                  className="w-full bg-jet-black border border-dim-gray rounded px-3 py-2 text-ash-white placeholder-dim-gray focus:border-toxic-green focus:outline-none" 
+                  className="cyber-input w-full px-3 py-2 text-ash-white placeholder-dim-gray rounded" 
                   data-testid="input-meme-bottom-text"
                 />
               </div>

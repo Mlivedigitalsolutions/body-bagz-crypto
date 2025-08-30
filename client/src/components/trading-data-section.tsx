@@ -42,35 +42,37 @@ export default function TradingDataSection() {
           LIVE DATA
         </h2>
         
-        <div className="neon-card p-8 rounded-2xl" data-testid="trading-data-card">
+        <div className="neon-card p-8 rounded-xl" data-testid="trading-data-card">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Price */}
             <div className="text-center">
-              <h3 className="font-tech text-lg text-dim-gray mb-2">PRICE</h3>
-              <div className="font-mono text-2xl text-toxic-green" data-testid="price-value">{tradingData.price}</div>
-              <div className="text-sm text-blood-red">{tradingData.priceChange}</div>
+              <h3 className="font-tech text-lg text-dim-gray mb-2 tracking-wide">PRICE</h3>
+              <div className="font-mono text-3xl text-toxic-green font-bold" data-testid="price-value" style={{textShadow: '0 0 10px rgba(57, 255, 20, 0.3)'}}>{tradingData.price}</div>
+              <div className="text-sm text-blood-red font-semibold">{tradingData.priceChange}</div>
             </div>
             
             {/* Market Cap */}
             <div className="text-center">
-              <h3 className="font-tech text-lg text-dim-gray mb-2">MARKET CAP</h3>
-              <div className="font-mono text-2xl text-ash-white" data-testid="market-cap-value">{tradingData.marketCap}</div>
-              <div className="text-sm text-toxic-green">{tradingData.marketCapChange}</div>
+              <h3 className="font-tech text-lg text-dim-gray mb-2 tracking-wide">MARKET CAP</h3>
+              <div className="font-mono text-3xl text-ash-white font-bold" data-testid="market-cap-value">{tradingData.marketCap}</div>
+              <div className="text-sm text-toxic-green font-semibold">{tradingData.marketCapChange}</div>
             </div>
             
             {/* Volume */}
             <div className="text-center">
-              <h3 className="font-tech text-lg text-dim-gray mb-2">24H VOLUME</h3>
-              <div className="font-mono text-2xl text-glitch-purple" data-testid="volume-value">{tradingData.volume}</div>
-              <div className="text-sm text-blood-red">{tradingData.volumeChange}</div>
+              <h3 className="font-tech text-lg text-dim-gray mb-2 tracking-wide">24H VOLUME</h3>
+              <div className="font-mono text-3xl text-glitch-purple font-bold" data-testid="volume-value" style={{textShadow: '0 0 10px rgba(122, 59, 255, 0.3)'}}>{tradingData.volume}</div>
+              <div className="text-sm text-blood-red font-semibold">{tradingData.volumeChange}</div>
             </div>
           </div>
           
-          {/* Chart Placeholder */}
-          <div className="bg-jet-black rounded border border-dim-gray h-64 flex items-center justify-center" data-testid="chart-placeholder">
-            <div className="text-center">
-              <div className="font-tech text-toxic-green mb-2">DexScreener Chart</div>
-              <div className="text-dim-gray text-sm">Chart integration ready for launch</div>
+          {/* Enhanced Chart Placeholder */}
+          <div className="bg-jet-black rounded-lg border border-dim-gray h-64 flex items-center justify-center relative overflow-hidden" data-testid="chart-placeholder">
+            <div className="absolute inset-0 grid-overlay opacity-20"></div>
+            <div className="text-center relative z-10">
+              <div className="font-tech text-toxic-green mb-2 text-lg tracking-widest">DEXSCREENER CHART</div>
+              <div className="text-dim-gray text-sm font-medium">Chart integration ready for launch</div>
+              <div className="scanline-overlay w-32 h-1 mx-auto mt-4 rounded"></div>
             </div>
           </div>
         </div>

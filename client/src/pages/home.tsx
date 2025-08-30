@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import HeroSection from "@/components/hero-section";
+import VideoShowcase from "@/components/video-showcase";
 import VisionSection from "@/components/vision-section";
 import TokenomicsSection from "@/components/tokenomics-section";
 import RoadmapSection from "@/components/roadmap-section";
@@ -64,11 +65,13 @@ export default function Home() {
 
   return (
     <div className="bg-jet-black text-ash-white font-body overflow-x-hidden">
-      {/* Animated Background */}
+      {/* Enhanced Animated Background */}
       <div className="fixed inset-0 z-0 grid-overlay">
-        <div className="absolute inset-0 animate-fog">
-          <div className="w-96 h-96 bg-blood-red opacity-5 rounded-full blur-3xl absolute top-1/4 left-1/4"></div>
-          <div className="w-80 h-80 bg-toxic-green opacity-3 rounded-full blur-3xl absolute top-3/4 right-1/4"></div>
+        <div className="absolute inset-0 fog-layer animate-fog"></div>
+        <div className="absolute inset-0">
+          <div className="w-96 h-96 bg-blood-red opacity-8 rounded-full blur-3xl absolute top-1/4 left-1/4 animate-pulse-glow"></div>
+          <div className="w-80 h-80 bg-toxic-green opacity-4 rounded-full blur-3xl absolute top-3/4 right-1/4 animate-pulse-glow" style={{animationDelay: '1.5s'}}></div>
+          <div className="w-72 h-72 bg-glitch-purple opacity-3 rounded-full blur-3xl absolute bottom-1/4 left-1/3 animate-pulse-glow" style={{animationDelay: '3s'}}></div>
         </div>
       </div>
 
@@ -95,7 +98,7 @@ export default function Home() {
         {/* Introduction Section */}
         <section className="relative z-10 py-20 px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="neon-card p-8 md:p-12 rounded-2xl">
+            <div className="neon-card p-8 md:p-12 rounded-xl">
               {/* Custom Zipper Divider SVG */}
               <div className="flex justify-center mb-8">
                 <svg className="w-64 h-8" viewBox="0 0 256 32" fill="none">
@@ -132,6 +135,7 @@ export default function Home() {
           </div>
         </section>
 
+        <VideoShowcase />
         <VisionSection />
         <TokenomicsSection />
         <RoadmapSection />

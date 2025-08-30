@@ -8,35 +8,45 @@ export default function CommunitySection() {
           JOIN THE CHAOS
         </h2>
         
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Telegram */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Enhanced Telegram */}
           <a 
             href="https://t.me/BodyBagzs" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="neon-card p-8 rounded-2xl hover:shadow-green-glow transition-all duration-300 group"
+            className="neon-card p-8 rounded-xl hover:shadow-green-glow transition-all duration-200 group relative overflow-hidden"
             data-testid="link-telegram"
           >
-            <div className="flex justify-center mb-6">
-              <TelegramChaosIcon className="w-16 h-16 text-toxic-green group-hover:animate-pulse" />
+            <div className="absolute top-0 right-0 w-16 h-16 bg-toxic-green opacity-5 rounded-full blur-xl"></div>
+            <div className="relative z-10">
+              <div className="flex justify-center mb-6">
+                <div className="p-4 rounded-lg bg-jet-black border border-dim-gray group-hover:shadow-green-glow transition-all duration-200">
+                  <TelegramChaosIcon className="w-16 h-16 text-toxic-green group-hover:scale-110 transition-transform" />
+                </div>
+              </div>
+              <h3 className="font-tech text-xl text-toxic-green mb-4 tracking-wide font-semibold">TELEGRAM</h3>
+              <p className="text-dim-gray font-medium leading-relaxed">Join the underground. Real-time chaos coordination.</p>
             </div>
-            <h3 className="font-tech text-xl text-toxic-green mb-4">TELEGRAM</h3>
-            <p className="text-dim-gray">Join the underground. Real-time chaos coordination.</p>
           </a>
 
-          {/* X Community */}
+          {/* Enhanced X Community */}
           <a 
             href="https://twitter.com/i/communities/1960797896896602475" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="neon-card p-8 rounded-2xl hover:shadow-purple-glow transition-all duration-300 group"
+            className="neon-card p-8 rounded-xl hover:shadow-purple-glow transition-all duration-200 group relative overflow-hidden"
             data-testid="link-x-community"
           >
-            <div className="flex justify-center mb-6">
-              <XChaosIcon className="w-16 h-16 text-glitch-purple group-hover:animate-pulse" />
+            <div className="absolute top-0 right-0 w-16 h-16 bg-glitch-purple opacity-5 rounded-full blur-xl"></div>
+            <div className="relative z-10">
+              <div className="flex justify-center mb-6">
+                <div className="p-4 rounded-lg bg-jet-black border border-dim-gray group-hover:shadow-purple-glow transition-all duration-200">
+                  <XChaosIcon className="w-16 h-16 text-glitch-purple group-hover:scale-110 transition-transform" />
+                </div>
+              </div>
+              <h3 className="font-tech text-xl text-glitch-purple mb-4 tracking-wide font-semibold">X COMMUNITY</h3>
+              <p className="text-dim-gray font-medium leading-relaxed">Spread the chaos. Meme warfare HQ.</p>
             </div>
-            <h3 className="font-tech text-xl text-glitch-purple">X COMMUNITY</h3>
-            <p className="text-dim-gray">Spread the chaos. Meme warfare HQ.</p>
           </a>
         </div>
       </div>

@@ -47,12 +47,12 @@ export default function RoadmapSection() {
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {roadmapPhases.map((phase, index) => (
-              <div key={phase.number} className="text-center" data-testid={`roadmap-phase-${phase.number}`}>
-                <div className={`relative mx-auto w-16 h-16 ${phase.bgColor} rounded-full flex items-center justify-center mb-4 ${phase.glowClass}`}>
-                  <span className="font-brand text-xl text-jet-black">{phase.number}</span>
+              <div key={phase.number} className="text-center group" data-testid={`roadmap-phase-${phase.number}`}>
+                <div className={`relative mx-auto w-20 h-20 ${phase.bgColor} rounded-lg flex items-center justify-center mb-4 ${phase.glowClass} border border-dim-gray group-hover:scale-110 transition-all duration-200`} style={{borderRadius: '6px'}}>
+                  <span className="font-brand text-2xl text-jet-black font-black tracking-tight">{phase.number}</span>
                 </div>
-                <h3 className={`font-tech text-lg text-${phase.color} mb-2`}>{phase.title}</h3>
-                <p className="text-dim-gray text-sm">{phase.description}</p>
+                <h3 className={`font-tech text-lg text-${phase.color} mb-2 tracking-wide font-semibold`}>{phase.title}</h3>
+                <p className="text-dim-gray text-sm font-medium leading-relaxed">{phase.description}</p>
               </div>
             ))}
           </div>

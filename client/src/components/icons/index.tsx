@@ -9,61 +9,88 @@ export function SkullIcon({ className }: { className?: string }) {
 export function GrimReaperIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 300 300" fill="none">
-      {/* Hooded Figure */}
-      <path d="M150 50 L120 100 L120 200 L180 200 L180 100 Z" fill="#111214" stroke="#E7352C" strokeWidth="2"/>
-      {/* Hood */}
-      <path d="M150 50 L100 80 L100 120 L150 100 L200 120 L200 80 Z" fill="#0A0A0B" stroke="#E7352C" strokeWidth="2"/>
-      {/* Skull Face */}
-      <circle cx="150" cy="120" r="20" fill="#EDEEF0" stroke="#E7352C" strokeWidth="1"/>
-      {/* Eye Sockets */}
-      <circle cx="145" cy="115" r="3" fill="#0A0A0B"/>
-      <circle cx="155" cy="115" r="3" fill="#0A0A0B"/>
-      {/* Money Bags */}
-      <circle cx="120" cy="180" r="15" fill="#2A2B31" stroke="#39FF14" strokeWidth="2"/>
-      <circle cx="180" cy="180" r="15" fill="#2A2B31" stroke="#39FF14" strokeWidth="2"/>
+      {/* Enhanced Hooded Figure - Sleek and Angular */}
+      <path d="M150 45 L115 95 L115 210 L185 210 L185 95 Z" fill="#0A0A0B" stroke="#E7352C" strokeWidth="1.5" strokeLinejoin="miter"/>
+      {/* Angular Hood */}
+      <path d="M150 45 L90 75 L90 125 L150 95 L210 125 L210 75 Z" fill="#0A0A0B" stroke="#E7352C" strokeWidth="1.5" strokeLinejoin="miter"/>
+      {/* Skull Face - More Angular */}
+      <polygon points="150,100 165,110 165,130 150,140 135,130 135,110" fill="#EDEEF0" stroke="#E7352C" strokeWidth="1"/>
+      {/* Sharp Eye Sockets */}
+      <polygon points="142,115 148,115 145,125" fill="#0A0A0B"/>
+      <polygon points="152,115 158,115 155,125" fill="#0A0A0B"/>
+      {/* Angular Money Bags */}
+      <polygon points="110,170 130,170 135,190 105,190" fill="#111214" stroke="#39FF14" strokeWidth="1.5"/>
+      <polygon points="170,170 190,170 195,190 165,190" fill="#111214" stroke="#39FF14" strokeWidth="1.5"/>
       {/* Dollar Signs */}
-      <text x="120" y="185" textAnchor="middle" fill="#39FF14" fontSize="12" fontWeight="bold">$</text>
-      <text x="180" y="185" textAnchor="middle" fill="#39FF14" fontSize="12" fontWeight="bold">$</text>
+      <text x="120" y="185" textAnchor="middle" fill="#39FF14" fontSize="14" fontWeight="bold" fontFamily="Orbitron">$</text>
+      <text x="180" y="185" textAnchor="middle" fill="#39FF14" fontSize="14" fontWeight="bold" fontFamily="Orbitron">$</text>
+      {/* Neon Rim Lighting */}
+      <path d="M150 45 L90 75 L90 125 L150 95 L210 125 L210 75 Z" fill="none" stroke="#39FF14" strokeWidth="0.5" opacity="0.6"/>
+      <path d="M150 45 L115 95 L115 210 L185 210 L185 95 Z" fill="none" stroke="#7A3BFF" strokeWidth="0.5" opacity="0.4"/>
       {/* Glitch Effect Lines */}
-      <line x1="100" y1="90" x2="120" y2="85" stroke="#7A3BFF" strokeWidth="1" opacity="0.7"/>
-      <line x1="180" y1="85" x2="200" y2="90" stroke="#7A3BFF" strokeWidth="1" opacity="0.7"/>
+      <line x1="85" y1="85" x2="110" y2="80" stroke="#7A3BFF" strokeWidth="1" opacity="0.8"/>
+      <line x1="190" y1="80" x2="215" y2="85" stroke="#7A3BFF" strokeWidth="1" opacity="0.8"/>
+      <line x1="95" y1="100" x2="120" y2="95" stroke="#39FF14" strokeWidth="1" opacity="0.6"/>
+      <line x1="180" y1="95" x2="205" y2="100" stroke="#39FF14" strokeWidth="1" opacity="0.6"/>
     </svg>
   );
 }
 
 export function UrbanGritIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 64 64" fill="currentColor">
-      <path d="M8 48h48v8H8zM16 40h32v8H16zM24 32h16v8H24zM20 24h24v8H20zM12 16h40v8H12z"/>
-      <rect x="28" y="8" width="8" height="8" fill="currentColor"/>
+    <svg className={className} viewBox="0 0 64 64" fill="none">
+      {/* Angular Building Silhouettes */}
+      <polygon points="8,48 20,45 20,56 8,56" fill="currentColor" stroke="#39FF14" strokeWidth="0.5" opacity="0.8"/>
+      <polygon points="20,45 32,40 32,56 20,56" fill="currentColor" stroke="#39FF14" strokeWidth="0.5" opacity="0.8"/>
+      <polygon points="32,40 44,38 44,56 32,56" fill="currentColor" stroke="#39FF14" strokeWidth="0.5" opacity="0.8"/>
+      <polygon points="44,38 56,42 56,56 44,56" fill="currentColor" stroke="#39FF14" strokeWidth="0.5" opacity="0.8"/>
+      {/* Antenna/Signal */}
+      <rect x="30" y="30" width="4" height="12" fill="currentColor"/>
+      <polygon points="28,28 32,25 36,28 32,32" fill="currentColor"/>
+      {/* Neon Rim Light */}
+      <rect x="8" y="48" width="48" height="8" fill="none" stroke="#39FF14" strokeWidth="0.5" opacity="0.4"/>
     </svg>
   );
 }
 
 export function FireSkullIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 64 64" fill="currentColor">
-      <circle cx="32" cy="24" r="16"/>
-      <circle cx="28" cy="20" r="2" fill="#0A0A0B"/>
-      <circle cx="36" cy="20" r="2" fill="#0A0A0B"/>
-      <rect x="30" y="26" width="4" height="4" fill="#0A0A0B"/>
-      <path d="M20 40l4 4 4-4 4 4 4-4 4 4 4-4v8H20z"/>
+    <svg className={className} viewBox="0 0 64 64" fill="none">
+      {/* Angular Skull */}
+      <polygon points="32,8 48,16 48,32 40,40 24,40 16,32 16,16" fill="currentColor"/>
+      {/* Sharp Eye Sockets */}
+      <polygon points="24,20 30,18 28,28 22,26" fill="#0A0A0B"/>
+      <polygon points="34,18 40,20 42,26 36,28" fill="#0A0A0B"/>
+      {/* Angular Nasal Cavity */}
+      <polygon points="30,28 34,28 32,36" fill="#0A0A0B"/>
+      {/* Fire/Chaos Effect */}
+      <polygon points="18,42 22,38 26,42 30,38 34,42 38,38 42,42 46,38 50,44 46,48 18,48" fill="currentColor"/>
+      {/* Neon Rim Light */}
+      <polygon points="32,8 48,16 48,32 40,40 24,40 16,32 16,16" fill="none" stroke="#E7352C" strokeWidth="1" opacity="0.6"/>
+      <path d="M18,42 L50,44" stroke="#7A3BFF" strokeWidth="1" opacity="0.8"/>
     </svg>
   );
 }
 
 export function RaisedFistIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 64 64" fill="currentColor">
-      <rect x="28" y="16" width="8" height="32"/>
-      <rect x="24" y="20" width="4" height="16"/>
-      <rect x="36" y="20" width="4" height="16"/>
-      <rect x="20" y="24" width="4" height="12"/>
-      <rect x="40" y="24" width="4" height="12"/>
-      <rect x="26" y="14" width="12" height="6"/>
-      {/* Glitch lines */}
-      <line x1="16" y1="30" x2="20" y2="28" stroke="#39FF14" strokeWidth="2"/>
-      <line x1="44" y1="28" x2="48" y2="30" stroke="#39FF14" strokeWidth="2"/>
+    <svg className={className} viewBox="0 0 64 64" fill="none">
+      {/* Angular Fist Structure */}
+      <polygon points="26,14 38,14 38,18 36,20 36,48 28,48 28,20 26,18" fill="currentColor"/>
+      {/* Fingers */}
+      <polygon points="22,20 26,18 26,36 22,38" fill="currentColor"/>
+      <polygon points="38,18 42,20 42,38 38,36" fill="currentColor"/>
+      <polygon points="18,24 22,20 22,36 18,40" fill="currentColor"/>
+      <polygon points="42,20 46,24 46,40 42,36" fill="currentColor"/>
+      {/* Thumb */}
+      <polygon points="24,12 30,10 32,16 26,18" fill="currentColor"/>
+      {/* Neon Rim Lighting */}
+      <polygon points="26,14 38,14 38,48 28,48 28,18 26,18" fill="none" stroke="#7A3BFF" strokeWidth="1" opacity="0.6"/>
+      {/* Power/Energy Lines */}
+      <line x1="12" y1="28" x2="18" y2="26" stroke="#39FF14" strokeWidth="1.5" opacity="0.8"/>
+      <line x1="46" y1="26" x2="52" y2="28" stroke="#39FF14" strokeWidth="1.5" opacity="0.8"/>
+      <line x1="14" y1="34" x2="20" y2="32" stroke="#E7352C" strokeWidth="1" opacity="0.7"/>
+      <line x1="44" y1="32" x2="50" y2="34" stroke="#E7352C" strokeWidth="1" opacity="0.7"/>
     </svg>
   );
 }

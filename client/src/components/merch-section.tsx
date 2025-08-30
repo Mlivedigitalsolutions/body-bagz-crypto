@@ -6,29 +6,31 @@ export default function MerchSection() {
           VILLAIN GEAR
         </h2>
         
-        <div className="neon-card p-12 rounded-2xl relative overflow-hidden" data-testid="merch-preview">
+        <div className="neon-card p-12 rounded-xl relative overflow-hidden" data-testid="merch-preview">
           <div className="relative">
-            {/* Sample Hoodie Mockup */}
-            <div className="w-64 h-80 mx-auto bg-gradient-to-b from-dim-gray to-jet-black rounded-xl p-8 relative shadow-red-glow">
+            {/* Enhanced Hoodie Mockup */}
+            <div className="w-64 h-80 mx-auto bg-jet-black rounded-xl p-8 relative shadow-red-glow border border-dim-gray">
               <div className="text-center mt-12">
-                <div className="font-brand text-2xl text-blood-red mb-2">BODY</div>
-                <div className="font-brand text-2xl text-blood-red">BAGZ</div>
-                <div className="w-16 h-1 bg-toxic-green mx-auto mt-2"></div>
+                <div className="font-brand text-2xl text-blood-red mb-2 tracking-tighter" style={{textShadow: '0 0 10px rgba(231, 53, 44, 0.5)'}}>BODY</div>
+                <div className="font-brand text-2xl text-blood-red tracking-tighter" style={{textShadow: '0 0 10px rgba(231, 53, 44, 0.5)'}}>BAGZ</div>
+                <div className="w-16 h-1 bg-toxic-green mx-auto mt-2 shadow-green-glow"></div>
+                {/* Subtle Green Overspray Effect */}
+                <div className="absolute top-16 right-6 w-8 h-8 bg-toxic-green opacity-10 rounded-full blur-sm"></div>
               </div>
               
-              {/* Coming Soon Overlay */}
-              <div className="absolute inset-0 bg-jet-black bg-opacity-90 flex items-center justify-center rounded-xl">
+              {/* Enhanced Coming Soon Overlay */}
+              <div className="absolute inset-0 bg-jet-black bg-opacity-95 flex items-center justify-center rounded-xl border border-dim-gray">
                 <div className="text-center">
-                  <div className="font-brand text-3xl text-toxic-green mb-2 animate-flicker">COMING</div>
-                  <div className="font-brand text-3xl text-ash-white">SOON</div>
-                  {/* Scanline Effect */}
-                  <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-toxic-green to-transparent mt-4 animate-pulse"></div>
+                  <div className="font-brand text-3xl text-toxic-green mb-2 animate-flicker tracking-wider">COMING</div>
+                  <div className="font-brand text-3xl text-ash-white tracking-wider">SOON</div>
+                  {/* Enhanced Scanline Effect */}
+                  <div className="scanline-overlay w-full h-1 mt-4 rounded"></div>
                 </div>
               </div>
             </div>
             
-            <p className="text-ash-white text-xl mt-8 mb-4">EXCLUSIVE STREETWEAR COLLECTION</p>
-            <p className="text-dim-gray">Premium hoodies, tees, and accessories for the chaos collective</p>
+            <p className="text-ash-white text-xl mt-8 mb-4 font-bold tracking-wide">EXCLUSIVE STREETWEAR COLLECTION</p>
+            <p className="text-dim-gray font-medium">Premium hoodies, tees, and accessories for the chaos collective</p>
           </div>
         </div>
       </div>
