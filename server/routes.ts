@@ -17,7 +17,7 @@ import {
 } from "./middleware/security";
 import { cacheMiddleware, clearLeaderboardCache } from "./middleware/cache";
 
-// Generate high-quality cyberpunk villain PFP that matches Body Bagz brand
+// Generate epic 3D cyberpunk villain PFP that matches Body Bagz brand
 function generateCyberpunkVillainPFP(): string {
   const villainTypes = [
     'death-reaper', 'shadow-assassin', 'cyber-hunter', 'neon-phantom', 
@@ -25,88 +25,52 @@ function generateCyberpunkVillainPFP(): string {
     'blood-operative', 'void-enforcer', 'cyber-demon', 'skull-emperor'
   ];
   
-  const designTypes = ['angular-helmet', 'visor-mask', 'cyber-skull', 'tech-armor', 'stealth-hood'];
+  const designTypes = ['epic-helmet', 'dimensional-mask', '3d-skull', 'power-armor', 'shadow-hood'];
   const backgroundColors = ['0A0A0A', '111214', '1A1A1A', '0D0D0D'];
   const primaryColors = ['E7352C', '39FF14', '7A3BFF', 'FF0040', '00FF88'];
   const metalColors = ['4A5568', '2D3748', '718096', 'A0AEC0'];
+  const highlightColors = ['FFFFFF', 'F7FAFC', 'EDF2F7', 'E2E8F0'];
   
   const villainType = villainTypes[Math.floor(Math.random() * villainTypes.length)];
   const designType = designTypes[Math.floor(Math.random() * designTypes.length)];
   const bgColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
   const primaryColor = primaryColors[Math.floor(Math.random() * primaryColors.length)];
   const metalColor = metalColors[Math.floor(Math.random() * metalColors.length)];
+  const highlightColor = highlightColors[Math.floor(Math.random() * highlightColors.length)];
   const timestamp = Date.now();
   const uniqueSeed = `${villainType}-${timestamp}`;
   
   let svgContent = '';
   
-  if (designType === 'angular-helmet') {
+  if (designType === 'epic-helmet') {
     svgContent = `
-      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="helmetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#${metalColor};stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#${bgColor};stop-opacity:1" />
-          </linearGradient>
-          <linearGradient id="visorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#${primaryColor};stop-opacity:0.9" />
-            <stop offset="100%" style="stop-color:#000000;stop-opacity:0.8" />
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge> 
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
-        
-        <!-- Background -->
-        <rect width="300" height="300" fill="#${bgColor}"/>
-        
-        <!-- Main helmet structure -->
-        <polygon points="150,50 200,90 200,140 180,160 150,170 120,160 100,140 100,90" 
-                 fill="url(#helmetGrad)" stroke="#${primaryColor}" stroke-width="2"/>
-        
-        <!-- Angular visor -->
-        <polygon points="120,100 180,100 175,130 125,130" 
-                 fill="url(#visorGrad)" filter="url(#glow)"/>
-        
-        <!-- Side panels -->
-        <rect x="85" y="110" width="15" height="40" fill="#${metalColor}" opacity="0.8"/>
-        <rect x="200" y="110" width="15" height="40" fill="#${metalColor}" opacity="0.8"/>
-        
-        <!-- Tech details -->
-        <circle cx="110" cy="120" r="4" fill="#${primaryColor}" opacity="0.7"/>
-        <circle cx="190" cy="120" r="4" fill="#${primaryColor}" opacity="0.7"/>
-        
-        <!-- Neck armor -->
-        <rect x="130" y="170" width="40" height="20" rx="5" fill="#${metalColor}"/>
-        
-        <!-- Circuit patterns -->
-        <line x1="100" y1="95" x2="120" y2="95" stroke="#${primaryColor}" stroke-width="1" opacity="0.6"/>
-        <line x1="180" y1="95" x2="200" y2="95" stroke="#${primaryColor}" stroke-width="1" opacity="0.6"/>
-        <line x1="140" y1="75" x2="160" y2="75" stroke="#${primaryColor}" stroke-width="2" opacity="0.8"/>
-        
-        <!-- Villain identifier -->
-        <rect x="140" y="140" width="20" height="4" fill="#${primaryColor}" opacity="0.9"/>
-      </svg>
-    `;
-  } else if (designType === 'visor-mask') {
-    svgContent = `
-      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="maskGrad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" style="stop-color:#${metalColor};stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#${bgColor};stop-opacity:1" />
+          <!-- 3D Helmet Gradients -->
+          <radialGradient id="helmet3D" cx="35%" cy="25%" r="80%">
+            <stop offset="0%" style="stop-color:#${highlightColor};stop-opacity:0.8" />
+            <stop offset="30%" style="stop-color:#${metalColor};stop-opacity:1" />
+            <stop offset="70%" style="stop-color:#${bgColor};stop-opacity:0.9" />
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
           </radialGradient>
-          <linearGradient id="visorShine" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#${primaryColor};stop-opacity:0.1" />
-            <stop offset="50%" style="stop-color:#${primaryColor};stop-opacity:0.8" />
-            <stop offset="100%" style="stop-color:#${primaryColor};stop-opacity:0.1" />
+          
+          <!-- Epic Visor with Depth -->
+          <linearGradient id="visor3D" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#${highlightColor};stop-opacity:0.3" />
+            <stop offset="20%" style="stop-color:#${primaryColor};stop-opacity:0.9" />
+            <stop offset="80%" style="stop-color:#000000;stop-opacity:0.9" />
+            <stop offset="100%" style="stop-color:#${primaryColor};stop-opacity:0.4" />
           </linearGradient>
-          <filter id="neonGlow">
-            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+          
+          <!-- 3D Shadow Filter -->
+          <filter id="depth3D" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="3" dy="6" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
+            <feDropShadow dx="-2" dy="-2" stdDeviation="2" flood-color="#${highlightColor}" flood-opacity="0.3"/>
+          </filter>
+          
+          <!-- Epic Glow Effect -->
+          <filter id="epicGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
             <feMerge>
               <feMergeNode in="coloredBlur"/>
               <feMergeNode in="SourceGraphic"/>
@@ -114,49 +78,71 @@ function generateCyberpunkVillainPFP(): string {
           </filter>
         </defs>
         
-        <!-- Background -->
-        <rect width="300" height="300" fill="#${bgColor}"/>
+        <!-- Dramatic Background with Depth -->
+        <rect width="400" height="400" fill="#${bgColor}"/>
+        <ellipse cx="200" cy="200" rx="150" ry="150" fill="#000000" opacity="0.3"/>
         
-        <!-- Main mask base -->
-        <ellipse cx="150" cy="130" rx="70" ry="55" fill="url(#maskGrad)" stroke="#${metalColor}" stroke-width="3"/>
+        <!-- Main 3D Helmet Structure -->
+        <path d="M 200 60 Q 270 75 280 150 Q 280 190 250 220 L 200 240 L 150 220 Q 120 190 120 150 Q 130 75 200 60 Z" 
+              fill="url(#helmet3D)" filter="url(#depth3D)" stroke="#${metalColor}" stroke-width="3"/>
         
-        <!-- Wraparound visor -->
-        <ellipse cx="150" cy="120" rx="60" ry="25" fill="#000000" opacity="0.9"/>
-        <ellipse cx="150" cy="120" rx="60" ry="25" fill="url(#visorShine)" filter="url(#neonGlow)"/>
+        <!-- Epic Angular Visor with 3D Depth -->
+        <path d="M 140 130 Q 200 115 260 130 Q 255 165 200 170 Q 145 165 140 130 Z" 
+              fill="url(#visor3D)" filter="url(#epicGlow)"/>
         
-        <!-- Side vents -->
-        <rect x="70" y="115" width="20" height="5" rx="2" fill="#${primaryColor}" opacity="0.8"/>
-        <rect x="70" y="125" width="20" height="5" rx="2" fill="#${primaryColor}" opacity="0.8"/>
-        <rect x="210" y="115" width="20" height="5" rx="2" fill="#${primaryColor}" opacity="0.8"/>
-        <rect x="210" y="125" width="20" height="5" rx="2" fill="#${primaryColor}" opacity="0.8"/>
+        <!-- 3D Side Armor Panels -->
+        <ellipse cx="110" cy="160" rx="20" ry="50" fill="#${metalColor}" opacity="0.9" filter="url(#depth3D)"/>
+        <ellipse cx="290" cy="160" rx="20" ry="50" fill="#${metalColor}" opacity="0.9" filter="url(#depth3D)"/>
         
-        <!-- Central HUD element -->
-        <circle cx="150" cy="120" r="8" fill="#${primaryColor}" opacity="0.3"/>
-        <circle cx="150" cy="120" r="4" fill="#${primaryColor}" opacity="0.9"/>
+        <!-- Epic Tech Details with Highlights -->
+        <circle cx="130" cy="140" r="8" fill="#${primaryColor}" opacity="0.9" filter="url(#epicGlow)"/>
+        <circle cx="270" cy="140" r="8" fill="#${primaryColor}" opacity="0.9" filter="url(#epicGlow)"/>
+        <circle cx="128" cy="137" r="3" fill="#${highlightColor}" opacity="0.8"/>
+        <circle cx="268" cy="137" r="3" fill="#${highlightColor}" opacity="0.8"/>
         
-        <!-- Jaw piece -->
-        <path d="M 120 150 Q 150 170 180 150 L 175 160 Q 150 180 125 160 Z" 
-              fill="#${metalColor}" stroke="#${primaryColor}" stroke-width="1"/>
+        <!-- 3D Neck Guard -->
+        <ellipse cx="200" cy="240" rx="40" ry="15" fill="#${metalColor}" filter="url(#depth3D)"/>
+        <ellipse cx="200" cy="237" rx="35" ry="12" fill="#${highlightColor}" opacity="0.2"/>
         
-        <!-- Tech indicators -->
-        <rect x="100" y="100" width="8" height="3" fill="#${primaryColor}" opacity="0.7"/>
-        <rect x="192" y="100" width="8" height="3" fill="#${primaryColor}" opacity="0.7"/>
+        <!-- Epic Circuit Patterns -->
+        <path d="M 120 100 Q 200 90 280 100" stroke="#${primaryColor}" stroke-width="3" opacity="0.8" filter="url(#epicGlow)"/>
+        <circle cx="200" cy="95" r="4" fill="#${primaryColor}" filter="url(#epicGlow)"/>
         
-        <!-- Power lines -->
-        <line x1="120" y1="90" x2="130" y2="95" stroke="#${primaryColor}" stroke-width="2" opacity="0.6"/>
-        <line x1="170" y1="95" x2="180" y2="90" stroke="#${primaryColor}" stroke-width="2" opacity="0.6"/>
+        <!-- Villain Power Core -->
+        <circle cx="200" cy="150" r="12" fill="#${primaryColor}" opacity="0.4"/>
+        <circle cx="200" cy="150" r="6" fill="#${primaryColor}" filter="url(#epicGlow)"/>
+        <circle cx="198" cy="147" r="3" fill="#${highlightColor}" opacity="0.9"/>
       </svg>
     `;
-  } else if (designType === 'cyber-skull') {
+  } else if (designType === 'dimensional-mask') {
     svgContent = `
-      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <radialGradient id="skullGrad" cx="50%" cy="30%" r="70%">
-            <stop offset="0%" style="stop-color:#${metalColor};stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#${bgColor};stop-opacity:1" />
+          <!-- Epic 3D Mask Gradient -->
+          <radialGradient id="mask3D" cx="30%" cy="30%" r="90%">
+            <stop offset="0%" style="stop-color:#${highlightColor};stop-opacity:0.9" />
+            <stop offset="25%" style="stop-color:#${metalColor};stop-opacity:1" />
+            <stop offset="75%" style="stop-color:#${bgColor};stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
           </radialGradient>
-          <filter id="redGlow">
-            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+          
+          <!-- Dimensional Visor with Epic Shine -->
+          <linearGradient id="dimensionalVisor" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#${highlightColor};stop-opacity:0.4" />
+            <stop offset="30%" style="stop-color:#${primaryColor};stop-opacity:1" />
+            <stop offset="70%" style="stop-color:#000000;stop-opacity:0.9" />
+            <stop offset="100%" style="stop-color:#${primaryColor};stop-opacity:0.6" />
+          </linearGradient>
+          
+          <!-- Epic 3D Filter -->
+          <filter id="epic3D" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="4" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.9"/>
+            <feDropShadow dx="-3" dy="-3" stdDeviation="3" flood-color="#${highlightColor}" flood-opacity="0.4"/>
+          </filter>
+          
+          <!-- Dimensional Glow -->
+          <filter id="dimensionalGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
             <feMerge>
               <feMergeNode in="coloredBlur"/>
               <feMergeNode in="SourceGraphic"/>
@@ -164,43 +150,117 @@ function generateCyberpunkVillainPFP(): string {
           </filter>
         </defs>
         
-        <!-- Background -->
-        <rect width="300" height="300" fill="#${bgColor}"/>
+        <!-- Epic Background -->
+        <rect width="400" height="400" fill="#${bgColor}"/>
+        <ellipse cx="200" cy="200" rx="180" ry="180" fill="#000000" opacity="0.4"/>
         
-        <!-- Skull base -->
-        <path d="M 150 60 Q 200 70 210 120 Q 210 160 180 180 L 150 190 L 120 180 Q 90 160 90 120 Q 100 70 150 60 Z" 
-              fill="url(#skullGrad)" stroke="#${metalColor}" stroke-width="2"/>
+        <!-- Main 3D Mask Structure -->
+        <ellipse cx="200" cy="180" rx="90" ry="70" fill="url(#mask3D)" filter="url(#epic3D)" stroke="#${metalColor}" stroke-width="4"/>
         
-        <!-- Eye sockets with glow -->
-        <ellipse cx="125" cy="110" rx="15" ry="18" fill="#000000"/>
-        <ellipse cx="175" cy="110" rx="15" ry="18" fill="#000000"/>
-        <ellipse cx="125" cy="110" rx="8" ry="10" fill="#${primaryColor}" filter="url(#redGlow)"/>
-        <ellipse cx="175" cy="110" rx="8" ry="10" fill="#${primaryColor}" filter="url(#redGlow)"/>
+        <!-- Epic Dimensional Visor -->
+        <ellipse cx="200" cy="170" rx="75" ry="30" fill="url(#dimensionalVisor)" filter="url(#dimensionalGlow)"/>
+        <ellipse cx="200" cy="168" rx="70" ry="25" fill="#${highlightColor}" opacity="0.1"/>
         
-        <!-- Nasal cavity -->
-        <polygon points="150,125 140,140 150,155 160,140" fill="#000000"/>
-        <rect x="148" y="130" width="4" height="20" fill="#${primaryColor}" opacity="0.6"/>
+        <!-- 3D Side Vents -->
+        <ellipse cx="90" cy="170" rx="12" ry="8" fill="#${primaryColor}" opacity="0.9" filter="url(#dimensionalGlow)"/>
+        <ellipse cx="90" cy="185" rx="12" ry="8" fill="#${primaryColor}" opacity="0.9" filter="url(#dimensionalGlow)"/>
+        <ellipse cx="310" cy="170" rx="12" ry="8" fill="#${primaryColor}" opacity="0.9" filter="url(#dimensionalGlow)"/>
+        <ellipse cx="310" cy="185" rx="12" ry="8" fill="#${primaryColor}" opacity="0.9" filter="url(#dimensionalGlow)"/>
         
-        <!-- Jaw mechanism -->
-        <path d="M 130 160 Q 150 175 170 160 L 175 170 Q 150 185 125 170 Z" 
-              fill="#${metalColor}" stroke="#${primaryColor}" stroke-width="1"/>
+        <!-- Epic Central HUD -->
+        <circle cx="200" cy="170" r="15" fill="#${primaryColor}" opacity="0.3"/>
+        <circle cx="200" cy="170" r="8" fill="#${primaryColor}" filter="url(#dimensionalGlow)"/>
+        <circle cx="197" cy="167" r="4" fill="#${highlightColor}" opacity="0.9"/>
         
-        <!-- Tech implants -->
-        <rect x="105" y="95" width="12" height="8" rx="2" fill="#${primaryColor}" opacity="0.8"/>
-        <rect x="183" y="95" width="12" height="8" rx="2" fill="#${primaryColor}" opacity="0.8"/>
+        <!-- 3D Jaw Mechanism -->
+        <path d="M 140 210 Q 200 235 260 210 Q 255 225 200 240 Q 145 225 140 210 Z" 
+              fill="#${metalColor}" filter="url(#epic3D)" stroke="#${primaryColor}" stroke-width="2"/>
+        <path d="M 150 215 Q 200 225 250 215" stroke="#${highlightColor}" stroke-width="2" opacity="0.6"/>
         
-        <!-- Circuit lines on forehead -->
-        <path d="M 130 80 Q 150 75 170 80" stroke="#${primaryColor}" stroke-width="2" fill="none" opacity="0.7"/>
-        <circle cx="140" cy="78" r="2" fill="#${primaryColor}"/>
-        <circle cx="160" cy="78" r="2" fill="#${primaryColor}"/>
+        <!-- Epic Tech Panels -->
+        <rect x="120" y="140" width="15" height="8" rx="4" fill="#${primaryColor}" opacity="0.8" filter="url(#dimensionalGlow)"/>
+        <rect x="265" y="140" width="15" height="8" rx="4" fill="#${primaryColor}" opacity="0.8" filter="url(#dimensionalGlow)"/>
         
-        <!-- Jaw teeth/vents -->
-        <rect x="140" y="172" width="4" height="8" fill="#${primaryColor}" opacity="0.6"/>
-        <rect x="150" y="172" width="4" height="8" fill="#${primaryColor}" opacity="0.6"/>
-        <rect x="156" y="172" width="4" height="8" fill="#${primaryColor}" opacity="0.6"/>
+        <!-- 3D Power Conduits -->
+        <path d="M 130 120 Q 150 115 170 120" stroke="#${primaryColor}" stroke-width="3" opacity="0.8" filter="url(#dimensionalGlow)"/>
+        <path d="M 230 120 Q 250 115 270 120" stroke="#${primaryColor}" stroke-width="3" opacity="0.8" filter="url(#dimensionalGlow)"/>
       </svg>
     `;
-  } else if (designType === 'tech-armor') {
+  } else if (designType === '3d-skull') {
+    svgContent = `
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Epic 3D Skull Gradient -->
+          <radialGradient id="skull3D" cx="35%" cy="20%" r="85%">
+            <stop offset="0%" style="stop-color:#${highlightColor};stop-opacity:0.7" />
+            <stop offset="20%" style="stop-color:#${metalColor};stop-opacity:1" />
+            <stop offset="60%" style="stop-color:#${bgColor};stop-opacity:0.9" />
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+          </radialGradient>
+          
+          <!-- Death Glow Effect -->
+          <filter id="deathGlow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          
+          <!-- Epic 3D Depth -->
+          <filter id="skull3DDepth" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="5" dy="10" stdDeviation="8" flood-color="#000000" flood-opacity="0.9"/>
+            <feDropShadow dx="-4" dy="-4" stdDeviation="4" flood-color="#${highlightColor}" flood-opacity="0.3"/>
+          </filter>
+        </defs>
+        
+        <!-- Epic Death Background -->
+        <rect width="400" height="400" fill="#${bgColor}"/>
+        <ellipse cx="200" cy="200" rx="160" ry="160" fill="#000000" opacity="0.5"/>
+        
+        <!-- Main 3D Skull Structure -->
+        <path d="M 200 70 Q 270 85 285 160 Q 285 220 250 250 L 200 270 L 150 250 Q 115 220 115 160 Q 130 85 200 70 Z" 
+              fill="url(#skull3D)" filter="url(#skull3DDepth)" stroke="#${metalColor}" stroke-width="4"/>
+        
+        <!-- Epic Eye Sockets with 3D Depth -->
+        <ellipse cx="170" cy="150" rx="25" ry="30" fill="#000000" filter="url(#skull3DDepth)"/>
+        <ellipse cx="230" cy="150" rx="25" ry="30" fill="#000000" filter="url(#skull3DDepth)"/>
+        <ellipse cx="170" cy="150" rx="15" ry="20" fill="#${primaryColor}" filter="url(#deathGlow)"/>
+        <ellipse cx="230" cy="150" rx="15" ry="20" fill="#${primaryColor}" filter="url(#deathGlow)"/>
+        <ellipse cx="168" cy="145" rx="8" ry="10" fill="#${highlightColor}" opacity="0.8"/>
+        <ellipse cx="228" cy="145" rx="8" ry="10" fill="#${highlightColor}" opacity="0.8"/>
+        
+        <!-- 3D Nasal Cavity -->
+        <path d="M 200 170 L 185 190 L 200 220 L 215 190 Z" fill="#000000" filter="url(#skull3DDepth)"/>
+        <rect x="196" y="180" width="8" height="30" fill="#${primaryColor}" opacity="0.6" filter="url(#deathGlow)"/>
+        
+        <!-- Epic Jaw Mechanism -->
+        <path d="M 160 230 Q 200 260 240 230 Q 235 245 200 270 Q 165 245 160 230 Z" 
+              fill="#${metalColor}" filter="url(#skull3DDepth)" stroke="#${primaryColor}" stroke-width="3"/>
+        <path d="M 170 235 Q 200 250 230 235" stroke="#${highlightColor}" stroke-width="3" opacity="0.6"/>
+        
+        <!-- 3D Tech Implants -->
+        <rect x="130" y="120" width="20" height="15" rx="4" fill="#${primaryColor}" opacity="0.9" filter="url(#deathGlow)"/>
+        <rect x="250" y="120" width="20" height="15" rx="4" fill="#${primaryColor}" opacity="0.9" filter="url(#deathGlow)"/>
+        <rect x="133" y="123" width="14" height="9" rx="2" fill="#${highlightColor}" opacity="0.4"/>
+        <rect x="253" y="123" width="14" height="9" rx="2" fill="#${highlightColor}" opacity="0.4"/>
+        
+        <!-- Epic Circuit Crown -->
+        <path d="M 150 90 Q 200 80 250 90" stroke="#${primaryColor}" stroke-width="4" opacity="0.9" filter="url(#deathGlow)"/>
+        <circle cx="170" cy="88" r="5" fill="#${primaryColor}" filter="url(#deathGlow)"/>
+        <circle cx="200" cy="85" r="6" fill="#${primaryColor}" filter="url(#deathGlow)"/>
+        <circle cx="230" cy="88" r="5" fill="#${primaryColor}" filter="url(#deathGlow)"/>
+        <circle cx="168" cy="85" r="2" fill="#${highlightColor}" opacity="0.9"/>
+        <circle cx="197" cy="82" r="3" fill="#${highlightColor}" opacity="0.9"/>
+        <circle cx="227" cy="85" r="2" fill="#${highlightColor}" opacity="0.9"/>
+        
+        <!-- Death Vents -->
+        <rect x="180" y="255" width="8" height="15" fill="#${primaryColor}" opacity="0.8" filter="url(#deathGlow)"/>
+        <rect x="195" y="255" width="8" height="15" fill="#${primaryColor}" opacity="0.8" filter="url(#deathGlow)"/>
+        <rect x="210" y="255" width="8" height="15" fill="#${primaryColor}" opacity="0.8" filter="url(#deathGlow)"/>
+      </svg>
+    `;
+  } else if (designType === 'power-armor') {
     svgContent = `
       <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -261,7 +321,7 @@ function generateCyberpunkVillainPFP(): string {
         <rect x="180" y="119" width="3" height="3" fill="#${primaryColor}" opacity="0.5"/>
       </svg>
     `;
-  } else { // stealth-hood
+  } else { // shadow-hood
     svgContent = `
       <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
         <defs>
