@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import { Button } from "@/components/ui/button";
-import heroVideo from "@assets/download - 2025-08-26T133538.676_1756571747973.mp4";
+import heroBanner from "../assets/hero-banner.png";
 
 interface HeroSectionProps {
   titleRef: RefObject<HTMLHeadingElement>;
@@ -28,37 +28,32 @@ export default function HeroSection({ titleRef }: HeroSectionProps) {
       </div>
       
       <div className="max-w-7xl mx-auto text-center relative z-10">
-        {/* Premium 3D Hero Video */}
+        {/* EPIC CYBERPUNK HERO BANNER */}
         <div className="mb-8 flex justify-center">
-          <div className="relative animate-pulse-glow premium-video-container">
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden neon-card premium-3d-frame">
-              <video 
-                className="w-full h-full object-cover premium-video-effect"
-                autoPlay
-                loop
-                muted
-                playsInline
-                data-testid="hero-video"
-              >
-                <source src={heroVideo} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+          <div className="relative animate-pulse-glow premium-banner-container">
+            <div className="w-full max-w-4xl rounded-2xl overflow-hidden neon-card premium-3d-frame">
+              <img 
+                src={heroBanner}
+                alt="Body Bagz - Villain Era Cyberpunk Crypto"
+                className="w-full h-auto object-cover premium-banner-effect"
+                data-testid="hero-banner"
+              />
             </div>
-            {/* 3D Frame Enhancement */}
-            <div className="absolute inset-0 premium-video-overlay"></div>
-            <div className="absolute -inset-4 premium-video-glow rounded-3xl"></div>
+            {/* Epic 3D Frame Enhancement */}
+            <div className="absolute inset-0 premium-banner-overlay"></div>
+            <div className="absolute -inset-4 premium-banner-glow rounded-3xl"></div>
           </div>
         </div>
 
-        {/* Premium 3D Main Title */}
-        <h1 
-          ref={titleRef}
-          className="font-brand text-6xl md:text-8xl lg:text-9xl mb-4 relative glitch-text font-black tracking-tighter enhanced-heading premium-3d-title" 
-          data-text="BODY BAGZ"
-          data-testid="main-title"
-        >
-          BODY BAGZ
-        </h1>
+        {/* Enhanced Tagline - Banner says it all! */}
+        <div className="relative z-20 mb-6">
+          <div className="bg-jet-black/80 backdrop-blur-lg rounded-2xl px-8 py-4 border border-blood-red/30 neon-card inline-block">
+            <p className="font-brand text-lg md:text-xl font-bold text-toxic-green tracking-widest"
+               data-testid="enhanced-tagline">
+              THE ULTIMATE CYBERPUNK CRYPTO TOKEN
+            </p>
+          </div>
+        </div>
         
         {/* Tagline */}
         <p className="font-brand text-2xl md:text-3xl lg:text-4xl mb-2 font-black tracking-tight text-primary">
