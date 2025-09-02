@@ -388,11 +388,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Trust proxy for rate limiting
   app.set('trust proxy', 1);
   
+  // CORS Configuration (must come before other middleware)
+  app.use((req, res, next) => {
+    const allowedOrigins = [
+      'https://body-bagz.replit.app',
+      'https://twitter.com',
+      'https://t.me'
+    ];
+    const origin = req.headers.origin;
+    if (!origin || allowedOrigins.includes(origin)) {
+      res.header('Access-Control-Allow-Origin', origin || '*');
+      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    }
+    if (req.method === 'OPTIONS') {
+      res.sendStatus(200);
+    } else {
+      next();
+    }
+  });
+
   // Apply security middleware
   app.use(compression());
   app.use(securityMiddleware);
   app.use(generalLimiter);
   app.use(errorLogger);
+
+  // Health and monitoring endpoints
+  app.get("/api/health", (req, res) => {
+    res.json({ 
+      status: "ok", 
+      timestamp: new Date().toISOString(),
+      service: "Body Bagz API"
+    });
+  });
+
+  app.get("/api/version", (req, res) => {
+    res.json({ 
+      name: "Body Bagz",
+      version: "1.0.0",
+      environment: process.env.NODE_ENV || "development"
+    });
+  });
+
+  // Links endpoint for integrations
+  app.get("/api/links", (req, res) => {
+    res.json({
+      website: "https://body-bagz.replit.app",
+      telegram: "https://t.me/BodyBagzs",
+      xCommunity: "https://twitter.com/i/communities/1960797896896602475"
+    });
+  });
   
   // AI-powered Tweet Generator API with rate limiting and caching
   app.post("/api/generate-tweet", strictLimiter, cacheMiddleware('tweets', 300), async (req, res) => {
@@ -430,6 +476,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             points: 5,
             monthYear
           });
+          clearLeaderboardCache(); // Clear cache after mutation
         } catch (trackError) {
           console.error('Error tracking tweet action:', trackError);
         }
@@ -472,6 +519,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             points: 3,
             monthYear
           });
+          clearLeaderboardCache(); // Clear cache after mutation
         } catch (trackError) {
           console.error('Error tracking PFP action:', trackError);
         }
@@ -481,7 +529,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ 
         imageUrl,
         downloadUrl: imageUrl,
-        filename: `bagz_pfp_${Date.now()}.png`
+        filename: `bagz_pfp_${Date.now()}.svg`
       });
     } catch (error) {
       console.error('Error generating PFP:', error);
@@ -627,6 +675,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "contentType, title, and content are required" });
       }
       
+      // Content size validation
+      if (content.length > 10000) {
+        return res.status(400).json({ error: "Content exceeds maximum length of 10,000 characters" });
+      }
+      if (title.length > 200) {
+        return res.status(400).json({ error: "Title exceeds maximum length of 200 characters" });
+      }
+      
       const savedItem = await storage.saveContent({
         userId,
         contentType,
@@ -760,6 +816,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         points,
         monthYear
       });
+      clearLeaderboardCache(); // Clear cache after mutation
       
       res.json({ entry, points });
     } catch (error) {
