@@ -1,12 +1,33 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import compression from "compression";
 import { ImageGenerator } from "./imageGenerator";
 import { storage } from "./storage";
 import { insertUserSchema, insertLeaderboardEntrySchema } from "@shared/schema";
+import { 
+  generalLimiter, 
+  strictLimiter, 
+  registrationLimiter, 
+  securityMiddleware,
+  validateRegistration,
+  validateActionTracking,
+  errorLogger,
+  errorHandler
+} from "./middleware/security";
+import { cacheMiddleware, clearLeaderboardCache } from "./middleware/cache";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Tweet Generator API
-  app.post("/api/generate-tweet", async (req, res) => {
+  // Trust proxy for rate limiting
+  app.set('trust proxy', 1);
+  
+  // Apply security middleware
+  app.use(compression());
+  app.use(securityMiddleware);
+  app.use(generalLimiter);
+  app.use(errorLogger);
+  
+  // Tweet Generator API with rate limiting and caching
+  app.post("/api/generate-tweet", strictLimiter, cacheMiddleware('tweets', 300), async (req, res) => {
     try {
       const { userId } = req.body;
       
@@ -46,7 +67,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Enhanced PFP Generator API - Creates real downloadable images
-  app.post("/api/generate-pfp", async (req, res) => {
+  app.post("/api/generate-pfp", strictLimiter, async (req, res) => {
     try {
       const { prompt, name, userId } = req.body;
       
@@ -156,7 +177,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // === LEADERBOARD SYSTEM APIs ===
   
   // User registration/profile management
-  app.post("/api/users/register", async (req, res) => {
+  app.post("/api/users/register", registrationLimiter, validateRegistration, async (req, res) => {
     try {
       const validData = insertUserSchema.parse(req.body);
       const existingUser = await storage.getUserByUsername(validData.username);
@@ -202,7 +223,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Action tracking endpoints
-  app.post("/api/actions/track", async (req, res) => {
+  app.post("/api/actions/track", strictLimiter, validateActionTracking, async (req, res) => {
     try {
       const { userId, actionType } = req.body;
       
@@ -240,7 +261,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Leaderboard endpoints
-  app.get("/api/leaderboard", async (req, res) => {
+  app.get("/api/leaderboard", cacheMiddleware('leaderboard', 30), async (req, res) => {
     try {
       // Get current month-year in EST or from query
       const now = new Date();
@@ -352,6 +373,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Analytics endpoint for privacy-focused tracking
+  app.post("/api/analytics", async (req, res) => {
+    try {
+      const { events } = req.body;
+      
+      // In production, you might want to store these events
+      // For now, we'll just log them for development
+      if (process.env.NODE_ENV === 'development' && events && events.length > 0) {
+        console.log('Analytics events received:', events.length);
+        events.forEach((event: any) => {
+          console.log(`[Analytics] ${event.event}:`, event.properties);
+        });
+      }
+      
+      res.json({ received: events?.length || 0 });
+    } catch (error) {
+      console.error('Analytics error:', error);
+      res.status(200).json({ received: 0 }); // Always return success for analytics
+    }
+  });
+  
   // Get current month info and check if new month (for frontend to show reset notification)
   app.get("/api/month-info", async (req, res) => {
     try {
@@ -377,6 +419,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Add error handler at the end
+  app.use(errorHandler);
+  
   const httpServer = createServer(app);
   return httpServer;
 }

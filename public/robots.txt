@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bodybagz.repl.co/sitemap.xml
+
+# Block sensitive areas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Allow social media crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: twitterbot
+Allow: /
+
+User-agent: linkedinbot
+Allow: /
