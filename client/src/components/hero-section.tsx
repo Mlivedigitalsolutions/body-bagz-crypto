@@ -9,20 +9,31 @@ interface HeroSectionProps {
 export default function HeroSection({ titleRef }: HeroSectionProps) {
   return (
     <section className="relative z-10 min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      {/* Enhanced Fog Background */}
+      {/* Premium 3D Background Effects */}
       <div className="absolute inset-0 z-0">
         <div className="fog-layer w-full h-full animate-fog"></div>
-        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-blood-red opacity-5 rounded-full blur-3xl animate-pulse-glow"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-toxic-green opacity-3 rounded-full blur-3xl animate-pulse-glow" style={{animationDelay: '1s'}}></div>
+        
+        {/* Enhanced Multi-Layer Orbs */}
+        <div className="absolute top-1/4 left-1/5 w-[500px] h-[500px] bg-blood-red opacity-8 rounded-full blur-[100px] animate-pulse-glow premium-orb"></div>
+        <div className="absolute bottom-1/4 right-1/5 w-[400px] h-[400px] bg-toxic-green opacity-6 rounded-full blur-[80px] animate-pulse-glow premium-orb" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-glitch-purple opacity-4 rounded-full blur-[60px] animate-pulse-glow premium-orb transform -translate-x-1/2 -translate-y-1/2" style={{animationDelay: '2s'}}></div>
+        
+        {/* Premium Grid Matrix Effect */}
+        <div className="absolute inset-0 premium-grid-matrix opacity-20"></div>
+        
+        {/* 3D Depth Layers */}
+        <div className="absolute inset-0 premium-depth-layer-1"></div>
+        <div className="absolute inset-0 premium-depth-layer-2"></div>
+        <div className="absolute inset-0 premium-depth-layer-3"></div>
       </div>
       
       <div className="max-w-7xl mx-auto text-center relative z-10">
-        {/* Hero Video */}
+        {/* Premium 3D Hero Video */}
         <div className="mb-8 flex justify-center">
-          <div className="relative animate-pulse-glow">
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden neon-card">
+          <div className="relative animate-pulse-glow premium-video-container">
+            <div className="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden neon-card premium-3d-frame">
               <video 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover premium-video-effect"
                 autoPlay
                 loop
                 muted
@@ -33,13 +44,16 @@ export default function HeroSection({ titleRef }: HeroSectionProps) {
                 Your browser does not support the video tag.
               </video>
             </div>
+            {/* 3D Frame Enhancement */}
+            <div className="absolute inset-0 premium-video-overlay"></div>
+            <div className="absolute -inset-4 premium-video-glow rounded-3xl"></div>
           </div>
         </div>
 
-        {/* Main Title */}
+        {/* Premium 3D Main Title */}
         <h1 
           ref={titleRef}
-          className="font-brand text-6xl md:text-8xl lg:text-9xl mb-4 relative glitch-text font-black tracking-tighter enhanced-heading" 
+          className="font-brand text-6xl md:text-8xl lg:text-9xl mb-4 relative glitch-text font-black tracking-tighter enhanced-heading premium-3d-title" 
           data-text="BODY BAGZ"
           data-testid="main-title"
         >
@@ -54,17 +68,17 @@ export default function HeroSection({ titleRef }: HeroSectionProps) {
           THE VILLAIN ERA HAS BEGUN
         </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center">
+        {/* Premium 3D CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-6 justify-center premium-button-group">
           <Button 
-            className="cyber-button px-8 py-4 text-ash-white font-bold text-lg tracking-wide"
+            className="cyber-button px-8 py-4 text-ash-white font-bold text-lg tracking-wide premium-primary-button"
             data-testid="button-buy-bagz"
           >
             BUY $BAGZ
           </Button>
           <Button 
             variant="outline"
-            className="bg-transparent border-2 border-toxic-green text-toxic-green hover:bg-toxic-green hover:text-jet-black px-8 py-4 rounded-full font-bold text-lg transition-all duration-150 hover:shadow-green-glow hover:scale-102"
+            className="premium-secondary-button bg-transparent border-2 border-toxic-green text-toxic-green hover:bg-toxic-green hover:text-jet-black px-8 py-4 rounded-full font-bold text-lg transition-all duration-300"
             data-testid="button-view-chart"
           >
             VIEW CHART
