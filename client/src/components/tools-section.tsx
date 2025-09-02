@@ -318,6 +318,14 @@ export default function ToolsSection() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Premium Tweet Generator */}
           <div className="neon-card p-8 rounded-xl group" data-testid="tweet-generator">
+            <div className="relative mb-6 overflow-hidden rounded-lg">
+              <img 
+                src={tweetHeaderImg} 
+                alt="Cyberpunk Tweet Generator" 
+                className="w-full h-32 object-cover border border-toxic-green/30"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-toxic-green/20 to-transparent"></div>
+            </div>
             <div className="flex items-center mb-6">
               <div className="p-3 rounded-lg bg-jet-black border border-dim-gray group-hover:shadow-green-glow transition-all duration-200">
                 <ChainLinkIcon className="w-8 h-8 text-toxic-green" />
@@ -364,6 +372,14 @@ export default function ToolsSection() {
 
           {/* Premium Meme Factory */}
           <div className="neon-card p-8 rounded-xl group" data-testid="meme-generator">
+            <div className="relative mb-6 overflow-hidden rounded-lg">
+              <img 
+                src={memeHeaderImg} 
+                alt="Cyberpunk Meme Creator" 
+                className="w-full h-32 object-cover border border-blood-red/30"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-blood-red/20 to-transparent"></div>
+            </div>
             <div className="flex items-center mb-6">
               <div className="p-3 rounded-lg bg-jet-black border border-dim-gray group-hover:shadow-red-glow transition-all duration-200">
                 <BodyBagIcon className="w-8 h-8 text-blood-red" />
@@ -467,6 +483,14 @@ export default function ToolsSection() {
 
           {/* Premium PFP Chaos */}
           <div className="neon-card p-8 rounded-xl group" data-testid="pfp-generator">
+            <div className="relative mb-6 overflow-hidden rounded-lg">
+              <img 
+                src={pfpHeaderImg} 
+                alt="Cyberpunk PFP Generator" 
+                className="w-full h-32 object-cover border border-glitch-purple/30"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-glitch-purple/20 to-transparent"></div>
+            </div>
             <div className="flex items-center mb-6">
               <div className="p-3 rounded-lg bg-jet-black border border-dim-gray group-hover:shadow-purple-glow transition-all duration-200">
                 <GasMaskIcon className="w-8 h-8 text-glitch-purple" />

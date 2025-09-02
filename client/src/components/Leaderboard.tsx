@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TrophyIcon, CrownIcon, AwardIcon, Target, Users, Zap } from "lucide-react";
 import { useUser } from "@/contexts/UserContext";
+import leaderboardHeaderImg from "@assets/generated_images/Cyberpunk_Leaderboard_header_f95d85a6.png";
 
 interface LeaderboardUser {
   user: {
@@ -125,6 +126,14 @@ export function Leaderboard() {
           <div className="lg:col-span-2">
             <Card className="neon-card bg-jet-black border-blood-red">
               <CardHeader className="border-b border-dim-gray">
+                <div className="relative mb-4 overflow-hidden rounded-lg">
+                  <img 
+                    src={leaderboardHeaderImg} 
+                    alt="Cyberpunk Leaderboard" 
+                    className="w-full h-24 object-cover border border-blood-red/30"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-blood-red/20 to-transparent"></div>
+                </div>
                 <h3 className="font-tech text-2xl text-blood-red tracking-wide flex items-center gap-3">
                   <TrophyIcon className="w-8 h-8" />
                   {formatMonthDisplay(currentMonthYear)} Rankings
