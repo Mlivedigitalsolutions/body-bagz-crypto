@@ -1,4 +1,4 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import compression from "compression";
 import { ImageGenerator } from "./imageGenerator";
@@ -28,7 +28,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(errorLogger);
   
   // AI-powered Tweet Generator API with rate limiting and caching
-  app.post("/api/generate-tweet", strictLimiter, cacheMiddleware('tweets', 300), async (req: Request, res: Response) => {
+  app.post("/api/generate-tweet", strictLimiter, cacheMiddleware('tweets', 300), async (req, res) => {
     try {
       const { userId } = req.body;
       
@@ -76,7 +76,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // AI-powered PFP Generator API - Creates unique cyberpunk images
-  app.post("/api/generate-pfp", strictLimiter, async (req: Request, res: Response) => {
+  app.post("/api/generate-pfp", strictLimiter, async (req, res) => {
     try {
       const { prompt, name, userId } = req.body;
       
@@ -131,7 +131,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // AI-enhanced Meme Generator API - Creates actual downloadable memes
-  app.post("/api/generate-meme", generalLimiter, async (req: Request, res: Response) => {
+  app.post("/api/generate-meme", generalLimiter, async (req, res) => {
     try {
       const { topText, bottomText, userId, baseImage } = req.body;
       
@@ -153,8 +153,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      const imageGenerator = new ImageGenerator();
-      const imageUrl = await imageGenerator.generateMeme(memeText.topText, memeText.bottomText, baseImage);
+      const imageUrl = await ImageGenerator.generateMeme({
+        topText: memeText.topText,
+        bottomText: memeText.bottomText,
+        size: { width: 800, height: 600 },
+        baseImage
+      });
       
       // Track meme creation action if userId provided
       if (userId) {
