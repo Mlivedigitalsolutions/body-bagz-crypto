@@ -38,12 +38,61 @@ export function UserAuth({ open, onOpenChange }: UserAuthProps) {
       return;
     }
 
+    // Validate username (alphanumeric and underscore only)
+    if (!/^[a-zA-Z0-9_]{3,20}$/.test(formData.username)) {
+      toast({
+        title: "Invalid Username",
+        description: "Username must be 3-20 characters, letters/numbers/underscore only",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate password strength
+    if (formData.password.length < 6) {
+      toast({
+        title: "Weak Password",
+        description: "Password must be at least 6 characters",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate social handles if provided
+    if (formData.xUsername && !/^@?[a-zA-Z0-9_]{1,15}$/.test(formData.xUsername.replace('@', ''))) {
+      toast({
+        title: "Invalid X Username",
+        description: "X username must be 1-15 characters, letters/numbers/underscore only",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (formData.telegramUsername && !/^@?[a-zA-Z0-9_]{5,32}$/.test(formData.telegramUsername.replace('@', ''))) {
+      toast({
+        title: "Invalid Telegram Username",
+        description: "Telegram username must be 5-32 characters, letters/numbers/underscore only",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate Solana wallet if provided
+    if (formData.solanaWallet && !/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(formData.solanaWallet)) {
+      toast({
+        title: "Invalid Solana Address",
+        description: "Please enter a valid Solana wallet address",
+        variant: "destructive"
+      });
+      return;
+    }
+
     try {
       await register({
         username: formData.username,
         password: formData.password,
-        xUsername: formData.xUsername || undefined,
-        telegramUsername: formData.telegramUsername || undefined,
+        xUsername: formData.xUsername ? (formData.xUsername.startsWith('@') ? formData.xUsername : '@' + formData.xUsername) : undefined,
+        telegramUsername: formData.telegramUsername ? (formData.telegramUsername.startsWith('@') ? formData.telegramUsername : '@' + formData.telegramUsername) : undefined,
         solanaWallet: formData.solanaWallet || undefined,
       });
       
@@ -170,11 +219,19 @@ export function UserAuth({ open, onOpenChange }: UserAuthProps) {
                 <Label className="text-toxic-green font-semibold">X/Twitter Username</Label>
                 <Input
                   type="text"
-                  placeholder="@yourhandle (optional)"
+                  placeholder="yourhandle (optional)"
                   value={formData.xUsername}
-                  onChange={(e) => setFormData({ ...formData, xUsername: e.target.value })}
+                  onChange={(e) => {
+                    let value = e.target.value;
+                    // Auto-add @ if not present and not empty
+                    if (value && !value.startsWith('@')) {
+                      value = '@' + value;
+                    }
+                    setFormData({ ...formData, xUsername: value });
+                  }}
                   className="cyber-input mt-1 border-toxic-green/30"
                   data-testid="input-register-x-username"
+                  maxLength={16}
                 />
               </div>
               
@@ -182,11 +239,19 @@ export function UserAuth({ open, onOpenChange }: UserAuthProps) {
                 <Label className="text-glitch-purple font-semibold">Telegram Username</Label>
                 <Input
                   type="text"
-                  placeholder="@yourhandle (optional)"
+                  placeholder="yourhandle (optional)"
                   value={formData.telegramUsername}
-                  onChange={(e) => setFormData({ ...formData, telegramUsername: e.target.value })}
+                  onChange={(e) => {
+                    let value = e.target.value;
+                    // Auto-add @ if not present and not empty
+                    if (value && !value.startsWith('@')) {
+                      value = '@' + value;
+                    }
+                    setFormData({ ...formData, telegramUsername: value });
+                  }}
                   className="cyber-input mt-1 border-glitch-purple/30"
                   data-testid="input-register-telegram-username"
+                  maxLength={33}
                 />
               </div>
               

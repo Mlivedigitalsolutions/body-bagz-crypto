@@ -38,10 +38,12 @@ export default function ToolsSection() {
   const [generatedMemeImage, setGeneratedMemeImage] = useState("");
   const [isGeneratingPfp, setIsGeneratingPfp] = useState(false);
   const [isGeneratingMeme, setIsGeneratingMeme] = useState(false);
+  const [isGeneratingTweet, setIsGeneratingTweet] = useState(false);
   const { toast } = useToast();
   const { user, trackAction } = useUser();
 
   const generateTweet = async () => {
+    setIsGeneratingTweet(true);
     try {
       const response = await fetch('/api/generate-tweet', {
         method: 'POST',
@@ -77,6 +79,8 @@ export default function ToolsSection() {
         title: "Tweet Generated!",
         description: "Ready to share on X",
       });
+    } finally {
+      setIsGeneratingTweet(false);
     }
   };
 
@@ -94,7 +98,7 @@ export default function ToolsSection() {
       }).then(async () => {
         if (user) {
           try {
-            await trackAction('meme_share');
+            await trackAction('tweet');
           } catch (error) {
             console.error('Failed to track share action:', error);
           }
@@ -112,7 +116,7 @@ export default function ToolsSection() {
       // Track share action for desktop
       if (user) {
         try {
-          await trackAction('meme_share');
+          await trackAction('tweet');
         } catch (error) {
           console.error('Failed to track share action:', error);
         }
@@ -293,9 +297,10 @@ export default function ToolsSection() {
                 <Button 
                   className="cyber-button w-full py-4 text-ash-white font-bold tracking-wide" 
                   onClick={generateTweet}
+                  disabled={isGeneratingTweet}
                   data-testid="button-generate-tweet"
                 >
-                  GENERATE CHAOS
+                  {isGeneratingTweet ? "GENERATING..." : "GENERATE CHAOS"}
                 </Button>
                 {generatedTweet && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

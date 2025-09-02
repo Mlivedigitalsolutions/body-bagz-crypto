@@ -27,14 +27,17 @@ export function Leaderboard() {
   
   const { user } = useUser();
 
-  const { data: leaderboardData, isLoading } = useQuery({
+  const { data: leaderboardData, isLoading, error } = useQuery({
     queryKey: ["/api/leaderboard", `?month=${selectedMonth}`],
     refetchInterval: 30000, // Refetch every 30 seconds
+    retry: 3,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 
-  const { data: userStats } = useQuery({
+  const { data: userStats, error: userStatsError } = useQuery({
     queryKey: ["/api/users", user?.id, "stats", `?month=${selectedMonth}`],
     enabled: !!user,
+    retry: 2,
   });
 
   const leaderboard: LeaderboardUser[] = (leaderboardData as any)?.leaderboard || [];
