@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChainLinkIcon, BodyBagIcon, GasMaskIcon } from "@/components/icons";
 import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@/contexts/UserContext";
 
 const bullishTweets = [
   "Just bagged another mil in $BAGZ. The villain era hits different when you're stacking chaos. NFA but this rocket's fueled by pure degeneracy.",
@@ -38,17 +39,48 @@ export default function ToolsSection() {
   const [isGeneratingPfp, setIsGeneratingPfp] = useState(false);
   const [isGeneratingMeme, setIsGeneratingMeme] = useState(false);
   const { toast } = useToast();
+  const { user, trackAction } = useUser();
 
-  const generateTweet = () => {
-    const randomTweet = bullishTweets[Math.floor(Math.random() * bullishTweets.length)];
-    setGeneratedTweet(randomTweet);
-    toast({
-      title: "Tweet Generated!",
-      description: "Ready to share on X",
-    });
+  const generateTweet = async () => {
+    try {
+      const response = await fetch('/api/generate-tweet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          userId: user?.id
+        }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setGeneratedTweet(data.tweet);
+        toast({
+          title: "Tweet Generated!",
+          description: user ? `Ready to share on X (+5 chaos points!)` : "Ready to share on X",
+        });
+      } else {
+        // Fallback to client-side generation
+        const randomTweet = bullishTweets[Math.floor(Math.random() * bullishTweets.length)];
+        setGeneratedTweet(randomTweet);
+        toast({
+          title: "Tweet Generated!",
+          description: "Ready to share on X",
+        });
+      }
+    } catch (error) {
+      // Fallback to client-side generation
+      const randomTweet = bullishTweets[Math.floor(Math.random() * bullishTweets.length)];
+      setGeneratedTweet(randomTweet);
+      toast({
+        title: "Tweet Generated!",
+        description: "Ready to share on X",
+      });
+    }
   };
 
-  const shareToTwitter = () => {
+  const shareToTwitter = async () => {
     const hashtags = "BodyBagz,BAGZ,CryptoVillains,ChaosToken";
     const tweetText = encodeURIComponent(generatedTweet);
     const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}&hashtags=${hashtags}`;
@@ -59,10 +91,17 @@ export default function ToolsSection() {
         title: 'Body Bagz Chaos Tweet',
         text: generatedTweet + " #BodyBagz #BAGZ #CryptoVillains",
         url: window.location.href
-      }).then(() => {
+      }).then(async () => {
+        if (user) {
+          try {
+            await trackAction('meme_share');
+          } catch (error) {
+            console.error('Failed to track share action:', error);
+          }
+        }
         toast({
           title: "Shared!",
-          description: "Chaos spread successfully",
+          description: user ? "Chaos spread successfully (+6 points!)" : "Chaos spread successfully",
         });
       }).catch(() => {
         // Fallback to Twitter if native sharing fails
@@ -70,9 +109,17 @@ export default function ToolsSection() {
       });
     } else {
       window.open(twitterUrl, '_blank', 'width=550,height=420');
+      // Track share action for desktop
+      if (user) {
+        try {
+          await trackAction('meme_share');
+        } catch (error) {
+          console.error('Failed to track share action:', error);
+        }
+      }
       toast({
         title: "Opening Twitter!",
-        description: "Share the chaos with the world",
+        description: user ? "Share the chaos with the world (+6 points!)" : "Share the chaos with the world",
       });
     }
   };
@@ -121,7 +168,8 @@ export default function ToolsSection() {
         },
         body: JSON.stringify({ 
           topText,
-          bottomText
+          bottomText,
+          userId: user?.id
         }),
       });
       
@@ -130,7 +178,7 @@ export default function ToolsSection() {
         setGeneratedMemeImage(data.imageUrl);
         toast({
           title: "Meme Created!",
-          description: "Your chaos meme is ready to download",
+          description: user ? "Your chaos meme is ready to download (+4 points!)" : "Your chaos meme is ready to download",
         });
       } else {
         throw new Error('Failed to generate meme');
@@ -162,7 +210,8 @@ export default function ToolsSection() {
         },
         body: JSON.stringify({ 
           prompt: randomPrompt,
-          name: randomPfp
+          name: randomPfp,
+          userId: user?.id
         }),
       });
       
@@ -171,7 +220,7 @@ export default function ToolsSection() {
         setGeneratedPfpImage(data.imageUrl);
         toast({
           title: "PFP Generated!",
-          description: "Your villain profile is ready to download",
+          description: user ? "Your villain profile is ready to download (+3 points!)" : "Your villain profile is ready to download",
         });
       } else {
         throw new Error('Failed to generate PFP');

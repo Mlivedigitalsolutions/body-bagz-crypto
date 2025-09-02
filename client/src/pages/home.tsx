@@ -9,6 +9,8 @@ import MerchSection from "@/components/merch-section";
 import TradingDataSection from "@/components/trading-data-section";
 import CommunitySection from "@/components/community-section";
 import Footer from "@/components/footer";
+import { Leaderboard } from "@/components/Leaderboard";
+import { UserButton } from "@/components/UserAuth";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
 
 export default function Home() {
@@ -87,8 +89,12 @@ export default function Home() {
               <a href="#vision" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-vision">VISION</a>
               <a href="#tokenomics" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tokenomics">TOKENOMICS</a>
               <a href="#tools" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tools">TOOLS</a>
+              <a href="#leaderboard" className="text-dim-gray hover:text-blood-red transition-colors" data-testid="nav-leaderboard">LEADERBOARD</a>
               <a href="#community" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-community">COMMUNITY</a>
             </div>
+            
+            {/* User Auth */}
+            <UserButton />
             
             {/* Social Links */}
             <div className="flex items-center space-x-3">
@@ -164,6 +170,7 @@ export default function Home() {
         <TokenomicsSection />
         <RoadmapSection />
         <ToolsSection />
+        <Leaderboard />
         <MerchSection />
         <TradingDataSection />
         <CommunitySection />
