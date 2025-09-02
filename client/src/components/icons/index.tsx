@@ -458,41 +458,69 @@ export function TelegramChaosIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 64 64" fill="none">
       <defs>
-        <radialGradient id="telegramGrad" cx="50%" cy="30%" r="70%">
-          <stop offset="0%" stopColor="#39FF14" stopOpacity="0.9"/>
-          <stop offset="50%" stopColor="currentColor" stopOpacity="1"/>
-          <stop offset="100%" stopColor="#2A2B31" stopOpacity="1"/>
+        {/* Epic 3D Telegram Base Gradient */}
+        <radialGradient id="telegram3D" cx="25%" cy="20%" r="90%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9"/>
+          <stop offset="15%" stopColor="#39FF14" stopOpacity="1"/>
+          <stop offset="60%" stopColor="#0A0A0B" stopOpacity="0.8"/>
+          <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
         </radialGradient>
-        <filter id="telegramGlow">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-          <feMerge> 
+        
+        {/* 3D Paper Plane Gradient */}
+        <linearGradient id="plane3D" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9"/>
+          <stop offset="30%" stopColor="#EDEEF0" stopOpacity="1"/>
+          <stop offset="70%" stopColor="#718096" stopOpacity="1"/>
+          <stop offset="100%" stopColor="#2D3748" stopOpacity="1"/>
+        </linearGradient>
+        
+        {/* Epic 3D Depth Filter */}
+        <filter id="telegram3DDepth" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="4" dy="8" stdDeviation="6" floodColor="#000000" floodOpacity="0.9"/>
+          <feDropShadow dx="-2" dy="-2" stdDeviation="3" floodColor="#FFFFFF" floodOpacity="0.4"/>
+        </filter>
+        
+        {/* Hyper-Realistic Glow */}
+        <filter id="telegramHyperGlow" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+          <feMerge>
             <feMergeNode in="coloredBlur"/>
             <feMergeNode in="SourceGraphic"/>
           </feMerge>
         </filter>
       </defs>
       
-      {/* Premium Circular Base */}
-      <circle cx="32" cy="32" r="26" fill="url(#telegramGrad)" stroke="#39FF14" strokeWidth="2" filter="url(#telegramGlow)"/>
-      <circle cx="32" cy="32" r="22" fill="none" stroke="#E7352C" strokeWidth="0.8" opacity="0.6"/>
+      {/* Epic 3D Circular Base */}
+      <circle cx="32" cy="32" r="28" fill="url(#telegram3D)" filter="url(#telegram3DDepth)" stroke="#39FF14" strokeWidth="3"/>
+      <circle cx="32" cy="32" r="24" fill="none" stroke="#FFFFFF" strokeWidth="1" opacity="0.3"/>
+      <circle cx="32" cy="32" r="20" fill="none" stroke="#39FF14" strokeWidth="1" opacity="0.6"/>
       
-      {/* Sophisticated Paper Plane */}
-      <path d="M42 22 L20 30 L26 32 L30 28 L36 34 L38 30 Z" fill="#0A0A0B" stroke="#EDEEF0" strokeWidth="1.5" strokeLinejoin="bevel"/>
-      <path d="M26 32 L30 36 L36 34" fill="#0A0A0B" stroke="#EDEEF0" strokeWidth="1.5" strokeLinejoin="bevel"/>
+      {/* Hyper-Realistic 3D Paper Plane */}
+      <g filter="url(#telegram3DDepth)">
+        <path d="M44 20 L18 30 L26 32 L32 26 L40 36 L42 32 Z" fill="url(#plane3D)" stroke="#39FF14" strokeWidth="2" strokeLinejoin="round"/>
+        <path d="M26 32 L32 38 L40 36" fill="url(#plane3D)" stroke="#FFFFFF" strokeWidth="1.5" opacity="0.8"/>
+        
+        {/* 3D Wing Details */}
+        <path d="M32 26 L40 36" stroke="#FFFFFF" strokeWidth="2" opacity="0.6"/>
+        <path d="M26 32 L32 26" stroke="#39FF14" strokeWidth="2" opacity="0.8"/>
+      </g>
       
-      {/* Message Trail Effect */}
-      <circle cx="24" cy="28" r="1" fill="#39FF14" opacity="0.8"/>
-      <circle cx="26" cy="26" r="0.8" fill="#39FF14" opacity="0.6"/>
-      <circle cx="28" cy="24" r="0.6" fill="#39FF14" opacity="0.4"/>
+      {/* Epic Message Trail with 3D Effect */}
+      <circle cx="22" cy="26" r="2" fill="#39FF14" opacity="0.9" filter="url(#telegramHyperGlow)"/>
+      <circle cx="24" cy="24" r="1.5" fill="#39FF14" opacity="0.7" filter="url(#telegramHyperGlow)"/>
+      <circle cx="26" cy="22" r="1" fill="#39FF14" opacity="0.5" filter="url(#telegramHyperGlow)"/>
+      <circle cx="20" cy="24" r="1" fill="#FFFFFF" opacity="0.8"/>
+      <circle cx="22" cy="22" r="0.8" fill="#FFFFFF" opacity="0.6"/>
       
-      {/* Advanced Glitch Effects */}
-      <rect x="16" y="18" width="8" height="1" fill="#E7352C" opacity="0.8"/>
-      <rect x="42" y="42" width="6" height="1" fill="#7A3BFF" opacity="0.7"/>
-      <rect x="48" y="20" width="4" height="1" fill="#39FF14" opacity="0.9"/>
-      <rect x="12" y="40" width="5" height="1" fill="#7A3BFF" opacity="0.6"/>
+      {/* 3D Chaos Glitch Matrix */}
+      <rect x="12" y="16" width="10" height="2" rx="1" fill="#E7352C" opacity="0.9" filter="url(#telegramHyperGlow)"/>
+      <rect x="44" y="44" width="8" height="2" rx="1" fill="#7A3BFF" opacity="0.8" filter="url(#telegramHyperGlow)"/>
+      <rect x="50" y="18" width="6" height="2" rx="1" fill="#39FF14" opacity="1" filter="url(#telegramHyperGlow)"/>
+      <rect x="8" y="42" width="7" height="2" rx="1" fill="#E7352C" opacity="0.7" filter="url(#telegramHyperGlow)"/>
       
-      {/* Power Ring */}
-      <circle cx="32" cy="32" r="28" fill="none" stroke="#39FF14" strokeWidth="0.5" opacity="0.4"/>
+      {/* Epic Power Ring with 3D Depth */}
+      <circle cx="32" cy="32" r="30" fill="none" stroke="#39FF14" strokeWidth="1" opacity="0.5" filter="url(#telegramHyperGlow)"/>
+      <circle cx="32" cy="32" r="32" fill="none" stroke="#FFFFFF" strokeWidth="0.5" opacity="0.3"/>
     </svg>
   );
 }
@@ -501,43 +529,72 @@ export function XChaosIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 64 64" fill="none">
       <defs>
-        <radialGradient id="xGrad" cx="50%" cy="30%" r="80%">
-          <stop offset="0%" stopColor="#7A3BFF" stopOpacity="0.9"/>
-          <stop offset="50%" stopColor="currentColor" stopOpacity="1"/>
-          <stop offset="100%" stopColor="#2A2B31" stopOpacity="1"/>
+        {/* Epic 3D X Base Gradient */}
+        <radialGradient id="x3D" cx="25%" cy="20%" r="90%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9"/>
+          <stop offset="15%" stopColor="#7A3BFF" stopOpacity="1"/>
+          <stop offset="60%" stopColor="#0A0A0B" stopOpacity="0.8"/>
+          <stop offset="100%" stopColor="#000000" stopOpacity="1"/>
         </radialGradient>
-        <filter id="xGlow">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-          <feMerge> 
+        
+        {/* 3D X Symbol Gradient */}
+        <linearGradient id="xSymbol3D" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8"/>
+          <stop offset="30%" stopColor="#A78BFA" stopOpacity="1"/>
+          <stop offset="70%" stopColor="#7A3BFF" stopOpacity="1"/>
+          <stop offset="100%" stopColor="#4C1D95" stopOpacity="1"/>
+        </linearGradient>
+        
+        {/* Epic 3D Depth Filter */}
+        <filter id="x3DDepth" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="4" dy="8" stdDeviation="6" floodColor="#000000" floodOpacity="0.9"/>
+          <feDropShadow dx="-2" dy="-2" stdDeviation="3" floodColor="#FFFFFF" floodOpacity="0.4"/>
+        </filter>
+        
+        {/* Hyper-Realistic Glow */}
+        <filter id="xHyperGlow" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+          <feMerge>
             <feMergeNode in="coloredBlur"/>
             <feMergeNode in="SourceGraphic"/>
           </feMerge>
         </filter>
       </defs>
       
-      {/* Premium Circular Base */}
-      <circle cx="32" cy="32" r="26" fill="url(#xGrad)" stroke="#7A3BFF" strokeWidth="2" filter="url(#xGlow)"/>
-      <circle cx="32" cy="32" r="22" fill="none" stroke="#E7352C" strokeWidth="0.8" opacity="0.6"/>
+      {/* Epic 3D Circular Base */}
+      <circle cx="32" cy="32" r="28" fill="url(#x3D)" filter="url(#x3DDepth)" stroke="#7A3BFF" strokeWidth="3"/>
+      <circle cx="32" cy="32" r="24" fill="none" stroke="#FFFFFF" strokeWidth="1" opacity="0.3"/>
+      <circle cx="32" cy="32" r="20" fill="none" stroke="#7A3BFF" strokeWidth="1" opacity="0.6"/>
       
-      {/* Sophisticated X Symbol */}
-      <path d="M20 20 L26 20 L32 26 L38 20 L44 20 L38 26 L44 32 L44 38 L38 38 L32 32 L26 38 L20 38 L20 32 L26 26 Z" fill="#0A0A0B" stroke="#EDEEF0" strokeWidth="1.5" strokeLinejoin="bevel"/>
+      {/* Hyper-Realistic 3D X Symbol */}
+      <g filter="url(#x3DDepth)">
+        <path d="M18 18 L28 18 L32 22 L36 18 L46 18 L40 24 L46 30 L46 40 L36 40 L32 36 L28 40 L18 40 L18 30 L24 24 Z" 
+              fill="url(#xSymbol3D)" stroke="#7A3BFF" strokeWidth="2" strokeLinejoin="round"/>
+        
+        {/* 3D X Inner Details with Depth */}
+        <path d="M22 22 L32 32 L42 22" stroke="#FFFFFF" strokeWidth="3" opacity="0.7" strokeLinecap="round"/>
+        <path d="M22 42 L32 32 L42 42" stroke="#FFFFFF" strokeWidth="3" opacity="0.7" strokeLinecap="round"/>
+        <path d="M24 24 L32 32 L40 24" stroke="#A78BFA" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M24 40 L32 32 L40 40" stroke="#A78BFA" strokeWidth="2" strokeLinecap="round"/>
+      </g>
       
-      {/* Inner X Details */}
-      <path d="M24 24 L32 32 L40 24" stroke="#7A3BFF" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M24 40 L32 32 L40 40" stroke="#7A3BFF" strokeWidth="2" strokeLinecap="round"/>
+      {/* Epic Chaos Energy Core with 3D Effect */}
+      <circle cx="32" cy="32" r="5" fill="#7A3BFF" opacity="0.6"/>
+      <circle cx="32" cy="32" r="3" fill="#7A3BFF" filter="url(#xHyperGlow)"/>
+      <circle cx="30" cy="30" r="2" fill="#FFFFFF" opacity="0.9"/>
       
-      {/* Chaos Energy Burst */}
-      <circle cx="32" cy="32" r="3" fill="#7A3BFF" opacity="0.8"/>
-      <circle cx="32" cy="32" r="1.5" fill="#EDEEF0"/>
+      {/* 3D Chaos Glitch Matrix */}
+      <rect x="10" y="36" width="12" height="2" rx="1" fill="#39FF14" opacity="0.9" filter="url(#xHyperGlow)"/>
+      <rect x="44" y="20" width="8" height="2" rx="1" fill="#E7352C" opacity="1" filter="url(#xHyperGlow)"/>
+      <rect x="50" y="42" width="10" height="2" rx="1" fill="#7A3BFF" opacity="0.8" filter="url(#xHyperGlow)"/>
+      <rect x="6" y="24" width="9" height="2" rx="1" fill="#39FF14" opacity="0.7" filter="url(#xHyperGlow)"/>
       
-      {/* Advanced Glitch Matrix */}
-      <rect x="14" y="38" width="6" height="1" fill="#39FF14" opacity="0.8"/>
-      <rect x="46" y="22" width="4" height="1" fill="#E7352C" opacity="0.9"/>
-      <rect x="50" y="40" width="8" height="1" fill="#7A3BFF" opacity="0.7"/>
-      <rect x="10" y="26" width="5" height="1" fill="#39FF14" opacity="0.6"/>
+      {/* Epic Power Ring with 3D Depth */}
+      <circle cx="32" cy="32" r="30" fill="none" stroke="#7A3BFF" strokeWidth="1" opacity="0.5" filter="url(#xHyperGlow)"/>
+      <circle cx="32" cy="32" r="32" fill="none" stroke="#FFFFFF" strokeWidth="0.5" opacity="0.3"/>
       
-      {/* Outer Power Ring */}
-      <circle cx="32" cy="32" r="28" fill="none" stroke="#7A3BFF" strokeWidth="0.5" opacity="0.4"/>
+      {/* Additional 3D Energy Rings */}
+      <circle cx="32" cy="32" r="26" fill="none" stroke="#A78BFA" strokeWidth="0.5" opacity="0.4"/>
     </svg>
   );
 }
