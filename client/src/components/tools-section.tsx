@@ -17,19 +17,19 @@ const bullishTweets = [
 ];
 
 const pfpVariants = [
-  "Hooded Chaos Reaper #1337",
-  "Glitch Cat Villain #420", 
-  "Prepper Skull Lord #666",
-  "Shadow Bag Keeper #999",
-  "Digital Grim #2024"
+  "Chrome Assassin Elite #KRVN-001",
+  "Neural Android Mk-VII #SYNT-888", 
+  "Skull Overlord Prime #DOOM-666",
+  "Cyber Samurai Legend #BLADE-777",
+  "Death Commander Alpha #REAP-999"
 ];
 
 const pfpPrompts = [
-  "Cyberpunk hooded figure with glowing red eyes, dark hood, angular gas mask, neon green accents, digital art style, villain aesthetic",
-  "Futuristic cat with cyberpunk implants, glowing purple eyes, tech accessories, dark background, streetwear aesthetic",
-  "Skull lord with cyberpunk elements, glowing green skull, tech armor, dark hood, villain energy, digital art",
-  "Shadow figure holding glowing money bags, cyberpunk style, red and green neon lighting, mysterious silhouette",
-  "Digital grim reaper with tech scythe, cyberpunk armor, glowing effects, dark futuristic aesthetic, villain theme"
+  "Ultra-detailed cyberpunk assassin profile portrait: hooded figure with intricate chrome facial implants, asymmetrical LED eye augmentations glowing toxic green and blood red, weathered tactical face mask with breathing apparatus, multiple facial piercings, holographic tattoos on visible neck, dark military-grade hood with fiber optic threading, atmospheric volumetric lighting, photorealistic digital art, 8K quality, cinematic depth of field",
+  "Masterpiece cyberpunk android portrait: sleek humanoid with exposed chrome skull sections, one organic eye and one holographic scanner eye, intricate neural interface ports along jawline, liquid metal face paint patterns, neon data streams flowing across synthetic skin, high-tech collar with pulsing circuits, studio lighting with neon rim lighting, hyperrealistic 3D render",
+  "Premium villain overlord portrait: intimidating figure with ornate skull mask featuring glowing runes, luxurious dark hood with golden threading, multiple cybernetic jaw enhancements, glowing chest piece visible, ornate shoulder armor with pulsing energy cores, atmospheric smoke effects, dramatic chiaroscuro lighting, museum-quality digital painting",
+  "Elite street samurai profile: battle-scarred warrior with half-face cybernetic reconstruction, glowing katana reflection in augmented eye, traditional oni mask merged with high-tech elements, ceremonial hood with digital prayer beads, holographic money symbols floating around figure, neo-Tokyo neon background blur, professional portrait photography style",
+  "Legendary cyber-reaper commander: imposing figure with biomechanical skull fusion, multiple glowing eye sensors, ornate death mask with circuit patterns, flowing digital energy cape, advanced weapon systems integrated into armor, particle effects around figure, dramatic low-angle perspective, AAA game cinematic quality"
 ];
 
 export default function ToolsSection() {
