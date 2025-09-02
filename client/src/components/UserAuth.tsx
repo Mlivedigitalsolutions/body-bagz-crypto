@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/contexts/UserContext";
 import { useToast } from "@/hooks/use-toast";
-import { UserIcon, LogOutIcon } from "lucide-react";
+import { UserIcon, LogOutIcon, Settings, User } from "lucide-react";
+import { Link } from "wouter";
 
 interface UserAuthProps {
   open: boolean;
@@ -289,18 +291,36 @@ export function UserButton() {
 
   if (user) {
     return (
-      <div className="flex items-center gap-2">
-        <div className="text-sm text-ash-white font-semibold">
-          <span className="text-toxic-green">@{user.username}</span>
-        </div>
-        <Button
-          onClick={logout}
-          className="p-2 bg-blood-red/20 hover:bg-blood-red/40 border border-blood-red/30 rounded-lg transition-all duration-200"
-          data-testid="button-logout"
-        >
-          <LogOutIcon className="w-4 h-4 text-blood-red" />
-        </Button>
-      </div>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button 
+            variant="ghost" 
+            className="flex items-center gap-2 p-2 bg-toxic-green/10 hover:bg-toxic-green/20 border border-toxic-green/30 rounded-lg transition-all duration-200"
+            data-testid="user-menu-trigger"
+          >
+            <User className="w-4 h-4 text-toxic-green" />
+            <span className="text-sm text-ash-white font-semibold">
+              <span className="text-toxic-green">@{user.username}</span>
+            </span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-48 bg-jet-black border-dim-gray">
+          <DropdownMenuItem asChild>
+            <Link href="/account" className="flex items-center gap-2 w-full cursor-pointer" data-testid="menu-account">
+              <Settings className="w-4 h-4" />
+              Account
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem 
+            onClick={logout}
+            className="flex items-center gap-2 text-blood-red hover:text-blood-red cursor-pointer"
+            data-testid="menu-logout"
+          >
+            <LogOutIcon className="w-4 h-4" />
+            Logout
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
   }
 

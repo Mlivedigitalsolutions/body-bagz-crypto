@@ -258,6 +258,119 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Saved content endpoints
+  app.post("/api/users/:userId/content", strictLimiter, async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { contentType, title, content, metadata } = req.body;
+      
+      if (!contentType || !title || !content) {
+        return res.status(400).json({ error: "contentType, title, and content are required" });
+      }
+      
+      const savedItem = await storage.saveContent({
+        userId,
+        contentType,
+        title,
+        content,
+        metadata: metadata || {},
+        isFavorite: false
+      });
+      
+      res.json({ savedContent: savedItem });
+    } catch (error) {
+      console.error('Error saving content:', error);
+      res.status(500).json({ error: "Failed to save content" });
+    }
+  });
+  
+  app.get("/api/users/:userId/content", async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { type, favorites } = req.query;
+      
+      let content;
+      if (favorites === 'true') {
+        content = await storage.getUserFavorites(userId);
+      } else {
+        content = await storage.getUserSavedContent(userId, type as string);
+      }
+      
+      res.json({ content });
+    } catch (error) {
+      console.error('Error fetching user content:', error);
+      res.status(500).json({ error: "Failed to fetch content" });
+    }
+  });
+  
+  app.patch("/api/users/:userId/content/:contentId/favorite", async (req, res) => {
+    try {
+      const { contentId } = req.params;
+      const { isFavorite } = req.body;
+      
+      const updated = await storage.toggleContentFavorite(contentId, isFavorite);
+      res.json({ savedContent: updated });
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+      res.status(500).json({ error: "Failed to update favorite status" });
+    }
+  });
+  
+  app.delete("/api/users/:userId/content/:contentId", async (req, res) => {
+    try {
+      const { userId, contentId } = req.params;
+      
+      await storage.deleteUserContent(contentId, userId);
+      res.json({ message: "Content deleted successfully" });
+    } catch (error) {
+      console.error('Error deleting content:', error);
+      res.status(500).json({ error: "Failed to delete content" });
+    }
+  });
+  
+  // User preferences endpoints
+  app.get("/api/users/:userId/preferences", async (req, res) => {
+    try {
+      const { userId } = req.params;
+      
+      let preferences = await storage.getUserPreferences(userId);
+      
+      // Create default preferences if none exist
+      if (!preferences) {
+        preferences = await storage.createUserPreferences({
+          userId,
+          autoSaveContent: true,
+          defaultPfpStyle: "cyberpunk",
+          preferredTweetTone: "bullish",
+          notifications: {
+            newContent: true,
+            leaderboard: true,
+            rewards: true
+          },
+          theme: "cyberpunk"
+        });
+      }
+      
+      res.json({ preferences });
+    } catch (error) {
+      console.error('Error fetching user preferences:', error);
+      res.status(500).json({ error: "Failed to fetch preferences" });
+    }
+  });
+  
+  app.put("/api/users/:userId/preferences", async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const updates = req.body;
+      
+      const preferences = await storage.updateUserPreferences(userId, updates);
+      res.json({ preferences });
+    } catch (error) {
+      console.error('Error updating user preferences:', error);
+      res.status(500).json({ error: "Failed to update preferences" });
+    }
+  });
+  
   // Action tracking endpoints
   app.post("/api/actions/track", strictLimiter, validateActionTracking, async (req: Request, res: Response) => {
     try {

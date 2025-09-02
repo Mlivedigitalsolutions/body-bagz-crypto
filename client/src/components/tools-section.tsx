@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { ChainLinkIcon, BodyBagIcon, GasMaskIcon } from "@/components/icons";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/contexts/UserContext";
+import { apiRequest } from "@/lib/queryClient";
+import { Save } from "lucide-react";
 import pfpHeaderImg from "@assets/generated_images/Cyberpunk_PFP_Generator_header_fad9f426.png";
 import tweetHeaderImg from "@assets/generated_images/Cyberpunk_Tweet_Generator_header_85711bc6.png";
 import memeHeaderImg from "@assets/generated_images/Cyberpunk_Meme_Creator_header_95968e4a.png";
@@ -43,8 +45,43 @@ export default function ToolsSection() {
   const [isGeneratingPfp, setIsGeneratingPfp] = useState(false);
   const [isGeneratingMeme, setIsGeneratingMeme] = useState(false);
   const [isGeneratingTweet, setIsGeneratingTweet] = useState(false);
+  const [isSavingContent, setIsSavingContent] = useState(false);
   const { toast } = useToast();
   const { user, trackAction } = useUser();
+
+  const saveContent = async (contentType: 'tweet' | 'meme' | 'pfp', title: string, content: string, metadata?: any) => {
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please log in to save your generated content",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSavingContent(true);
+    try {
+      await apiRequest("POST", `/api/users/${user.id}/content`, {
+        contentType,
+        title,
+        content,
+        metadata
+      });
+      
+      toast({
+        title: "Content Saved!",
+        description: `Your ${contentType} has been saved to your vault`,
+      });
+    } catch (error) {
+      toast({
+        title: "Save Failed",
+        description: "Failed to save content. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSavingContent(false);
+    }
+  };
 
   const generateTweet = async () => {
     setIsGeneratingTweet(true);
@@ -349,7 +386,7 @@ export default function ToolsSection() {
                   {isGeneratingTweet ? "GENERATING..." : "GENERATE CHAOS"}
                 </Button>
                 {generatedTweet && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <Button 
                       className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-blue-500"
                       onClick={shareToTwitter}
@@ -363,6 +400,15 @@ export default function ToolsSection() {
                       data-testid="button-copy-tweet"
                     >
                       📋 COPY
+                    </Button>
+                    <Button 
+                      className="w-full py-4 bg-gradient-to-r from-toxic-green/60 to-toxic-green/70 hover:from-toxic-green/70 hover:to-toxic-green/80 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-toxic-green/50"
+                      onClick={() => saveContent('tweet', `Tweet ${Date.now()}`, generatedTweet)}
+                      disabled={isSavingContent}
+                      data-testid="button-save-tweet"
+                    >
+                      <Save className="w-4 h-4 mr-1" />
+                      {isSavingContent ? 'SAVING...' : 'SAVE'}
                     </Button>
                   </div>
                 )}
@@ -469,13 +515,24 @@ export default function ToolsSection() {
                   {isGeneratingMeme ? "CREATING..." : "CREATE MEME"}
                 </Button>
                 {generatedMemeImage && (
-                  <Button 
-                    className="w-full py-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-purple-500"
-                    onClick={downloadMeme}
-                    data-testid="button-download-meme"
-                  >
-                    📥 DOWNLOAD MEME
-                  </Button>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Button 
+                      className="w-full py-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-purple-500"
+                      onClick={downloadMeme}
+                      data-testid="button-download-meme"
+                    >
+                      📥 DOWNLOAD
+                    </Button>
+                    <Button 
+                      className="w-full py-4 bg-gradient-to-r from-toxic-green/60 to-toxic-green/70 hover:from-toxic-green/70 hover:to-toxic-green/80 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-toxic-green/50"
+                      onClick={() => saveContent('meme', `Meme ${Date.now()}`, generatedMemeImage, { topText, bottomText })}
+                      disabled={isSavingContent}
+                      data-testid="button-save-meme"
+                    >
+                      <Save className="w-4 h-4 mr-1" />
+                      {isSavingContent ? 'SAVING...' : 'SAVE'}
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>
@@ -552,13 +609,24 @@ export default function ToolsSection() {
                   {isGeneratingPfp ? "GENERATING..." : "GENERATE PFP"}
                 </Button>
                 {generatedPfpImage && (
-                  <Button 
-                    className="w-full py-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-green-500"
-                    onClick={downloadPfp}
-                    data-testid="button-download-pfp"
-                  >
-                    📥 DOWNLOAD PFP
-                  </Button>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Button 
+                      className="w-full py-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-green-500"
+                      onClick={downloadPfp}
+                      data-testid="button-download-pfp"
+                    >
+                      📥 DOWNLOAD
+                    </Button>
+                    <Button 
+                      className="w-full py-4 bg-gradient-to-r from-toxic-green/60 to-toxic-green/70 hover:from-toxic-green/70 hover:to-toxic-green/80 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-toxic-green/50"
+                      onClick={() => saveContent('pfp', currentPfp, generatedPfpImage)}
+                      disabled={isSavingContent}
+                      data-testid="button-save-pfp"
+                    >
+                      <Save className="w-4 h-4 mr-1" />
+                      {isSavingContent ? 'SAVING...' : 'SAVE'}
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>

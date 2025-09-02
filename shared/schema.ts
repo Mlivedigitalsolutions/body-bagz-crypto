@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, integer, index } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, integer, index, boolean, json } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -37,6 +37,40 @@ export const monthlyRewards = pgTable("monthly_rewards", {
   index("idx_monthly_rewards_month").on(table.monthYear),
 ]);
 
+// Saved content for users
+export const savedContent = pgTable("saved_content", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().references(() => users.id),
+  contentType: text("content_type").notNull(), // 'tweet', 'meme', 'pfp'
+  title: text("title").notNull(),
+  content: text("content").notNull(), // Tweet text or image URL or PFP name
+  metadata: json("metadata"), // Additional data like meme text, prompt used, etc.
+  isFavorite: boolean("is_favorite").notNull().default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_saved_content_user").on(table.userId),
+  index("idx_saved_content_type").on(table.contentType),
+  index("idx_saved_content_favorite").on(table.isFavorite),
+]);
+
+// User preferences and settings
+export const userPreferences = pgTable("user_preferences", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().references(() => users.id),
+  autoSaveContent: boolean("auto_save_content").notNull().default(true),
+  defaultPfpStyle: text("default_pfp_style").default("cyberpunk"),
+  preferredTweetTone: text("preferred_tweet_tone").default("bullish"),
+  notifications: json("notifications").default({
+    newContent: true,
+    leaderboard: true,
+    rewards: true
+  }),
+  theme: text("theme").default("cyberpunk"),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_user_preferences_user").on(table.userId),
+]);
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -59,9 +93,31 @@ export const insertMonthlyRewardSchema = createInsertSchema(monthlyRewards).pick
   tokenReward: true,
 });
 
+export const insertSavedContentSchema = createInsertSchema(savedContent).pick({
+  userId: true,
+  contentType: true,
+  title: true,
+  content: true,
+  metadata: true,
+  isFavorite: true,
+});
+
+export const insertUserPreferencesSchema = createInsertSchema(userPreferences).pick({
+  userId: true,
+  autoSaveContent: true,
+  defaultPfpStyle: true,
+  preferredTweetTone: true,
+  notifications: true,
+  theme: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type InsertLeaderboardEntry = z.infer<typeof insertLeaderboardEntrySchema>;
 export type LeaderboardEntry = typeof leaderboardEntries.$inferSelect;
 export type InsertMonthlyReward = z.infer<typeof insertMonthlyRewardSchema>;
 export type MonthlyReward = typeof monthlyRewards.$inferSelect;
+export type InsertSavedContent = z.infer<typeof insertSavedContentSchema>;
+export type SavedContent = typeof savedContent.$inferSelect;
+export type InsertUserPreferences = z.infer<typeof insertUserPreferencesSchema>;
+export type UserPreferences = typeof userPreferences.$inferSelect;

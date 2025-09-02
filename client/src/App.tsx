@@ -6,12 +6,14 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserProvider } from "@/contexts/UserContext";
 import Home from "@/pages/home";
+import AccountPage from "@/pages/account";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home}/>
+      <Route path="/account" component={AccountPage}/>
       <Route component={NotFound} />
     </Switch>
   );
