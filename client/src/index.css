@@ -47,9 +47,9 @@
   --sidebar-accent-foreground: #0A0A0B;
   --sidebar-border: #2A2B31;
   --sidebar-ring: #E7352C;
-  --font-sans: 'Inter', 'Montserrat', sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: 'Fira Code', monospace;
+  --font-sans: 'Exo 2', 'Orbitron', 'Inter', sans-serif;
+  --font-serif: 'Exo 2', serif;
+  --font-mono: 'Fira Code', 'Orbitron', monospace;
   --radius: 0.75rem;
 }
 
@@ -104,43 +104,109 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Enhanced text readability classes */
+  .text-enhanced {
+    color: #FFFFFF !important;
+    text-shadow: 
+      0 1px 3px rgba(0, 0, 0, 0.9),
+      0 0 8px rgba(255, 255, 255, 0.3) !important;
+    font-weight: 600 !important;
+  }
+
+  .text-dim-enhanced {
+    color: #B8BCC8 !important;
+    text-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.8),
+      0 0 6px rgba(184, 188, 200, 0.2) !important;
+    font-weight: 500 !important;
+  }
+
+  /* Cyberpunk animations and effects */
+  @keyframes cyberpunk-glow {
+    0% { 
+      background-position: 0% 50%;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) brightness(1.0);
+    }
+    50% { 
+      background-position: 100% 50%;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) brightness(1.2);
+    }
+    100% { 
+      background-position: 0% 50%;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) brightness(1.0);
+    }
+  }
+
+  @keyframes neon-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+
+  @keyframes glitch-text {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
 }
 
 @layer components {
   .font-brand {
-    font-family: 'Anton', 'Bebas Neue', 'Impact', 'Arial Black', sans-serif;
-    font-weight: 400;
-    letter-spacing: -0.025em;
-    text-shadow: 
-      0 3px 6px rgba(10, 10, 11, 0.8),
-      0 0 20px rgba(231, 53, 44, 0.4),
-      0 0 40px rgba(57, 255, 20, 0.15);
-    background: linear-gradient(135deg, #EDEEF0 0%, rgba(237, 238, 240, 0.85) 50%, #EDEEF0 100%);
+    font-family: 'Anton', 'Bebas Neue', 'Orbitron', 'Impact', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: linear-gradient(
+      135deg, 
+      #FFFFFF 0%, 
+      #39FF14 25%, 
+      #E7352C 50%, 
+      #7A3BFF 75%, 
+      #FFFFFF 100%
+    );
+    background-size: 200% 200%;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 15px rgba(231, 53, 44, 0.2));
+    animation: cyberpunk-glow 3s ease-in-out infinite alternate;
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(231, 53, 44, 0.6),
+      0 0 30px rgba(57, 255, 20, 0.4),
+      0 0 40px rgba(122, 59, 255, 0.3);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
   }
 
   .font-tech {
-    font-family: 'Orbitron', 'Exo 2', monospace;
-    font-weight: 600;
+    font-family: 'Orbitron', 'Exo 2', 'Fira Code', monospace;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: rgba(57, 255, 20, 0.95);
+    letter-spacing: 0.15em;
+    color: #39FF14;
     text-shadow: 
-      0 1px 2px rgba(10, 10, 11, 0.8),
-      0 0 10px rgba(57, 255, 20, 0.3);
+      0 0 5px #39FF14,
+      0 0 10px #39FF14,
+      0 0 15px #39FF14,
+      0 0 20px rgba(57, 255, 20, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.8);
+    filter: brightness(1.2) contrast(1.1);
+    position: relative;
   }
 
   .font-body {
-    font-family: 'Inter', 'Montserrat', sans-serif;
+    font-family: 'Exo 2', 'Inter', 'Montserrat', sans-serif;
     font-size: 18px;
-    line-height: 1.6;
+    line-height: 1.7;
     font-variant-numeric: tabular-nums;
-    color: rgba(237, 238, 240, 0.9);
-    text-shadow: 0 1px 2px rgba(10, 10, 11, 0.6);
+    color: #EDEEF0;
+    text-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.8),
+      0 0 8px rgba(237, 238, 240, 0.2);
     font-weight: 500;
+    letter-spacing: 0.025em;
   }
 
   .cyber-button {

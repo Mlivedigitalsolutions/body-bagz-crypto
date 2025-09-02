@@ -37,7 +37,7 @@ export default function VisionSection() {
               </div>
             </div>
             <h3 className="font-tech text-xl text-toxic-green mb-4 tracking-wide font-semibold">FOR THE CULTURE</h3>
-            <p className="text-dim-gray font-medium leading-relaxed">Street-born, community-driven. We rep the underground and the overlooked.</p>
+            <p className="text-dim-enhanced font-medium leading-relaxed">Street-born, community-driven. We rep the underground and the overlooked.</p>
           </div>
 
           {/* For the Chaos Card */}
@@ -56,7 +56,7 @@ export default function VisionSection() {
               </div>
             </div>
             <h3 className="font-tech text-xl text-blood-red mb-4 tracking-wide font-semibold">FOR THE CHAOS</h3>
-            <p className="text-dim-gray font-medium leading-relaxed">Disruption is our language. Order is overrated. Chaos breeds innovation.</p>
+            <p className="text-dim-enhanced font-medium leading-relaxed">Disruption is our language. Order is overrated. Chaos breeds innovation.</p>
           </div>
 
           {/* For the People Card */}
@@ -75,7 +75,7 @@ export default function VisionSection() {
               </div>
             </div>
             <h3 className="font-tech text-xl text-glitch-purple mb-4 tracking-wide font-semibold">FOR THE PEOPLE</h3>
-            <p className="text-dim-gray font-medium leading-relaxed">Power to the holders. Built by the community, owned by the community.</p>
+            <p className="text-dim-enhanced font-medium leading-relaxed">Power to the holders. Built by the community, owned by the community.</p>
           </div>
         </div>
       </div>

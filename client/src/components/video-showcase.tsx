@@ -66,7 +66,7 @@ export default function VideoShowcase() {
               </div>
               <div className="p-4">
                 <h3 className="font-tech text-sm text-toxic-green mb-1 tracking-wide font-semibold">{movement.title}</h3>
-                <p className="text-dim-gray text-xs">{movement.description}</p>
+                <p className="text-dim-enhanced text-xs">{movement.description}</p>
               </div>
             </div>
           ))}
@@ -78,7 +78,7 @@ export default function VideoShowcase() {
             <h3 className="font-brand text-3xl text-blood-red mb-4 tracking-wide">
               JOIN THE CHAOS
             </h3>
-            <p className="text-dim-gray text-lg leading-relaxed font-medium">
+            <p className="text-dim-enhanced text-lg leading-relaxed font-medium">
               The streets have chosen. The underground has spoken. 
               <span className="text-toxic-green font-semibold"> $BAGZ </span>
               represents more than just a token—it's a movement for the culture, 

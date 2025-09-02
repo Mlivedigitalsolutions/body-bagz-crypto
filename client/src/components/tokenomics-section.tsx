@@ -137,7 +137,7 @@ export default function TokenomicsSection() {
                     {data.percentage}% {data.label}
                   </span>
                 </div>
-                <p className="text-dim-gray font-medium leading-relaxed">{data.description}</p>
+                <p className="text-dim-enhanced font-medium leading-relaxed">{data.description}</p>
               </div>
             ))}
           </div>
