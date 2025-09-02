@@ -1,0 +1,122 @@
+You are reviewing my Body Bagz project (Express/TypeScript + Replit site). 
+Goal: perform a SAFE audit first, then propose MINIMAL, NON-BREAKING changes as diffs. 
+Do NOT refactor broadly. Do NOT apply changes automatically. First: analyze what already exists so we avoid duplicates.
+
+Context:
+- Public site: https://body-bagz.replit.app
+- Known real links:
+  - Website: https://body-bagz.replit.app
+  - Telegram: https://t.me/BodyBagzs
+  - X Community: https://twitter.com/i/communities/1960797896896602475
+
+What I want from you (order matters):
+1) QUICK INVENTORY (no edits yet):
+   - Confirm whether these already exist anywhere in the repo (server or frontend):
+     a) express.json/urlencoded usage
+     b) helmet
+     c) CORS (and what origins are allowed)
+     d) open graph / twitter card meta tags in the HTML head
+     e) a hero section with clear CTAs (Telegram + X Community + Whitepaper)
+     f) /api/links route returning my real links above
+     g) /api/health and /api/version routes
+     h) static assets folder (e.g., /public or /assets) with cache headers
+     i) leaderboard cache busting (clearLeaderboardCache) when points change
+     j) PFP generator returning correct MIME/extension for SVG vs PNG
+     k) consistent error JSON shape: { "error": { "code": "...", "message": "..." } }
+     l) size/validation limits on user-provided content (e.g., saved content length)
+     m) trading data endpoint pointing to a real DexScreener feed (or mock w/ clear TODO)
+
+   - Also confirm whether the site HTML already contains:
+     - <title>, <meta name="description">
+     - Open Graph + Twitter Card tags
+     - canonical link
+     - favicon / theme-color
+
+2) RISK ASSESSMENT:
+   - For items missing or partial, tell me if adding them is LOW/MED/HIGH risk of breaking current behavior and why.
+   - Call out ANY middleware ordering concerns (security, body parsing, compression, rate limiting).
+
+3) PROPOSE MINIMAL CHANGES (DO NOT APPLY YET):
+   - Provide UNIFIED DIFFS (git-style) per file for only what’s needed.
+   - Keep endpoint paths and existing behavior stable.
+   - Wrap anything “new” behind clear, tiny changes (no big refactors).
+   - If something already exists, SKIP it and say “already present”.
+
+   Specifically propose diffs for the following ONLY if missing:
+   A) Security/infra middleware (LOW risk):
+      - helmet with permissive CORP setting
+      - cors restricted to:
+        https://body-bagz.replit.app
+        https://twitter.com
+        https://t.me
+      - express.json() and express.urlencoded() limits
+
+   B) PFP MIME consistency:
+      - If /api/generate-pfp returns an SVG data URL, set filename to .svg (not .png). 
+        If you can render PNG server-side reliably, propose that as an OPTIONAL patch.
+
+   C) Leaderboard cache:
+      - After storage.addLeaderboardEntry(...) or any points mutation, call clearLeaderboardCache().
+
+   D) Link hub:
+      - Add a GET /api/links route that returns EXACTLY:
+        {
+          "website": "https://body-bagz.replit.app",
+          "telegram": "https://t.me/BodyBagzs",
+          "xCommunity": "https://twitter.com/i/communities/1960797896896602475"
+        }
+
+   E) Health/version:
+      - Add GET /api/health and GET /api/version (e.g., “Body Bagz”, version string).
+
+   F) Static + cache:
+      - Serve /assets (or existing public dir) with cache headers (7d) and etags.
+
+   G) Validation guard:
+      - In POST /api/users/:userId/content add a simple size check (<= 10,000 chars).
+
+   H) Trading data:
+      - Keep current mock but structure it cleanly and add a TODO comment pointing to DexScreener API for later.
+      - Optional: add 15s cache middleware if not present.
+
+   I) Error shape:
+      - Normalize error responses to { "error": { "code": "X_ERR", "message": "..." } } in mutated endpoints ONLY IF QUICK to do.
+      - If that’s invasive, skip and mark as “future”.
+
+   J) Frontend head tags (ONLY if missing):
+      - Provide an HTML snippet with <title>, <meta description>, Open Graph/Twitter, canonical, favicon, theme-color.
+      - Make NO automatic insertion; just give me the snippet and the target file path to paste.
+
+   K) Hero section (ONLY if missing):
+      - Provide a minimal HTML snippet for an above-the-fold hero with banner, H1, short line, and three buttons:
+        - “Join Telegram” (https://t.me/BodyBagzs)
+        - “X Community” (https://twitter.com/i/communities/1960797896896602475)
+        - “White Paper” (/whitepaper.pdf)
+      - Note: Do NOT add /whitepaper.pdf unless present; otherwise label it clearly as a TODO link.
+
+4) SAFETY GUARANTEES:
+   - Do NOT change existing route paths or remove middleware unless explicitly requested.
+   - Do NOT refactor code organization.
+   - Do NOT introduce new heavy deps unless necessary; prefer zero-dependency changes.
+   - Assume production; avoid logging sensitive data; keep console noise low.
+
+5) OUTPUT FORMAT:
+   - Section A: Inventory results (present/missing) with file paths.
+   - Section B: Risk assessment per item.
+   - Section C: Proposed diffs (unified diff blocks), grouped by file.
+   - Section D: Manual paste snippets (HTML head, hero) with target file paths.
+   - Section E: Post-change test checklist.
+
+6) TEST CHECKLIST (include this at the end):
+   - Start server → no TS/Node errors.
+   - Hit /api/health and /api/version → 200 OK JSON.
+   - Hit /api/links → returns the exact three links above.
+   - Call /api/actions/track and verify leaderboard updates, then /api/leaderboard reflects updated scores (cache bust works).
+   - Call /api/generate-pfp → response filename extension matches actual format (SVG vs PNG).
+   - Load homepage → correct title/description, OG/Twitter card renders on link preview, hero shows buttons with my real links.
+   - Confirm CORS allows browser calls from https://body-bagz.replit.app and blocks random origins.
+
+Important:
+- Some of these items MAY already exist internally. FIRST confirm presence and paths; ONLY propose diffs for the missing parts. 
+- Keep the changes minimal and reversible. 
+- Do not apply changes automatically — show me the diffs and I’ll approve.
