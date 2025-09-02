@@ -1,4 +1,4 @@
-import { BarcodeIcon } from "@/components/icons";
+import { BarcodeIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
 
 export default function Footer() {
   return (
@@ -10,7 +10,29 @@ export default function Footer() {
         </div>
         
         <div className="font-brand text-2xl text-blood-red mb-4">BODY BAGZ</div>
-        <div className="font-tech text-toxic-green mb-8">THE VILLAIN ERA HAS BEGUN</div>
+        <div className="font-tech text-toxic-green mb-6">THE VILLAIN ERA HAS BEGUN</div>
+        
+        {/* Social Links */}
+        <div className="flex justify-center space-x-6 mb-8">
+          <a 
+            href="https://t.me/BodyBagzs" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-green-glow transition-all duration-200 group"
+            data-testid="footer-telegram"
+          >
+            <TelegramChaosIcon className="w-6 h-6 text-toxic-green group-hover:scale-110 transition-transform" />
+          </a>
+          <a 
+            href="https://twitter.com/i/communities/1960797896896602475" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-purple-glow transition-all duration-200 group"
+            data-testid="footer-x-community"
+          >
+            <XChaosIcon className="w-6 h-6 text-glitch-purple group-hover:scale-110 transition-transform" />
+          </a>
+        </div>
         
         <div className="space-y-4 text-dim-gray text-sm max-w-2xl mx-auto">
           <p>

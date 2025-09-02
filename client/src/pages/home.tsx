@@ -9,7 +9,7 @@ import MerchSection from "@/components/merch-section";
 import TradingDataSection from "@/components/trading-data-section";
 import CommunitySection from "@/components/community-section";
 import Footer from "@/components/footer";
-import { SkullIcon } from "@/components/icons";
+import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
 
 export default function Home() {
   const mainTitleRef = useRef<HTMLHeadingElement>(null);
@@ -82,11 +82,35 @@ export default function Home() {
             <SkullIcon className="w-8 h-8 text-blood-red" />
             <span className="font-brand text-xl tracking-tight text-blood-red">BODY BAGZ</span>
           </div>
-          <div className="hidden md:flex space-x-8">
-            <a href="#vision" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-vision">VISION</a>
-            <a href="#tokenomics" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tokenomics">TOKENOMICS</a>
-            <a href="#tools" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tools">TOOLS</a>
-            <a href="#community" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-community">COMMUNITY</a>
+          <div className="flex items-center space-x-6">
+            <div className="hidden md:flex space-x-8">
+              <a href="#vision" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-vision">VISION</a>
+              <a href="#tokenomics" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tokenomics">TOKENOMICS</a>
+              <a href="#tools" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tools">TOOLS</a>
+              <a href="#community" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-community">COMMUNITY</a>
+            </div>
+            
+            {/* Social Links */}
+            <div className="flex items-center space-x-3">
+              <a 
+                href="https://t.me/BodyBagzs" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-green-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
+                data-testid="nav-telegram"
+              >
+                <TelegramChaosIcon className="w-5 h-5 text-toxic-green group-hover:scale-110 transition-transform" />
+              </a>
+              <a 
+                href="https://twitter.com/i/communities/1960797896896602475" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-purple-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
+                data-testid="nav-x-community"
+              >
+                <XChaosIcon className="w-5 h-5 text-glitch-purple group-hover:scale-110 transition-transform" />
+              </a>
+            </div>
           </div>
         </div>
       </nav>
