@@ -34,7 +34,9 @@ export default function ToolsSection() {
   const [bottomText, setBottomText] = useState("");
   const [currentPfp, setCurrentPfp] = useState(pfpVariants[0]);
   const [generatedPfpImage, setGeneratedPfpImage] = useState("");
+  const [generatedMemeImage, setGeneratedMemeImage] = useState("");
   const [isGeneratingPfp, setIsGeneratingPfp] = useState(false);
+  const [isGeneratingMeme, setIsGeneratingMeme] = useState(false);
   const { toast } = useToast();
 
   const generateTweet = () => {
@@ -47,16 +49,59 @@ export default function ToolsSection() {
   };
 
   const shareToTwitter = () => {
-    const tweetText = encodeURIComponent(generatedTweet + " #BodyBagz #BAGZ #CryptoVillains");
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
-    window.open(twitterUrl, '_blank');
-    toast({
-      title: "Opening Twitter!",
-      description: "Share the chaos with the world",
-    });
+    const hashtags = "BodyBagz,BAGZ,CryptoVillains,ChaosToken";
+    const tweetText = encodeURIComponent(generatedTweet);
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}&hashtags=${hashtags}`;
+    
+    // Better mobile detection and handling
+    if (navigator.share && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      navigator.share({
+        title: 'Body Bagz Chaos Tweet',
+        text: generatedTweet + " #BodyBagz #BAGZ #CryptoVillains",
+        url: window.location.href
+      }).then(() => {
+        toast({
+          title: "Shared!",
+          description: "Chaos spread successfully",
+        });
+      }).catch(() => {
+        // Fallback to Twitter if native sharing fails
+        window.open(twitterUrl, '_blank');
+      });
+    } else {
+      window.open(twitterUrl, '_blank', 'width=550,height=420');
+      toast({
+        title: "Opening Twitter!",
+        description: "Share the chaos with the world",
+      });
+    }
+  };
+  
+  const copyTweet = async () => {
+    if (generatedTweet) {
+      try {
+        await navigator.clipboard.writeText(generatedTweet + " #BodyBagz #BAGZ #CryptoVillains");
+        toast({
+          title: "Copied!",
+          description: "Tweet copied to clipboard",
+        });
+      } catch (error) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = generatedTweet + " #BodyBagz #BAGZ #CryptoVillains";
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        toast({
+          title: "Copied!",
+          description: "Tweet copied to clipboard",
+        });
+      }
+    }
   };
 
-  const generateMeme = () => {
+  const generateMeme = async () => {
     if (!topText && !bottomText) {
       toast({
         title: "Add some text!",
@@ -65,10 +110,40 @@ export default function ToolsSection() {
       });
       return;
     }
-    toast({
-      title: "Meme Created!",
-      description: "Your chaos meme is ready to share",
-    });
+    
+    setIsGeneratingMeme(true);
+    
+    try {
+      const response = await fetch('/api/generate-meme', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          topText,
+          bottomText
+        }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setGeneratedMemeImage(data.imageUrl);
+        toast({
+          title: "Meme Created!",
+          description: "Your chaos meme is ready to download",
+        });
+      } else {
+        throw new Error('Failed to generate meme');
+      }
+    } catch (error) {
+      toast({
+        title: "Generation Error",
+        description: "Failed to generate meme. Try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGeneratingMeme(false);
+    }
   };
 
   const generatePfp = async () => {
@@ -126,6 +201,21 @@ export default function ToolsSection() {
       });
     }
   };
+  
+  const downloadMeme = () => {
+    if (generatedMemeImage) {
+      const link = document.createElement('a');
+      link.href = generatedMemeImage;
+      link.download = `Body_Bagz_Meme_${Date.now()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast({
+        title: "Downloaded!",
+        description: "Your meme is saved",
+      });
+    }
+  };
 
   return (
     <section id="tools" className="relative z-10 py-20 px-6">
@@ -159,13 +249,22 @@ export default function ToolsSection() {
                   GENERATE CHAOS
                 </Button>
                 {generatedTweet && (
-                  <Button 
-                    className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-blue-500"
-                    onClick={shareToTwitter}
-                    data-testid="button-share-twitter"
-                  >
-                    🐦 SHARE TO TWITTER
-                  </Button>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Button 
+                      className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-blue-500"
+                      onClick={shareToTwitter}
+                      data-testid="button-share-twitter"
+                    >
+                      🐦 SHARE
+                    </Button>
+                    <Button 
+                      className="w-full py-4 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-gray-500"
+                      onClick={copyTweet}
+                      data-testid="button-copy-tweet"
+                    >
+                      📋 COPY
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>
@@ -181,21 +280,32 @@ export default function ToolsSection() {
             </div>
             <div className="space-y-4">
               <div className="bg-jet-black p-6 rounded-lg border border-dim-gray text-center">
-                <div className="w-full h-36 bg-gradient-to-br from-dim-gray to-jet-black rounded-lg flex items-center justify-center mb-4 relative border border-blood-red border-opacity-30">
-                  {/* Premium Template Background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blood-red/10 to-transparent rounded-lg"></div>
-                  <div className="absolute top-2 right-2 w-4 h-4 bg-blood-red opacity-20 rounded-full blur-sm"></div>
-                  
-                  <span className="text-ash-white text-sm font-semibold tracking-wide relative z-10">BODY BAGZ MEME TEMPLATE</span>
-                  {topText && (
-                    <div className="absolute top-3 left-3 right-3 text-ash-white font-black text-sm tracking-wide" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
-                      {topText}
-                    </div>
-                  )}
-                  {bottomText && (
-                    <div className="absolute bottom-3 left-3 right-3 text-ash-white font-black text-sm tracking-wide" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
-                      {bottomText}
-                    </div>
+                <div className="w-full h-36 bg-gradient-to-br from-dim-gray to-jet-black rounded-lg flex items-center justify-center mb-4 relative border border-blood-red border-opacity-30 overflow-hidden">
+                  {generatedMemeImage ? (
+                    <img 
+                      src={generatedMemeImage} 
+                      alt="Generated meme"
+                      className="w-full h-full object-cover rounded-lg"
+                      data-testid="generated-meme-image"
+                    />
+                  ) : (
+                    <>
+                      {/* Premium Template Background */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-blood-red/10 to-transparent rounded-lg"></div>
+                      <div className="absolute top-2 right-2 w-4 h-4 bg-blood-red opacity-20 rounded-full blur-sm"></div>
+                      
+                      <span className="text-ash-white text-sm font-semibold tracking-wide relative z-10">BODY BAGZ MEME TEMPLATE</span>
+                      {topText && (
+                        <div className="absolute top-3 left-3 right-3 text-ash-white font-black text-sm tracking-wide" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
+                          {topText}
+                        </div>
+                      )}
+                      {bottomText && (
+                        <div className="absolute bottom-3 left-3 right-3 text-ash-white font-black text-sm tracking-wide" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
+                          {bottomText}
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
                 <Input 
@@ -215,13 +325,25 @@ export default function ToolsSection() {
                   data-testid="input-meme-bottom-text"
                 />
               </div>
-              <Button 
-                className="cyber-button w-full py-4 text-ash-white font-bold tracking-wide" 
-                onClick={generateMeme}
-                data-testid="button-create-meme"
-              >
-                CREATE MEME
-              </Button>
+              <div className="space-y-3">
+                <Button 
+                  className="cyber-button w-full py-4 text-ash-white font-bold tracking-wide" 
+                  onClick={generateMeme}
+                  disabled={isGeneratingMeme}
+                  data-testid="button-create-meme"
+                >
+                  {isGeneratingMeme ? "CREATING..." : "CREATE MEME"}
+                </Button>
+                {generatedMemeImage && (
+                  <Button 
+                    className="w-full py-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-purple-500"
+                    onClick={downloadMeme}
+                    data-testid="button-download-meme"
+                  >
+                    📥 DOWNLOAD MEME
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
 
