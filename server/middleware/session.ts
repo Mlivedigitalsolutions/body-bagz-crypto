@@ -7,7 +7,7 @@ export function setupSessionManagement(app: Express) {
   
   const sessionMiddleware = session({
     store: new pgSession({
-      connectionString: process.env.DATABASE_URL,
+      conString: process.env.DATABASE_URL,
       createTableIfMissing: false,
       tableName: 'sessions',
     }),

@@ -4,6 +4,7 @@ import compression from "compression";
 import { ImageGenerator } from "./imageGenerator";
 import { storage } from "./storage";
 import { insertUserSchema, insertLeaderboardEntrySchema } from "@shared/schema";
+import { generateCyberpunkPFP, generateBullishTweet, generateMemeText } from "./openai";
 import { 
   generalLimiter, 
   strictLimiter, 
@@ -26,20 +27,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use(generalLimiter);
   app.use(errorLogger);
   
-  // Tweet Generator API with rate limiting and caching
-  app.post("/api/generate-tweet", strictLimiter, cacheMiddleware('tweets', 300), async (req, res) => {
+  // AI-powered Tweet Generator API with rate limiting and caching
+  app.post("/api/generate-tweet", strictLimiter, cacheMiddleware('tweets', 300), async (req: Request, res: Response) => {
     try {
       const { userId } = req.body;
       
-      const bullishTweets = [
-        "Just bagged another mil in $BAGZ 💀 The villain era hits different when you're stacking chaos. NFA but this rocket's fueled by pure degeneracy 🚀",
-        "While you're sleeping, $BAGZ holders are building an empire in the shadows. The chaos collective never rests 👤",
-        "$BAGZ isn't just a token, it's a movement. For the culture, for the chaos, for the people who refuse to conform 🔥",
-        "Zipped up another bag today. $BAGZ community growing stronger while the market bleeds. This is how villains win 💪",
-        "The street chose $BAGZ. Underground vibes, premium gains. If you know, you know 🖤"
-      ];
-      
-      const randomTweet = bullishTweets[Math.floor(Math.random() * bullishTweets.length)];
+      let tweet;
+      // Try AI generation first
+      try {
+        tweet = await generateBullishTweet();
+      } catch (aiError) {
+        console.error('AI tweet generation failed, using fallback:', aiError);
+        // Enhanced fallback tweets with more variety and hashtags
+        const bullishTweets = [
+          "The streets chose $BAGZ for a reason 🔥 Villain era never ends #BAGZ #CryptoVillain #StreetSmart #ChaosProfit #UndergroundGains",
+          "Underground movement going mainstream 📈 $BAGZ holders eating good tonight #BAGZ #VillainEra #CyberGains #UndergroundKing #StreetCode",
+          "When chaos becomes profitable, you know it's $BAGZ season ⚡💀 #BAGZ #ChaosEconomy #StreetCode #VillainMode #CryptoRebel",
+          "Cyberpunk aesthetic, real world gains 🖤💚 $BAGZ revolutionizing the game #BAGZ #CyberStreet #FutureWealth #NeonProfit #TechRebel",
+          "Body bags stacking, portfolio packing 💰 $BAGZ community built different #BAGZ #VillainGains #StreetSmart #ChaosMode #UndergroundWins",
+          "The algorithm chose violence, we chose $BAGZ 🏴‍☠️ #BAGZ #DigitalVillain #CryptoAnarchy #StreetWins #ChaosTheory"
+        ];
+        tweet = bullishTweets[Math.floor(Math.random() * bullishTweets.length)];
+      }
       
       // Track tweet generation action if userId provided
       if (userId) {
@@ -59,34 +68,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      res.json({ tweet: randomTweet });
+      res.json({ tweet });
     } catch (error) {
       console.error('Error generating tweet:', error);
       res.status(500).json({ error: 'Failed to generate tweet' });
     }
   });
 
-  // Enhanced PFP Generator API - Creates real downloadable images
-  app.post("/api/generate-pfp", strictLimiter, async (req, res) => {
+  // AI-powered PFP Generator API - Creates unique cyberpunk images
+  app.post("/api/generate-pfp", strictLimiter, async (req: Request, res: Response) => {
     try {
       const { prompt, name, userId } = req.body;
       
-      if (!name) {
-        return res.status(400).json({ error: 'Name is required' });
+      let imageUrl;
+      // Try AI generation first
+      try {
+        imageUrl = await generateCyberpunkPFP();
+      } catch (aiError) {
+        console.error('AI PFP generation failed, using fallback:', aiError);
+        
+        // Enhanced fallback with unique cyberpunk styling
+        const styles = ['bottts', 'bottts-neutral', 'identicon'];
+        const colors = ['dc2626', '16a34a', '7c3aed', 'f59e0b', 'ec4899', '06b6d4', 'f97316'];
+        const seeds = ['cyberpunk', 'neon', 'villain', 'chaos', 'street', 'matrix', 'ghost', 'rebel', 'shadow', 'tech'];
+        
+        const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const timestamp = Date.now();
+        const randomSeed = seeds[Math.floor(Math.random() * seeds.length)] + timestamp;
+        
+        imageUrl = `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${randomSeed}&backgroundColor=0a0a0b&primaryColor=${randomColor}&scale=85&translateY=5`;
       }
-
-      // Determine style based on prompt keywords
-      let style: 'cyberpunk' | 'villain' | 'chaos' | 'shadow' = 'cyberpunk';
-      if (prompt?.toLowerCase().includes('villain')) style = 'villain';
-      else if (prompt?.toLowerCase().includes('chaos')) style = 'chaos';
-      else if (prompt?.toLowerCase().includes('shadow')) style = 'shadow';
-
-      // Generate enhanced SVG with better styling
-      const imageUrl = await ImageGenerator.generatePFP({
-        name: name.split(' ')[0] || 'BAGZ',
-        style,
-        size: 512
-      });
       
       // Track PFP download action if userId provided
       if (userId) {
@@ -113,21 +125,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Enhanced Meme Generator API - Creates actual downloadable memes
-  app.post("/api/generate-meme", async (req, res) => {
+  // AI-enhanced Meme Generator API - Creates actual downloadable memes
+  app.post("/api/generate-meme", generalLimiter, async (req: Request, res: Response) => {
     try {
       const { topText, bottomText, userId } = req.body;
       
+      let memeText = { topText: topText || '', bottomText: bottomText || '' };
+      
+      // If no text provided, use AI to generate it
       if (!topText && !bottomText) {
-        return res.status(400).json({ error: 'At least one text field is required' });
+        try {
+          memeText = await generateMemeText();
+        } catch (aiError) {
+          console.error('AI meme text generation failed, using fallback:', aiError);
+          const fallbackTexts = [
+            { topText: "WHEN YOU HOLD $BAGZ", bottomText: "VILLAIN MODE ACTIVATED" },
+            { topText: "CHAOS IS PROFITABLE", bottomText: "$BAGZ DELIVERING" },
+            { topText: "UNDERGROUND MOVEMENT", bottomText: "MAINSTREAM GAINS" },
+            { topText: "CYBERPUNK VIBES", bottomText: "REAL WORLD PROFITS" }
+          ];
+          memeText = fallbackTexts[Math.floor(Math.random() * fallbackTexts.length)];
+        }
       }
 
-      // Generate enhanced meme with cyberpunk styling
-      const imageUrl = await ImageGenerator.generateMeme({
-        topText: topText || '',
-        bottomText: bottomText || '',
-        size: { width: 800, height: 600 }
-      });
+      const imageGenerator = new ImageGenerator();
+      const imageUrl = await imageGenerator.generateMeme(memeText.topText, memeText.bottomText);
       
       // Track meme creation action if userId provided
       if (userId) {
@@ -223,7 +245,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Action tracking endpoints
-  app.post("/api/actions/track", strictLimiter, validateActionTracking, async (req, res) => {
+  app.post("/api/actions/track", strictLimiter, validateActionTracking, async (req: Request, res: Response) => {
     try {
       const { userId, actionType } = req.body;
       
@@ -374,7 +396,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Analytics endpoint for privacy-focused tracking
-  app.post("/api/analytics", async (req, res) => {
+  app.post("/api/analytics", async (req: Request, res: Response) => {
     try {
       const { events } = req.body;
       
