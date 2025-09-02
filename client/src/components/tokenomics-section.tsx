@@ -1,4 +1,5 @@
 import { useState } from "react";
+import tokenomicsHeaderImg from "@assets/generated_images/Tokenomics_section_cyberpunk_header_0d963af7.png";
 
 interface TokenomicsData {
   label: string;
@@ -62,6 +63,14 @@ export default function TokenomicsSection() {
   return (
     <section id="tokenomics" className="relative z-10 py-20 px-6">
       <div className="max-w-6xl mx-auto">
+        <div className="relative mb-12 overflow-hidden rounded-xl">
+          <img 
+            src={tokenomicsHeaderImg} 
+            alt="Cyberpunk Tokenomics - Financial Warfare" 
+            className="w-full h-48 object-cover border border-toxic-green/30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-toxic-green/20 to-blood-red/20"></div>
+        </div>
         <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-16" data-testid="tokenomics-title">
           TOKENOMICS
         </h2>

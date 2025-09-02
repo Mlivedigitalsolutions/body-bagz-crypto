@@ -1,9 +1,18 @@
 import { UrbanGritIcon, FireSkullIcon, RaisedFistIcon } from "@/components/icons";
+import visionHeaderImg from "@assets/generated_images/Vision_section_cyberpunk_header_94b2d214.png";
 
 export default function VisionSection() {
   return (
     <section id="vision" className="relative z-10 py-20 px-6">
       <div className="max-w-7xl mx-auto">
+        <div className="relative mb-12 overflow-hidden rounded-xl">
+          <img 
+            src={visionHeaderImg} 
+            alt="Cyberpunk Vision - For The Culture, Chaos & People" 
+            className="w-full h-48 object-cover border border-blood-red/30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-blood-red/30 via-toxic-green/20 to-glitch-purple/30"></div>
+        </div>
         <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-16" data-testid="vision-title">
           OUR VISION
         </h2>
