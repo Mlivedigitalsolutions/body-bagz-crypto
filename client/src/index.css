@@ -60,7 +60,7 @@
 
   body {
     @apply text-foreground font-sans antialiased;
-    background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 25%, #2A2A2A 50%, #1A1A1A 75%, #0A0A0A 100%);
+    background: #0A0A0A !important;
     position: relative;
     min-height: 100vh;
   }

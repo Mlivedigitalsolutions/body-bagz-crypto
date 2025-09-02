@@ -17,6 +17,58 @@ import {
 } from "./middleware/security";
 import { cacheMiddleware, clearLeaderboardCache } from "./middleware/cache";
 
+// Generate cyberpunk villain PFP that matches Body Bagz brand
+function generateCyberpunkVillainPFP(): string {
+  const villainTypes = [
+    'death-reaper', 'shadow-assassin', 'cyber-hunter', 'neon-phantom', 
+    'chaos-lord', 'street-villain', 'dark-commander', 'toxic-warlord',
+    'blood-operative', 'void-enforcer', 'cyber-demon', 'skull-emperor'
+  ];
+  
+  const backgroundColors = ['0A0A0A', '111214', '1A1A1A', '0D0D0D'];
+  const accentColors = ['E7352C', '39FF14', '7A3BFF', 'FF0040', '00FF88'];
+  
+  const villainType = villainTypes[Math.floor(Math.random() * villainTypes.length)];
+  const bgColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+  const accentColor = accentColors[Math.floor(Math.random() * accentColors.length)];
+  const timestamp = Date.now();
+  const uniqueSeed = `${villainType}-${timestamp}`;
+  
+  // Create SVG for cyberpunk villain avatar
+  const svgContent = `
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="#${bgColor}"/>
+      
+      <!-- Villain mask base -->
+      <circle cx="100" cy="90" r="45" fill="#${accentColor}" opacity="0.9"/>
+      <rect x="75" y="75" width="50" height="30" fill="#${bgColor}"/>
+      
+      <!-- Eyes -->
+      <rect x="85" y="85" width="8" height="8" fill="#${accentColor}" opacity="0.8"/>
+      <rect x="107" y="85" width="8" height="8" fill="#${accentColor}" opacity="0.8"/>
+      
+      <!-- Villain details -->
+      <rect x="90" y="105" width="20" height="4" fill="#${accentColor}" opacity="0.7"/>
+      <rect x="95" y="100" width="10" height="2" fill="#${accentColor}"/>
+      
+      <!-- Cyberpunk elements -->
+      <rect x="70" y="70" width="3" height="15" fill="#${accentColor}" opacity="0.6"/>
+      <rect x="127" y="70" width="3" height="15" fill="#${accentColor}" opacity="0.6"/>
+      
+      <!-- Bottom accent -->
+      <rect x="80" y="140" width="40" height="3" fill="#${accentColor}" opacity="0.5"/>
+      
+      <!-- Tech lines -->
+      <line x1="60" y1="120" x2="80" y2="120" stroke="#${accentColor}" stroke-width="1" opacity="0.4"/>
+      <line x1="120" y1="120" x2="140" y2="120" stroke="#${accentColor}" stroke-width="1" opacity="0.4"/>
+    </svg>
+  `.trim();
+  
+  // Convert to data URL
+  const dataUrl = `data:image/svg+xml;base64,${Buffer.from(svgContent).toString('base64')}`;
+  return dataUrl;
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // Trust proxy for rate limiting
   app.set('trust proxy', 1);
@@ -87,17 +139,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (aiError) {
         console.error('AI PFP generation failed, using fallback:', aiError);
         
-        // Enhanced fallback with unique cyberpunk styling
-        const styles = ['bottts', 'bottts-neutral', 'identicon'];
-        const colors = ['dc2626', '16a34a', '7c3aed', 'f59e0b', 'ec4899', '06b6d4', 'f97316'];
-        const seeds = ['cyberpunk', 'neon', 'villain', 'chaos', 'street', 'matrix', 'ghost', 'rebel', 'shadow', 'tech'];
-        
-        const randomStyle = styles[Math.floor(Math.random() * styles.length)];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        const timestamp = Date.now();
-        const randomSeed = seeds[Math.floor(Math.random() * seeds.length)] + timestamp;
-        
-        imageUrl = `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${randomSeed}&backgroundColor=0a0a0b&primaryColor=${randomColor}&scale=85&translateY=5`;
+        // Body Bagz cyberpunk villain PFP fallback  
+        imageUrl = generateCyberpunkVillainPFP();
+        console.log('Generated custom cyberpunk villain PFP');
       }
       
       // Track PFP download action if userId provided
@@ -213,7 +257,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // === LEADERBOARD SYSTEM APIs ===
   
   // User registration/profile management
-  app.post("/api/users/register", registrationLimiter, validateRegistration, async (req, res) => {
+  app.post("/api/users/register", registrationLimiter, validateRegistration, async (req: Request, res: Response) => {
     try {
       const validData = insertUserSchema.parse(req.body);
       const existingUser = await storage.getUserByUsername(validData.username);
@@ -466,7 +510,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Generate monthly rewards (manual trigger for now - could be automated)
-  app.post("/api/admin/generate-rewards/:monthYear", async (req, res) => {
+  app.post("/api/admin/generate-rewards/:monthYear", async (req: Request, res: Response) => {
     try {
       const { monthYear } = req.params;
       
