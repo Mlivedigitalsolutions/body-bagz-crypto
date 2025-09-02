@@ -39,6 +39,7 @@ export default function ToolsSection() {
   const [currentPfp, setCurrentPfp] = useState(pfpVariants[0]);
   const [generatedPfpImage, setGeneratedPfpImage] = useState("");
   const [generatedMemeImage, setGeneratedMemeImage] = useState("");
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [isGeneratingPfp, setIsGeneratingPfp] = useState(false);
   const [isGeneratingMeme, setIsGeneratingMeme] = useState(false);
   const [isGeneratingTweet, setIsGeneratingTweet] = useState(false);
@@ -155,11 +156,35 @@ export default function ToolsSection() {
     }
   };
 
-  const generateMeme = async () => {
-    if (!topText && !bottomText) {
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setUploadedImage(file);
       toast({
-        title: "Add some text!",
-        description: "Enter top or bottom text to create your meme",
+        title: "Image Uploaded!",
+        description: "Ready to create your custom meme",
+      });
+    }
+  };
+
+  const downloadImage = (imageUrl: string, filename: string) => {
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast({
+      title: "Download Started!",
+      description: "Your image is downloading",
+    });
+  };
+
+  const generateMeme = async () => {
+    if (!topText && !bottomText && !uploadedImage) {
+      toast({
+        title: "Add content!",
+        description: "Add text or upload an image for your meme",
         variant: "destructive"
       });
       return;
@@ -168,6 +193,15 @@ export default function ToolsSection() {
     setIsGeneratingMeme(true);
     
     try {
+      let baseImageData = null;
+      if (uploadedImage) {
+        const reader = new FileReader();
+        baseImageData = await new Promise((resolve) => {
+          reader.onload = () => resolve(reader.result);
+          reader.readAsDataURL(uploadedImage);
+        });
+      }
+      
       const response = await fetch('/api/generate-meme', {
         method: 'POST',
         headers: {
@@ -176,6 +210,7 @@ export default function ToolsSection() {
         body: JSON.stringify({ 
           topText,
           bottomText,
+          baseImage: baseImageData,
           userId: user?.id
         }),
       });
@@ -378,9 +413,35 @@ export default function ToolsSection() {
                   placeholder="Bottom text..." 
                   value={bottomText}
                   onChange={(e) => setBottomText(e.target.value)}
-                  className="cyber-input w-full px-4 py-3 text-ash-white placeholder-dim-gray rounded-lg font-medium" 
+                  className="cyber-input w-full px-4 py-3 text-ash-white placeholder-dim-gray rounded-lg mb-3 font-medium" 
                   data-testid="input-meme-bottom-text"
                 />
+                <div className="relative">
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden" 
+                    id="meme-image-upload"
+                  />
+                  <Button 
+                    type="button"
+                    onClick={() => document.getElementById('meme-image-upload')?.click()}
+                    className="w-full py-3 bg-gradient-to-r from-toxic-green/20 to-toxic-green/10 hover:from-toxic-green/30 hover:to-toxic-green/20 text-toxic-green border border-toxic-green/30 font-bold tracking-wide rounded-lg transition-all duration-200"
+                    data-testid="button-upload-image"
+                  >
+                    📂 {uploadedImage ? uploadedImage.name : 'UPLOAD BASE IMAGE (OPTIONAL)'}
+                  </Button>
+                  {uploadedImage && (
+                    <Button 
+                      type="button"
+                      onClick={() => setUploadedImage(null)}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-blood-red hover:bg-blood-red/80 text-white rounded-full text-xs font-bold"
+                    >
+                      ×
+                    </Button>
+                  )}
+                </div>
               </div>
               <div className="space-y-3">
                 <Button 

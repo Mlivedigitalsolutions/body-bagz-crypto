@@ -118,7 +118,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      res.json({ imageUrl });
+      // Return both the image URL and download information
+      res.json({ 
+        imageUrl,
+        downloadUrl: imageUrl,
+        filename: `bagz_pfp_${Date.now()}.png`
+      });
     } catch (error) {
       console.error('Error generating PFP:', error);
       res.status(500).json({ error: 'Failed to generate PFP' });
@@ -128,7 +133,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AI-enhanced Meme Generator API - Creates actual downloadable memes
   app.post("/api/generate-meme", generalLimiter, async (req: Request, res: Response) => {
     try {
-      const { topText, bottomText, userId } = req.body;
+      const { topText, bottomText, userId, baseImage } = req.body;
       
       let memeText = { topText: topText || '', bottomText: bottomText || '' };
       
@@ -149,7 +154,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const imageGenerator = new ImageGenerator();
-      const imageUrl = await imageGenerator.generateMeme(memeText.topText, memeText.bottomText);
+      const imageUrl = await imageGenerator.generateMeme(memeText.topText, memeText.bottomText, baseImage);
       
       // Track meme creation action if userId provided
       if (userId) {
@@ -169,7 +174,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      res.json({ imageUrl });
+      // Return both the image URL and download information
+      res.json({ 
+        imageUrl,
+        downloadUrl: imageUrl,
+        filename: `bagz_meme_${Date.now()}.png`
+      });
     } catch (error) {
       console.error('Error generating meme:', error);
       res.status(500).json({ error: 'Failed to generate meme' });

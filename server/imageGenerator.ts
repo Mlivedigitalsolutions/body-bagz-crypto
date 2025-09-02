@@ -110,8 +110,20 @@ export class ImageGenerator {
     return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
   }
 
-  static async generateMeme(options: MemeOptions): Promise<string> {
-    const { topText, bottomText, size } = options;
+  static async generateMeme(options: MemeOptions & { baseImage?: string }): Promise<string> {
+    const { topText, bottomText, size, baseImage } = options;
+    
+    // If base image is provided, we'll create a different SVG structure
+    let backgroundElement = '';
+    if (baseImage && baseImage.startsWith('data:image/')) {
+      // Use the base64 image as background
+      backgroundElement = `<image href="${baseImage}" x="0" y="0" width="${size.width}" height="${size.height}" preserveAspectRatio="xMidYMid slice"/>`;
+    } else {
+      // Use default gradient background
+      backgroundElement = `
+        <rect width="${size.width}" height="${size.height}" fill="url(#memeGrad)"/>
+        <rect width="${size.width}" height="${size.height}" fill="url(#scanlines)"/>`;
+    }
     
     const svg = `
       <svg width="${size.width}" height="${size.height}" viewBox="0 0 ${size.width} ${size.height}" xmlns="http://www.w3.org/2000/svg">
@@ -135,8 +147,7 @@ export class ImageGenerator {
         </defs>
         
         <!-- Background -->
-        <rect width="${size.width}" height="${size.height}" fill="url(#memeGrad)"/>
-        <rect width="${size.width}" height="${size.height}" fill="url(#scanlines)"/>
+        ${backgroundElement}
         
         <!-- Central Logo Area -->
         <rect x="${size.width*0.25}" y="${size.height*0.35}" width="${size.width*0.5}" height="${size.height*0.3}" 
