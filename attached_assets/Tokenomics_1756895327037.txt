@@ -1,0 +1,199 @@
+You are updating the **Tokenomics** section of the Body Bagz site. 
+Goal: redesign the section with on-brand visuals (neon, cyberpunk, reaper aesthetic), and replace the old % buckets with the new Pump.fun–accurate structure BELOW. 
+Do NOT refactor the whole app. Keep routing, fonts, and global styles intact. 
+First: take inventory of the current Tokenomics component/markup. Then propose UNIFIED DIFFS. After I confirm, apply.
+
+-------------------------------------
+NEW COPY (use exactly, with headings + one-liners)
+Section title:  ⚡ TOKENOMICS — BLUEPRINT OF THE VILLAIN ERA
+
+1) Villain Army — 40%
+One-liner: Rewards, raids, and meme bounties powering the streets.
+
+2) Chaos Treasury — 30%
+One-liner: Marketing, KOL alliances, boosts, and expansion firepower.
+
+3) Architects of Evil — 20%
+One-liner: Core builders and mods — vested to prove we’re here to stay.
+
+4) Unseen Shadows — 10%
+One-liner: Strategic reserve for buybacks, floor defense, and ops when the streets demand it.
+
+Add a short footer note under the section:
+Disclaimer: Community-driven meme project. Allocations may evolve to serve growth. Not financial advice.
+
+-------------------------------------
+DESIGN / BRAND REQUIREMENTS
+• Layout: 2x2 responsive grid on desktop, stacked cards on mobile. 
+• Card style: rounded “glow cards” (soft neon outer glow, subtle inner gradient), each with a left icon + heading + % + one-liner. 
+• Palette (stay close to these):
+  - Background: #0A0A0B / #111214
+  - Neon Green: #39FF14
+  - Villain Red: #E7352C
+  - Chaos Purple: #7A3BFF
+  - Steel Gray: #4A5568 / #A0AEC0 (strokes, text accents)
+  - White highlight: #F7FAFC
+• Typography: Use existing fonts. Headings bold, all-caps; one-liners slightly desaturated for readability.
+• Icons (brand-consistent): 
+  - villain-army.svg (neon shield/skull)
+  - chaos-treasury.svg (neon vault/briefcase)
+  - architects-of-evil.svg (neon gear/hood)
+  - unseen-shadows.svg (neon eye/hooded silhouette)
+  Place them in /public/assets/tokenomics/ and reference with <img>. If assets don’t exist, generate minimal SVGs matching palette and glow.
+• Motion (optional, LOW intensity): tiny hover lift + glow bloom (no large libs; CSS only).
+• Accessibility: alt text for icons, sufficient contrast, semantic <section>/<h2>.
+
+-------------------------------------
+IMPLEMENTATION PLAN (React + Vite)
+1) Create a new component:  src/components/TokenomicsSection.tsx
+   - Render the section title + 4 glow cards with the copy above.
+   - Import icons from /public/assets/tokenomics/*.svg (add TODO comments if missing).
+2) Light CSS:
+   - If Tailwind is NOT installed, use a scoped CSS module: src/components/TokenomicsSection.module.css
+   - Provide CSS for: grid, glow cards, hover, and mobile stacking.
+3) Replace the old tokenomics block:
+   - Find where the current section mounts (e.g., Home or Landing component) and swap it for <TokenomicsSection />.
+4) Do NOT touch unrelated routes/components.
+
+-------------------------------------
+PROPOSED FILES (please show UNIFIED DIFFS first, do not auto-apply)
+A) src/components/TokenomicsSection.tsx
+B) src/components/TokenomicsSection.module.css
+C) Update import in the page component that renders the section (e.g., src/pages/Home.tsx or src/App.tsx).
+
+-------------------------------------
+SUGGESTED TSX (use as reference in the diff)
+import styles from "./TokenomicsSection.module.css";
+
+export default function TokenomicsSection() {
+  const items = [
+    {
+      key: "army",
+      color: "#39FF14",
+      title: "Villain Army — 40%",
+      text: "Rewards, raids, and meme bounties powering the streets.",
+      icon: "/assets/tokenomics/villain-army.svg",
+      alt: "Villain Army icon"
+    },
+    {
+      key: "treasury",
+      color: "#7A3BFF",
+      title: "Chaos Treasury — 30%",
+      text: "Marketing, KOL alliances, boosts, and expansion firepower.",
+      icon: "/assets/tokenomics/chaos-treasury.svg",
+      alt: "Chaos Treasury icon"
+    },
+    {
+      key: "architects",
+      color: "#A0AEC0",
+      title: "Architects of Evil — 20%",
+      text: "Core builders and mods — vested to prove we’re here to stay.",
+      icon: "/assets/tokenomics/architects-of-evil.svg",
+      alt: "Architects of Evil icon"
+    },
+    {
+      key: "shadows",
+      color: "#E7352C",
+      title: "Unseen Shadows — 10%",
+      text: "Strategic reserve for buybacks, floor defense, and ops when the streets demand it.",
+      icon: "/assets/tokenomics/unseen-shadows.svg",
+      alt: "Unseen Shadows icon"
+    }
+  ];
+
+  return (
+    <section className={styles.wrap} aria-label="Tokenomics — Blueprint of the Villain Era">
+      <h2 className={styles.title}>⚡ TOKENOMICS — BLUEPRINT OF THE VILLAIN ERA</h2>
+      <div className={styles.grid}>
+        {items.map((it) => (
+          <article key={it.key} className={styles.card} style={{ "--glow": it.color } as React.CSSProperties}>
+            <div className={styles.iconWrap}>
+              <img src={it.icon} alt={it.alt} className={styles.icon} loading="lazy" />
+            </div>
+            <div className={styles.body}>
+              <h3 className={styles.heading}>{it.title}</h3>
+              <p className={styles.text}>{it.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p className={styles.note}>
+        Disclaimer: Community-driven meme project. Allocations may evolve to serve growth. Not financial advice.
+      </p>
+    </section>
+  );
+}
+
+-------------------------------------
+SUGGESTED CSS MODULE (use as reference in the diff)
+.wrap {
+  padding: 48px 16px;
+  background: #0A0A0B;
+  color: #F7FAFC;
+}
+.title {
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 900px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+.card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 16px;
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(255,255,255,0.04), rgba(255,255,255,0.0)),
+    #111214;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow:
+    0 0 24px 0 color-mix(in oklab, var(--glow) 60%, transparent),
+    inset 0 0 12px rgba(255,255,255,0.04);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 36px 2px color-mix(in oklab, var(--glow) 80%, transparent),
+    inset 0 0 16px rgba(255,255,255,0.06);
+}
+.iconWrap {
+  min-width: 56px;
+  min-height: 56px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 0 18px 0 color-mix(in oklab, var(--glow) 50%, transparent);
+}
+.icon { width: 36px; height: 36px; object-fit: contain; }
+.heading { margin: 2px 0 6px; font-weight: 800; text-transform: uppercase; }
+.text { margin: 0; opacity: 0.9; }
+.note { margin-top: 18px; opacity: 0.7; text-align: center; font-size: 0.9rem; }
+
+-------------------------------------
+ASSETS
+• If /public/assets/tokenomics/*.svg missing, create simple brand-consistent SVGs with neon strokes:
+  villain-army.svg (skull/shield), chaos-treasury.svg (vault/briefcase), architects-of-evil.svg (gear/hood), unseen-shadows.svg (eye/hood).
+• Keep files ~2–6KB each; include <title> inside SVG for accessibility.
+
+-------------------------------------
+OUTPUT FORMAT
+• Section A: Inventory (where current tokenomics lives, files/paths).
+• Section B: Unified diffs for the 2–3 files listed above.
+• Section C: Asset checklist with any TODOs.
+• Section D: Post-change test checklist:
+  - Build succeeds; section renders on mobile + desktop.
+  - Icons load from /public/assets/tokenomics/.
+  - Contrast AA+; alt text present.
+  - No layout shift with music player.
