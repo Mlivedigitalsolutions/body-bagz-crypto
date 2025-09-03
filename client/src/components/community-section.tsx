@@ -25,7 +25,7 @@ export default function CommunitySection() {
                 </div>
               </div>
               <h3 className="font-tech text-xl text-toxic-green mb-4 tracking-wide font-semibold">TELEGRAM</h3>
-              <p className="text-dim-gray font-medium leading-relaxed">Join the underground. Real-time chaos coordination.</p>
+              <p className="text-ash-white/80 font-medium leading-relaxed">Join the underground. Real-time chaos coordination.</p>
             </div>
           </a>
 
@@ -45,7 +45,7 @@ export default function CommunitySection() {
                 </div>
               </div>
               <h3 className="font-tech text-xl text-glitch-purple mb-4 tracking-wide font-semibold">X COMMUNITY</h3>
-              <p className="text-dim-gray font-medium leading-relaxed">Spread the chaos. Meme warfare HQ.</p>
+              <p className="text-ash-white/80 font-medium leading-relaxed">Spread the chaos. Meme warfare HQ.</p>
             </div>
           </a>
         </div>

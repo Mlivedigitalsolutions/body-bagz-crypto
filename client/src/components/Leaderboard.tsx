@@ -74,7 +74,7 @@ export function Leaderboard() {
     if (points >= 100) return "text-toxic-green";
     if (points >= 50) return "text-blood-red";
     if (points >= 25) return "text-glitch-purple";
-    return "text-dim-gray";
+    return "text-ash-white/70";
   };
 
   const formatMonthDisplay = (monthYear: string) => {
@@ -98,7 +98,7 @@ export function Leaderboard() {
           <h2 className="font-brand text-4xl md:text-5xl text-blood-red mb-4" data-testid="leaderboard-title">
             CHAOS LEADERBOARD
           </h2>
-          <p className="text-dim-gray text-lg font-medium">
+          <p className="text-ash-white/90 text-lg font-medium">
             Compete for monthly rewards. Top performers earn up to <span className="text-toxic-green font-bold">10,000 $BAGZ tokens</span>
           </p>
         </div>
@@ -112,7 +112,7 @@ export function Leaderboard() {
               className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
                 selectedMonth === option.value
                   ? "bg-blood-red text-ash-white border-blood-red"
-                  : "bg-onyx text-dim-gray border-dim-gray hover:bg-blood-red/20 hover:text-blood-red"
+                  : "bg-onyx text-ash-white/80 border-dim-gray hover:bg-blood-red/20 hover:text-blood-red"
               } border`}
               data-testid={`button-month-${option.value}`}
             >
@@ -149,8 +149,8 @@ export function Leaderboard() {
                 ) : leaderboard.length === 0 ? (
                   <div className="text-center py-12">
                     <Users className="w-16 h-16 text-dim-gray mx-auto mb-4" />
-                    <p className="text-dim-gray text-lg">No chaos creators yet this month</p>
-                    <p className="text-ash-white/60 mt-2">Be the first to climb the rankings!</p>
+                    <p className="text-ash-white/90 text-lg">No chaos creators yet this month</p>
+                    <p className="text-ash-white/80 mt-2">Be the first to climb the rankings!</p>
                   </div>
                 ) : (
                   <div className="space-y-4" data-testid="leaderboard-list">
@@ -192,7 +192,7 @@ export function Leaderboard() {
                           <div className={`font-bold text-xl ${getPointsColor(entry.totalPoints)}`}>
                             {entry.totalPoints}
                           </div>
-                          <div className="text-xs text-dim-gray">points</div>
+                          <div className="text-xs text-ash-white/70">points</div>
                           {getRewardAmount(entry.rank) > 0 && (
                             <div className="text-xs text-toxic-green font-semibold">
                               {getRewardAmount(entry.rank)} $BAGZ
@@ -220,19 +220,19 @@ export function Leaderboard() {
                     <div className="text-3xl font-bold text-toxic-green mb-1">
                       {(userStats as any)?.stats?.totalPoints || 0}
                     </div>
-                    <div className="text-sm text-dim-gray">Total Points</div>
+                    <div className="text-sm text-ash-white/80">Total Points</div>
                   </div>
                   
                   <div className="space-y-2">
                     <h4 className="text-sm font-semibold text-ash-white">Recent Activity</h4>
                     {(userStats as any)?.stats?.entries?.slice(0, 5).map((entry: any, i: number) => (
                       <div key={i} className="flex justify-between text-xs">
-                        <span className="text-dim-gray capitalize">
+                        <span className="text-ash-white/70 capitalize">
                           {entry.actionType.replace('_', ' ')}
                         </span>
                         <span className="text-toxic-green">+{entry.points}</span>
                       </div>
-                    )) || (<div className="text-xs text-dim-gray">No activity yet</div>)}
+                    )) || (<div className="text-xs text-ash-white/70">No activity yet</div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -247,7 +247,7 @@ export function Leaderboard() {
                 </h3>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="text-xs text-dim-gray mb-4">
+                <div className="text-xs text-ash-white/80 mb-4">
                   Monthly rewards reset on the 1st EST
                 </div>
                 
@@ -265,7 +265,7 @@ export function Leaderboard() {
                     <span className="text-ash-white font-bold">2,000 $BAGZ</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-dim-gray">4th-10th</span>
+                    <span className="text-ash-white/80">4th-10th</span>
                     <span className="text-ash-white">1,000 $BAGZ</span>
                   </div>
                 </div>
@@ -282,19 +282,19 @@ export function Leaderboard() {
               </CardHeader>
               <CardContent className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-dim-gray">Share Tweet</span>
+                  <span className="text-ash-white/80">Share Tweet</span>
                   <span className="text-toxic-green font-bold">6 pts</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-dim-gray">Generate Tweet</span>
+                  <span className="text-ash-white/80">Generate Tweet</span>
                   <span className="text-toxic-green font-bold">5 pts</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-dim-gray">Create Meme</span>
+                  <span className="text-ash-white/80">Create Meme</span>
                   <span className="text-blood-red font-bold">4 pts</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-dim-gray">Download PFP</span>
+                  <span className="text-ash-white/80">Download PFP</span>
                   <span className="text-glitch-purple font-bold">3 pts</span>
                 </div>
               </CardContent>

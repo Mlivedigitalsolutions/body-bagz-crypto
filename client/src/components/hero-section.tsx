@@ -62,7 +62,7 @@ export default function HeroSection({ titleRef }: HeroSectionProps) {
         <p className="font-brand text-2xl md:text-3xl lg:text-4xl mb-2 font-black tracking-tight text-primary">
           <span className="animate-flicker enhanced-text" data-testid="hero-tagline">ZIP IT. STACK IT. OWN IT.</span>
         </p>
-        <p className="font-tech text-lg md:text-xl mb-12 tracking-widest font-medium" data-testid="hero-subtitle">
+        <p className="font-tech text-lg md:text-xl mb-12 tracking-widest font-medium text-ash-white" data-testid="hero-subtitle">
           THE VILLAIN ERA HAS BEGUN
         </p>
 

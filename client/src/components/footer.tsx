@@ -34,7 +34,7 @@ export default function Footer() {
           </a>
         </div>
         
-        <div className="space-y-4 text-dim-gray text-sm max-w-2xl mx-auto">
+        <div className="space-y-4 text-ash-white/80 text-sm max-w-2xl mx-auto">
           <p>
             <strong className="text-ash-white">DISCLAIMER:</strong> $BAGZ is a meme token created for entertainment purposes. 
             This is not financial advice. Invest responsibly and only what you can afford to lose.
@@ -45,7 +45,7 @@ export default function Footer() {
         </div>
         
         <div className="mt-8 pt-8 border-t border-dim-gray text-center">
-          <p className="text-dim-gray text-sm">© 2024 Body Bagz. All rights reserved to the chaos collective.</p>
+          <p className="text-ash-white/70 text-sm">© 2024 Body Bagz. All rights reserved to the chaos collective.</p>
         </div>
       </div>
     </footer>

@@ -93,11 +93,11 @@ export default function Home() {
           </div>
           <div className="flex items-center space-x-6">
             <div className="hidden md:flex space-x-8">
-              <a href="#vision" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-vision">VISION</a>
-              <a href="#tokenomics" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tokenomics">TOKENOMICS</a>
-              <a href="#tools" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tools">TOOLS</a>
-              <a href="#leaderboard" className="text-dim-gray hover:text-blood-red transition-colors" data-testid="nav-leaderboard">LEADERBOARD</a>
-              <a href="#community" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-community">COMMUNITY</a>
+              <a href="#vision" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
+              <a href="#tokenomics" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokenomics">TOKENOMICS</a>
+              <a href="#tools" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">TOOLS</a>
+              <a href="#leaderboard" className="text-ash-white/80 hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
+              <a href="#community" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
             </div>
             
             {/* User Auth */}
