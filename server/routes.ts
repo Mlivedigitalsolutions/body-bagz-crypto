@@ -1153,6 +1153,89 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Serve telegram stickers
+  app.get("/api/stickers/:filename", (req, res) => {
+    try {
+      const filename = req.params.filename;
+      const imagePath = path.join(process.cwd(), 'attached_assets', 'telegram_stickers', filename);
+      
+      if (existsSync(imagePath)) {
+        res.sendFile(imagePath);
+      } else {
+        res.status(404).json({ error: "Sticker not found" });
+      }
+    } catch (error) {
+      console.error('Error serving sticker:', error);
+      res.status(500).json({ error: "Failed to serve sticker" });
+    }
+  });
+
+  // Serve premium PFPs
+  app.get("/api/premium-pfps/:filename", (req, res) => {
+    try {
+      const filename = req.params.filename;
+      const imagePath = path.join(process.cwd(), 'attached_assets', 'premium_pfps', filename);
+      
+      if (existsSync(imagePath)) {
+        res.sendFile(imagePath);
+      } else {
+        res.status(404).json({ error: "Premium PFP not found" });
+      }
+    } catch (error) {
+      console.error('Error serving premium PFP:', error);
+      res.status(500).json({ error: "Failed to serve premium PFP" });
+    }
+  });
+
+  // Serve meme templates
+  app.get("/api/meme-templates/:filename", (req, res) => {
+    try {
+      const filename = req.params.filename;
+      const imagePath = path.join(process.cwd(), 'attached_assets', 'meme_templates', filename);
+      
+      if (existsSync(imagePath)) {
+        res.sendFile(imagePath);
+      } else {
+        res.status(404).json({ error: "Meme template not found" });
+      }
+    } catch (error) {
+      console.error('Error serving meme template:', error);
+      res.status(500).json({ error: "Failed to serve meme template" });
+    }
+  });
+
+  // List available assets for download
+  app.get("/api/assets", (req, res) => {
+    try {
+      const assets = {
+        telegram_stickers: [
+          { name: "Body Bag Villain", filename: "body_bag_villain.png", url: "/api/stickers/body_bag_villain.png" },
+          { name: "Crypto Money Bag", filename: "crypto_money_bag.png", url: "/api/stickers/crypto_money_bag.png" },
+          { name: "Skull Reaper", filename: "skull_reaper.png", url: "/api/stickers/skull_reaper.png" },
+          { name: "BAGZ Logo Glow", filename: "bagz_logo_glow.png", url: "/api/stickers/bagz_logo_glow.png" },
+          { name: "Villain Character", filename: "villain_character.png", url: "/api/stickers/villain_character.png" },
+          { name: "Diamond Hands", filename: "diamond_hands.png", url: "/api/stickers/diamond_hands.png" }
+        ],
+        premium_pfps: [
+          { name: "Death Reaper", filename: "death_reaper.png", url: "/api/premium-pfps/death_reaper.png" },
+          { name: "Street Emperor", filename: "street_emperor.png", url: "/api/premium-pfps/street_emperor.png" },
+          { name: "Phantom Assassin", filename: "phantom_assassin.png", url: "/api/premium-pfps/phantom_assassin.png" },
+          { name: "Tech Commander", filename: "tech_commander.png", url: "/api/premium-pfps/tech_commander.png" }
+        ],
+        meme_templates: [
+          { name: "Underground Lair", filename: "underground_lair.png", url: "/api/meme-templates/underground_lair.png" },
+          { name: "Trading Floor", filename: "trading_floor.png", url: "/api/meme-templates/trading_floor.png" },
+          { name: "Street Villain", filename: "street_villain.png", url: "/api/meme-templates/street_villain.png" }
+        ]
+      };
+      
+      res.json(assets);
+    } catch (error) {
+      console.error('Error listing assets:', error);
+      res.status(500).json({ error: "Failed to list assets" });
+    }
+  });
+
   // Add error handler at the end
   app.use(errorHandler);
   
