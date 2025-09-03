@@ -63,9 +63,6 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      // Start with glitch animation
-      setIsAnimating(true);
-      setTimeout(() => setIsAnimating(false), 1000);
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -81,7 +78,7 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
       setTimeout(() => {
         setCurrentStep(currentStep + 1);
         setIsAnimating(false);
-      }, 300);
+      }, 150);
     }
   };
 
@@ -91,7 +88,7 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
       setTimeout(() => {
         setCurrentStep(currentStep - 1);
         setIsAnimating(false);
-      }, 300);
+      }, 150);
     }
   };
 
@@ -168,9 +165,7 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
   return (
     <div
       ref={overlayRef}
-      className={`fixed inset-0 z-50 transition-all duration-500 ${
-        isAnimating ? 'animate-pulse' : ''
-      }`}
+      className="fixed inset-0 z-50 transition-all duration-500"
       style={{
         background: 'linear-gradient(45deg, rgba(10, 10, 11, 0.95), rgba(17, 18, 20, 0.95))',
         backdropFilter: 'blur(8px)'
@@ -191,17 +186,6 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
         />
       </div>
 
-      {/* Glitch Effect */}
-      {isAnimating && (
-        <div className="absolute inset-0 pointer-events-none">
-          <div 
-            className="w-full h-full bg-gradient-to-r from-toxic-green/20 via-transparent to-blood-red/20"
-            style={{
-              animation: 'glitch-flash 0.3s ease-in-out infinite alternate'
-            }}
-          />
-        </div>
-      )}
 
       {/* Target Highlight */}
       {getHighlightStyle() && (
@@ -345,10 +329,6 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
           100% { transform: translate(50px, 50px); }
         }
         
-        @keyframes glitch-flash {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
         
         @keyframes neon-pulse {
           0%, 100% { 
