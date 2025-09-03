@@ -9,6 +9,7 @@ import { Save } from "lucide-react";
 import pfpHeaderImg from "@assets/generated_images/Cyberpunk_PFP_Generator_header_fad9f426.png";
 import tweetHeaderImg from "@assets/generated_images/Cyberpunk_Tweet_Generator_header_85711bc6.png";
 import memeHeaderImg from "@assets/generated_images/Cyberpunk_Meme_Creator_header_95968e4a.png";
+import epicSkullImg from "@assets/generated_images/Epic_BODY_BAGZ_skull_branding_6dcb9ad5.png";
 
 const bullishTweets = [
   "Just bagged another mil in $BAGZ. The villain era hits different when you're stacking chaos. NFA but this rocket's fueled by pure degeneracy.",
@@ -348,6 +349,22 @@ export default function ToolsSection() {
   return (
     <section id="tools" className="relative z-10 py-20 px-6">
       <div className="max-w-7xl mx-auto">
+        {/* EPIC BODY BAGZ SKULL BRANDING */}
+        <div className="mb-12 flex justify-center">
+          <div className="relative animate-pulse-glow">
+            <div className="w-full max-w-2xl rounded-2xl overflow-hidden neon-card border border-blood-red/30">
+              <img 
+                src={epicSkullImg}
+                alt="Body Bagz Epic Skull - Villain Era Branding"
+                className="w-full h-auto object-cover"
+                data-testid="epic-skull-banner"
+              />
+            </div>
+            {/* Epic glow effects */}
+            <div className="absolute -inset-2 bg-gradient-to-r from-blood-red/20 via-toxic-green/20 to-glitch-purple/20 rounded-3xl blur-lg -z-10"></div>
+          </div>
+        </div>
+
         <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-16" data-testid="tools-title">
           CHAOS TOOLS
         </h2>

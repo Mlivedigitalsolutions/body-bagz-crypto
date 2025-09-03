@@ -71,10 +71,10 @@
 
   /* Enhanced text readability classes */
   .text-enhanced {
-    color: #FFFFFF !important;
+    color: #C7CBD1 !important;
     text-shadow: 
       0 1px 3px rgba(0, 0, 0, 0.9),
-      0 0 8px rgba(255, 255, 255, 0.3) !important;
+      0 0 8px rgba(199, 203, 209, 0.2) !important;
     font-weight: 600 !important;
   }
 
@@ -95,11 +95,11 @@
     text-transform: uppercase;
     background: linear-gradient(
       135deg, 
-      #FFFFFF 0%, 
+      #C7CBD1 0%, 
       #39FF14 25%, 
       #E7352C 50%, 
       #7A3BFF 75%, 
-      #FFFFFF 100%
+      #C7CBD1 100%
     );
     background-size: 200% 200%;
     background-clip: text;
@@ -322,7 +322,7 @@
   .text-blood-red { color: #E7352C; }
   .text-toxic-green { color: #39FF14; }
   .text-glitch-purple { color: #7A3BFF; }
-  .text-ash-white { color: #EDEEF0; }
+  .text-ash-white { color: #BDC1C6; }
   .text-dim-gray { color: #2A2B31; }
 
   .bg-jet-black { background-color: #0A0A0A; }
