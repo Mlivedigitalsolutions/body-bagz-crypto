@@ -287,7 +287,7 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
             </div>
 
             {/* Navigation */}
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-4">
               <button
                 onClick={prevStep}
                 disabled={currentStep === 0}
@@ -296,6 +296,15 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
               >
                 <ChevronLeft size={16} />
                 <span className="text-sm font-medium">Previous</span>
+              </button>
+
+              {/* Skip Button */}
+              <button
+                onClick={onClose}
+                className="px-4 py-2 rounded-lg bg-dim-gray/20 hover:bg-dim-gray/40 text-dim-gray hover:text-ash-white text-sm font-medium transition-all duration-200 border border-dim-gray/30"
+                data-testid="tutorial-skip"
+              >
+                Skip Tutorial
               </button>
 
               {currentStep < tutorialSteps.length - 1 ? (
