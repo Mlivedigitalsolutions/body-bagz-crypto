@@ -77,8 +77,8 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
       setIsAnimating(true);
       setTimeout(() => {
         setCurrentStep(currentStep + 1);
-        setIsAnimating(false);
-      }, 150);
+        setTimeout(() => setIsAnimating(false), 50);
+      }, 200);
     }
   };
 
@@ -87,8 +87,8 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
       setIsAnimating(true);
       setTimeout(() => {
         setCurrentStep(currentStep - 1);
-        setIsAnimating(false);
-      }, 150);
+        setTimeout(() => setIsAnimating(false), 50);
+      }, 200);
     }
   };
 
@@ -205,7 +205,7 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
 
       {/* Tutorial Tooltip */}
       <div
-        className={`absolute w-96 max-w-[90vw] transition-all duration-500 ${
+        className={`absolute w-96 max-w-[90vw] transition-all duration-300 z-50 ${
           isAnimating ? 'scale-95 opacity-0' : 'scale-100 opacity-100'
         }`}
         style={getTooltipPosition()}
@@ -301,7 +301,7 @@ export default function OnboardingTutorial({ isOpen, onClose }: OnboardingTutori
               {/* Skip Button */}
               <button
                 onClick={onClose}
-                className="px-4 py-2 rounded-lg bg-dim-gray/20 hover:bg-dim-gray/40 text-dim-gray hover:text-ash-white text-sm font-medium transition-all duration-200 border border-dim-gray/30"
+                className="px-4 py-2 rounded-lg bg-glitch-purple/30 hover:bg-glitch-purple/50 text-ash-white hover:text-white text-sm font-semibold transition-all duration-200 border border-glitch-purple shadow-lg shadow-glitch-purple/20"
                 data-testid="tutorial-skip"
               >
                 Skip Tutorial
