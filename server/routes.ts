@@ -46,78 +46,139 @@ function generateCyberpunkVillainPFP(): string {
     svgContent = `
       <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <!-- 3D Helmet Gradients -->
-          <radialGradient id="helmet3D" cx="35%" cy="25%" r="80%">
-            <stop offset="0%" style="stop-color:#${highlightColor};stop-opacity:0.8" />
-            <stop offset="30%" style="stop-color:#${metalColor};stop-opacity:1" />
-            <stop offset="70%" style="stop-color:#${bgColor};stop-opacity:0.9" />
+          <!-- Premium Cyberpunk Background -->
+          <radialGradient id="premiumBg" cx="50%" cy="30%" r="100%">
+            <stop offset="0%" style="stop-color:#${primaryColor};stop-opacity:0.2" />
+            <stop offset="40%" style="stop-color:#${bgColor};stop-opacity:0.9" />
+            <stop offset="80%" style="stop-color:#0A0A0A;stop-opacity:1" />
             <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
           </radialGradient>
           
-          <!-- Epic Visor with Depth -->
-          <linearGradient id="visor3D" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#${highlightColor};stop-opacity:0.3" />
-            <stop offset="20%" style="stop-color:#${primaryColor};stop-opacity:0.9" />
-            <stop offset="80%" style="stop-color:#000000;stop-opacity:0.9" />
-            <stop offset="100%" style="stop-color:#${primaryColor};stop-opacity:0.4" />
+          <!-- 3D Helmet Gradients with Enhanced Depth -->
+          <radialGradient id="premiumHelmet" cx="30%" cy="20%" r="90%">
+            <stop offset="0%" style="stop-color:#${highlightColor};stop-opacity:1" />
+            <stop offset="25%" style="stop-color:#${metalColor};stop-opacity:1" />
+            <stop offset="60%" style="stop-color:#${bgColor};stop-opacity:0.95" />
+            <stop offset="85%" style="stop-color:#1A1A1A;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+          </radialGradient>
+          
+          <!-- Epic Visor with Multi-layer Depth -->
+          <linearGradient id="premiumVisor" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#${highlightColor};stop-opacity:0.8" />
+            <stop offset="30%" style="stop-color:#${primaryColor};stop-opacity:1" />
+            <stop offset="70%" style="stop-color:#000000;stop-opacity:0.9" />
+            <stop offset="100%" style="stop-color:#${primaryColor};stop-opacity:0.6" />
           </linearGradient>
           
-          <!-- 3D Shadow Filter -->
-          <filter id="depth3D" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="3" dy="6" stdDeviation="4" flood-color="#000000" flood-opacity="0.8"/>
-            <feDropShadow dx="-2" dy="-2" stdDeviation="2" flood-color="#${highlightColor}" flood-opacity="0.3"/>
+          <!-- Advanced 3D Shadow System -->
+          <filter id="premiumDepth" x="-100%" y="-100%" width="300%" height="300%">
+            <feDropShadow dx="4" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.9"/>
+            <feDropShadow dx="-3" dy="-3" stdDeviation="3" flood-color="#${highlightColor}" flood-opacity="0.4"/>
+            <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#${primaryColor}" flood-opacity="0.3"/>
           </filter>
           
-          <!-- Epic Glow Effect -->
-          <filter id="epicGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+          <!-- Epic Glow with Multi-layer -->
+          <filter id="premiumGlow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#${primaryColor}" flood-opacity="0.8"/>
             <feMerge>
               <feMergeNode in="coloredBlur"/>
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
+          
+          <!-- Neon Circuit Pattern -->
+          <pattern id="circuitPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+            <rect width="40" height="40" fill="none"/>
+            <path d="M 0 20 L 20 20 L 20 0 M 20 40 L 20 20 L 40 20" stroke="#${primaryColor}" stroke-width="1" opacity="0.3"/>
+            <circle cx="20" cy="20" r="2" fill="#${primaryColor}" opacity="0.5"/>
+          </pattern>
         </defs>
         
-        <!-- Dramatic Background with Depth -->
-        <rect width="400" height="400" fill="#${bgColor}"/>
-        <ellipse cx="200" cy="200" rx="150" ry="150" fill="#000000" opacity="0.3"/>
+        <!-- Premium Background with Circuit Pattern -->
+        <rect width="400" height="400" fill="url(#premiumBg)"/>
+        <rect width="400" height="400" fill="url(#circuitPattern)" opacity="0.2"/>
+        <ellipse cx="200" cy="200" rx="180" ry="180" fill="url(#premiumBg)" opacity="0.4"/>
         
-        <!-- Main 3D Helmet Structure -->
-        <path d="M 200 60 Q 270 75 280 150 Q 280 190 250 220 L 200 240 L 150 220 Q 120 190 120 150 Q 130 75 200 60 Z" 
-              fill="url(#helmet3D)" filter="url(#depth3D)" stroke="#${metalColor}" stroke-width="3"/>
+        <!-- Enhanced Main Helmet Structure -->
+        <g filter="url(#premiumDepth)">
+          <path d="M 200 50 Q 290 65 300 160 Q 295 210 260 240 L 200 260 L 140 240 Q 105 210 100 160 Q 110 65 200 50 Z" 
+                fill="url(#premiumHelmet)" stroke="#${metalColor}" stroke-width="4" opacity="0.95"/>
+          
+          <!-- Additional Armor Plates -->
+          <path d="M 160 80 Q 200 70 240 80 L 235 110 Q 200 100 165 110 Z" 
+                fill="#${metalColor}" opacity="0.8" filter="url(#premiumDepth)"/>
+        </g>
         
-        <!-- Epic Angular Visor with 3D Depth -->
-        <path d="M 140 130 Q 200 115 260 130 Q 255 165 200 170 Q 145 165 140 130 Z" 
-              fill="url(#visor3D)" filter="url(#epicGlow)"/>
+        <!-- Epic Angular Visor with Advanced Effects -->
+        <g filter="url(#premiumGlow)">
+          <path d="M 130 125 Q 200 105 270 125 Q 265 175 200 185 Q 135 175 130 125 Z" 
+                fill="url(#premiumVisor)" stroke="#${primaryColor}" stroke-width="2"/>
+          
+          <!-- Visor Reflection Lines -->
+          <path d="M 140 135 Q 200 125 260 135" stroke="#${highlightColor}" stroke-width="2" opacity="0.6"/>
+          <path d="M 145 155 Q 200 145 255 155" stroke="#${highlightColor}" stroke-width="1" opacity="0.4"/>
+        </g>
         
-        <!-- 3D Side Armor Panels -->
-        <ellipse cx="110" cy="160" rx="20" ry="50" fill="#${metalColor}" opacity="0.9" filter="url(#depth3D)"/>
-        <ellipse cx="290" cy="160" rx="20" ry="50" fill="#${metalColor}" opacity="0.9" filter="url(#depth3D)"/>
+        <!-- Premium Side Armor with Details -->
+        <g filter="url(#premiumDepth)">
+          <ellipse cx="95" cy="170" rx="25" ry="60" fill="#${metalColor}" opacity="0.95"/>
+          <ellipse cx="305" cy="170" rx="25" ry="60" fill="#${metalColor}" opacity="0.95"/>
+          
+          <!-- Armor Vents -->
+          <rect x="88" y="150" width="14" height="3" fill="#${primaryColor}" opacity="0.8"/>
+          <rect x="88" y="160" width="14" height="3" fill="#${primaryColor}" opacity="0.8"/>
+          <rect x="88" y="170" width="14" height="3" fill="#${primaryColor}" opacity="0.8"/>
+          <rect x="298" y="150" width="14" height="3" fill="#${primaryColor}" opacity="0.8"/>
+          <rect x="298" y="160" width="14" height="3" fill="#${primaryColor}" opacity="0.8"/>
+          <rect x="298" y="170" width="14" height="3" fill="#${primaryColor}" opacity="0.8"/>
+        </g>
         
-        <!-- Epic Tech Details with Highlights -->
-        <circle cx="130" cy="140" r="8" fill="#${primaryColor}" opacity="0.9" filter="url(#epicGlow)"/>
-        <circle cx="270" cy="140" r="8" fill="#${primaryColor}" opacity="0.9" filter="url(#epicGlow)"/>
-        <circle cx="128" cy="137" r="3" fill="#${highlightColor}" opacity="0.8"/>
-        <circle cx="268" cy="137" r="3" fill="#${highlightColor}" opacity="0.8"/>
+        <!-- Enhanced Eye Lights with Glow -->
+        <g filter="url(#premiumGlow)">
+          <circle cx="165" cy="145" r="12" fill="#${primaryColor}" opacity="0.9"/>
+          <circle cx="235" cy="145" r="12" fill="#${primaryColor}" opacity="0.9"/>
+          <circle cx="165" cy="145" r="6" fill="#${highlightColor}" opacity="0.8"/>
+          <circle cx="235" cy="145" r="6" fill="#${highlightColor}" opacity="0.8"/>
+          <circle cx="165" cy="145" r="2" fill="#FFFFFF" opacity="0.9"/>
+          <circle cx="235" cy="145" r="2" fill="#FFFFFF" opacity="0.9"/>
+        </g>
         
-        <!-- 3D Neck Guard -->
-        <ellipse cx="200" cy="240" rx="40" ry="15" fill="#${metalColor}" filter="url(#depth3D)"/>
-        <ellipse cx="200" cy="237" rx="35" ry="12" fill="#${highlightColor}" opacity="0.2"/>
+        <!-- Advanced Chest Emblem -->
+        <g filter="url(#premiumGlow)">
+          <polygon points="200,190 180,210 220,210" fill="#${highlightColor}" opacity="0.9"/>
+          <polygon points="200,195 185,208 215,208" fill="#${primaryColor}" opacity="0.7"/>
+          <circle cx="200" cy="202" r="3" fill="#FFFFFF" opacity="0.8"/>
+        </g>
         
-        <!-- Epic Circuit Patterns -->
-        <path d="M 120 100 Q 200 90 280 100" stroke="#${primaryColor}" stroke-width="3" opacity="0.8" filter="url(#epicGlow)"/>
-        <circle cx="200" cy="95" r="4" fill="#${primaryColor}" filter="url(#epicGlow)"/>
+        <!-- Premium Armor Details -->
+        <g filter="url(#premiumDepth)" opacity="0.8">
+          <rect x="185" y="215" width="30" height="10" rx="5" fill="#${metalColor}"/>
+          <rect x="180" y="230" width="40" height="8" rx="4" fill="#${primaryColor}" opacity="0.7"/>
+          <rect x="175" y="245" width="50" height="6" rx="3" fill="#${highlightColor}" opacity="0.6"/>
+        </g>
         
-        <!-- Villain Power Core -->
-        <circle cx="200" cy="150" r="12" fill="#${primaryColor}" opacity="0.4"/>
-        <circle cx="200" cy="150" r="6" fill="#${primaryColor}" filter="url(#epicGlow)"/>
-        <circle cx="198" cy="147" r="3" fill="#${highlightColor}" opacity="0.9"/>
+        <!-- Circuit Lines -->
+        <g stroke="#${primaryColor}" stroke-width="2" opacity="0.4" filter="url(#premiumGlow)">
+          <path d="M 50 350 Q 100 330 150 350"/>
+          <path d="M 250 350 Q 300 330 350 350"/>
+          <path d="M 20 200 Q 50 180 80 200"/>
+          <path d="M 320 200 Q 350 180 380 200"/>
+        </g>
         
-        <!-- BODY BAGZ Branding -->
-        <text x="200" y="320" text-anchor="middle" font-family="monospace" font-size="16" font-weight="bold" 
-              fill="#${primaryColor}" filter="url(#epicGlow)">BODY BAGZ</text>
-        <text x="200" y="340" text-anchor="middle" font-family="monospace" font-size="12" 
-              fill="#${highlightColor}" opacity="0.8">VILLAIN ERA</text>
+        <!-- Premium BODY BAGZ Branding -->
+        <g filter="url(#premiumDepth)">
+          <rect x="100" y="310" width="200" height="50" rx="25" fill="#${bgColor}" stroke="#${primaryColor}" stroke-width="4" opacity="0.95"/>
+          <rect x="110" y="320" width="180" height="30" rx="15" fill="#1A1A1A" opacity="0.8"/>
+        </g>
+        
+        <g filter="url(#premiumGlow)">
+          <text x="200" y="338" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="20" font-weight="bold" 
+                fill="#${primaryColor}">BODY BAGZ</text>
+          <text x="200" y="352" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" 
+                fill="#${highlightColor}" opacity="0.9">VILLAIN ERA • ${villainType}</text>
+        </g>
       </svg>
     `;
   } else if (designType === 'dimensional-mask') {
@@ -481,14 +542,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         tweet = await generateBullishTweet();
       } catch (aiError) {
         console.error('AI tweet generation failed, using fallback:', aiError);
-        // Enhanced fallback tweets with more variety and hashtags
+        // Enhanced fallback tweets with strategic hashtags for maximum traffic
         const bullishTweets = [
-          "The streets chose $BAGZ for a reason 🔥 Villain era never ends #BAGZ #CryptoVillain #StreetSmart #ChaosProfit #UndergroundGains",
-          "Underground movement going mainstream 📈 $BAGZ holders eating good tonight #BAGZ #VillainEra #CyberGains #UndergroundKing #StreetCode",
-          "When chaos becomes profitable, you know it's $BAGZ season ⚡💀 #BAGZ #ChaosEconomy #StreetCode #VillainMode #CryptoRebel",
-          "Cyberpunk aesthetic, real world gains 🖤💚 $BAGZ revolutionizing the game #BAGZ #CyberStreet #FutureWealth #NeonProfit #TechRebel",
-          "Body bags stacking, portfolio packing 💰 $BAGZ community built different #BAGZ #VillainGains #StreetSmart #ChaosMode #UndergroundWins",
-          "The algorithm chose violence, we chose $BAGZ 🏴‍☠️ #BAGZ #DigitalVillain #CryptoAnarchy #StreetWins #ChaosTheory"
+          "The streets chose $BAGZ for a reason 🔥 Villain era never ends #BAGZ #CryptoVillain #MemeCoin #AltSeason #DeFi #Web3 #CryptoGems #BullRun",
+          "Underground movement going mainstream 📈 $BAGZ holders eating good tonight #BAGZ #VillainEra #CryptoCommunity #AltCoins #Blockchain #CryptoNews #MemeCoin #ToTheMoon",
+          "When chaos becomes profitable, you know it's $BAGZ season ⚡💀 #BAGZ #ChaosEconomy #CryptoTrading #AltSeason #DeFi #MemeCoin #CryptoLife #HODLStrong",
+          "Cyberpunk aesthetic, real world gains 🖤💚 $BAGZ revolutionizing the game #BAGZ #CyberStreet #CryptoPunk #NFTs #Web3 #Blockchain #MemeCoin #CryptoArt",
+          "Body bags stacking, portfolio packing 💰 $BAGZ community built different #BAGZ #VillainGains #CryptoCommunity #AltCoins #DeFi #MemeCoin #CryptoInvesting #BullMarket",
+          "The algorithm chose violence, we chose $BAGZ 🏴‍☠️ #BAGZ #DigitalVillain #CryptoAnarchy #MemeCoin #AltSeason #DeFi #CryptoRevolution #Web3Community",
+          "From the shadows to the charts 📊 $BAGZ breaking resistance levels like promises #BAGZ #TechnicalAnalysis #CryptoTrading #MemeCoin #AltCoins #BullRun #CryptoTA #DeFi",
+          "Street code: Buy the dip, hold the bag, secure the bag 💯 $BAGZ #BAGZ #BuyTheDip #CryptoDip #MemeCoin #HODLLife #CryptoStrategy #AltSeason #DiamondHands"
         ];
         tweet = bullishTweets[Math.floor(Math.random() * bullishTweets.length)];
       }
