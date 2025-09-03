@@ -79,43 +79,45 @@ export function CompactMusicPlayer() {
   // Handle user interaction for autoplay compliance
   useEffect(() => {
     const handleUserInteraction = () => {
-      setUserInteracted(true);
-      if (audioRef.current) {
-        audioRef.current.volume = 0.5;
-        audioRef.current.play().then(() => {
-          setIsPlaying(true);
-        }).catch((error) => {
-          console.log('Auto-play prevented:', error);
-        });
+      if (!userInteracted) {
+        setUserInteracted(true);
+        console.log('User interaction detected, enabling audio');
       }
       document.removeEventListener('click', handleUserInteraction);
       document.removeEventListener('keydown', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
     };
 
     document.addEventListener('click', handleUserInteraction);
     document.addEventListener('keydown', handleUserInteraction);
+    document.addEventListener('touchstart', handleUserInteraction);
 
     return () => {
       document.removeEventListener('click', handleUserInteraction);
       document.removeEventListener('keydown', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
     };
-  }, []);
+  }, [userInteracted]);
 
   // Update audio source when song changes
   useEffect(() => {
-    if (audioRef.current) {
+    if (audioRef.current && currentSong) {
+      console.log('Loading audio:', currentSong.title, currentSong.src);
       audioRef.current.src = currentSong.src;
       audioRef.current.volume = 0.5;
       audioRef.current.muted = isMuted;
       
+      // Load the audio
+      audioRef.current.load();
+      
       if (isPlaying && userInteracted) {
         audioRef.current.play().catch((error) => {
-          console.log('Play prevented:', error);
+          console.log('Play error for', currentSong.title, ':', error);
           setIsPlaying(false);
         });
       }
     }
-  }, [currentSongIndex, currentSong.src, isMuted, isPlaying, userInteracted]);
+  }, [currentSongIndex, currentSong, isMuted, isPlaying, userInteracted]);
 
   // Auto-advance to next song
   useEffect(() => {
