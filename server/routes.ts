@@ -1,5 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
+import path from "path";
+import { existsSync } from "fs";
 import compression from "compression";
 import { ImageGenerator } from "./imageGenerator";
 import { storage } from "./storage";
@@ -1074,6 +1076,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error fetching month info:', error);
       res.status(500).json({ error: "Failed to fetch month info" });
+    }
+  });
+
+  // Serve generated logo images and assets
+  app.get("/api/static/:filename", (req, res) => {
+    try {
+      const filename = req.params.filename;
+      const imagePath = path.join(process.cwd(), 'attached_assets', 'generated_images', filename);
+      
+      if (existsSync(imagePath)) {
+        res.sendFile(imagePath);
+      } else {
+        res.status(404).json({ error: "Image not found" });
+      }
+    } catch (error) {
+      console.error('Error serving static image:', error);
+      res.status(500).json({ error: "Failed to serve image" });
     }
   });
 

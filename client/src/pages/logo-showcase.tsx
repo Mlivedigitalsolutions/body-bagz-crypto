@@ -1,6 +1,7 @@
-import mainLogoUrl from '@assets/generated_images/Official_Body_Bagz_brand_logo_94353dbf.png';
-import geometricLogoUrl from '@assets/generated_images/Minimalist_Body_Bagz_geometric_logo_73557739.png';
-import premiumLogoUrl from '@assets/generated_images/Premium_Body_Bagz_emblem_crest_ccd25379.png';
+// Using direct URLs since the logos are in attached_assets/generated_images/
+const mainLogoUrl = '/api/static/Official_Body_Bagz_brand_logo_94353dbf.png';
+const geometricLogoUrl = '/api/static/Minimalist_Body_Bagz_geometric_logo_73557739.png';
+const premiumLogoUrl = '/api/static/Premium_Body_Bagz_emblem_crest_ccd25379.png';
 
 export function LogoShowcase() {
   return (
