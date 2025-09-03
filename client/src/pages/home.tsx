@@ -13,6 +13,7 @@ import { Leaderboard } from "@/components/Leaderboard";
 import { UserButton } from "@/components/UserAuth";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
 import { CompactMusicPlayer } from "@/components/CompactMusicPlayer";
+import mainBrandLogo from "@assets/generated_images/Official_Body_Bagz_brand_logo_94353dbf.png";
 
 export default function Home() {
   const mainTitleRef = useRef<HTMLHeadingElement>(null);
@@ -82,7 +83,12 @@ export default function Home() {
       <nav className="relative z-50 px-6 py-4" data-testid="navigation">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <SkullIcon className="w-8 h-8 text-blood-red" />
+            <img 
+              src={mainBrandLogo} 
+              alt="Body Bagz Logo"
+              className="w-12 h-12 object-contain"
+              style={{filter: 'drop-shadow(0 0 8px rgba(231, 53, 44, 0.6))'}}
+            />
             <span className="font-brand text-xl tracking-tight text-blood-red">BODY BAGZ</span>
           </div>
           <div className="flex items-center space-x-6">
