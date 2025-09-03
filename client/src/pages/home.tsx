@@ -13,29 +13,10 @@ import { Leaderboard } from "@/components/Leaderboard";
 import { UserButton } from "@/components/UserAuth";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
 import { CompactMusicPlayer } from "@/components/CompactMusicPlayer";
-import OnboardingTutorial from "@/components/onboarding-tutorial";
 import mainBrandLogo from "@assets/generated_images/Official_Body_Bagz_brand_logo_94353dbf.png";
 
 export default function Home() {
   const mainTitleRef = useRef<HTMLHeadingElement>(null);
-  const [showTutorial, setShowTutorial] = useState(false);
-
-  // Check if user is new (hasn't seen tutorial before)
-  useEffect(() => {
-    const hasSeenTutorial = localStorage.getItem('bagz-tutorial-completed');
-    if (!hasSeenTutorial) {
-      // Show tutorial after a brief delay for better UX
-      const timer = setTimeout(() => {
-        setShowTutorial(true);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
-  const handleCloseTutorial = () => {
-    setShowTutorial(false);
-    localStorage.setItem('bagz-tutorial-completed', 'true');
-  };
 
   useEffect(() => {
     // Glitch effect on scroll
@@ -207,11 +188,6 @@ export default function Home() {
       {/* Compact Music Player */}
       <CompactMusicPlayer />
 
-      {/* Onboarding Tutorial */}
-      <OnboardingTutorial 
-        isOpen={showTutorial} 
-        onClose={handleCloseTutorial} 
-      />
     </div>
   );
 }
