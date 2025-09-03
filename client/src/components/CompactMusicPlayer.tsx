@@ -33,6 +33,36 @@ const playlist: Song[] = [
     id: 'villain-era-2',
     title: 'Villain Era II',
     src: '/audio/Villain Era 2_1756862187574.mp3'
+  },
+  {
+    id: 'frankenstein-rising-epic',
+    title: 'Frankenstein Rising Epic',
+    src: '/audio/Frankenstein Rising epic_1756864222767.mp3'
+  },
+  {
+    id: 'frankenstein-rising',
+    title: 'Frankenstein Rising',
+    src: '/audio/Frankenstein Rising_1756864222802.mp3'
+  },
+  {
+    id: 'march-of-the-villain',
+    title: 'March of the Villain',
+    src: '/audio/March of the Villain_1756864222809.mp3'
+  },
+  {
+    id: 'march-of-the-villain-1',
+    title: 'March of the Villain I',
+    src: '/audio/March of the Villain 1_1756864222821.mp3'
+  },
+  {
+    id: 'dr-frankenstein-theme-2',
+    title: 'Dr Frankenstein\'s Theme II',
+    src: '/audio/Dr Frankenstein\'s Theme 2_1756864222828.mp3'
+  },
+  {
+    id: 'dr-frankenstein-theme-1',
+    title: 'Dr Frankenstein\'s Theme I',
+    src: '/audio/Dr Frankenstein\'s Theme 1_1756864222833.mp3'
   }
 ];
 
