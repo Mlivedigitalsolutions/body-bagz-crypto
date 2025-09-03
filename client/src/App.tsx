@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserProvider } from "@/contexts/UserContext";
 import Home from "@/pages/home";
 import AccountPage from "@/pages/account";
+import { BannerDemo } from "@/pages/banner-demo";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -14,6 +15,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home}/>
       <Route path="/account" component={AccountPage}/>
+      <Route path="/banner" component={BannerDemo}/>
       <Route component={NotFound} />
     </Switch>
   );

@@ -457,4 +457,37 @@
       transition-duration: 0.01ms !important;
     }
   }
+
+  /* Matrix Rain Effect for DexScreener Banner */
+  @keyframes matrix-drop {
+    0% { transform: translateY(-100vh); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+
+  .matrix-rain {
+    position: relative;
+    background: linear-gradient(180deg, transparent 0%, rgba(57, 255, 20, 0.1) 50%, transparent 100%);
+  }
+
+  .matrix-rain::before {
+    content: "01001000 01100001 01100011 01101011 01100101 01110010 01001111 01001111";
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--toxic-green);
+    opacity: 0.4;
+    animation: matrix-drop 8s linear infinite;
+    white-space: nowrap;
+    overflow: hidden;
+    letter-spacing: 0.2em;
+  }
+
+  /* Neon glow effects */
+  .shadow-neon-green {
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.4), 0 0 30px rgba(57, 255, 20, 0.2);
+  }
 }
