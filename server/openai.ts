@@ -9,42 +9,53 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Generate unique cyberpunk PFP using DALL-E 3
 export async function generateCyberpunkPFP(): Promise<string> {
-  const cyberpunkStyles = [
-    "neon-lit street samurai with glowing cybernetic implants",
-    "hooded hacker with holographic displays floating around them",
-    "chrome-armed netrunner in a dark alley with neon reflections",
-    "cyberpunk warrior with glowing red eyes and metallic face plate",
-    "futuristic mercenary with LED tattoos and neural interface cables",
-    "digital ghost with translucent features and data streams",
-    "augmented human with visible circuit patterns under synthetic skin",
-    "tech-enhanced assassin with stealth optical camouflage",
-    "cybernetic soldier with plasma weapon and armor plating",
-    "matrix runner with VR goggles and flowing digital code"
+  // BODY BAGZ VILLAIN ERA - Epic PFP Styles
+  const villainEraStyles = [
+    "cyberpunk skull-masked villain with glowing blood-red eyes and toxic green circuit tattoos across metallic face plates",
+    "hooded death reaper with floating holographic 'BAGZ' symbols and neon skeletal hands emerging from shadows",
+    "chrome-armored street emperor with LED skull insignia pulsing on chest armor and digital smoke effects",
+    "cybernetic villain lord with translucent face revealing internal circuitry and floating toxic green data streams",
+    "augmented chaos operative with visible blood-red neural cables and metallic skull face plate with neon cracks",
+    "digital phantom assassin with glitching skeletal features and purple neon energy radiating from eye sockets",
+    "tech-enhanced death commander with stealth armor displaying animated skull logos and plasma weapon holsters",
+    "matrix villain with VR skull mask and flowing code streams forming 'BODY BAGZ' text in background",
+    "cyberpunk reaper with translucent hood revealing glowing skull underneath and toxic green neural interface ports",
+    "street villain with LED face tattoos forming skull patterns and chrome augmentations with pulsing red accents"
   ];
 
-  const environments = [
-    "dark cyberpunk city with towering neon skyscrapers",
-    "rain-soaked streets with holographic advertisements",
-    "underground tech facility with server racks and monitors",
-    "futuristic nightclub with laser lights and smoke",
-    "abandoned industrial district with flickering neon signs",
-    "high-tech laboratory with floating holographic interfaces"
+  // BODY BAGZ Brand Environments
+  const villainEnvironments = [
+    "dark post-apocalyptic cityscape with towering 'BODY BAGZ' neon signs reflecting off rain-soaked streets",
+    "underground villain lair with server racks displaying skull logos and toxic green holographic interfaces",
+    "futuristic death arena with blood-red laser grids and floating 'VILLAIN ERA' text in neon",
+    "abandoned cyberpunk district with flickering skull-shaped neon signs and purple atmospheric lighting",
+    "high-tech command center with floating holographic skulls and 'BAGZ' branding on every surface",
+    "neon-lit villain hideout with chrome walls displaying animated skull patterns and toxic green mist"
   ];
 
-  const colors = [
-    "toxic green and electric blue accents",
-    "blood red and jet black theme",
-    "purple neon and chrome silver highlights",
-    "orange plasma and deep black shadows",
-    "cyan blue and metallic gold details",
-    "magenta pink and gunmetal gray tones"
+  // BODY BAGZ Signature Colors (matching the epic banner)
+  const brandColors = [
+    "blood red (#E7352C) and toxic green (#39FF14) with jet black shadows and chrome silver metallic highlights",
+    "glitch purple (#7A3BFF) and blood red (#E7352C) with deep black backgrounds and ash white accent details",
+    "toxic green (#39FF14) and jet black (#0A0A0B) with blood red energy effects and chrome metallic surfaces",
+    "blood red plasma and toxic green neon with deep purple shadows and bright silver chrome reflections",
+    "cyberpunk purple and blood red themes with toxic green circuit patterns and metallic gunmetal details",
+    "villain-era blood red and toxic green with glitch purple accents and chrome silver highlighting"
   ];
 
-  const randomStyle = cyberpunkStyles[Math.floor(Math.random() * cyberpunkStyles.length)];
-  const randomEnvironment = environments[Math.floor(Math.random() * environments.length)];
-  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  const randomStyle = villainEraStyles[Math.floor(Math.random() * villainEraStyles.length)];
+  const randomEnvironment = villainEnvironments[Math.floor(Math.random() * villainEnvironments.length)];
+  const randomColor = brandColors[Math.floor(Math.random() * brandColors.length)];
 
-  const prompt = `Create a high-quality cyberpunk profile picture: ${randomStyle} set against ${randomEnvironment}. Color palette: ${randomColor}. Style: dark, gritty, futuristic, professional digital art, detailed facial features, dramatic lighting, 4K quality, square composition suitable for profile picture`;
+  const prompt = `Create an epic BODY BAGZ villain-era cyberpunk profile picture: ${randomStyle} set against ${randomEnvironment}. 
+
+Brand Color Palette: ${randomColor}. 
+
+Style Requirements: Professional digital art, cinematic lighting, 4K ultra-high definition, dramatic shadows, neon glow effects, metallic textures, detailed facial features, villain aesthetic, post-apocalyptic cyberpunk, premium quality, square composition optimized for profile picture use.
+
+Additional Effects: Subtle skull motifs integrated into design, glitch distortion effects, neon underglow, chrome reflections, atmospheric haze, depth of field, photorealistic rendering.
+
+Brand Identity: This should embody the BODY BAGZ "villain era" - dark, powerful, and unmistakably cyberpunk with skull/reaper themes.`;
 
   try {
     const response = await openai.images.generate({
@@ -56,7 +67,7 @@ export async function generateCyberpunkPFP(): Promise<string> {
       style: "vivid"
     });
 
-    return response.data[0].url!;
+    return response.data?.[0]?.url || '';
   } catch (error) {
     console.error('Error generating cyberpunk PFP:', error);
     throw new Error('Failed to generate cyberpunk PFP');
