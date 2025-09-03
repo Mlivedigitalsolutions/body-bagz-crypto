@@ -112,6 +112,12 @@ function generateCyberpunkVillainPFP(): string {
         <circle cx="200" cy="150" r="12" fill="#${primaryColor}" opacity="0.4"/>
         <circle cx="200" cy="150" r="6" fill="#${primaryColor}" filter="url(#epicGlow)"/>
         <circle cx="198" cy="147" r="3" fill="#${highlightColor}" opacity="0.9"/>
+        
+        <!-- BODY BAGZ Branding -->
+        <text x="200" y="320" text-anchor="middle" font-family="monospace" font-size="16" font-weight="bold" 
+              fill="#${primaryColor}" filter="url(#epicGlow)">BODY BAGZ</text>
+        <text x="200" y="340" text-anchor="middle" font-family="monospace" font-size="12" 
+              fill="#${highlightColor}" opacity="0.8">VILLAIN ERA</text>
       </svg>
     `;
   } else if (designType === 'dimensional-mask') {
@@ -184,6 +190,12 @@ function generateCyberpunkVillainPFP(): string {
         <!-- 3D Power Conduits -->
         <path d="M 130 120 Q 150 115 170 120" stroke="#${primaryColor}" stroke-width="3" opacity="0.8" filter="url(#dimensionalGlow)"/>
         <path d="M 230 120 Q 250 115 270 120" stroke="#${primaryColor}" stroke-width="3" opacity="0.8" filter="url(#dimensionalGlow)"/>
+        
+        <!-- BODY BAGZ Branding -->
+        <text x="200" y="320" text-anchor="middle" font-family="monospace" font-size="16" font-weight="bold" 
+              fill="#${primaryColor}" filter="url(#dimensionalGlow)">BODY BAGZ</text>
+        <text x="200" y="340" text-anchor="middle" font-family="monospace" font-size="12" 
+              fill="#${highlightColor}" opacity="0.8">VILLAIN ERA</text>
       </svg>
     `;
   } else if (designType === '3d-skull') {
@@ -258,6 +270,12 @@ function generateCyberpunkVillainPFP(): string {
         <rect x="180" y="255" width="8" height="15" fill="#${primaryColor}" opacity="0.8" filter="url(#deathGlow)"/>
         <rect x="195" y="255" width="8" height="15" fill="#${primaryColor}" opacity="0.8" filter="url(#deathGlow)"/>
         <rect x="210" y="255" width="8" height="15" fill="#${primaryColor}" opacity="0.8" filter="url(#deathGlow)"/>
+        
+        <!-- BODY BAGZ Branding -->
+        <text x="200" y="320" text-anchor="middle" font-family="monospace" font-size="16" font-weight="bold" 
+              fill="#${primaryColor}" filter="url(#deathGlow)">BODY BAGZ</text>
+        <text x="200" y="340" text-anchor="middle" font-family="monospace" font-size="12" 
+              fill="#${highlightColor}" opacity="0.8">VILLAIN ERA</text>
       </svg>
     `;
   } else if (designType === 'power-armor') {
@@ -319,6 +337,12 @@ function generateCyberpunkVillainPFP(): string {
         <rect x="180" y="105" width="3" height="3" fill="#${primaryColor}" opacity="0.9"/>
         <rect x="180" y="112" width="3" height="3" fill="#${primaryColor}" opacity="0.7"/>
         <rect x="180" y="119" width="3" height="3" fill="#${primaryColor}" opacity="0.5"/>
+        
+        <!-- BODY BAGZ Branding -->
+        <text x="150" y="250" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" 
+              fill="#${primaryColor}" filter="url(#techGlow)">BODY BAGZ</text>
+        <text x="150" y="270" text-anchor="middle" font-family="monospace" font-size="10" 
+              fill="#${highlightColor}" opacity="0.8">VILLAIN ERA</text>
       </svg>
     `;
   } else { // shadow-hood
@@ -375,6 +399,12 @@ function generateCyberpunkVillainPFP(): string {
         <!-- Breathing apparatus -->
         <ellipse cx="150" cy="140" rx="12" ry="8" fill="#${metalColor}" stroke="#${primaryColor}" stroke-width="1"/>
         <rect x="147" y="137" width="6" height="6" fill="#${primaryColor}" opacity="0.6"/>
+        
+        <!-- BODY BAGZ Branding -->
+        <text x="150" y="250" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" 
+              fill="#${primaryColor}" filter="url(#shadowGlow)">BODY BAGZ</text>
+        <text x="150" y="270" text-anchor="middle" font-family="monospace" font-size="10" 
+              fill="#${highlightColor}" opacity="0.8">VILLAIN ERA</text>
       </svg>
     `;
   }
