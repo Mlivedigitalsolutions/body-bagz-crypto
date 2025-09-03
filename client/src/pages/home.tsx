@@ -12,6 +12,7 @@ import Footer from "@/components/footer";
 import { Leaderboard } from "@/components/Leaderboard";
 import { UserButton } from "@/components/UserAuth";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
+import { MusicPlayer } from "@/components/MusicPlayer";
 
 export default function Home() {
   const mainTitleRef = useRef<HTMLHeadingElement>(null);
@@ -86,6 +87,7 @@ export default function Home() {
           </div>
           <div className="flex items-center space-x-6">
             <div className="hidden md:flex space-x-8">
+              <a href="#media" className="text-dim-gray hover:text-blood-red transition-colors" data-testid="nav-media">MEDIA</a>
               <a href="#vision" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-vision">VISION</a>
               <a href="#tokenomics" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tokenomics">TOKENOMICS</a>
               <a href="#tools" className="text-dim-gray hover:text-toxic-green transition-colors" data-testid="nav-tools">TOOLS</a>
@@ -166,6 +168,108 @@ export default function Home() {
         </section>
 
         <VideoShowcase />
+        
+        {/* Official Media Section */}
+        <section id="media" className="relative z-10 py-20 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="font-brand text-4xl md:text-6xl text-blood-red mb-4 cyberpunk-glow">
+                OFFICIAL MEDIA
+              </h2>
+              <p className="text-dim-gray text-lg md:text-xl max-w-3xl mx-auto">
+                Immerse yourself in the <span className="text-toxic-green">villain soundscape</span>. 
+                Premium tracks engineered for the <span className="text-blood-red">chaos economy</span>.
+              </p>
+            </div>
+            
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              {/* Music Player */}
+              <div className="space-y-6">
+                <div className="neon-card p-2">
+                  <MusicPlayer autoPlay={true} className="w-full" />
+                </div>
+                
+                {/* Music Info */}
+                <div className="neon-card p-6">
+                  <h3 className="font-brand text-2xl text-toxic-green mb-4 cyberpunk-glow">
+                    🎵 VILLAIN SOUNDTRACK
+                  </h3>
+                  <div className="space-y-3 text-dim-gray">
+                    <p className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-blood-red rounded-full"></span>
+                      <strong className="text-ash-white">Auto-Play:</strong> Villain Mode starts automatically
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-toxic-green rounded-full"></span>
+                      <strong className="text-ash-white">Quality:</strong> High-fidelity cyberpunk audio
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-glitch-purple rounded-full"></span>
+                      <strong className="text-ash-white">Playlist:</strong> 5 exclusive villain-themed tracks
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Media Features */}
+              <div className="space-y-6">
+                <div className="neon-card p-6">
+                  <h3 className="font-brand text-2xl text-blood-red mb-4 cyberpunk-glow">
+                    🔊 AUDIO FEATURES
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-jet-black/50 p-4 rounded-lg border border-toxic-green/30">
+                      <div className="text-toxic-green font-bold text-lg cyberpunk-glow">AUTO-PLAY</div>
+                      <div className="text-dim-gray text-sm">Villain Mode starts on site entry</div>
+                    </div>
+                    <div className="bg-jet-black/50 p-4 rounded-lg border border-blood-red/30">
+                      <div className="text-blood-red font-bold text-lg cyberpunk-glow">MUTE CONTROL</div>
+                      <div className="text-dim-gray text-sm">One-click audio control</div>
+                    </div>
+                    <div className="bg-jet-black/50 p-4 rounded-lg border border-glitch-purple/30">
+                      <div className="text-glitch-purple font-bold text-lg cyberpunk-glow">TRACK SKIP</div>
+                      <div className="text-dim-gray text-sm">Navigate full playlist</div>
+                    </div>
+                    <div className="bg-jet-black/50 p-4 rounded-lg border border-ash-white/30">
+                      <div className="text-ash-white font-bold text-lg cyberpunk-glow">PROGRESS BAR</div>
+                      <div className="text-dim-gray text-sm">Interactive seek control</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="neon-card p-6">
+                  <h3 className="font-brand text-2xl text-toxic-green mb-4 cyberpunk-glow">
+                    🎼 TRACK LIST
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 p-3 bg-blood-red/10 rounded-lg border border-blood-red/30">
+                      <div className="w-3 h-3 bg-blood-red rounded-full animate-pulse"></div>
+                      <div>
+                        <div className="text-ash-white font-semibold">Villain Mode</div>
+                        <div className="text-dim-gray text-sm">The anthem of chaos</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-toxic-green/10 rounded-lg border border-toxic-green/30">
+                      <div className="w-3 h-3 bg-toxic-green rounded-full"></div>
+                      <div>
+                        <div className="text-ash-white font-semibold">Cyber Throne Series</div>
+                        <div className="text-dim-gray text-sm">2 tracks of digital dominance</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-3 bg-glitch-purple/10 rounded-lg border border-glitch-purple/30">
+                      <div className="w-3 h-3 bg-glitch-purple rounded-full"></div>
+                      <div>
+                        <div className="text-ash-white font-semibold">Villain Era Series</div>
+                        <div className="text-dim-gray text-sm">2 tracks defining the movement</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         <VisionSection />
         <TokenomicsSection />
         <RoadmapSection />
