@@ -6,7 +6,7 @@ import compression from "compression";
 import { ImageGenerator } from "./imageGenerator";
 import { storage } from "./storage";
 import { insertUserSchema, insertLeaderboardEntrySchema } from "@shared/schema";
-import { generateCyberpunkPFP, generateBullishTweet, generateMemeText } from "./openai";
+import { generateCyberpunkPFP, generateBullishTweet, generateMemeText, generateCyberpunkMeme } from "./openai";
 import { 
   generalLimiter, 
   strictLimiter, 
@@ -689,6 +689,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error generating meme:', error);
       res.status(500).json({ error: 'Failed to generate meme' });
+    }
+  });
+
+  // AI-powered meme generation with premium visuals
+  app.post("/api/generate-ai-meme", strictLimiter, async (req, res) => {
+    try {
+      const { topText, bottomText, userId, theme } = req.body;
+      
+      let memeText = { topText: topText || '', bottomText: bottomText || '' };
+      
+      // If no text provided, use AI to generate it
+      if (!topText && !bottomText) {
+        try {
+          memeText = await generateMemeText();
+        } catch (aiError) {
+          console.error('AI meme text generation failed, using fallback:', aiError);
+          const fallbackTexts = [
+            { topText: "WHEN YOU HOLD $BAGZ", bottomText: "VILLAIN MODE ACTIVATED" },
+            { topText: "CHAOS IS PROFITABLE", bottomText: "$BAGZ DELIVERING" },
+            { topText: "UNDERGROUND MOVEMENT", bottomText: "MAINSTREAM GAINS" },
+            { topText: "CYBERPUNK VIBES", bottomText: "REAL WORLD PROFITS" }
+          ];
+          memeText = fallbackTexts[Math.floor(Math.random() * fallbackTexts.length)];
+        }
+      }
+
+      // Generate AI meme image
+      const imageUrl = await generateCyberpunkMeme(memeText.topText, memeText.bottomText, theme);
+      
+      // Track meme creation action if userId provided
+      if (userId) {
+        try {
+          const now = new Date();
+          const estDate = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
+          const monthYear = `${estDate.getFullYear()}-${String(estDate.getMonth() + 1).padStart(2, '0')}`;
+          
+          await storage.addLeaderboardEntry({
+            userId,
+            actionType: 'meme_creation',
+            points: 6, // Higher points for AI-generated memes
+            monthYear
+          });
+          clearLeaderboardCache(); // Clear cache after mutation
+        } catch (trackError) {
+          console.error('Error tracking AI meme action:', trackError);
+        }
+      }
+      
+      res.json({ 
+        imageUrl,
+        downloadUrl: imageUrl,
+        filename: `bagz_ai_meme_${Date.now()}.png`,
+        type: 'ai-generated'
+      });
+    } catch (error) {
+      console.error('Error generating AI meme:', error);
+      res.status(500).json({ error: 'Failed to generate AI meme' });
     }
   });
 

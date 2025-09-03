@@ -47,15 +47,15 @@ export async function generateCyberpunkPFP(): Promise<string> {
   const randomEnvironment = villainEnvironments[Math.floor(Math.random() * villainEnvironments.length)];
   const randomColor = brandColors[Math.floor(Math.random() * brandColors.length)];
 
-  const prompt = `Create an epic BODY BAGZ villain-era cyberpunk profile picture: ${randomStyle} set against ${randomEnvironment}. 
+  const prompt = `Create an ultra-high-quality BODY BAGZ villain-era cyberpunk profile picture with premium digital art aesthetics: ${randomStyle} set against ${randomEnvironment}. 
 
 Brand Color Palette: ${randomColor}. 
 
-Style Requirements: Professional digital art, cinematic lighting, 4K ultra-high definition, dramatic shadows, neon glow effects, metallic textures, detailed facial features, villain aesthetic, post-apocalyptic cyberpunk, premium quality, square composition optimized for profile picture use.
+Advanced Style Requirements: Hyperrealistic digital art, cinematic studio lighting with dramatic rim lighting, 8K ultra-high definition resolution, deep contrast shadows with neon rim lighting, premium metallic textures with chrome reflections, ultra-detailed facial features with cyberpunk augmentations, villain aesthetic with streetwear elements, post-apocalyptic cyberpunk atmosphere, professional character design quality, perfect square composition optimized for profile picture use.
 
-Additional Effects: Subtle skull motifs integrated into design, glitch distortion effects, neon underglow, chrome reflections, atmospheric haze, depth of field, photorealistic rendering.
+Premium Visual Effects: Integrated skull motifs with glowing neon edges, advanced glitch distortion effects with digital artifacts, toxic green and blood red neon underglow, chrome and metallic surface reflections, atmospheric volumetric haze with particle effects, shallow depth of field with bokeh background blur, photorealistic rendering with ray-traced lighting, subtle animated elements suggesting motion.
 
-Brand Identity: This should embody the BODY BAGZ "villain era" - dark, powerful, and unmistakably cyberpunk with skull/reaper themes.`;
+Brand Identity Focus: This must embody the BODY BAGZ "villain era" - dark, powerful, menacing, and unmistakably cyberpunk with prominent skull/reaper/death themes. The character should look like a premium crypto villain ready to dominate the digital underground. High-fashion streetwear meets cyberpunk technology.`;
 
   try {
     const response = await openai.images.generate({
@@ -91,7 +91,7 @@ export async function generateBullishTweet(): Promise<string> {
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
       messages: [{ role: "user", content: prompt }],
       max_tokens: 100,
       temperature: 0.9, // High creativity
@@ -105,6 +105,55 @@ export async function generateBullishTweet(): Promise<string> {
 }
 
 // Generate meme text suggestions
+// Generate high-quality AI meme images 
+export async function generateCyberpunkMeme(topText: string, bottomText: string, theme?: string): Promise<string> {
+  const memeThemes = [
+    "cyberpunk city street with neon signs and rain-soaked asphalt, dramatic lighting with toxic green and blood red neon reflections",
+    "post-apocalyptic trading floor with holographic crypto charts and digital skulls floating in the background",
+    "underground villain lair with server racks and glowing 'BAGZ' logos on screens, atmospheric smoke and lighting",
+    "futuristic crypto exchange with floating holographic dollar signs and villain-themed decorations",
+    "dark alleyway with neon graffiti and cyberpunk atmosphere, perfect for street-level crypto villain vibes",
+    "high-tech command center with multiple screens showing crypto data and skull motifs throughout"
+  ];
+
+  const selectedTheme = theme || memeThemes[Math.floor(Math.random() * memeThemes.length)];
+  
+  const prompt = `Create a high-quality cyberpunk meme image for Body Bagz ($BAGZ) cryptocurrency with the following text elements:
+
+TOP TEXT: "${topText}"
+BOTTOM TEXT: "${bottomText}"
+
+Visual Setting: ${selectedTheme}
+
+Style Requirements: 
+- Premium digital art quality with cinematic lighting
+- Classic meme format with bold, outlined text at top and bottom
+- Text should be clearly readable with strong contrast (white text with black outline)
+- Cyberpunk aesthetic with toxic green (#39FF14), blood red (#E7352C), and glitch purple (#7A3BFF) color scheme
+- Villain era theme with subtle skull or underground motifs
+- Professional meme composition optimized for social media sharing
+- Dark background with neon accent lighting
+- Sharp, clean graphics suitable for viral content
+
+Brand Identity: This should capture the BODY BAGZ villain era aesthetic - dark, powerful, and street-smart crypto vibes. The image should look like premium content that crypto communities would share.`;
+
+  try {
+    const response = await openai.images.generate({
+      model: "dall-e-3",
+      prompt: prompt,
+      n: 1,
+      size: "1024x1024",
+      quality: "hd",
+      style: "vivid"
+    });
+
+    return response.data?.[0]?.url || '';
+  } catch (error) {
+    console.error('Error generating cyberpunk meme:', error);
+    throw new Error('Failed to generate cyberpunk meme');
+  }
+}
+
 export async function generateMemeText(): Promise<{ topText: string; bottomText: string }> {
   const prompt = `Create funny, bullish meme text for Body Bagz ($BAGZ) cryptocurrency. Generate:
   - Top text: Setup/situation (2-8 words)
@@ -120,7 +169,7 @@ export async function generateMemeText(): Promise<{ topText: string; bottomText:
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
       messages: [{ role: "user", content: prompt }],
       max_tokens: 80,
       temperature: 0.8,
