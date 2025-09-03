@@ -1,3 +1,5 @@
+import minimalistLogo from "@assets/generated_images/Minimalist_Body_Bagz_geometric_logo_73557739.png";
+
 export default function MerchSection() {
   return (
     <section className="relative z-10 py-20 px-6">
@@ -18,11 +20,17 @@ export default function MerchSection() {
                 <div className="absolute top-16 right-6 w-8 h-8 bg-toxic-green opacity-10 rounded-full blur-sm"></div>
               </div>
               
-              {/* Enhanced Coming Soon Overlay */}
+              {/* Body Bagz Minimalist Logo Overlay */}
               <div className="absolute inset-0 bg-jet-black bg-opacity-95 flex items-center justify-center rounded-xl border border-dim-gray">
                 <div className="text-center">
-                  <div className="font-brand text-3xl text-toxic-green mb-2 animate-flicker tracking-wider">COMING</div>
-                  <div className="font-brand text-3xl text-ash-white tracking-wider">SOON</div>
+                  <img 
+                    src={minimalistLogo} 
+                    alt="Body Bagz Minimalist Logo"
+                    className="w-24 h-24 mx-auto mb-2 object-contain"
+                    style={{filter: 'drop-shadow(0 0 10px rgba(57, 255, 20, 0.5))'}}
+                  />
+                  <div className="font-brand text-2xl text-toxic-green animate-flicker tracking-wider">COMING</div>
+                  <div className="font-brand text-2xl text-ash-white tracking-wider">SOON</div>
                   {/* Enhanced Scanline Effect */}
                   <div className="scanline-overlay w-full h-1 mt-4 rounded"></div>
                 </div>

@@ -1,7 +1,7 @@
 import rallyImg from "@assets/generated_images/Movement_section_rally_image_36726732.png";
 import bunkerImg from "@assets/generated_images/Movement_section_bunker_image_8cbc1617.png";
 import takeoverImg from "@assets/generated_images/Movement_section_takeover_image_0b6c6d67.png";
-import thumb1 from "@assets/file_0000000092506230a18fb043d2ff6404_1756566414120.png";
+import premiumCrestLogo from "@assets/generated_images/Premium_Body_Bagz_emblem_crest_ccd25379.png";
 
 const movementImages = [
   {
@@ -26,7 +26,7 @@ const movementImages = [
     id: "chaos-collective",
     title: "CHAOS COLLECTIVE",
     description: "United in rebellion",
-    image: thumb1
+    image: premiumCrestLogo
   }
 ];
 
