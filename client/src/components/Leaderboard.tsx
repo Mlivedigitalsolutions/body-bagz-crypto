@@ -92,7 +92,7 @@ export function Leaderboard() {
   };
 
   return (
-    <section id="leaderboard" className="relative z-10 py-20 px-6">
+    <section id="leaderboard-section" className="relative z-10 py-20 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="font-brand text-4xl md:text-5xl text-blood-red mb-4" data-testid="leaderboard-title">

@@ -685,7 +685,7 @@ export default function ToolsSection() {
   };
 
   return (
-    <section id="tools" className="relative z-10 py-20 px-6">
+    <section id="tools-section" className="relative z-10 py-20 px-6">
       <div className="max-w-7xl mx-auto">
         {/* EPIC BODY BAGZ SKULL BRANDING */}
         <div className="mb-12 flex justify-center">

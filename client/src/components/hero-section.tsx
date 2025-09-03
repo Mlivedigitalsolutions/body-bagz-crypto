@@ -8,7 +8,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ titleRef }: HeroSectionProps) {
   return (
-    <section className="relative z-10 min-h-screen flex items-center justify-center px-6 overflow-hidden">
+    <section id="hero-section" className="relative z-10 min-h-screen flex items-center justify-center px-6 overflow-hidden">
       {/* Premium 3D Background Effects */}
       <div className="absolute inset-0 z-0">
         <div className="fog-layer w-full h-full animate-fog"></div>
