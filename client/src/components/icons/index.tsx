@@ -238,218 +238,44 @@ export function RaisedFistIcon({ className }: { className?: string }) {
 
 export function ChainLinkIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 64 64" fill="none">
-      <defs>
-        <linearGradient id="chainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#39FF14" stopOpacity="1"/>
-          <stop offset="50%" stopColor="#2A2B31" stopOpacity="0.9"/>
-          <stop offset="100%" stopColor="#0A0A0B" stopOpacity="1"/>
-        </linearGradient>
-        <linearGradient id="chainHighlight" x1="0%" y1="0%" x2="100%" y2="50%">
-          <stop offset="0%" stopColor="#39FF14" stopOpacity="0.8"/>
-          <stop offset="100%" stopColor="transparent"/>
-        </linearGradient>
-        <filter id="chainGlow">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-          <feMerge>
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
-      
-      {/* Premium 3D Chain Links with Depth */}
-      <g filter="url(#chainGlow)">
-        {/* Left Chain Link - 3D perspective */}
-        <ellipse cx="20" cy="32" rx="12" ry="16" fill="none" stroke="url(#chainGrad)" strokeWidth="6" strokeLinejoin="round"/>
-        <ellipse cx="20" cy="32" rx="12" ry="16" fill="none" stroke="#0A0A0B" strokeWidth="3"/>
-        <ellipse cx="18" cy="30" rx="8" ry="12" fill="none" stroke="url(#chainHighlight)" strokeWidth="2" opacity="0.8"/>
-        
-        {/* Right Chain Link - 3D perspective */}
-        <ellipse cx="44" cy="32" rx="12" ry="16" fill="none" stroke="url(#chainGrad)" strokeWidth="6" strokeLinejoin="round"/>
-        <ellipse cx="44" cy="32" rx="12" ry="16" fill="none" stroke="#0A0A0B" strokeWidth="3"/>
-        <ellipse cx="42" cy="30" rx="8" ry="12" fill="none" stroke="url(#chainHighlight)" strokeWidth="2" opacity="0.8"/>
-        
-        {/* Connection Highlighting */}
-        <path d="M32 24 L32 40" stroke="#39FF14" strokeWidth="4" opacity="0.6" strokeLinecap="round"/>
-        <path d="M30 26 L30 38" stroke="#E7352C" strokeWidth="2" opacity="0.8" strokeLinecap="round"/>
-        
-        {/* 3D Shadow Effects */}
-        <ellipse cx="22" cy="34" rx="10" ry="14" fill="none" stroke="#111214" strokeWidth="2" opacity="0.4"/>
-        <ellipse cx="46" cy="34" rx="10" ry="14" fill="none" stroke="#111214" strokeWidth="2" opacity="0.4"/>
-        
-        {/* Energy Sparks */}
-        <circle cx="20" cy="18" r="2" fill="#39FF14" opacity="0.8">
-          <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="44" cy="46" r="1.5" fill="#E7352C" opacity="0.7">
-          <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.5s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-      
-      {/* Outer Power Ring */}
-      <circle cx="32" cy="32" r="28" fill="none" stroke="#39FF14" strokeWidth="0.5" opacity="0.3"/>
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      {/* Simplified chain links for cross-device compatibility */}
+      <path d="M9 7.5C9 6.12 7.88 5 6.5 5S4 6.12 4 7.5 5.12 10 6.5 10c.18 0 .35-.02.52-.06L8.04 11H9c1.38 0 2.5-1.12 2.5-2.5S10.38 7.5 9 7.5zM6.5 8.5C5.95 8.5 5.5 8.05 5.5 7.5S5.95 6.5 6.5 6.5 7.5 6.95 7.5 7.5 7.05 8.5 6.5 8.5z"/>
+      <path d="M15 16.5c0-1.38-1.12-2.5-2.5-2.5-.18 0-.35.02-.52.06L10.96 13H10c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5zM10 17c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+      <path d="M17.5 14c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5S20 17.88 20 16.5 18.88 14 17.5 14zM17.5 17.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+      <path d="M8.96 11h1.08c.28 0 .5-.22.5-.5s-.22-.5-.5-.5H8.96l1.52-1.06c.02-.17.02-.34 0-.51L8.96 11z" opacity="0.7"/>
+      <path d="M13.04 13h1.08c.28 0 .5.22.5.5s-.22.5-.5.5h-1.08l-1.52 1.06c-.02.17-.02.34 0 .51L13.04 13z" opacity="0.7"/>
     </svg>
   );
 }
 
 export function BodyBagIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 64 64" fill="none">
-      <defs>
-        <linearGradient id="bagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#E7352C" stopOpacity="1"/>
-          <stop offset="40%" stopColor="#111214" stopOpacity="0.9"/>
-          <stop offset="100%" stopColor="#0A0A0B" stopOpacity="1"/>
-        </linearGradient>
-        <linearGradient id="bagHighlight" x1="0%" y1="0%" x2="70%" y2="30%">
-          <stop offset="0%" stopColor="#E7352C" stopOpacity="0.9"/>
-          <stop offset="100%" stopColor="transparent"/>
-        </linearGradient>
-        <radialGradient id="bagShadow" cx="50%" cy="70%" r="60%">
-          <stop offset="0%" stopColor="#111214" stopOpacity="0.6"/>
-          <stop offset="100%" stopColor="transparent"/>
-        </radialGradient>
-        <filter id="bagGlow">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-          <feMerge>
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
-      
-      {/* Premium 3D Body Bag with Perspective */}
-      <g filter="url(#bagGlow)">
-        {/* Main Bag Structure with 3D depth */}
-        <path d="M12 18 L52 18 L50 50 L14 50 Z" fill="url(#bagGrad)" stroke="#E7352C" strokeWidth="2" strokeLinejoin="bevel"/>
-        
-        {/* Bag Top/Closure with zipper detail */}
-        <path d="M12 18 L52 18 L48 14 L16 14 Z" fill="url(#bagHighlight)" stroke="#E7352C" strokeWidth="2" strokeLinejoin="bevel"/>
-        
-        {/* 3D Side panels for depth */}
-        <path d="M50 18 L52 20 L50 50 L48 48" fill="#111214" stroke="#2A2B31" strokeWidth="1" opacity="0.8"/>
-        <path d="M14 18 L12 20 L14 50 L16 48" fill="#2A2B31" stroke="#E7352C" strokeWidth="1" opacity="0.6"/>
-        
-        {/* Zipper Details - Premium finish */}
-        <rect x="30" y="12" width="4" height="8" fill="#EDEEF0" stroke="#E7352C" strokeWidth="1" rx="2"/>
-        <circle cx="32" cy="16" r="1" fill="#E7352C"/>
-        
-        {/* Zipper track */}
-        <path d="M16 14 L48 14" stroke="#EDEEF0" strokeWidth="2" strokeDasharray="2,1"/>
-        
-        {/* Body Bag handles - 3D effect */}
-        <ellipse cx="20" cy="12" rx="3" ry="2" fill="#2A2B31" stroke="#E7352C" strokeWidth="1.5"/>
-        <ellipse cx="44" cy="12" rx="3" ry="2" fill="#2A2B31" stroke="#E7352C" strokeWidth="1.5"/>
-        
-        {/* Premium Dollar symbols with glow */}
-        <text x="25" y="38" textAnchor="middle" fill="#39FF14" fontSize="14" fontWeight="900" fontFamily="Orbitron" filter="url(#bagGlow)">$</text>
-        <text x="39" y="38" textAnchor="middle" fill="#39FF14" fontSize="14" fontWeight="900" fontFamily="Orbitron" filter="url(#bagGlow)">$</text>
-        
-        {/* Bag texture lines for realism */}
-        <path d="M16 25 L48 25" stroke="#2A2B31" strokeWidth="1" opacity="0.6"/>
-        <path d="M16 35 L48 35" stroke="#2A2B31" strokeWidth="1" opacity="0.6"/>
-        <path d="M16 45 L48 45" stroke="#2A2B31" strokeWidth="1" opacity="0.6"/>
-        
-        {/* 3D shadow underneath */}
-        <ellipse cx="32" cy="52" rx="18" ry="6" fill="url(#bagShadow)"/>
-        
-        {/* Energy aura effects */}
-        <circle cx="20" cy="30" r="1.5" fill="#E7352C" opacity="0.7">
-          <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="44" cy="40" r="1" fill="#39FF14" opacity="0.8">
-          <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.8s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-      
-      {/* Outer Power Ring */}
-      <circle cx="32" cy="32" r="28" fill="none" stroke="#E7352C" strokeWidth="0.5" opacity="0.3"/>
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      {/* Simplified money bag design for cross-device compatibility */}
+      <path d="M12 2C8.5 2 6 4.5 6 8v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V8c0-3.5-2.5-6-6-6z" opacity="0.8"/>
+      <path d="M8 10v8c0 2.2 1.8 4 4 4s4-1.8 4-4v-8c0-.6-.4-1-1-1H9c-.6 0-1 .4-1 1z"/>
+      <path d="M10 7h4c.6 0 1-.4 1-1s-.4-1-1-1h-4c-.6 0-1 .4-1 1s.4 1 1 1z" opacity="0.6"/>
+      <circle cx="10" cy="15" r="1.5" fill="currentColor" opacity="0.9"/>
+      <circle cx="14" cy="15" r="1.5" fill="currentColor" opacity="0.9"/>
+      <path d="M10 14h1v2h-1zM13 14h1v2h-1z" opacity="0.7"/>
     </svg>
   );
 }
 
 export function GasMaskIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 64 64" fill="none">
-      <defs>
-        <radialGradient id="maskGrad" cx="50%" cy="40%" r="80%">
-          <stop offset="0%" stopColor="#7A3BFF" stopOpacity="1"/>
-          <stop offset="60%" stopColor="#2A2B31" stopOpacity="0.9"/>
-          <stop offset="100%" stopColor="#0A0A0B" stopOpacity="1"/>
-        </radialGradient>
-        <linearGradient id="lensGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#39FF14" stopOpacity="0.9"/>
-          <stop offset="50%" stopColor="#E7352C" stopOpacity="0.7"/>
-          <stop offset="100%" stopColor="#7A3BFF" stopOpacity="0.8"/>
-        </linearGradient>
-        <filter id="maskGlow">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-          <feMerge>
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
-      
-      {/* Premium 3D Gas Mask Structure */}
-      <g filter="url(#maskGlow)">
-        {/* Main mask body with 3D perspective */}
-        <path d="M32 8 L48 16 L50 32 L48 48 L32 52 L16 48 L14 32 L16 16 Z" fill="url(#maskGrad)" stroke="#7A3BFF" strokeWidth="2" strokeLinejoin="bevel"/>
-        
-        {/* 3D depth panel */}
-        <path d="M32 10 L46 18 L46 46 L32 50 L18 46 L18 18 Z" fill="#111214" stroke="#2A2B31" strokeWidth="1" opacity="0.8"/>
-        
-        {/* Premium Eye Lenses with gradient reflections */}
-        <circle cx="24" cy="28" r="8" fill="#0A0A0B" stroke="#EDEEF0" strokeWidth="2"/>
-        <circle cx="40" cy="28" r="8" fill="#0A0A0B" stroke="#EDEEF0" strokeWidth="2"/>
-        
-        {/* Lens inner glow */}
-        <circle cx="24" cy="28" r="6" fill="url(#lensGrad)" opacity="0.8"/>
-        <circle cx="40" cy="28" r="6" fill="url(#lensGrad)" opacity="0.8"/>
-        
-        {/* Lens reflections for 3D effect */}
-        <ellipse cx="22" cy="26" rx="3" ry="4" fill="#39FF14" opacity="0.6"/>
-        <ellipse cx="38" cy="26" rx="3" ry="4" fill="#39FF14" opacity="0.6"/>
-        
-        {/* Center breathing apparatus - highly detailed */}
-        <ellipse cx="32" cy="42" rx="8" ry="6" fill="#2A2B31" stroke="#7A3BFF" strokeWidth="2"/>
-        <ellipse cx="32" cy="42" rx="6" ry="4" fill="#111214" stroke="#E7352C" strokeWidth="1"/>
-        
-        {/* Filter details */}
-        <rect x="28" y="40" width="8" height="4" fill="#39FF14" stroke="#EDEEF0" strokeWidth="1" rx="2"/>
-        <rect x="30" y="41" width="4" height="2" fill="#EDEEF0" rx="1"/>
-        
-        {/* Side filter canisters - 3D perspective */}
-        <ellipse cx="10" cy="36" rx="6" ry="8" fill="#2A2B31" stroke="#7A3BFF" strokeWidth="2"/>
-        <ellipse cx="54" cy="36" rx="6" ry="8" fill="#2A2B31" stroke="#7A3BFF" strokeWidth="2"/>
-        
-        {/* Canister details */}
-        <rect x="7" y="32" width="6" height="8" fill="#111214" stroke="#E7352C" strokeWidth="1" rx="3"/>
-        <rect x="51" y="32" width="6" height="8" fill="#111214" stroke="#E7352C" strokeWidth="1" rx="3"/>
-        
-        {/* Premium warning symbols */}
-        <text x="10" y="38" textAnchor="middle" fill="#E7352C" fontSize="8" fontWeight="900">!</text>
-        <text x="54" y="38" textAnchor="middle" fill="#E7352C" fontSize="8" fontWeight="900">!</text>
-        
-        {/* Head strap connectors */}
-        <rect x="4" y="20" width="4" height="6" fill="#2A2B31" stroke="#7A3BFF" strokeWidth="1" rx="2"/>
-        <rect x="56" y="20" width="4" height="6" fill="#2A2B31" stroke="#7A3BFF" strokeWidth="1" rx="2"/>
-        
-        {/* Mask seal rim for realism */}
-        <path d="M16 16 L48 16 L50 32 L48 48 L16 48 L14 32 Z" fill="none" stroke="#39FF14" strokeWidth="1" opacity="0.4"/>
-        
-        {/* Energy particles */}
-        <circle cx="18" cy="20" r="1" fill="#7A3BFF" opacity="0.8">
-          <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2.5s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="46" cy="50" r="1.5" fill="#39FF14" opacity="0.7">
-          <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-      
-      {/* Outer Power Ring */}
-      <circle cx="32" cy="32" r="28" fill="none" stroke="#7A3BFF" strokeWidth="0.5" opacity="0.3"/>
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      {/* Simplified gas mask design for cross-device compatibility */}
+      <path d="M12 2C8.7 2 6 4.7 6 8v6c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V8c0-3.3-2.7-6-6-6z" opacity="0.9"/>
+      <circle cx="9" cy="10" r="2" fill="currentColor" opacity="0.8"/>
+      <circle cx="15" cy="10" r="2" fill="currentColor" opacity="0.8"/>
+      <circle cx="9" cy="10" r="1" fill="currentColor" opacity="0.6"/>
+      <circle cx="15" cy="10" r="1" fill="currentColor" opacity="0.6"/>
+      <rect x="10" y="13" width="4" height="3" rx="2" fill="currentColor" opacity="0.7"/>
+      <circle cx="4" cy="12" r="2" fill="currentColor" opacity="0.6"/>
+      <circle cx="20" cy="12" r="2" fill="currentColor" opacity="0.6"/>
+      <path d="M6 14v4c0 2.2 1.8 4 4 4h4c2.2 0 4-1.8 4-4v-4" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.5"/>
     </svg>
   );
 }
