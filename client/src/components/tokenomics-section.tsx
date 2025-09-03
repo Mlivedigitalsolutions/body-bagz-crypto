@@ -1,147 +1,165 @@
-import { useState } from "react";
-import tokenomicsHeaderImg from "@assets/generated_images/Tokenomics_section_cyberpunk_header_0d963af7.png";
-
-interface TokenomicsData {
-  label: string;
-  percentage: number;
+interface TokenomicsItem {
+  key: string;
   color: string;
-  description: string;
-  glowClass: string;
+  title: string;
+  text: string;
+  icon: () => JSX.Element;
+  alt: string;
 }
 
-const tokenomicsData: TokenomicsData[] = [
+// Epic SVG Icons with unique IDs
+const VillainArmyIcon = () => (
+  <svg viewBox="0 0 48 48" className="w-8 h-8">
+    <defs>
+      <radialGradient id="armyGlow1" cx="50%" cy="30%" r="70%">
+        <stop offset="0%" stopColor="#39FF14" stopOpacity="1" />
+        <stop offset="100%" stopColor="#1A7A09" stopOpacity="0.8" />
+      </radialGradient>
+      <filter id="neonGlow1">
+        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <path d="M24 4L28 12L36 10L32 18L40 20L32 28L36 36L28 34L24 42L20 34L12 36L16 28L8 20L16 18L12 10L20 12Z" 
+          fill="url(#armyGlow1)" stroke="#39FF14" strokeWidth="1.5" filter="url(#neonGlow1)"/>
+    <circle cx="24" cy="24" r="6" fill="#0A0A0B" stroke="#39FF14" strokeWidth="2"/>
+    <path d="M20 20L28 28M28 20L20 28" stroke="#39FF14" strokeWidth="2"/>
+  </svg>
+);
+
+const ChaosTreasuryIcon = () => (
+  <svg viewBox="0 0 48 48" className="w-8 h-8">
+    <defs>
+      <linearGradient id="vaultGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#7A3BFF" stopOpacity="1" />
+        <stop offset="100%" stopColor="#4A1A8C" stopOpacity="0.9" />
+      </linearGradient>
+    </defs>
+    <rect x="8" y="16" width="32" height="20" rx="4" fill="url(#vaultGrad2)" stroke="#7A3BFF" strokeWidth="2"/>
+    <rect x="12" y="20" width="24" height="12" fill="#0A0A0B" stroke="#7A3BFF" strokeWidth="1"/>
+    <circle cx="30" cy="26" r="3" fill="#7A3BFF" stroke="#FFFFFF" strokeWidth="1"/>
+    <path d="M8 16L24 8L40 16" stroke="#7A3BFF" strokeWidth="2" fill="none"/>
+    <circle cx="16" cy="12" r="2" fill="#7A3BFF"/>
+    <circle cx="32" cy="12" r="2" fill="#7A3BFF"/>
+  </svg>
+);
+
+const ArchitectsIcon = () => (
+  <svg viewBox="0 0 48 48" className="w-8 h-8">
+    <defs>
+      <radialGradient id="gearGlow3" cx="50%" cy="50%" r="60%">
+        <stop offset="0%" stopColor="#A0AEC0" stopOpacity="1" />
+        <stop offset="100%" stopColor="#4A5568" stopOpacity="0.8" />
+      </radialGradient>
+    </defs>
+    <path d="M24 6L27 12L33 9L30 15L36 18L30 21L33 27L27 24L24 30L21 24L15 27L18 21L12 18L18 15L15 9L21 12Z" 
+          fill="url(#gearGlow3)" stroke="#A0AEC0" strokeWidth="2"/>
+    <circle cx="24" cy="18" r="8" fill="#0A0A0B" stroke="#A0AEC0" strokeWidth="2"/>
+    <circle cx="24" cy="18" r="4" fill="#A0AEC0"/>
+    <path d="M20 32L28 32L26 38L22 38Z" fill="url(#gearGlow3)" stroke="#A0AEC0" strokeWidth="1.5"/>
+  </svg>
+);
+
+const UnseenShadowsIcon = () => (
+  <svg viewBox="0 0 48 48" className="w-8 h-8">
+    <defs>
+      <radialGradient id="eyeGlow4" cx="50%" cy="40%" r="80%">
+        <stop offset="0%" stopColor="#E7352C" stopOpacity="1" />
+        <stop offset="100%" stopColor="#8B1A1A" stopOpacity="0.9" />
+      </radialGradient>
+    </defs>
+    <ellipse cx="24" cy="24" rx="18" ry="12" fill="url(#eyeGlow4)" stroke="#E7352C" strokeWidth="2"/>
+    <circle cx="24" cy="24" r="8" fill="#0A0A0B" stroke="#E7352C" strokeWidth="1.5"/>
+    <circle cx="24" cy="24" r="4" fill="#E7352C"/>
+    <path d="M12 16C12 16 18 12 24 12C30 12 36 16 36 16" stroke="#E7352C" strokeWidth="2" fill="none"/>
+    <path d="M12 32C12 32 18 36 24 36C30 36 36 32 36 32" stroke="#E7352C" strokeWidth="2" fill="none"/>
+  </svg>
+);
+
+const tokenomicsData: TokenomicsItem[] = [
   {
-    label: "LIQUIDITY",
-    percentage: 50,
-    color: "#E7352C",
-    description: "Locked and loaded for maximum stability and trading depth.",
-    glowClass: "hover:shadow-red-glow"
-  },
-  {
-    label: "COMMUNITY",
-    percentage: 25,
+    key: "army",
     color: "#39FF14",
-    description: "Rewards, incentives, and chaos fuel for the faithful.",
-    glowClass: "hover:shadow-green-glow"
+    title: "Villain Army — 40%",
+    text: "Rewards, raids, and meme bounties powering the streets.",
+    icon: VillainArmyIcon,
+    alt: "Villain Army icon"
   },
   {
-    label: "TREASURY",
-    percentage: 15,
+    key: "treasury",
     color: "#7A3BFF",
-    description: "War chest for development, marketing, and world domination.",
-    glowClass: "hover:shadow-purple-glow"
+    title: "Chaos Treasury — 30%",
+    text: "Marketing, KOL alliances, boosts, and expansion firepower.",
+    icon: ChaosTreasuryIcon,
+    alt: "Chaos Treasury icon"
   },
   {
-    label: "TEAM",
-    percentage: 10,
-    color: "#EDEEF0",
-    description: "Vested allocation for the architects of chaos.",
-    glowClass: ""
+    key: "architects",
+    color: "#A0AEC0",
+    title: "Architects of Evil — 20%",
+    text: "Core builders and mods — vested to prove we're here to stay.",
+    icon: ArchitectsIcon,
+    alt: "Architects of Evil icon"
+  },
+  {
+    key: "shadows",
+    color: "#E7352C", 
+    title: "Unseen Shadows — 10%",
+    text: "Strategic reserve for buybacks, floor defense, and ops when the streets demand it.",
+    icon: UnseenShadowsIcon,
+    alt: "Unseen Shadows icon"
   }
 ];
 
 export default function TokenomicsSection() {
-  const [hoveredSection, setHoveredSection] = useState<string | null>(null);
-
-  // Calculate stroke dash arrays for the pie chart
-  const circumference = 2 * Math.PI * 70; // radius = 70
-  let cumulativePercentage = 0;
-
-  const sections = tokenomicsData.map((data, index) => {
-    const dashArray = (data.percentage / 100) * circumference;
-    const dashOffset = -cumulativePercentage * circumference / 100;
-    cumulativePercentage += data.percentage;
-
-    return {
-      ...data,
-      dashArray,
-      dashOffset,
-      strokeWidth: hoveredSection === data.label ? "25" : "20"
-    };
-  });
-
   return (
-    <section id="tokenomics" className="relative z-10 py-20 px-6">
+    <section id="tokenomics" className="relative z-10 py-20 px-6" aria-label="Tokenomics — Blueprint of the Villain Era">
       <div className="max-w-6xl mx-auto">
-        <div className="relative mb-12 overflow-hidden rounded-xl">
-          <img 
-            src={tokenomicsHeaderImg} 
-            alt="Cyberpunk Tokenomics - Financial Warfare" 
-            className="w-full h-48 object-cover border border-toxic-green/30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-toxic-green/20 to-blood-red/20"></div>
-        </div>
-        <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-16" data-testid="tokenomics-title">
-          TOKENOMICS
+        <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-16 tracking-wide font-black" data-testid="tokenomics-title">
+          ⚡ TOKENOMICS — BLUEPRINT OF THE VILLAIN ERA
         </h2>
         
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Enhanced Interactive Pie Chart */}
-          <div className="flex justify-center">
-            <div className="relative w-80 h-80 neon-card p-8 rounded-xl" data-testid="tokenomics-chart">
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 160 160">
-                {sections.map((section, index) => (
-                  <circle
-                    key={section.label}
-                    cx="80"
-                    cy="80"
-                    r="65"
-                    fill="none"
-                    stroke={section.color}
-                    strokeWidth={section.strokeWidth}
-                    strokeDasharray={`${section.dashArray} ${circumference - section.dashArray}`}
-                    strokeDashoffset={section.dashOffset}
-                    className="transition-all duration-200 cursor-pointer drop-shadow-lg"
-                    onMouseEnter={() => setHoveredSection(section.label)}
-                    onMouseLeave={() => setHoveredSection(null)}
-                    data-testid={`chart-section-${section.label.toLowerCase()}`}
-                    style={{
-                      filter: hoveredSection === section.label ? `drop-shadow(0 0 8px ${section.color})` : 'none'
-                    }}
-                  />
-                ))}
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="font-brand text-3xl text-blood-red tracking-tight" style={{textShadow: '0 0 10px rgba(231, 53, 44, 0.5)'}}>$BAGZ</div>
-                  <div className="font-tech text-sm text-dim-gray tracking-widest">SUPPLY</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Enhanced Distribution Details */}
-          <div className="space-y-4">
-            {tokenomicsData.map((data) => (
+        {/* 2x2 Glow Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          {tokenomicsData.map((item) => (
+            <article 
+              key={item.key}
+              className="flex items-center gap-6 p-6 rounded-xl bg-gradient-to-br from-jet-black via-onyx to-jet-black border border-dim-gray/40 hover:border-ash-white/30 transition-all duration-300 hover:translate-y-[-4px] neon-card group"
+              style={{
+                boxShadow: `0 0 24px 0 ${item.color}30, inset 0 0 12px rgba(255,255,255,0.05)`,
+              }}
+              data-testid={`tokenomics-card-${item.key}`}
+            >
               <div 
-                key={data.label}
-                className={`neon-card p-6 rounded-xl transition-all duration-200 ${data.glowClass} border-l-4`}
-                style={{ borderLeftColor: data.color }}
-                onMouseEnter={() => setHoveredSection(data.label)}
-                onMouseLeave={() => setHoveredSection(null)}
-                data-testid={`tokenomics-card-${data.label.toLowerCase()}`}
+                className="min-w-[60px] min-h-[60px] rounded-xl flex items-center justify-center bg-jet-black/70 border border-dim-gray/40 group-hover:border-ash-white/50 transition-all duration-300 backdrop-blur-sm"
+                style={{
+                  boxShadow: `0 0 20px 0 ${item.color}40, inset 0 0 8px rgba(255,255,255,0.1)`
+                }}
               >
-                <div className="flex items-center mb-3">
-                  <div 
-                    className="w-3 h-3 mr-3" 
-                    style={{ 
-                      backgroundColor: data.color,
-                      boxShadow: `0 0 8px ${data.color}`,
-                      borderRadius: '1px'
-                    }}
-                  ></div>
-                  <span 
-                    className="font-tech text-lg font-semibold tracking-wide"
-                    style={{ color: data.color }}
-                  >
-                    {data.percentage}% {data.label}
-                  </span>
-                </div>
-                <p className="text-dim-enhanced font-medium leading-relaxed">{data.description}</p>
+                <item.icon />
               </div>
-            ))}
-          </div>
+              <div className="flex-1">
+                <h3 
+                  className="font-brand text-lg font-black text-white mb-3 tracking-wide uppercase leading-tight"
+                  style={{ textShadow: `0 0 12px ${item.color}60` }}
+                >
+                  {item.title}
+                </h3>
+                <p className="text-ash-white text-sm leading-relaxed opacity-85 font-medium">
+                  {item.text}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
+        
+        {/* Disclaimer */}
+        <p className="text-center text-dim-gray text-sm opacity-75 mt-12 font-medium max-w-2xl mx-auto leading-relaxed">
+          <strong className="text-ash-white">Disclaimer:</strong> Community-driven meme project. Allocations may evolve to serve growth. Not financial advice.
+        </p>
       </div>
     </section>
   );
