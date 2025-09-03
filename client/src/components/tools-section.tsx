@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChainLinkIcon, BodyBagIcon, GasMaskIcon } from "@/components/icons";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/contexts/UserContext";
 import { apiRequest } from "@/lib/queryClient";
@@ -27,6 +28,176 @@ const pfpVariants = [
   "Death Commander Alpha #REAP-999"
 ];
 
+const memeTemplates = {
+  'cyberpunk-grid': {
+    name: 'Cyberpunk Grid',
+    icon: '🏢',
+    generate: (topText: string, bottomText: string, centerText?: string) => `
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#39FF14" stroke-width="0.5" opacity="0.3"/>
+          </pattern>
+          <linearGradient id="cityGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#7A3BFF;stop-opacity:0.8" />
+            <stop offset="50%" style="stop-color:#0A0A0A;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#E7352C;stop-opacity:0.9" />
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect width="400" height="300" fill="url(#cityGrad)"/>
+        <rect width="400" height="300" fill="url(#grid)"/>
+        <rect x="50" y="80" width="80" height="120" fill="#1A1A1A" stroke="#39FF14" stroke-width="1" opacity="0.8"/>
+        <rect x="150" y="60" width="100" height="140" fill="#1A1A1A" stroke="#E7352C" stroke-width="1" opacity="0.8"/>
+        <rect x="270" y="90" width="70" height="110" fill="#1A1A1A" stroke="#7A3BFF" stroke-width="1" opacity="0.8"/>
+        <rect x="10" y="120" width="30" height="80" fill="#2A2B31" stroke="#39FF14" stroke-width="0.5" opacity="0.6"/>
+        <rect x="360" y="110" width="30" height="90" fill="#2A2B31" stroke="#E7352C" stroke-width="0.5" opacity="0.6"/>
+        ${topText ? `<text x="200" y="40" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="18" font-weight="bold" fill="#EDEEF0" filter="url(#glow)">${topText.toUpperCase()}</text>` : ''}
+        ${centerText ? `<text x="200" y="155" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="14" font-weight="bold" fill="#39FF14" filter="url(#glow)">${centerText.toUpperCase()}</text>` : ''}
+        ${bottomText ? `<text x="200" y="280" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="18" font-weight="bold" fill="#EDEEF0" filter="url(#glow)">${bottomText.toUpperCase()}</text>` : ''}
+        <text x="20" y="285" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#E7352C" opacity="0.8">BODY BAGZ</text>
+      </svg>
+    `
+  },
+  'villain-portrait': {
+    name: 'Villain Portrait', 
+    icon: '💀',
+    generate: (topText: string, bottomText: string, centerText?: string) => `
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="skullGrad" cx="50%" cy="30%" r="70%">
+            <stop offset="0%" style="stop-color:#2A2B31;stop-opacity:0.9" />
+            <stop offset="70%" style="stop-color:#0A0A0A;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+          </radialGradient>
+          <filter id="redGlow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect width="400" height="300" fill="url(#skullGrad)"/>
+        <ellipse cx="200" cy="150" rx="80" ry="90" fill="#1A1A1A" stroke="#E7352C" stroke-width="2" opacity="0.9"/>
+        <ellipse cx="180" cy="130" rx="12" ry="18" fill="#000000" stroke="#E7352C" stroke-width="1"/>
+        <ellipse cx="220" cy="130" rx="12" ry="18" fill="#000000" stroke="#E7352C" stroke-width="1"/>
+        <circle cx="180" cy="135" r="3" fill="#E7352C" filter="url(#redGlow)"/>
+        <circle cx="220" cy="135" r="3" fill="#E7352C" filter="url(#redGlow)"/>
+        <polygon points="195,155 205,155 200,170" fill="#000000" stroke="#E7352C" stroke-width="1"/>
+        <path d="M 180 180 Q 200 195 220 180" stroke="#E7352C" stroke-width="2" fill="none"/>
+        <rect x="170" y="200" width="60" height="20" rx="10" fill="#2A2B31" stroke="#39FF14" stroke-width="1"/>
+        <text x="200" y="212" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#39FF14">BODY BAGZ</text>
+        ${topText ? `<text x="200" y="35" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="16" font-weight="bold" fill="#EDEEF0" filter="url(#redGlow)">${topText.toUpperCase()}</text>` : ''}
+        ${centerText ? `<text x="200" y="270" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="12" font-weight="bold" fill="#39FF14" filter="url(#redGlow)">${centerText.toUpperCase()}</text>` : ''}
+        ${bottomText ? `<text x="200" y="290" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="16" font-weight="bold" fill="#EDEEF0" filter="url(#redGlow)">${bottomText.toUpperCase()}</text>` : ''}
+      </svg>
+    `
+  },
+  'chaos-explosion': {
+    name: 'Chaos Explosion',
+    icon: '💥', 
+    generate: (topText: string, bottomText: string, centerText?: string) => `
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="explosionGrad" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" style="stop-color:#E7352C;stop-opacity:0.9" />
+            <stop offset="30%" style="stop-color:#7A3BFF;stop-opacity:0.8" />
+            <stop offset="70%" style="stop-color:#39FF14;stop-opacity:0.6" />
+            <stop offset="100%" style="stop-color:#0A0A0A;stop-opacity:1" />
+          </radialGradient>
+          <filter id="chaos">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect width="400" height="300" fill="#0A0A0A"/>
+        <circle cx="200" cy="150" r="100" fill="url(#explosionGrad)" filter="url(#chaos)"/>
+        <polygon points="200,50 210,80 240,70 220,100 250,110 215,130 230,160 200,145 170,160 185,130 150,110 180,100 160,70 190,80" fill="#E7352C" opacity="0.8"/>
+        <polygon points="200,80 205,95 220,90 210,105 225,110 207,120 215,135 200,127 185,135 193,120 175,110 190,105 180,90 195,95" fill="#39FF14" opacity="0.9"/>
+        <circle cx="160" cy="120" r="8" fill="#7A3BFF" opacity="0.7" filter="url(#chaos)"/>
+        <circle cx="240" cy="180" r="6" fill="#E7352C" opacity="0.8" filter="url(#chaos)"/>
+        <circle cx="180" cy="200" r="4" fill="#39FF14" opacity="0.9" filter="url(#chaos)"/>
+        <circle cx="220" cy="100" r="5" fill="#7A3BFF" opacity="0.7" filter="url(#chaos)"/>
+        ${topText ? `<text x="200" y="30" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="18" font-weight="bold" fill="#EDEEF0" filter="url(#chaos)">${topText.toUpperCase()}</text>` : ''}
+        ${centerText ? `<text x="200" y="155" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="14" font-weight="bold" fill="#EDEEF0" filter="url(#chaos)">${centerText.toUpperCase()}</text>` : ''}
+        ${bottomText ? `<text x="200" y="285" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="18" font-weight="bold" fill="#EDEEF0" filter="url(#chaos)">${bottomText.toUpperCase()}</text>` : ''}
+        <text x="350" y="290" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#E7352C" opacity="0.8">BODY BAGZ</text>
+      </svg>
+    `
+  },
+  'neon-street': {
+    name: 'Neon Street',
+    icon: '🌃',
+    generate: (topText: string, bottomText: string, centerText?: string) => `
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="streetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#2A2B31;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#0A0A0A;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#1A1A1A;stop-opacity:1" />
+          </linearGradient>
+          <filter id="neonGlow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect width="400" height="300" fill="url(#streetGrad)"/>
+        <rect x="0" y="200" width="400" height="100" fill="#1A1A1A" stroke="#39FF14" stroke-width="1" opacity="0.8"/>
+        <rect x="20" y="180" width="8" height="20" fill="#E7352C" filter="url(#neonGlow)"/>
+        <rect x="50" y="170" width="6" height="30" fill="#39FF14" filter="url(#neonGlow)"/>
+        <rect x="80" y="185" width="10" height="15" fill="#7A3BFF" filter="url(#neonGlow)"/>
+        <rect x="320" y="175" width="8" height="25" fill="#E7352C" filter="url(#neonGlow)"/>
+        <rect x="350" y="180" width="6" height="20" fill="#39FF14" filter="url(#neonGlow)"/>
+        <rect x="370" y="170" width="10" height="30" fill="#7A3BFF" filter="url(#neonGlow)"/>
+        <ellipse cx="200" cy="220" rx="60" ry="8" fill="#39FF14" opacity="0.3" filter="url(#neonGlow)"/>
+        <rect x="160" y="230" width="80" height="30" rx="15" fill="#2A2B31" stroke="#E7352C" stroke-width="2" filter="url(#neonGlow)"/>
+        <text x="200" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#E7352C">BODY BAGZ</text>
+        ${topText ? `<text x="200" y="40" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="20" font-weight="bold" fill="#39FF14" filter="url(#neonGlow)">${topText.toUpperCase()}</text>` : ''}
+        ${centerText ? `<text x="200" y="120" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="16" font-weight="bold" fill="#EDEEF0" filter="url(#neonGlow)">${centerText.toUpperCase()}</text>` : ''}
+        ${bottomText ? `<text x="200" y="290" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="18" font-weight="bold" fill="#7A3BFF" filter="url(#neonGlow)">${bottomText.toUpperCase()}</text>` : ''}
+      </svg>
+    `
+  },
+  'glitch-matrix': {
+    name: 'Glitch Matrix',
+    icon: '👾',
+    generate: (topText: string, bottomText: string, centerText?: string) => `
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glitch">
+            <feOffset in="SourceGraphic" dx="2" dy="0" result="red"/>
+            <feOffset in="SourceGraphic" dx="-2" dy="0" result="blue"/>
+            <feFlood flood-color="#E7352C" result="redFlood"/>
+            <feFlood flood-color="#39FF14" result="blueFlood"/>
+            <feComposite in="redFlood" in2="red" operator="in" result="redChannel"/>
+            <feComposite in="blueFlood" in2="blue" operator="in" result="blueChannel"/>
+            <feMerge><feMergeNode in="redChannel"/><feMergeNode in="blueChannel"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <pattern id="matrix" width="10" height="10" patternUnits="userSpaceOnUse">
+            <rect width="10" height="10" fill="#0A0A0A"/>
+            <text x="5" y="8" text-anchor="middle" font-family="monospace" font-size="6" fill="#39FF14" opacity="0.6">1</text>
+          </pattern>
+        </defs>
+        <rect width="400" height="300" fill="#0A0A0A"/>
+        <rect width="400" height="300" fill="url(#matrix)" opacity="0.3"/>
+        <rect x="50" y="50" width="300" height="200" fill="#1A1A1A" stroke="#E7352C" stroke-width="2" opacity="0.8"/>
+        <rect x="60" y="80" width="280" height="2" fill="#39FF14" opacity="0.7"/>
+        <rect x="60" y="120" width="280" height="2" fill="#7A3BFF" opacity="0.7"/>
+        <rect x="60" y="160" width="280" height="2" fill="#E7352C" opacity="0.7"/>
+        <rect x="60" y="200" width="280" height="2" fill="#39FF14" opacity="0.7"/>
+        <circle cx="100" cy="130" r="3" fill="#E7352C" filter="url(#glitch)"/>
+        <circle cx="300" cy="170" r="3" fill="#39FF14" filter="url(#glitch)"/>
+        <rect x="170" y="240" width="60" height="15" rx="7" fill="#2A2B31" stroke="#7A3BFF" stroke-width="1"/>
+        <text x="200" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#7A3BFF">BODY BAGZ</text>
+        ${topText ? `<text x="200" y="35" text-anchor="middle" font-family="monospace" font-size="16" font-weight="bold" fill="#39FF14" filter="url(#glitch)">${topText.toUpperCase()}</text>` : ''}
+        ${centerText ? `<text x="200" y="155" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#EDEEF0" filter="url(#glitch)">${centerText.toUpperCase()}</text>` : ''}
+        ${bottomText ? `<text x="200" y="285" text-anchor="middle" font-family="monospace" font-size="16" font-weight="bold" fill="#E7352C" filter="url(#glitch)">${bottomText.toUpperCase()}</text>` : ''}
+      </svg>
+    `
+  }
+};
+
 const pfpPrompts = [
   "Ultra-detailed cyberpunk assassin profile portrait: hooded figure with intricate chrome facial implants, asymmetrical LED eye augmentations glowing toxic green and blood red, weathered tactical face mask with breathing apparatus, multiple facial piercings, holographic tattoos on visible neck, dark military-grade hood with fiber optic threading, atmospheric volumetric lighting, photorealistic digital art, 8K quality, cinematic depth of field",
   "Masterpiece cyberpunk android portrait: sleek humanoid with exposed chrome skull sections, one organic eye and one holographic scanner eye, intricate neural interface ports along jawline, liquid metal face paint patterns, neon data streams flowing across synthetic skin, high-tech collar with pulsing circuits, studio lighting with neon rim lighting, hyperrealistic 3D render",
@@ -39,6 +210,10 @@ export default function ToolsSection() {
   const [generatedTweet, setGeneratedTweet] = useState("");
   const [topText, setTopText] = useState("");
   const [bottomText, setBottomText] = useState("");
+  const [centerText, setCenterText] = useState("");
+  const [selectedTemplate, setSelectedTemplate] = useState('cyberpunk-grid');
+  const [textPosition, setTextPosition] = useState('standard');
+  const [textStyle, setTextStyle] = useState('bold');
   const [currentPfp, setCurrentPfp] = useState(pfpVariants[0]);
   const [generatedPfpImage, setGeneratedPfpImage] = useState("");
   const [generatedMemeImage, setGeneratedMemeImage] = useState("");
@@ -219,7 +394,7 @@ export default function ToolsSection() {
   };
 
   const generateMeme = async () => {
-    if (!topText && !bottomText && !uploadedImage) {
+    if (!topText && !bottomText && !centerText && !uploadedImage) {
       toast({
         title: "Add content!",
         description: "Add text or upload an image for your meme",
@@ -231,38 +406,56 @@ export default function ToolsSection() {
     setIsGeneratingMeme(true);
     
     try {
-      let baseImageData = null;
-      if (uploadedImage) {
-        const reader = new FileReader();
-        baseImageData = await new Promise((resolve) => {
-          reader.onload = () => resolve(reader.result);
-          reader.readAsDataURL(uploadedImage);
-        });
-      }
+      // Generate SVG meme using selected template
+      const template = memeTemplates[selectedTemplate as keyof typeof memeTemplates];
+      const svgContent = template.generate(topText, bottomText, centerText);
       
-      const response = await fetch('/api/generate-meme', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          topText,
-          bottomText,
-          baseImage: baseImageData,
-          userId: user?.id
-        }),
-      });
+      // Convert SVG to data URL
+      const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' });
+      const svgUrl = URL.createObjectURL(svgBlob);
       
-      if (response.ok) {
-        const data = await response.json();
-        setGeneratedMemeImage(data.imageUrl);
+      // Create canvas to convert SVG to PNG for better compatibility
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        canvas.width = 400;
+        canvas.height = 300;
+        ctx?.drawImage(img, 0, 0);
+        
+        const pngDataUrl = canvas.toDataURL('image/png');
+        setGeneratedMemeImage(pngDataUrl);
+        URL.revokeObjectURL(svgUrl);
+        
         toast({
           title: "Meme Created!",
           description: user ? "Your chaos meme is ready to download (+4 points!)" : "Your chaos meme is ready to download",
         });
-      } else {
-        throw new Error('Failed to generate meme');
-      }
+        
+        if (user) {
+          trackAction('meme_generated');
+        }
+      };
+      
+      img.onerror = () => {
+        // Fallback: use SVG data URL directly
+        const svgDataUrl = `data:image/svg+xml;base64,${btoa(svgContent)}`;
+        setGeneratedMemeImage(svgDataUrl);
+        URL.revokeObjectURL(svgUrl);
+        
+        toast({
+          title: "Meme Created!",
+          description: user ? "Your chaos meme is ready to download (+4 points!)" : "Your chaos meme is ready to download",
+        });
+        
+        if (user) {
+          trackAction('meme_generated');
+        }
+      };
+      
+      img.src = svgUrl;
+      
     } catch (error) {
       toast({
         title: "Generation Error",
@@ -451,75 +644,106 @@ export default function ToolsSection() {
             </div>
             <div className="space-y-4">
               <div className="bg-jet-black p-6 rounded-lg border border-dim-gray text-center">
-                <div className="w-full h-36 bg-gradient-to-br from-dim-gray to-jet-black rounded-lg flex items-center justify-center mb-4 relative border border-blood-red border-opacity-30 overflow-hidden">
+                <div className="w-full h-48 bg-gradient-to-br from-dim-gray to-jet-black rounded-lg flex items-center justify-center mb-4 relative border border-blood-red border-opacity-30 overflow-hidden">
                   {generatedMemeImage ? (
                     <img 
                       src={generatedMemeImage} 
                       alt="Generated meme"
-                      className="w-full h-full object-cover rounded-lg"
+                      className="w-full h-full object-contain rounded-lg"
                       data-testid="generated-meme-image"
                     />
                   ) : (
-                    <>
-                      {/* Premium Template Background */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-blood-red/10 to-transparent rounded-lg"></div>
-                      <div className="absolute top-2 right-2 w-4 h-4 bg-blood-red opacity-20 rounded-full blur-sm"></div>
-                      
-                      <span className="text-ash-white text-sm font-semibold tracking-wide relative z-10">BODY BAGZ MEME TEMPLATE</span>
-                      {topText && (
-                        <div className="absolute top-3 left-3 right-3 text-ash-white font-black text-sm tracking-wide" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
-                          {topText}
-                        </div>
-                      )}
-                      {bottomText && (
-                        <div className="absolute bottom-3 left-3 right-3 text-ash-white font-black text-sm tracking-wide" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
-                          {bottomText}
-                        </div>
-                      )}
-                    </>
+                    <div 
+                      className="w-full h-full flex items-center justify-center rounded-lg"
+                      dangerouslySetInnerHTML={{
+                        __html: memeTemplates[selectedTemplate as keyof typeof memeTemplates]?.generate(
+                          topText || 'TOP TEXT',
+                          bottomText || 'BOTTOM TEXT', 
+                          centerText || ''
+                        ) || ''
+                      }}
+                      data-testid="meme-preview"
+                    />
                   )}
                 </div>
-                <Input 
-                  type="text" 
-                  placeholder="Top text..." 
-                  value={topText}
-                  onChange={(e) => setTopText(e.target.value)}
-                  className="cyber-input w-full px-4 py-3 text-ash-white placeholder-dim-gray rounded-lg mb-3 font-medium" 
-                  data-testid="input-meme-top-text"
-                />
-                <Input 
-                  type="text" 
-                  placeholder="Bottom text..." 
-                  value={bottomText}
-                  onChange={(e) => setBottomText(e.target.value)}
-                  className="cyber-input w-full px-4 py-3 text-ash-white placeholder-dim-gray rounded-lg mb-3 font-medium" 
-                  data-testid="input-meme-bottom-text"
-                />
-                <div className="relative">
-                  <input 
-                    type="file" 
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden" 
-                    id="meme-image-upload"
+                {/* Template Selection */}
+                <div className="mb-4">
+                  <label className="text-ash-white text-sm font-semibold mb-2 block">MEME TEMPLATE</label>
+                  <Select value={selectedTemplate} onValueChange={setSelectedTemplate}>
+                    <SelectTrigger className="cyber-input w-full text-ash-white" data-testid="select-meme-template">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-jet-black border border-dim-gray">
+                      {Object.entries(memeTemplates).map(([key, template]) => (
+                        <SelectItem key={key} value={key} className="text-ash-white hover:bg-dim-gray focus:bg-dim-gray">
+                          {template.icon} {template.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Text Inputs */}
+                <div className="grid grid-cols-1 gap-3 mb-4">
+                  <Input 
+                    type="text" 
+                    placeholder="Top text..." 
+                    value={topText}
+                    onChange={(e) => setTopText(e.target.value)}
+                    className="cyber-input w-full px-4 py-3 text-ash-white placeholder-dim-gray rounded-lg font-medium" 
+                    data-testid="input-meme-top-text"
                   />
+                  <Input 
+                    type="text" 
+                    placeholder="Center text (optional)..." 
+                    value={centerText}
+                    onChange={(e) => setCenterText(e.target.value)}
+                    className="cyber-input w-full px-4 py-3 text-ash-white placeholder-dim-gray rounded-lg font-medium" 
+                    data-testid="input-meme-center-text"
+                  />
+                  <Input 
+                    type="text" 
+                    placeholder="Bottom text..." 
+                    value={bottomText}
+                    onChange={(e) => setBottomText(e.target.value)}
+                    className="cyber-input w-full px-4 py-3 text-ash-white placeholder-dim-gray rounded-lg font-medium" 
+                    data-testid="input-meme-bottom-text"
+                  />
+                </div>
+                {/* Quick Actions */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
                   <Button 
                     type="button"
-                    onClick={() => document.getElementById('meme-image-upload')?.click()}
-                    className="w-full py-3 bg-gradient-to-r from-toxic-green/20 to-toxic-green/10 hover:from-toxic-green/30 hover:to-toxic-green/20 text-toxic-green border border-toxic-green/30 font-bold tracking-wide rounded-lg transition-all duration-200"
-                    data-testid="button-upload-image"
+                    onClick={() => {
+                      setTopText('');
+                      setBottomText('');
+                      setCenterText('');
+                    }}
+                    className="py-2 bg-gradient-to-r from-dim-gray/40 to-dim-gray/20 hover:from-dim-gray/60 hover:to-dim-gray/40 text-ash-white border border-dim-gray/30 font-semibold text-sm rounded-lg transition-all duration-200"
+                    data-testid="button-clear-text"
                   >
-                    📂 {uploadedImage ? uploadedImage.name : 'UPLOAD BASE IMAGE (OPTIONAL)'}
+                    🗑️ CLEAR TEXT
                   </Button>
-                  {uploadedImage && (
-                    <Button 
-                      type="button"
-                      onClick={() => setUploadedImage(null)}
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-blood-red hover:bg-blood-red/80 text-white rounded-full text-xs font-bold"
-                    >
-                      ×
-                    </Button>
-                  )}
+                  <Button 
+                    type="button"
+                    onClick={() => {
+                      const examples = [
+                        { top: 'WHEN YOU', bottom: 'STACK $BAGZ', center: 'VILLAIN MODE' },
+                        { top: 'CHAOS', bottom: 'IS PROFIT', center: 'BODY BAGZ' },
+                        { top: 'BREAKING:', bottom: 'VILLAIN ERA ACTIVATED', center: '$BAGZ RISING' },
+                        { top: 'ME BUYING', bottom: 'THE DIP AGAIN', center: 'DIAMOND HANDS' },
+                        { top: 'PORTFOLIO', bottom: 'GO BRRR', center: '$BAGZ POWER' }
+                      ];
+                      const example = examples[Math.floor(Math.random() * examples.length)];
+                      setTopText(example.top);
+                      setBottomText(example.bottom);
+                      setCenterText(example.center);
+                    }}
+                    className="py-2 bg-gradient-to-r from-toxic-green/20 to-toxic-green/10 hover:from-toxic-green/30 hover:to-toxic-green/20 text-toxic-green border border-toxic-green/30 font-semibold text-sm rounded-lg transition-all duration-200"
+                    data-testid="button-example-text"
+                  >
+                    🎲 EXAMPLE
+                  </Button>
                 </div>
               </div>
               <div className="space-y-3">
