@@ -79,38 +79,64 @@ const UnseenShadowsIcon = () => (
   </svg>
 );
 
+const OpenMarketIcon = () => (
+  <svg viewBox="0 0 48 48" className="w-8 h-8">
+    <defs>
+      <radialGradient id="marketGlow5" cx="50%" cy="50%" r="70%">
+        <stop offset="0%" stopColor="#39FF14" stopOpacity="1" />
+        <stop offset="100%" stopColor="#E7352C" stopOpacity="0.8" />
+      </radialGradient>
+    </defs>
+    <circle cx="24" cy="24" r="18" fill="none" stroke="url(#marketGlow5)" strokeWidth="3" strokeDasharray="8 4"/>
+    <circle cx="24" cy="24" r="12" fill="#0A0A0B" stroke="#39FF14" strokeWidth="2"/>
+    <path d="M18 18L30 30M30 18L18 30" stroke="#39FF14" strokeWidth="2"/>
+    <circle cx="12" cy="12" r="3" fill="#E7352C"/>
+    <circle cx="36" cy="12" r="3" fill="#7A3BFF"/>
+    <circle cx="12" cy="36" r="3" fill="#A0AEC0"/>
+    <circle cx="36" cy="36" r="3" fill="#39FF14"/>
+  </svg>
+);
+
 const tokenomicsData: TokenomicsItem[] = [
   {
     key: "army",
     color: "#39FF14",
-    title: "Villain Army — 40%",
-    text: "Rewards, raids, and meme bounties powering the streets.",
+    title: "Villain Army — 20%",
+    text: "Rewards, raids, meme contests, and engagement fuel for the faithful.",
     icon: VillainArmyIcon,
     alt: "Villain Army icon"
   },
   {
     key: "treasury",
     color: "#7A3BFF",
-    title: "Chaos Treasury — 30%",
-    text: "Marketing, KOL alliances, boosts, and expansion firepower.",
+    title: "Chaos Treasury — 13%",
+    text: "Marketing, KOL firepower, DEX boosts, and expansion.",
     icon: ChaosTreasuryIcon,
     alt: "Chaos Treasury icon"
   },
   {
     key: "architects",
     color: "#A0AEC0",
-    title: "Architects of Evil — 20%",
-    text: "Core builders and mods — vested to prove we're here to stay.",
+    title: "Architects of Evil — 12%",
+    text: "Builders & moderators — vested to prove we're here to stay.",
     icon: ArchitectsIcon,
     alt: "Architects of Evil icon"
   },
   {
     key: "shadows",
     color: "#E7352C", 
-    title: "Unseen Shadows — 10%",
+    title: "Unseen Shadows — 5%",
     text: "Strategic reserve for buybacks, floor defense, and ops when the streets demand it.",
     icon: UnseenShadowsIcon,
     alt: "Unseen Shadows icon"
+  },
+  {
+    key: "market",
+    color: "#39FF14",
+    title: "Open-Market Float — ~50%",
+    text: "Traded by the community and external buyers post-launch.",
+    icon: OpenMarketIcon,
+    alt: "Open-Market Float icon"
   }
 ];
 
@@ -119,11 +145,11 @@ export default function TokenomicsSection() {
     <section id="tokenomics" className="relative z-10 py-20 px-6" aria-label="Tokenomics — Blueprint of the Villain Era">
       <div className="max-w-6xl mx-auto">
         <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-16 tracking-wide font-black" data-testid="tokenomics-title">
-          ⚡ TOKENOMICS — BLUEPRINT OF THE VILLAIN ERA
+          ⚡ TOKENOMICS — VILLAIN ERA WALLETS
         </h2>
         
-        {/* 2x2 Glow Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        {/* Responsive Grid - 2x2 on desktop, single column on mobile */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
           {tokenomicsData.map((item) => (
             <article 
               key={item.key}
@@ -156,9 +182,9 @@ export default function TokenomicsSection() {
           ))}
         </div>
         
-        {/* Disclaimer */}
-        <p className="text-center text-dim-gray text-sm opacity-75 mt-12 font-medium max-w-2xl mx-auto leading-relaxed">
-          <strong className="text-ash-white">Disclaimer:</strong> Community-driven meme project. Allocations may evolve to serve growth. Not financial advice.
+        {/* Updated Disclaimer */}
+        <p className="text-center text-dim-gray text-sm opacity-75 mt-12 font-medium max-w-3xl mx-auto leading-relaxed">
+          <strong className="text-ash-white">Disclaimer:</strong> These are operational wallet targets (not pre-minted supply). The open-market float adjusts with trading; nothing here is financial advice.
         </p>
       </div>
     </section>
