@@ -8,6 +8,7 @@ import ToolsSection from "@/components/tools-section";
 import MerchSection from "@/components/merch-section";
 import TradingDataSection from "@/components/trading-data-section";
 import CommunitySection from "@/components/community-section";
+import TradingPanel from "@/components/trading-panel";
 import Footer from "@/components/footer";
 import { Leaderboard } from "@/components/Leaderboard";
 import { UserButton } from "@/components/UserAuth";
@@ -101,6 +102,28 @@ export default function Home() {
               <a href="#community" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
             </div>
             
+            {/* Trading CTAs */}
+            <div className="hidden lg:flex space-x-4">
+              <a
+                href="https://dexscreener.com/solana/hcspcc1loaejempvs7gh6nzhyxbypmcv6dvc9kjjxeye"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-sm hover:shadow-green-glow transition-all duration-200 group"
+                data-testid="nav-dexscreener"
+              >
+                Trade on Dexscreener ↗
+              </a>
+              <a
+                href="https://moonshot.com?ref=hmcVBJO6br"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-gradient-to-r from-glitch-purple to-purple-600 rounded-lg font-tech text-white text-sm hover:shadow-purple-glow transition-all duration-200 group"
+                data-testid="nav-moonshot"
+              >
+                Get Moonshot ↗
+              </a>
+            </div>
+            
             {/* User Auth */}
             <UserButton />
             
@@ -132,6 +155,9 @@ export default function Home() {
       {/* Main Content */}
       <main>
         <HeroSection titleRef={mainTitleRef} />
+        
+        {/* Trading Panel */}
+        <TradingPanel />
         
         {/* Introduction Section */}
         <section className="relative z-10 py-20 px-6">
