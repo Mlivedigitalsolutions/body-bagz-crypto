@@ -25,6 +25,28 @@ import reaperApprovalMeme from "@assets/generated_images/Reaper_approval_wealth_
 import reaperRocketMeme from "@assets/generated_images/Reaper_rocket_moon_meme_ef7d2642.png";
 import reaperStrengthMeme from "@assets/generated_images/Reaper_strength_gains_meme_e94151d5.png";
 
+// Import 20 pre-made PFP collection
+import pfp01 from "@assets/generated_images/Toxic_Green_Cyber_Assassin_d59133d7.png";
+import pfp02 from "@assets/generated_images/Blood_Red_Android_Profile_70411c89.png";
+import pfp03 from "@assets/generated_images/Purple_Skull_Overlord_9dd6bdc3.png";
+import pfp04 from "@assets/generated_images/Cyber_Samurai_Warrior_2e32dee9.png";
+import pfp05 from "@assets/generated_images/Cyber_Reaper_Commander_7f14f6b0.png";
+import pfp06 from "@assets/generated_images/Neon_Hacker_Elite_cf2b2d73.png";
+import pfp07 from "@assets/generated_images/Chrome_Assassin_Queen_234f8bba.png";
+import pfp08 from "@assets/generated_images/Battle_Scarred_Soldier_86cd315d.png";
+import pfp09 from "@assets/generated_images/Neon_Punk_Rebel_e72ba670.png";
+import pfp10 from "@assets/generated_images/Corporate_Cyber_Elite_833f4e75.png";
+import pfp11 from "@assets/generated_images/Cyber_Medic_Specialist_5d1f3b5c.png";
+import pfp12 from "@assets/generated_images/Digital_Ghost_Runner_6767af22.png";
+import pfp13 from "@assets/generated_images/Cyber_Bounty_Hunter_8f6af44d.png";
+import pfp14 from "@assets/generated_images/Neo_Ninja_Operative_bafcd4a8.png";
+import pfp15 from "@assets/generated_images/Cyber_Mechanic_Worker_c36b063a.png";
+import pfp16 from "@assets/generated_images/Cyber_Shaman_Mystic_c169fd87.png";
+import pfp17 from "@assets/generated_images/Cyber_Pilot_Ace_94ecb3aa.png";
+import pfp18 from "@assets/generated_images/Cyber_Cage_Fighter_e071f7ad.png";
+import pfp19 from "@assets/generated_images/Corporate_Security_Chief_ffa43132.png";
+import pfp20 from "@assets/generated_images/Cyber_Digital_Artist_581d26ce.png";
+
 const bullishTweets = [
   "Just bagged another mil in $BAGZ. The villain era hits different when you're stacking chaos. NFA but this rocket's fueled by pure degeneracy.",
   "While you're sleeping, $BAGZ holders are building an empire in the shadows. The chaos collective never rests.",
@@ -33,12 +55,28 @@ const bullishTweets = [
   "The street chose $BAGZ. Underground vibes, premium gains. If you know, you know."
 ];
 
-const pfpVariants = [
-  "Chrome Assassin Elite #KRVN-001",
-  "Neural Android Mk-VII #SYNT-888", 
-  "Skull Overlord Prime #DOOM-666",
-  "Cyber Samurai Legend #BLADE-777",
-  "Death Commander Alpha #REAP-999"
+// Premium PFP Collection - 20 High-Quality Profile Pictures
+const premiumPfpCollection = [
+  { id: "BAGZ-001", name: "Toxic Green Cyber Assassin", image: pfp01, rarity: "common" },
+  { id: "BAGZ-002", name: "Blood Red Android Profile", image: pfp02, rarity: "common" },
+  { id: "BAGZ-003", name: "Purple Skull Overlord", image: pfp03, rarity: "rare" },
+  { id: "BAGZ-004", name: "Cyber Samurai Warrior", image: pfp04, rarity: "common" },
+  { id: "BAGZ-005", name: "Cyber Reaper Commander", image: pfp05, rarity: "legendary" },
+  { id: "BAGZ-006", name: "Neon Hacker Elite", image: pfp06, rarity: "common" },
+  { id: "BAGZ-007", name: "Chrome Assassin Queen", image: pfp07, rarity: "rare" },
+  { id: "BAGZ-008", name: "Battle Scarred Soldier", image: pfp08, rarity: "common" },
+  { id: "BAGZ-009", name: "Neon Punk Rebel", image: pfp09, rarity: "common" },
+  { id: "BAGZ-010", name: "Corporate Cyber Elite", image: pfp10, rarity: "rare" },
+  { id: "BAGZ-011", name: "Cyber Medic Specialist", image: pfp11, rarity: "common" },
+  { id: "BAGZ-012", name: "Digital Ghost Runner", image: pfp12, rarity: "rare" },
+  { id: "BAGZ-013", name: "Cyber Bounty Hunter", image: pfp13, rarity: "common" },
+  { id: "BAGZ-014", name: "Neo Ninja Operative", image: pfp14, rarity: "rare" },
+  { id: "BAGZ-015", name: "Cyber Mechanic Worker", image: pfp15, rarity: "common" },
+  { id: "BAGZ-016", name: "Cyber Shaman Mystic", image: pfp16, rarity: "legendary" },
+  { id: "BAGZ-017", name: "Cyber Pilot Ace", image: pfp17, rarity: "common" },
+  { id: "BAGZ-018", name: "Cyber Cage Fighter", image: pfp18, rarity: "common" },
+  { id: "BAGZ-019", name: "Corporate Security Chief", image: pfp19, rarity: "rare" },
+  { id: "BAGZ-020", name: "Cyber Digital Artist", image: pfp20, rarity: "legendary" }
 ];
 
 // Type definitions for meme templates
@@ -451,13 +489,7 @@ const memeTemplates: Record<string, MemeTemplate> = {
   }
 };
 
-const pfpPrompts = [
-  "Ultra-detailed cyberpunk assassin profile portrait: hooded figure with intricate chrome facial implants, asymmetrical LED eye augmentations glowing toxic green and blood red, weathered tactical face mask with breathing apparatus, multiple facial piercings, holographic tattoos on visible neck, dark military-grade hood with fiber optic threading, atmospheric volumetric lighting, photorealistic digital art, 8K quality, cinematic depth of field",
-  "Masterpiece cyberpunk android portrait: sleek humanoid with exposed chrome skull sections, one organic eye and one holographic scanner eye, intricate neural interface ports along jawline, liquid metal face paint patterns, neon data streams flowing across synthetic skin, high-tech collar with pulsing circuits, studio lighting with neon rim lighting, hyperrealistic 3D render",
-  "Premium villain overlord portrait: intimidating figure with ornate skull mask featuring glowing runes, luxurious dark hood with golden threading, multiple cybernetic jaw enhancements, glowing chest piece visible, ornate shoulder armor with pulsing energy cores, atmospheric smoke effects, dramatic chiaroscuro lighting, museum-quality digital painting",
-  "Elite street samurai profile: battle-scarred warrior with half-face cybernetic reconstruction, glowing katana reflection in augmented eye, traditional oni mask merged with high-tech elements, ceremonial hood with digital prayer beads, holographic money symbols floating around figure, neo-Tokyo neon background blur, professional portrait photography style",
-  "Legendary cyber-reaper commander: imposing figure with biomechanical skull fusion, multiple glowing eye sensors, ornate death mask with circuit patterns, flowing digital energy cape, advanced weapon systems integrated into armor, particle effects around figure, dramatic low-angle perspective, AAA game cinematic quality"
-];
+// Legacy AI prompts replaced with premium pre-made collection
 
 export default function ToolsSection() {
   const [generatedTweet, setGeneratedTweet] = useState("");
@@ -467,7 +499,7 @@ export default function ToolsSection() {
   const [selectedTemplate, setSelectedTemplate] = useState('cyberpunk-grid');
   const [textPosition, setTextPosition] = useState('standard');
   const [textStyle, setTextStyle] = useState('bold');
-  const [currentPfp, setCurrentPfp] = useState(pfpVariants[0]);
+  const [currentPfp, setCurrentPfp] = useState(premiumPfpCollection[0]);
   const [generatedPfpImage, setGeneratedPfpImage] = useState("");
   const [generatedMemeImage, setGeneratedMemeImage] = useState("");
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
@@ -754,40 +786,59 @@ export default function ToolsSection() {
 
   const generatePfp = async () => {
     setIsGeneratingPfp(true);
-    const randomIndex = Math.floor(Math.random() * pfpVariants.length);
-    const randomPfp = pfpVariants[randomIndex];
-    const randomPrompt = pfpPrompts[randomIndex];
     
-    setCurrentPfp(randomPfp);
+    // Randomly select from the premium PFP collection
+    const randomIndex = Math.floor(Math.random() * premiumPfpCollection.length);
+    const selectedPfp = premiumPfpCollection[randomIndex];
+    
+    setCurrentPfp(selectedPfp);
+    setGeneratedPfpImage(selectedPfp.image);
+    
+    // Add a small delay for UX (simulate generation)
+    await new Promise(resolve => setTimeout(resolve, 800));
     
     try {
-      const response = await fetch('/api/generate-pfp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          prompt: randomPrompt,
-          name: randomPfp,
-          userId: user?.id
-        }),
+      // Track the PFP generation action  
+      if (user) {
+        try {
+          await fetch('/api/leaderboard/action', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.id,
+              actionType: 'pfp_generated',
+              points: 3
+            })
+          });
+        } catch (trackError) {
+          console.error('Failed to track PFP generation:', trackError);
+        }
+      }
+      
+      const rarityMessages = {
+        common: "Your cyberpunk identity is ready",
+        rare: "You got a rare cyberpunk identity!",
+        legendary: "🔥 LEGENDARY PFP! This is special!"
+      };
+      
+      toast({
+        title: "PFP Generated!",
+        description: user 
+          ? `${rarityMessages[selectedPfp.rarity as keyof typeof rarityMessages]} (+3 points!)` 
+          : rarityMessages[selectedPfp.rarity as keyof typeof rarityMessages],
       });
       
-      if (response.ok) {
-        const data = await response.json();
-        setGeneratedPfpImage(data.imageUrl);
-        toast({
-          title: "PFP Generated!",
-          description: user ? "Your villain profile is ready to download (+3 points!)" : "Your villain profile is ready to download",
-        });
-      } else {
-        throw new Error('Failed to generate PFP');
+      if (user) {
+        trackAction('pfp_generated');
       }
     } catch (error) {
+      console.error('Error tracking PFP generation:', error);
+      // Still show success since PFP was generated
       toast({
-        title: "Generation Error",
-        description: "Failed to generate PFP. Try again.",
-        variant: "destructive"
+        title: "PFP Generated!",
+        description: "Your cyberpunk identity is ready",
       });
     } finally {
       setIsGeneratingPfp(false);
@@ -798,7 +849,7 @@ export default function ToolsSection() {
     if (generatedPfpImage) {
       const link = document.createElement('a');
       link.href = generatedPfpImage;
-      link.download = `${currentPfp.replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+      link.download = `${currentPfp.name.replace(/[^a-zA-Z0-9]/g, '_')}_${currentPfp.id}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -1137,7 +1188,7 @@ export default function ToolsSection() {
                   {generatedPfpImage ? (
                     <img 
                       src={generatedPfpImage} 
-                      alt={currentPfp}
+                      alt={currentPfp.name}
                       className="w-full h-full object-cover rounded-lg"
                       data-testid="generated-pfp-image"
                     />
@@ -1174,7 +1225,19 @@ export default function ToolsSection() {
                     </>
                   )}
                 </div>
-                <p className="text-center text-dim-gray text-sm font-medium tracking-wide mb-4" data-testid="current-pfp">{currentPfp}</p>
+                <div className="text-center mb-4">
+                  <p className="text-dim-gray text-sm font-medium tracking-wide" data-testid="current-pfp">{currentPfp.name}</p>
+                  <p className="text-xs text-dim-gray/70 mt-1">
+                    {currentPfp.id} • 
+                    <span className={`ml-1 ${
+                      currentPfp.rarity === 'legendary' ? 'text-glitch-purple' :
+                      currentPfp.rarity === 'rare' ? 'text-toxic-green' : 
+                      'text-ash-white'
+                    }`}>
+                      {currentPfp.rarity.toUpperCase()}
+                    </span>
+                  </p>
+                </div>
               </div>
               <div className="space-y-3">
                 <Button 
@@ -1196,7 +1259,7 @@ export default function ToolsSection() {
                     </Button>
                     <Button 
                       className="w-full py-4 bg-gradient-to-r from-toxic-green/60 to-toxic-green/70 hover:from-toxic-green/70 hover:to-toxic-green/80 text-white font-bold tracking-wide rounded-lg transition-all duration-200 border border-toxic-green/50"
-                      onClick={() => saveContent('pfp', currentPfp, generatedPfpImage)}
+                      onClick={() => saveContent('pfp', currentPfp.name, generatedPfpImage, { id: currentPfp.id, rarity: currentPfp.rarity })}
                       disabled={isSavingContent}
                       data-testid="button-save-pfp"
                     >

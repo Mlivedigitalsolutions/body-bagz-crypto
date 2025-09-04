@@ -30,7 +30,7 @@ export function Leaderboard() {
 
   const { data: leaderboardData, isLoading, error } = useQuery({
     queryKey: ["/api/leaderboard", `?month=${selectedMonth}`],
-    refetchInterval: 30000, // Refetch every 30 seconds
+    refetchInterval: 120000, // Refetch every 2 minutes
     retry: 3,
     retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
