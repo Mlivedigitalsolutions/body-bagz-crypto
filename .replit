@@ -4,7 +4,7 @@ hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
 channel = "stable-24_05"
-packages = ["glib", "nss", "nspr", "atk", "gtk3", "pango", "cairo", "gdk-pixbuf", "alsa-lib"]
+packages = ["glib", "nss", "nspr", "atk", "gtk3", "pango", "cairo", "gdk-pixbuf", "alsa-lib", "libxkbcommon"]
 
 [deployment]
 deploymentTarget = "autoscale"
@@ -40,4 +40,4 @@ localPort = 5000
 externalPort = 80
 
 [agent]
-integrations = ["javascript_object_storage==1.0.0", "javascript_database==1.0.0", "javascript_log_in_with_replit==1.0.0", "javascript_openai==1.0.0"]
+integrations = ["javascript_openai==1.0.0", "javascript_object_storage==1.0.0", "javascript_log_in_with_replit==1.0.0", "javascript_database==1.0.0"]

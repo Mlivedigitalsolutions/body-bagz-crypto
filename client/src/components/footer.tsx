@@ -44,17 +44,28 @@ export default function Footer() {
         </div>
         
         {/* Whitepaper Download */}
-        <div className="mb-8">
+        <div className="mb-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/api/whitepaper/html" 
+            target="_blank"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blood-red to-glitch-purple rounded-lg font-tech text-white hover:shadow-red-glow transition-all duration-200 group"
+            data-testid="footer-whitepaper-html"
+          >
+            <svg className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+            </svg>
+            VIEW WHITEPAPER
+          </a>
           <a 
             href="/api/whitepaper/download" 
             target="_blank"
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blood-red to-glitch-purple rounded-lg font-tech text-white hover:shadow-red-glow transition-all duration-200 group"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-toxic-green to-blood-red rounded-lg font-tech text-white hover:shadow-green-glow transition-all duration-200 group"
             data-testid="footer-whitepaper-download"
           >
             <svg className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd" />
             </svg>
-            DOWNLOAD WHITEPAPER
+            DOWNLOAD PDF
           </a>
         </div>
 

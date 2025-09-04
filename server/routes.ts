@@ -1236,6 +1236,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Serve static whitepaper HTML for manual PDF conversion
+  app.get("/api/whitepaper/html", (req, res) => {
+    try {
+      const htmlPath = path.join(process.cwd(), 'attached_assets', 'Body_Bagz_Whitepaper_Static.html');
+      res.sendFile(htmlPath);
+    } catch (error) {
+      console.error('Error serving whitepaper HTML:', error);
+      res.status(500).json({ error: "Failed to serve whitepaper HTML" });
+    }
+  });
+
   // Whitepaper PDF generation route
   app.get("/api/whitepaper/download", async (req, res) => {
     try {
