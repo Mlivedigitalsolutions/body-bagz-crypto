@@ -650,7 +650,7 @@ export default function ToolsSection() {
     const template = memeTemplates[selectedTemplate as keyof typeof memeTemplates];
     
     // Check if it's an image-based template (reaper memes)
-    if (template.isImage) {
+    if ('isImage' in template && template.isImage) {
       setIsGeneratingMeme(true);
       
       try {
@@ -938,17 +938,35 @@ export default function ToolsSection() {
                       data-testid="generated-meme-image"
                     />
                   ) : (
-                    <div 
-                      className="w-full h-full flex items-center justify-center rounded-lg"
-                      dangerouslySetInnerHTML={{
-                        __html: memeTemplates[selectedTemplate as keyof typeof memeTemplates]?.generate(
-                          topText || 'TOP TEXT',
-                          bottomText || 'BOTTOM TEXT', 
-                          centerText || ''
-                        ) || ''
-                      }}
-                      data-testid="meme-preview"
-                    />
+                    (() => {
+                      const template = memeTemplates[selectedTemplate as keyof typeof memeTemplates];
+                      if (template && 'isImage' in template && template.isImage) {
+                        // For image-based templates, show the image directly
+                        return (
+                          <img 
+                            src={template.imageUrl} 
+                            alt={template.name}
+                            className="w-full h-full object-contain rounded-lg"
+                            data-testid="meme-preview-image"
+                          />
+                        );
+                      } else {
+                        // For SVG templates, render the SVG content
+                        return (
+                          <div 
+                            className="w-full h-full flex items-center justify-center rounded-lg"
+                            dangerouslySetInnerHTML={{
+                              __html: template?.generate(
+                                topText || 'TOP TEXT',
+                                bottomText || 'BOTTOM TEXT', 
+                                centerText || ''
+                              ) || ''
+                            }}
+                            data-testid="meme-preview"
+                          />
+                        );
+                      }
+                    })()
                   )}
                 </div>
                 {/* Template Selection */}
@@ -974,7 +992,7 @@ export default function ToolsSection() {
                           >
                             <span className="mr-2">{template.icon}</span>
                             <span className="font-medium">{template.name}</span>
-                            {template.isImage && (
+                            {'isImage' in template && template.isImage && (
                               <span className="ml-2 text-xs bg-toxic-green text-jet-black px-1 rounded">VIRAL</span>
                             )}
                           </SelectItem>
