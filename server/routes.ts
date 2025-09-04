@@ -1236,6 +1236,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Whitepaper PDF generation route
+  app.get("/api/whitepaper/download", async (req, res) => {
+    try {
+      const puppeteer = await import('puppeteer');
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      // Read the HTML template
+      const templatePath = path.join(process.cwd(), 'server', 'templates', 'whitepaper.html');
+      let htmlContent = fs.readFileSync(templatePath, 'utf8');
+      
+      // Replace placeholders
+      const coverImagePath = path.join(process.cwd(), 'attached_assets', 'generated_images', 'Professional_whitepaper_cover_design_e5d7badf.png');
+      const coverImageUrl = `file://${coverImagePath}`;
+      const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      
+      htmlContent = htmlContent.replace('{{COVER_IMAGE_URL}}', coverImageUrl);
+      htmlContent = htmlContent.replace('{{DATE}}', currentDate);
+      
+      // Launch puppeteer and generate PDF
+      const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+      });
+      
+      const page = await browser.newPage();
+      await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+      
+      const pdf = await page.pdf({
+        format: 'A4',
+        printBackground: true,
+        margin: {
+          top: '1in',
+          right: '1in',
+          bottom: '1in',
+          left: '1in'
+        }
+      });
+      
+      await browser.close();
+      
+      // Set response headers for PDF download
+      res.set({
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="Body_Bagz_Whitepaper.pdf"',
+        'Content-Length': pdf.length
+      });
+      
+      res.send(pdf);
+    } catch (error) {
+      console.error('Error generating whitepaper PDF:', error);
+      res.status(500).json({ error: "Failed to generate whitepaper PDF" });
+    }
+  });
+
   // Add error handler at the end
   app.use(errorHandler);
   
