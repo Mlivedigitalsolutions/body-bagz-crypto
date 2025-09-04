@@ -12,6 +12,19 @@ import tweetHeaderImg from "@assets/generated_images/Cyberpunk_Tweet_Generator_h
 import memeHeaderImg from "@assets/generated_images/Cyberpunk_Meme_Creator_header_95968e4a.png";
 import epicSkullImg from "@assets/generated_images/Epic_BODY_BAGZ_skull_branding_6dcb9ad5.png";
 
+// Import bullish reaper meme templates
+import reaperChartMeme from "@assets/generated_images/Reaper_bullish_chart_meme_122f2417.png";
+import reaperMoneyMeme from "@assets/generated_images/Reaper_money_bags_meme_b5397ddd.png";
+import reaperTradingMeme from "@assets/generated_images/Reaper_trading_setup_meme_f96e3ad5.png";
+import reaperVictoryMeme from "@assets/generated_images/Reaper_victory_dance_meme_7374fee0.png";
+import reaperDiamondMeme from "@assets/generated_images/Diamond_hands_reaper_meme_3147d7ae.png";
+import reaperSleepMeme from "@assets/generated_images/Sleeping_reaper_confidence_meme_43c78b30.png";
+import reaperCookingMeme from "@assets/generated_images/Reaper_cooking_gains_meme_db5bc9f2.png";
+import reaperBusinessMeme from "@assets/generated_images/Business_reaper_success_meme_0b2baee5.png";
+import reaperApprovalMeme from "@assets/generated_images/Reaper_approval_wealth_meme_93fed4c0.png";
+import reaperRocketMeme from "@assets/generated_images/Reaper_rocket_moon_meme_ef7d2642.png";
+import reaperStrengthMeme from "@assets/generated_images/Reaper_strength_gains_meme_e94151d5.png";
+
 const bullishTweets = [
   "Just bagged another mil in $BAGZ. The villain era hits different when you're stacking chaos. NFA but this rocket's fueled by pure degeneracy.",
   "While you're sleeping, $BAGZ holders are building an empire in the shadows. The chaos collective never rests.",
@@ -28,7 +41,24 @@ const pfpVariants = [
   "Death Commander Alpha #REAP-999"
 ];
 
-const memeTemplates = {
+// Type definitions for meme templates
+type SVGMemeTemplate = {
+  name: string;
+  icon: string;
+  generate: (topText: string, bottomText: string, centerText?: string) => string;
+};
+
+type ImageMemeTemplate = {
+  name: string;
+  icon: string;
+  isImage: true;
+  imageUrl: string;
+  generate: () => string;
+};
+
+type MemeTemplate = SVGMemeTemplate | ImageMemeTemplate;
+
+const memeTemplates: Record<string, MemeTemplate> = {
   'cyberpunk-grid': {
     name: 'Cyberpunk Grid',
     icon: '🏢',
@@ -340,6 +370,84 @@ const memeTemplates = {
         ${bottomText ? `<text x="200" y="290" text-anchor="middle" font-family="monospace" font-size="20" font-weight="bold" fill="#E7352C" filter="url(#advancedGlitch)">${bottomText.toUpperCase()}</text>` : ''}
       </svg>
     `
+  },
+  // Bullish Reaper Meme Templates
+  'reaper-bullish-chart': {
+    name: 'Bullish Chart Reaper',
+    icon: '📈',
+    isImage: true,
+    imageUrl: reaperChartMeme,
+    generate: () => reaperChartMeme
+  },
+  'reaper-money-bags': {
+    name: 'Money Bags Reaper',
+    icon: '💰',
+    isImage: true,
+    imageUrl: reaperMoneyMeme,
+    generate: () => reaperMoneyMeme
+  },
+  'reaper-trading-setup': {
+    name: 'Trading Setup Reaper',
+    icon: '🖥️',
+    isImage: true,
+    imageUrl: reaperTradingMeme,
+    generate: () => reaperTradingMeme
+  },
+  'reaper-victory-dance': {
+    name: 'Victory Dance Reaper',
+    icon: '🎉',
+    isImage: true,
+    imageUrl: reaperVictoryMeme,
+    generate: () => reaperVictoryMeme
+  },
+  'reaper-diamond-hands': {
+    name: 'Diamond Hands Reaper',
+    icon: '💎',
+    isImage: true,
+    imageUrl: reaperDiamondMeme,
+    generate: () => reaperDiamondMeme
+  },
+  'reaper-sleeping-confident': {
+    name: 'Sleeping Confident Reaper',
+    icon: '😴',
+    isImage: true,
+    imageUrl: reaperSleepMeme,
+    generate: () => reaperSleepMeme
+  },
+  'reaper-cooking-gains': {
+    name: 'Cooking Gains Reaper',
+    icon: '👨‍🍳',
+    isImage: true,
+    imageUrl: reaperCookingMeme,
+    generate: () => reaperCookingMeme
+  },
+  'reaper-business-success': {
+    name: 'Business Success Reaper',
+    icon: '💼',
+    isImage: true,
+    imageUrl: reaperBusinessMeme,
+    generate: () => reaperBusinessMeme
+  },
+  'reaper-approval-wealth': {
+    name: 'Approval Wealth Reaper',
+    icon: '👍',
+    isImage: true,
+    imageUrl: reaperApprovalMeme,
+    generate: () => reaperApprovalMeme
+  },
+  'reaper-rocket-moon': {
+    name: 'Rocket Moon Reaper',
+    icon: '🚀',
+    isImage: true,
+    imageUrl: reaperRocketMeme,
+    generate: () => reaperRocketMeme
+  },
+  'reaper-strength-gains': {
+    name: 'Strength Gains Reaper',
+    icon: '💪',
+    isImage: true,
+    imageUrl: reaperStrengthMeme,
+    generate: () => reaperStrengthMeme
   }
 };
 
@@ -539,6 +647,39 @@ export default function ToolsSection() {
   };
 
   const generateMeme = async () => {
+    const template = memeTemplates[selectedTemplate as keyof typeof memeTemplates];
+    
+    // Check if it's an image-based template (reaper memes)
+    if (template.isImage) {
+      setIsGeneratingMeme(true);
+      
+      try {
+        // For image-based templates, use the image directly
+        const imageUrl = template.imageUrl;
+        setGeneratedMemeImage(imageUrl);
+        
+        toast({
+          title: "Meme Ready!",
+          description: user ? "Your bullish reaper meme is ready to download (+4 points!)" : "Your bullish reaper meme is ready to download",
+        });
+        
+        if (user) {
+          trackAction('meme_generated');
+        }
+      } catch (error) {
+        console.error('Error loading meme:', error);
+        toast({
+          title: "Loading Error",
+          description: "Failed to load meme template. Try again.",
+          variant: "destructive"
+        });
+      } finally {
+        setIsGeneratingMeme(false);
+      }
+      return;
+    }
+    
+    // Original logic for SVG-based templates
     if (!topText && !bottomText && !centerText && !uploadedImage) {
       toast({
         title: "Add content!",
@@ -552,7 +693,6 @@ export default function ToolsSection() {
     
     try {
       // Generate SVG meme using selected template
-      const template = memeTemplates[selectedTemplate as keyof typeof memeTemplates];
       const svgContent = template.generate(topText, bottomText, centerText);
       
       // Convert SVG to data URL
@@ -818,12 +958,45 @@ export default function ToolsSection() {
                     <SelectTrigger className="cyber-input w-full text-ash-white" data-testid="select-meme-template">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-jet-black border border-dim-gray">
-                      {Object.entries(memeTemplates).map(([key, template]) => (
-                        <SelectItem key={key} value={key} className="text-ash-white hover:bg-dim-gray focus:bg-dim-gray">
-                          {template.icon} {template.name}
-                        </SelectItem>
-                      ))}
+                    <SelectContent className="bg-jet-black border border-dim-gray max-h-96 overflow-y-auto">
+                      {/* Bullish Reaper Collection - Featured */}
+                      <div className="px-2 py-1 text-toxic-green text-xs font-bold border-b border-dim-gray">
+                        🏆 BULLISH REAPER COLLECTION (NEW!)
+                      </div>
+                      {Object.entries(memeTemplates)
+                        .filter(([key]) => key.startsWith('reaper-'))
+                        .map(([key, template]) => (
+                          <SelectItem 
+                            key={key}
+                            value={key} 
+                            className="text-ash-white hover:bg-dim-gray focus:bg-dim-gray cursor-pointer pl-4 py-3 border-l-2 border-l-toxic-green"
+                            data-testid={`template-${key}`}
+                          >
+                            <span className="mr-2">{template.icon}</span>
+                            <span className="font-medium">{template.name}</span>
+                            {template.isImage && (
+                              <span className="ml-2 text-xs bg-toxic-green text-jet-black px-1 rounded">VIRAL</span>
+                            )}
+                          </SelectItem>
+                        ))}
+                      
+                      {/* Classic SVG Templates */}
+                      <div className="px-2 py-1 text-ash-white text-xs font-bold border-b border-dim-gray mt-2">
+                        ⚡ CLASSIC CYBERPUNK TEMPLATES
+                      </div>
+                      {Object.entries(memeTemplates)
+                        .filter(([key]) => !key.startsWith('reaper-'))
+                        .map(([key, template]) => (
+                          <SelectItem 
+                            key={key}
+                            value={key} 
+                            className="text-ash-white hover:bg-dim-gray focus:bg-dim-gray cursor-pointer pl-4"
+                            data-testid={`template-${key}`}
+                          >
+                            <span className="mr-2">{template.icon}</span>
+                            {template.name}
+                          </SelectItem>
+                        ))}
                     </SelectContent>
                   </Select>
                 </div>
