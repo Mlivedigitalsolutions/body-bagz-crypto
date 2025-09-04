@@ -24,6 +24,15 @@ export default function Footer() {
             <TelegramChaosIcon className="w-6 h-6 text-toxic-green group-hover:scale-110 transition-transform" />
           </a>
           <a 
+            href="https://x.com/VillianEra187?t=Xq9Kf5CebPVProLewyRu5g&s=09" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-red-glow transition-all duration-200 group"
+            data-testid="footer-x-official"
+          >
+            <XChaosIcon className="w-6 h-6 text-blood-red group-hover:scale-110 transition-transform" />
+          </a>
+          <a 
             href="https://twitter.com/i/communities/1960797896896602475" 
             target="_blank" 
             rel="noopener noreferrer"

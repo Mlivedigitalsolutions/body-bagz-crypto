@@ -8,7 +8,7 @@ export default function CommunitySection() {
           JOIN THE CHAOS
         </h2>
         
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Enhanced Telegram */}
           <a 
             href="https://t.me/BodyBagzs" 
@@ -26,6 +26,26 @@ export default function CommunitySection() {
               </div>
               <h3 className="font-tech text-xl text-toxic-green mb-4 tracking-wide font-semibold">TELEGRAM</h3>
               <p className="text-ash-white/80 font-medium leading-relaxed">Join the underground. Real-time chaos coordination.</p>
+            </div>
+          </a>
+
+          {/* Official X Page */}
+          <a 
+            href="https://x.com/VillianEra187?t=Xq9Kf5CebPVProLewyRu5g&s=09" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="neon-card p-8 rounded-xl hover:shadow-red-glow transition-all duration-200 group relative overflow-hidden"
+            data-testid="link-x-official"
+          >
+            <div className="absolute top-0 right-0 w-16 h-16 bg-blood-red opacity-5 rounded-full blur-xl"></div>
+            <div className="relative z-10">
+              <div className="flex justify-center mb-6">
+                <div className="p-4 rounded-lg bg-jet-black border border-dim-gray group-hover:shadow-red-glow transition-all duration-200">
+                  <XChaosIcon className="w-16 h-16 text-blood-red group-hover:scale-110 transition-transform" />
+                </div>
+              </div>
+              <h3 className="font-tech text-xl text-blood-red mb-4 tracking-wide font-semibold">OFFICIAL X</h3>
+              <p className="text-ash-white/80 font-medium leading-relaxed">The villain headquarters. Official updates and chaos.</p>
             </div>
           </a>
 
