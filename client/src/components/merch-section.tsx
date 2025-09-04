@@ -1,13 +1,25 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
-// Simple merchandise data without image imports for testing
+// Import all merchandise mockup images
+import blackHoodie from "@assets/generated_images/BAGZ_black_hoodie_model_34d9bba3.png";
+import villainTshirt from "@assets/generated_images/VILLAIN_ERA_t-shirt_female_model_5b7b8fe4.png";
+import armyTank from "@assets/generated_images/BAGZ_ARMY_tank_top_model_a2433c2e.png";
+import greenHoodie from "@assets/generated_images/Green_BAGZ_hoodie_female_model_878fd980.png";
+import snapbackCap from "@assets/generated_images/BAGZ_snapback_cap_model_d91a27ec.png";
+import redSweatshirt from "@assets/generated_images/Red_villain_era_sweatshirt_model_25be772d.png";
+import beanie from "@assets/generated_images/BAGZ_beanie_model_shot_ebbb05c9.png";
+import bomberJacket from "@assets/generated_images/BAGZ_bomber_jacket_female_model_06707ce8.png";
+import whiteTshirt from "@assets/generated_images/White_BAGZ_t-shirt_model_95780a6e.png";
+import cropTop from "@assets/generated_images/VILLAIN_crop_top_model_2e90c5f7.png";
+
 const merchandiseData = [
   {
     id: 1,
     name: "Black Cyberpunk Hoodie",
     category: "Hoodies",
     price: "$89.99",
+    image: blackHoodie,
     description: "Premium black hoodie with toxic green BODY BAGZ logo"
   },
   {
@@ -15,6 +27,7 @@ const merchandiseData = [
     name: "Villain Era T-Shirt",
     category: "T-Shirts", 
     price: "$39.99",
+    image: villainTshirt,
     description: "Oversized black tee with blood red gothic lettering"
   },
   {
@@ -22,6 +35,7 @@ const merchandiseData = [
     name: "BAGZ Army Tank",
     category: "Tank Tops",
     price: "$34.99", 
+    image: armyTank,
     description: "Athletic fit tank with glowing BODY BAGZ ARMY design"
   },
   {
@@ -29,11 +43,60 @@ const merchandiseData = [
     name: "Toxic Green Hoodie",
     category: "Hoodies",
     price: "$89.99",
+    image: greenHoodie,
     description: "Bold green hoodie with black BODY BAGZ branding"
+  },
+  {
+    id: 5,
+    name: "Snapback Cap",
+    category: "Headwear",
+    price: "$44.99",
+    image: snapbackCap,
+    description: "Embroidered black snapback with grim reaper skull"
+  },
+  {
+    id: 6,
+    name: "Villain Era Sweatshirt", 
+    category: "Sweatshirts",
+    price: "$74.99",
+    image: redSweatshirt,
+    description: "Blood red crewneck with chain link sleeve design"
+  },
+  {
+    id: 7,
+    name: "Cyberpunk Beanie",
+    category: "Headwear", 
+    price: "$29.99",
+    image: beanie,
+    description: "Embroidered black beanie with gas mask skull"
+  },
+  {
+    id: 8,
+    name: "Bomber Jacket",
+    category: "Outerwear",
+    price: "$129.99", 
+    image: bomberJacket,
+    description: "Premium black bomber with large BODY BAGZ back patch"
+  },
+  {
+    id: 9,
+    name: "White BAGZ Tee",
+    category: "T-Shirts",
+    price: "$39.99",
+    image: whiteTshirt,
+    description: "Clean white tee with bold black logo and red skull"
+  },
+  {
+    id: 10,
+    name: "Villain Crop Top",
+    category: "Crop Tops",
+    price: "$34.99",
+    image: cropTop,
+    description: "Black crop top with glowing green VILLAIN ERA text"
   }
 ];
 
-const categories = ["All", "Hoodies", "T-Shirts", "Tank Tops"];
+const categories = ["All", "Hoodies", "T-Shirts", "Tank Tops", "Headwear", "Sweatshirts", "Outerwear", "Crop Tops"];
 
 export default function MerchSection() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -91,14 +154,14 @@ export default function MerchSection() {
               onMouseLeave={() => setHoveredItem(null)}
               data-testid={`merch-item-${item.id}`}
             >
-              {/* Product Image Placeholder */}
+              {/* Product Image */}
               <div className="relative overflow-hidden">
-                <div className="w-full h-80 bg-dim-gray flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="font-brand text-2xl text-toxic-green mb-2">COMING</div>
-                    <div className="font-brand text-lg text-ash-white">SOON</div>
-                  </div>
-                </div>
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
                 
                 {/* Hover Overlay */}
                 <div
