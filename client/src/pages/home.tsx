@@ -96,6 +96,7 @@ export default function Home() {
               <a href="#vision" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
               <a href="#tokenomics" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokenomics">TOKENOMICS</a>
               <a href="#tools" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">TOOLS</a>
+              <a href="#merch" className="text-ash-white/80 hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
               <a href="#leaderboard" className="text-ash-white/80 hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
               <a href="#community" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
             </div>
