@@ -45,17 +45,13 @@ export function Leaderboard() {
   const leaderboard: LeaderboardUser[] = (leaderboardData as any)?.leaderboard || [];
   const currentMonthYear = (leaderboardData as any)?.monthYear || selectedMonth;
   
-  // Generate previous months for selection
+  // Show only current month
   const getMonthOptions = () => {
-    const options = [];
     const now = new Date();
-    for (let i = 0; i < 12; i++) {
-      const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-      const displayName = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-      options.push({ value: monthYear, label: displayName });
-    }
-    return options;
+    const estDate = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
+    const monthYear = `${estDate.getFullYear()}-${String(estDate.getMonth() + 1).padStart(2, '0')}`;
+    const displayName = estDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    return [{ value: monthYear, label: displayName }];
   };
 
   const getRankIcon = (rank: number) => {
@@ -75,7 +71,7 @@ export function Leaderboard() {
     if (points >= 100) return "text-toxic-green";
     if (points >= 50) return "text-blood-red";
     if (points >= 25) return "text-glitch-purple";
-    return "text-ash-white/70";
+    return "text-ash-white";
   };
 
   const formatMonthDisplay = (monthYear: string) => {
@@ -104,22 +100,11 @@ export function Leaderboard() {
           </p>
         </div>
 
-        {/* Month Selection */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          {getMonthOptions().map((option) => (
-            <Button
-              key={option.value}
-              onClick={() => setSelectedMonth(option.value)}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
-                selectedMonth === option.value
-                  ? "bg-blood-red text-ash-white border-blood-red"
-                  : "bg-onyx text-ash-white/80 border-dim-gray hover:bg-blood-red/20 hover:text-blood-red"
-              } border`}
-              data-testid={`button-month-${option.value}`}
-            >
-              {option.label}
-            </Button>
-          ))}
+        {/* Current Month Display */}
+        <div className="text-center mb-8">
+          <div className="inline-block px-6 py-3 bg-blood-red text-ash-white rounded-lg font-tech text-lg">
+            {formatMonthDisplay(selectedMonth)} LEADERBOARD
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -193,7 +178,7 @@ export function Leaderboard() {
                           <div className={`font-bold text-xl ${getPointsColor(entry.totalPoints)}`}>
                             {entry.totalPoints}
                           </div>
-                          <div className="text-xs text-ash-white/70">points</div>
+                          <div className="text-xs text-ash-white">points</div>
                           {getRewardAmount(entry.rank) > 0 && (
                             <div className="text-xs text-toxic-green font-semibold">
                               {getRewardAmount(entry.rank)} $BAGZ
@@ -228,12 +213,12 @@ export function Leaderboard() {
                     <h4 className="text-sm font-semibold text-ash-white">Recent Activity</h4>
                     {(userStats as any)?.stats?.entries?.slice(0, 5).map((entry: any, i: number) => (
                       <div key={i} className="flex justify-between text-xs">
-                        <span className="text-ash-white/70 capitalize">
+                        <span className="text-ash-white capitalize">
                           {entry.actionType.replace('_', ' ')}
                         </span>
                         <span className="text-toxic-green">+{entry.points}</span>
                       </div>
-                    )) || (<div className="text-xs text-ash-white/70">No activity yet</div>)}
+                    )) || (<div className="text-xs text-ash-white">No activity yet</div>)}
                   </div>
                 </CardContent>
               </Card>

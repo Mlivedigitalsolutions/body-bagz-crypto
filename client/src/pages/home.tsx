@@ -88,12 +88,12 @@ export default function Home() {
           </div>
           <div className="flex items-center space-x-6">
             <div className="hidden lg:flex space-x-6 xl:space-x-8">
-              <a href="#vision" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
-              <a href="#tokenomics" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokenomics">TOKENOMICS</a>
-              <a href="#tools" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">TOOLS</a>
-              <a href="#merch" className="text-ash-white/80 hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
-              <a href="#leaderboard" className="text-ash-white/80 hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
-              <a href="#community" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
+              <a href="#vision" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
+              <a href="#tokenomics" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokenomics">TOKENOMICS</a>
+              <a href="#tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">TOOLS</a>
+              <a href="#merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
+              <a href="#leaderboard" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
+              <a href="#community" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
             </div>
             
             {/* Mobile-Optimized Trading CTAs */}
@@ -169,12 +169,12 @@ export default function Home() {
           </div>
           
           <nav className="space-y-6">
-            <a href="#vision" className="block text-ash-white/80 hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>VISION</a>
-            <a href="#tokenomics" className="block text-ash-white/80 hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOKENOMICS</a>
-            <a href="#tools" className="block text-ash-white/80 hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOOLS</a>
-            <a href="#merch" className="block text-ash-white/80 hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>MERCH</a>
-            <a href="#leaderboard" className="block text-ash-white/80 hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>LEADERBOARD</a>
-            <a href="#community" className="block text-ash-white/80 hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>COMMUNITY</a>
+            <a href="#vision" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>VISION</a>
+            <a href="#tokenomics" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOKENOMICS</a>
+            <a href="#tools" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOOLS</a>
+            <a href="#merch" className="block text-ash-white hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>MERCH</a>
+            <a href="#leaderboard" className="block text-ash-white hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>LEADERBOARD</a>
+            <a href="#community" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>COMMUNITY</a>
           </nav>
           
           <div className="mt-8 space-y-4">

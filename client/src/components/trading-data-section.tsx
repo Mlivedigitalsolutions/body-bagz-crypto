@@ -46,11 +46,11 @@ export default function TradingDataSection() {
         
         {/* Live Trading Info */}
         <div className="bg-dim-gray/20 border border-toxic-green/30 rounded-lg p-4 max-w-3xl mx-auto mb-12">
-          <p className="text-ash-white/80 text-center">
+          <p className="text-ash-white text-center">
             <strong className="text-toxic-green">✅ LIVE on Solana:</strong> 
             <span className="font-mono text-ash-white ml-2">7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon</span>
           </p>
-          <p className="text-ash-white/60 text-sm text-center mt-2">
+          <p className="text-ash-white text-sm text-center mt-2">
             {isLoading ? "🔄 Fetching live trading data..." : error ? "⚠️ Data temporarily unavailable - check DexScreener for live charts" : "📊 Live data from DexScreener - updates every minute"}
           </p>
         </div>
