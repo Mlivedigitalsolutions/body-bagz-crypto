@@ -118,10 +118,16 @@ export default function MerchSection() {
             VILLAIN GEAR
           </h2>
           <p 
-            className="text-ash-white/80 text-xl font-medium max-w-2xl mx-auto animate-fade-in-up-delay"
+            className="text-ash-white/80 text-xl font-medium max-w-2xl mx-auto animate-fade-in-up-delay mb-4"
           >
             Premium streetwear collection for the chaos collective. Embrace your villain era.
           </p>
+          <div className="bg-dim-gray/20 border border-dim-gray/50 rounded-lg p-4 max-w-3xl mx-auto">
+            <p className="text-ash-white/60 text-sm italic">
+              <strong className="text-toxic-green">DISCLAIMER:</strong> Product images are simulated examples for visualization purposes. 
+              Actual merchandise designs may vary when available.
+            </p>
+          </div>
         </div>
 
         {/* Category Filter */}

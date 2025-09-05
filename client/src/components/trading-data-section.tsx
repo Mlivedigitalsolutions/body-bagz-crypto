@@ -11,36 +11,37 @@ interface TradingData {
 
 export default function TradingDataSection() {
   const [tradingData, setTradingData] = useState<TradingData>({
-    price: "$0.00042",
-    marketCap: "$2.1M",
-    volume: "$847K",
-    priceChange: "+24.7%",
-    marketCapChange: "+18.3%",
-    volumeChange: "+67.2%"
+    price: "TBA",
+    marketCap: "TBA",
+    volume: "TBA",
+    priceChange: "TBA",
+    marketCapChange: "TBA",
+    volumeChange: "TBA"
   });
 
   useEffect(() => {
-    // Simulate real-time data updates
-    const interval = setInterval(() => {
-      const priceChange = (Math.random() - 0.5) * 0.00001;
-      const currentPrice = parseFloat(tradingData.price.replace('$', ''));
-      const newPrice = Math.max(0, currentPrice + priceChange);
-      
-      setTradingData(prev => ({
-        ...prev,
-        price: `$${newPrice.toFixed(6)}`
-      }));
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [tradingData.price]);
+    // Future: Real-time data integration will be added here
+    // Currently displaying TBA until official trading launch
+  }, []);
 
   return (
     <section className="relative z-10 py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-16" data-testid="trading-title">
-          LIVE DATA
+        <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-8" data-testid="trading-title">
+          TRADING DATA
         </h2>
+        
+        {/* Live Trading Disclaimer */}
+        <div className="bg-dim-gray/20 border border-blood-red/30 rounded-lg p-4 max-w-3xl mx-auto mb-12">
+          <p className="text-ash-white/80 text-center">
+            <strong className="text-blood-red">Contract Address:</strong> 
+            <span className="font-mono text-toxic-green ml-2">7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon</span>
+          </p>
+          <p className="text-ash-white/60 text-sm text-center mt-2">
+            Live trading data will populate once $BAGZ is officially listed. 
+            Visit DexScreener for real-time charts and trading.
+          </p>
+        </div>
         
         <div className="neon-card p-8 rounded-xl" data-testid="trading-data-card">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
@@ -66,12 +67,20 @@ export default function TradingDataSection() {
             </div>
           </div>
           
-          {/* Enhanced Chart Placeholder */}
+          {/* Live Chart Integration */}
           <div className="bg-jet-black rounded-lg border border-dim-gray h-64 flex items-center justify-center relative overflow-hidden" data-testid="chart-placeholder">
             <div className="absolute inset-0 grid-overlay opacity-20"></div>
             <div className="text-center relative z-10">
-              <div className="font-tech text-toxic-green mb-2 text-lg tracking-widest">DEXSCREENER CHART</div>
-              <div className="text-dim-gray text-sm font-medium">Chart integration ready for launch</div>
+              <div className="font-tech text-toxic-green mb-2 text-lg tracking-widest">LIVE CHART</div>
+              <div className="text-dim-gray text-sm font-medium mb-4">Available on DexScreener post-launch</div>
+              <a 
+                href="https://dexscreener.com/solana/hcspcc1loaejempvs7gh6nzhyxbypmcv6dvc9kjjxeye" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-sm hover:shadow-green-glow transition-all duration-200"
+              >
+                VIEW ON DEXSCREENER ↗
+              </a>
               <div className="scanline-overlay w-32 h-1 mx-auto mt-4 rounded"></div>
             </div>
           </div>
