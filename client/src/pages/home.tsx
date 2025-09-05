@@ -70,19 +70,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-jet-black text-ash-white font-body overflow-x-hidden">
-      {/* Enhanced Matrix Background */}
-      <div className="matrix-background"></div>
-      
-      {/* Enhanced Animated Background */}
-      <div className="fixed inset-0 z-0 grid-overlay">
-        <div className="absolute inset-0 fog-layer animate-fog"></div>
-        <div className="absolute inset-0">
-          <div className="w-96 h-96 bg-blood-red opacity-8 rounded-full blur-3xl absolute top-1/4 left-1/4 animate-pulse-glow"></div>
-          <div className="w-80 h-80 bg-toxic-green opacity-4 rounded-full blur-3xl absolute top-3/4 right-1/4 animate-pulse-glow" style={{animationDelay: '1.5s'}}></div>
-          <div className="w-72 h-72 bg-glitch-purple opacity-3 rounded-full blur-3xl absolute bottom-1/4 left-1/3 animate-pulse-glow" style={{animationDelay: '3s'}}></div>
-        </div>
-      </div>
+    <div className="bg-black text-ash-white font-body overflow-x-hidden min-h-screen">
+      {/* Solid Black Background */}
+      <div className="fixed inset-0 bg-black z-0"></div>
 
       {/* Enhanced Mobile-Optimized Navigation */}
       <nav className="relative z-50 px-4 md:px-6 py-3 md:py-4" data-testid="navigation">

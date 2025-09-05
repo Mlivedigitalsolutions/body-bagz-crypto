@@ -6,7 +6,7 @@
 
 :root {
   /* Brand Colors - Exact Hex Values */
-  --jet-black: #0A0A0A;
+  --jet-black: #000000;
   --onyx: #1A1A1A;
   --blood-red: #E7352C;
   --toxic-green: #39FF14;
@@ -15,11 +15,11 @@
   --dim-gray: #2A2B31;
 
   /* Shadcn Theme Variables */
-  --background: #0A0A0A;
+  --background: #000000;
   --foreground: #EDEEF0;
   --card: #1A1A1A;
   --card-foreground: #EDEEF0;
-  --popover: #0A0A0A;
+  --popover: #000000;
   --popover-foreground: #EDEEF0;
   --primary: #E7352C;
   --primary-foreground: #0A0A0A;
@@ -60,7 +60,7 @@
 
   body {
     @apply text-foreground font-sans antialiased;
-    background: #0A0A0A !important;
+    background: #000000 !important;
     position: relative;
     min-height: 100vh;
   }
@@ -325,7 +325,7 @@
   .text-ash-white { color: #BDC1C6; }
   .text-dim-gray { color: #2A2B31; }
 
-  .bg-jet-black { background-color: #0A0A0A; }
+  .bg-jet-black { background-color: #000000; }
   .bg-onyx { background-color: #1A1A1A; }
   .bg-blood-red { background-color: #E7352C; }
   .bg-toxic-green { background-color: #39FF14; }
@@ -440,15 +440,7 @@
   .matrix-background {
     position: fixed;
     inset: 0;
-    background-image: 
-      radial-gradient(1px 1px at 20px 30px, rgba(57, 255, 20, 0.1), transparent),
-      radial-gradient(1px 1px at 40px 70px, rgba(122, 59, 255, 0.1), transparent),
-      radial-gradient(1px 1px at 90px 40px, rgba(231, 53, 44, 0.1), transparent),
-      radial-gradient(1px 1px at 130px 80px, rgba(57, 255, 20, 0.1), transparent),
-      radial-gradient(1px 1px at 160px 30px, rgba(122, 59, 255, 0.1), transparent);
-    background-repeat: repeat;
-    background-size: 100px 100px;
-    animation: matrix-scroll 20s linear infinite;
+    background: #000000;
     pointer-events: none;
     z-index: 1;
   }
