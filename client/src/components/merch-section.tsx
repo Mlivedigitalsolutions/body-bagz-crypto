@@ -13,6 +13,7 @@ import bomberJacket from "@assets/generated_images/BAGZ_bomber_jacket_female_mod
 import whiteTshirt from "@assets/generated_images/White_BAGZ_t-shirt_model_95780a6e.png";
 import cropTop from "@assets/generated_images/VILLAIN_crop_top_model_2e90c5f7.png";
 
+// Featured merchandise - most popular items
 const merchandiseData = [
   {
     id: 1,
@@ -20,7 +21,8 @@ const merchandiseData = [
     category: "Hoodies",
     price: "$89.99",
     image: blackHoodie,
-    description: "Premium black hoodie with toxic green BODY BAGZ logo"
+    description: "Premium black hoodie with toxic green BODY BAGZ logo",
+    featured: true
   },
   {
     id: 2,
@@ -28,15 +30,8 @@ const merchandiseData = [
     category: "T-Shirts", 
     price: "$39.99",
     image: villainTshirt,
-    description: "Oversized black tee with blood red gothic lettering"
-  },
-  {
-    id: 3,
-    name: "BAGZ Army Tank",
-    category: "Tank Tops",
-    price: "$34.99", 
-    image: armyTank,
-    description: "Athletic fit tank with glowing BODY BAGZ ARMY design"
+    description: "Oversized black tee with blood red gothic lettering",
+    featured: true
   },
   {
     id: 4,
@@ -44,7 +39,8 @@ const merchandiseData = [
     category: "Hoodies",
     price: "$89.99",
     image: greenHoodie,
-    description: "Bold green hoodie with black BODY BAGZ branding"
+    description: "Bold green hoodie with black BODY BAGZ branding",
+    featured: true
   },
   {
     id: 5,
@@ -52,23 +48,8 @@ const merchandiseData = [
     category: "Headwear",
     price: "$44.99",
     image: snapbackCap,
-    description: "Embroidered black snapback with grim reaper skull"
-  },
-  {
-    id: 6,
-    name: "Villain Era Sweatshirt", 
-    category: "Sweatshirts",
-    price: "$74.99",
-    image: redSweatshirt,
-    description: "Blood red crewneck with chain link sleeve design"
-  },
-  {
-    id: 7,
-    name: "Cyberpunk Beanie",
-    category: "Headwear", 
-    price: "$29.99",
-    image: beanie,
-    description: "Embroidered black beanie with gas mask skull"
+    description: "Embroidered black snapback with grim reaper skull",
+    featured: true
   },
   {
     id: 8,
@@ -76,15 +57,8 @@ const merchandiseData = [
     category: "Outerwear",
     price: "$129.99", 
     image: bomberJacket,
-    description: "Premium black bomber with large BODY BAGZ back patch"
-  },
-  {
-    id: 9,
-    name: "White BAGZ Tee",
-    category: "T-Shirts",
-    price: "$39.99",
-    image: whiteTshirt,
-    description: "Clean white tee with bold black logo and red skull"
+    description: "Premium black bomber with large BODY BAGZ back patch",
+    featured: true
   },
   {
     id: 10,
@@ -92,11 +66,12 @@ const merchandiseData = [
     category: "Crop Tops",
     price: "$34.99",
     image: cropTop,
-    description: "Black crop top with glowing green VILLAIN ERA text"
+    description: "Black crop top with glowing green VILLAIN ERA text",
+    featured: true
   }
 ];
 
-const categories = ["All", "Hoodies", "T-Shirts", "Tank Tops", "Headwear", "Sweatshirts", "Outerwear", "Crop Tops"];
+const categories = ["All", "Hoodies", "T-Shirts", "Headwear", "Outerwear"];
 
 export default function MerchSection() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -107,31 +82,30 @@ export default function MerchSection() {
     : merchandiseData.filter(item => item.category === selectedCategory);
 
   return (
-    <section id="merch" className="relative z-10 py-20 px-6 bg-gradient-to-b from-jet-black to-onyx">
+    <section id="merch" className="relative z-10 py-16 px-6 bg-gradient-to-b from-jet-black to-onyx">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
+        {/* Compact Section Header */}
+        <div className="text-center mb-10">
           <h2 
-            className="font-brand text-4xl md:text-6xl text-blood-red mb-6 animate-fade-in-up"
+            className="font-brand text-3xl md:text-4xl text-blood-red mb-4 animate-fade-in-up"
             data-testid="merch-title"
           >
             VILLAIN GEAR
           </h2>
           <p 
-            className="text-ash-white/80 text-xl font-medium max-w-2xl mx-auto animate-fade-in-up-delay mb-4"
+            className="text-ash-white/70 text-lg max-w-xl mx-auto animate-fade-in-up-delay mb-3"
           >
-            Premium streetwear collection for the chaos collective. Embrace your villain era.
+            Premium streetwear for the chaos collective.
           </p>
-          <div className="bg-dim-gray/20 border border-dim-gray/50 rounded-lg p-4 max-w-3xl mx-auto">
-            <p className="text-ash-white/60 text-sm italic">
-              <strong className="text-toxic-green">DISCLAIMER:</strong> Product images are simulated examples for visualization purposes. 
-              Actual merchandise designs may vary when available.
+          <div className="bg-dim-gray/10 border border-dim-gray/30 rounded-md p-3 max-w-2xl mx-auto">
+            <p className="text-ash-white/50 text-xs">
+              <strong className="text-toxic-green">COMING SOON:</strong> Designs shown are conceptual examples.
             </p>
           </div>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* Compact Category Filter */}
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           {categories.map((category) => (
             <Button
               key={category}
@@ -149,8 +123,8 @@ export default function MerchSection() {
           ))}
         </div>
 
-        {/* Merchandise Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {/* Compact Merchandise Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
           {filteredMerch.map((item, index) => (
             <div
               key={item.id}
@@ -165,7 +139,7 @@ export default function MerchSection() {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-48 md:h-56 object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
                 
@@ -187,21 +161,22 @@ export default function MerchSection() {
                 </div>
               </div>
 
-              {/* Product Info */}
-              <div className="p-6">
-                <h3 className="font-brand text-xl text-ash-white mb-2 group-hover:text-toxic-green transition-colors">
+              {/* Compact Product Info */}
+              <div className="p-4">
+                <h3 className="font-brand text-sm md:text-base text-ash-white mb-1 group-hover:text-toxic-green transition-colors leading-tight">
                   {item.name}
                 </h3>
-                <p className="text-dim-gray text-sm mb-4 leading-relaxed">
+                <p className="text-dim-gray text-xs mb-3 leading-relaxed hidden md:block">
                   {item.description}
                 </p>
                 
-                {/* Action Button */}
+                {/* Compact Action Button */}
                 <Button
-                  className="w-full cyber-button bg-gradient-to-r from-blood-red to-toxic-green text-jet-black font-bold hover:shadow-red-glow transition-all duration-300"
+                  size="sm"
+                  className="w-full cyber-button bg-gradient-to-r from-blood-red to-toxic-green text-jet-black font-bold hover:shadow-red-glow transition-all duration-300 text-xs"
                   data-testid={`buy-${item.id}`}
                 >
-                  COMING SOON
+                  SOON
                 </Button>
               </div>
 
@@ -215,17 +190,17 @@ export default function MerchSection() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-16 animate-fade-in-up-delay-2">
-          <div className="neon-card p-8 max-w-2xl mx-auto">
-            <h3 className="font-brand text-2xl text-toxic-green mb-4">
+        {/* Compact Bottom CTA */}
+        <div className="text-center mt-10 animate-fade-in-up-delay-2">
+          <div className="neon-card p-6 max-w-xl mx-auto">
+            <h3 className="font-brand text-lg md:text-xl text-toxic-green mb-3">
               JOIN THE VILLAIN ARMY
             </h3>
-            <p className="text-ash-white/80 mb-6">
-              Be the first to know when our exclusive streetwear collection drops. Premium quality, limited quantities.
+            <p className="text-ash-white/70 mb-4 text-sm">
+              Be first to access exclusive streetwear drops.
             </p>
-            <Button className="cyber-button bg-gradient-to-r from-toxic-green to-blood-red text-jet-black font-bold px-8 py-3 hover:shadow-green-glow">
-              NOTIFY ME WHEN AVAILABLE
+            <Button className="cyber-button bg-gradient-to-r from-toxic-green to-blood-red text-jet-black font-bold px-6 py-2 hover:shadow-green-glow text-sm">
+              GET NOTIFIED
             </Button>
           </div>
         </div>

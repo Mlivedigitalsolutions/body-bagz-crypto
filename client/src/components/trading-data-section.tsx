@@ -22,12 +22,12 @@ export default function TradingDataSection() {
   });
 
   const tradingData = liveData ? {
-    price: liveData.price.startsWith('Loading') ? liveData.price : `$${liveData.price}`,
-    marketCap: liveData.marketCap.startsWith('Loading') ? liveData.marketCap : `$${liveData.marketCap}`,
-    volume: liveData.volume.startsWith('Loading') ? liveData.volume : `$${liveData.volume}`,
-    priceChange: liveData.priceChange,
-    marketCapChange: liveData.marketCapChange,
-    volumeChange: liveData.volumeChange
+    price: liveData.price?.startsWith('Loading') ? liveData.price : `$${liveData.price}`,
+    marketCap: liveData.marketCap?.startsWith('Loading') ? liveData.marketCap : `$${liveData.marketCap}`,
+    volume: liveData.volume?.startsWith('Loading') ? liveData.volume : `$${liveData.volume}`,
+    priceChange: liveData.priceChange || "0.00%",
+    marketCapChange: liveData.marketCapChange || "0.00%",
+    volumeChange: liveData.volumeChange || "0.00%"
   } : {
     price: "Loading...",
     marketCap: "Loading...",
@@ -55,7 +55,7 @@ export default function TradingDataSection() {
           </p>
         </div>
         
-        <div className="neon-card p-8 rounded-xl" data-testid="trading-data-card">
+        <div className="neon-card interactive-glow p-8 rounded-xl" data-testid="trading-data-card">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Price */}
             <div className="text-center">
@@ -79,8 +79,10 @@ export default function TradingDataSection() {
             </div>
           </div>
           
-          {/* Live Chart Integration */}
+          {/* Live Chart Integration with Tech Effects */}
           <div className="bg-jet-black rounded-lg border border-dim-gray h-64 flex items-center justify-center relative overflow-hidden" data-testid="chart-placeholder">
+            <div className="tech-scanline-overlay"></div>
+            <div className="holographic-overlay"></div>
             <div className="absolute inset-0 grid-overlay opacity-20"></div>
             <div className="text-center relative z-10">
               <div className="font-tech text-toxic-green mb-2 text-lg tracking-widest">LIVE CHART</div>

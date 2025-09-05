@@ -18,6 +18,7 @@ import mainBrandLogo from "@assets/generated_images/Official_Body_Bagz_brand_log
 
 export default function Home() {
   const mainTitleRef = useRef<HTMLHeadingElement>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Glitch effect on scroll
@@ -70,6 +71,9 @@ export default function Home() {
 
   return (
     <div className="bg-jet-black text-ash-white font-body overflow-x-hidden">
+      {/* Enhanced Matrix Background */}
+      <div className="matrix-background"></div>
+      
       {/* Enhanced Animated Background */}
       <div className="fixed inset-0 z-0 grid-overlay">
         <div className="absolute inset-0 fog-layer animate-fog"></div>
@@ -80,8 +84,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="relative z-50 px-6 py-4" data-testid="navigation">
+      {/* Enhanced Mobile-Optimized Navigation */}
+      <nav className="relative z-50 px-4 md:px-6 py-3 md:py-4" data-testid="navigation">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <img 
@@ -93,7 +97,7 @@ export default function Home() {
             <span className="font-brand text-xl tracking-tight text-blood-red">BODY BAGZ</span>
           </div>
           <div className="flex items-center space-x-6">
-            <div className="hidden md:flex space-x-8">
+            <div className="hidden lg:flex space-x-6 xl:space-x-8">
               <a href="#vision" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
               <a href="#tokenomics" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokenomics">TOKENOMICS</a>
               <a href="#tools" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">TOOLS</a>
@@ -102,13 +106,13 @@ export default function Home() {
               <a href="#community" className="text-ash-white/80 hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
             </div>
             
-            {/* Trading CTAs */}
-            <div className="hidden lg:flex space-x-4">
+            {/* Mobile-Optimized Trading CTAs */}
+            <div className="hidden xl:flex space-x-3">
               <a
                 href="https://dexscreener.com/solana/hcspcc1loaejempvs7gh6nzhyxbypmcv6dvc9kjjxeye"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-sm hover:shadow-green-glow transition-all duration-200 group"
+                className="px-3 py-2 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-xs xl:text-sm hover:shadow-green-glow transition-all duration-200 group"
                 data-testid="nav-dexscreener"
               >
                 Trade on Dexscreener ↗
@@ -117,7 +121,7 @@ export default function Home() {
                 href="https://moonshot.com?ref=hmcVBJO6br"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-gradient-to-r from-glitch-purple to-purple-600 rounded-lg font-tech text-white text-sm hover:shadow-purple-glow transition-all duration-200 group"
+                className="px-3 py-2 bg-gradient-to-r from-glitch-purple to-purple-600 rounded-lg font-tech text-white text-xs xl:text-sm hover:shadow-purple-glow transition-all duration-200 group"
                 data-testid="nav-moonshot"
               >
                 Get Moonshot ↗
@@ -127,8 +131,19 @@ export default function Home() {
             {/* User Auth */}
             <UserButton />
             
+            {/* Mobile Menu Button */}
+            <button 
+              className="lg:hidden hamburger" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              data-testid="mobile-menu-toggle"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
             {/* Social Links */}
-            <div className="flex items-center space-x-3">
+            <div className="hidden lg:flex items-center space-x-3">
               <a 
                 href="https://t.me/BodyBagzs" 
                 target="_blank" 
@@ -152,6 +167,70 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* Mobile Menu */}
+      <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}></div>
+      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-8">
+            <span className="font-brand text-xl text-blood-red">MENU</span>
+            <button onClick={() => setMobileMenuOpen(false)} className="text-toxic-green text-2xl">
+              ×
+            </button>
+          </div>
+          
+          <nav className="space-y-6">
+            <a href="#vision" className="block text-ash-white/80 hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>VISION</a>
+            <a href="#tokenomics" className="block text-ash-white/80 hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOKENOMICS</a>
+            <a href="#tools" className="block text-ash-white/80 hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOOLS</a>
+            <a href="#merch" className="block text-ash-white/80 hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>MERCH</a>
+            <a href="#leaderboard" className="block text-ash-white/80 hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>LEADERBOARD</a>
+            <a href="#community" className="block text-ash-white/80 hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>COMMUNITY</a>
+          </nav>
+          
+          <div className="mt-8 space-y-4">
+            <a
+              href="https://dexscreener.com/solana/hcspcc1loaejempvs7gh6nzhyxbypmcv6dvc9kjjxeye"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full px-4 py-3 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-center hover:shadow-green-glow transition-all duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Trade on Dexscreener ↗
+            </a>
+            <a
+              href="https://moonshot.com?ref=hmcVBJO6br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full px-4 py-3 bg-gradient-to-r from-glitch-purple to-purple-600 rounded-lg font-tech text-white text-center hover:shadow-purple-glow transition-all duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Get Moonshot ↗
+            </a>
+          </div>
+          
+          <div className="flex justify-center space-x-4 mt-8">
+            <a 
+              href="https://t.me/BodyBagzs" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="p-3 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-green-glow transition-all duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <TelegramChaosIcon className="w-6 h-6 text-toxic-green" />
+            </a>
+            <a 
+              href="https://twitter.com/i/communities/1960797896896602475" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="p-3 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-purple-glow transition-all duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <XChaosIcon className="w-6 h-6 text-glitch-purple" />
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
       <main>
         <HeroSection titleRef={mainTitleRef} />
@@ -159,8 +238,8 @@ export default function Home() {
         {/* Trading Panel */}
         <TradingPanel />
         
-        {/* Introduction Section */}
-        <section className="relative z-10 py-20 px-6">
+        {/* Streamlined Introduction Section */}
+        <section className="relative z-10 py-12 md:py-16 px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="neon-card p-8 md:p-12 rounded-xl">
               {/* Custom Zipper Divider SVG */}
@@ -182,13 +261,13 @@ export default function Home() {
                 </svg>
               </div>
               
-              <h2 className="font-brand text-3xl md:text-4xl text-blood-red mb-6 text-center">EMBRACE THE CHAOS</h2>
+              <h2 className="font-brand text-2xl md:text-3xl lg:text-4xl text-blood-red mb-4 md:mb-6 text-center">EMBRACE THE CHAOS</h2>
               <div className="prose prose-invert max-w-none text-center">
-                <p className="text-lg md:text-xl leading-relaxed text-ash-white mb-6">
+                <p className="text-base md:text-lg lg:text-xl leading-relaxed text-ash-white mb-4 md:mb-6">
                   In a world of rugs, dumps, and broken promises, <span className="text-blood-red font-semibold">BODY BAGZ</span> 
                   emerges from the shadows. We don't promise moon missions or lambo dreams.
                 </p>
-                <p className="text-lg md:text-xl leading-relaxed text-ash-white">
+                <p className="text-base md:text-lg lg:text-xl leading-relaxed text-ash-white">
                   We promise <span className="text-toxic-green font-semibold">chaos</span>, 
                   <span className="text-glitch-purple font-semibold"> culture</span>, and 
                   <span className="text-blood-red font-semibold"> community</span>. 
@@ -199,14 +278,14 @@ export default function Home() {
           </div>
         </section>
 
+        <TradingDataSection />
         <VideoShowcase />
         <VisionSection />
         <TokenomicsSection />
-        <RoadmapSection />
         <ToolsSection />
-        <Leaderboard />
         <MerchSection />
-        <TradingDataSection />
+        <RoadmapSection />
+        <Leaderboard />
         <CommunitySection />
       </main>
 
