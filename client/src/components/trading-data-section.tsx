@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 interface TradingData {
   price: string;
@@ -10,19 +11,31 @@ interface TradingData {
 }
 
 export default function TradingDataSection() {
-  const [tradingData, setTradingData] = useState<TradingData>({
-    price: "TBA",
-    marketCap: "TBA",
-    volume: "TBA",
-    priceChange: "TBA",
-    marketCapChange: "TBA",
-    volumeChange: "TBA"
+  const CONTRACT_ADDRESS = "7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon";
+  
+  // Fetch live trading data from our backend API
+  const { data: liveData, isLoading, error } = useQuery({
+    queryKey: ["/api/trading-data"],
+    refetchInterval: 60000, // Refetch every minute
+    retry: 2,
+    staleTime: 30000, // Keep data fresh for 30 seconds
   });
 
-  useEffect(() => {
-    // Future: Real-time data integration will be added here
-    // Currently displaying TBA until official trading launch
-  }, []);
+  const tradingData = liveData ? {
+    price: liveData.price.startsWith('Loading') ? liveData.price : `$${liveData.price}`,
+    marketCap: liveData.marketCap.startsWith('Loading') ? liveData.marketCap : `$${liveData.marketCap}`,
+    volume: liveData.volume.startsWith('Loading') ? liveData.volume : `$${liveData.volume}`,
+    priceChange: liveData.priceChange,
+    marketCapChange: liveData.marketCapChange,
+    volumeChange: liveData.volumeChange
+  } : {
+    price: "Loading...",
+    marketCap: "Loading...",
+    volume: "Loading...",
+    priceChange: "Loading...",
+    marketCapChange: "Loading...",
+    volumeChange: "Loading..."
+  };
 
   return (
     <section className="relative z-10 py-20 px-6">
@@ -31,15 +44,14 @@ export default function TradingDataSection() {
           TRADING DATA
         </h2>
         
-        {/* Live Trading Disclaimer */}
-        <div className="bg-dim-gray/20 border border-blood-red/30 rounded-lg p-4 max-w-3xl mx-auto mb-12">
+        {/* Live Trading Info */}
+        <div className="bg-dim-gray/20 border border-toxic-green/30 rounded-lg p-4 max-w-3xl mx-auto mb-12">
           <p className="text-ash-white/80 text-center">
-            <strong className="text-blood-red">Contract Address:</strong> 
-            <span className="font-mono text-toxic-green ml-2">7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon</span>
+            <strong className="text-toxic-green">✅ LIVE on Solana:</strong> 
+            <span className="font-mono text-ash-white ml-2">7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon</span>
           </p>
           <p className="text-ash-white/60 text-sm text-center mt-2">
-            Live trading data will populate once $BAGZ is officially listed. 
-            Visit DexScreener for real-time charts and trading.
+            {isLoading ? "🔄 Fetching live trading data..." : error ? "⚠️ Data temporarily unavailable - check DexScreener for live charts" : "📊 Live data from DexScreener - updates every minute"}
           </p>
         </div>
         
@@ -48,22 +60,22 @@ export default function TradingDataSection() {
             {/* Price */}
             <div className="text-center">
               <h3 className="font-tech text-lg text-dim-gray mb-2 tracking-wide">PRICE</h3>
-              <div className="font-mono text-3xl text-toxic-green font-bold" data-testid="price-value" style={{textShadow: '0 0 10px rgba(57, 255, 20, 0.3)'}}>{tradingData.price}</div>
-              <div className="text-sm text-blood-red font-semibold">{tradingData.priceChange}</div>
+              <div className={`font-mono text-3xl font-bold ${isLoading ? 'animate-pulse text-dim-gray' : 'text-toxic-green'}`} data-testid="price-value" style={{textShadow: isLoading ? 'none' : '0 0 10px rgba(57, 255, 20, 0.3)'}}>{tradingData.price}</div>
+              <div className={`text-sm font-semibold ${tradingData.priceChange?.startsWith('+') ? 'text-toxic-green' : tradingData.priceChange?.startsWith('-') ? 'text-blood-red' : 'text-dim-gray'}`}>{tradingData.priceChange}</div>
             </div>
             
             {/* Market Cap */}
             <div className="text-center">
               <h3 className="font-tech text-lg text-dim-gray mb-2 tracking-wide">MARKET CAP</h3>
-              <div className="font-mono text-3xl text-ash-white font-bold" data-testid="market-cap-value">{tradingData.marketCap}</div>
-              <div className="text-sm text-toxic-green font-semibold">{tradingData.marketCapChange}</div>
+              <div className={`font-mono text-3xl font-bold ${isLoading ? 'animate-pulse text-dim-gray' : 'text-ash-white'}`} data-testid="market-cap-value">{tradingData.marketCap}</div>
+              <div className={`text-sm font-semibold ${tradingData.marketCapChange?.startsWith('+') ? 'text-toxic-green' : tradingData.marketCapChange?.startsWith('-') ? 'text-blood-red' : 'text-dim-gray'}`}>{tradingData.marketCapChange}</div>
             </div>
             
             {/* Volume */}
             <div className="text-center">
               <h3 className="font-tech text-lg text-dim-gray mb-2 tracking-wide">24H VOLUME</h3>
-              <div className="font-mono text-3xl text-glitch-purple font-bold" data-testid="volume-value" style={{textShadow: '0 0 10px rgba(122, 59, 255, 0.3)'}}>{tradingData.volume}</div>
-              <div className="text-sm text-blood-red font-semibold">{tradingData.volumeChange}</div>
+              <div className={`font-mono text-3xl font-bold ${isLoading ? 'animate-pulse text-dim-gray' : 'text-glitch-purple'}`} data-testid="volume-value" style={{textShadow: isLoading ? 'none' : '0 0 10px rgba(122, 59, 255, 0.3)'}}>{tradingData.volume}</div>
+              <div className={`text-sm font-semibold ${tradingData.volumeChange?.startsWith('+') ? 'text-toxic-green' : tradingData.volumeChange?.startsWith('-') ? 'text-blood-red' : 'text-dim-gray'}`}>{tradingData.volumeChange}</div>
             </div>
           </div>
           

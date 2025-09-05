@@ -749,24 +749,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Trading Data API (Mock for now - replace with real DexScreener integration)
-  app.get("/api/trading-data", (req, res) => {
-    // Generate realistic fluctuating data
-    const basePrice = 0.00042;
-    const priceVariation = (Math.random() - 0.5) * 0.00001;
-    const price = Math.max(0, basePrice + priceVariation);
-    
-    const data = {
-      price: price.toFixed(6),
-      marketCap: "2.1M",
-      volume: "847K",
-      priceChange: "+24.7%",
-      marketCapChange: "+18.3%",
-      volumeChange: "+67.2%",
-      timestamp: new Date().toISOString()
-    };
-    
-    res.json(data);
+  // Live Trading Data API - Real DexScreener integration
+  app.get("/api/trading-data", async (req, res) => {
+    try {
+      const CONTRACT_ADDRESS = "7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon";
+      
+      // Fetch from DexScreener API
+      const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${CONTRACT_ADDRESS}`);
+      const data = await response.json();
+      
+      if (data.pairs && data.pairs.length > 0) {
+        const pair = data.pairs[0]; // Get the most liquid pair
+        const tradingData = {
+          price: parseFloat(pair.priceUsd).toFixed(8),
+          marketCap: pair.marketCap ? (pair.marketCap / 1000000).toFixed(2) + "M" : "N/A",
+          volume: pair.volume?.h24 ? (pair.volume.h24 / 1000).toFixed(1) + "K" : "N/A",
+          priceChange: pair.priceChange?.h24 ? pair.priceChange.h24.toFixed(2) + "%" : "0.00%",
+          marketCapChange: pair.priceChange?.h24 ? pair.priceChange.h24.toFixed(2) + "%" : "0.00%",
+          volumeChange: pair.volume?.h24 && pair.volume?.h6 ? ((pair.volume.h24 / pair.volume.h6 - 1) * 100).toFixed(1) + "%" : "0.00%",
+          liquidity: pair.liquidity?.usd ? (pair.liquidity.usd / 1000).toFixed(1) + "K" : "N/A",
+          timestamp: new Date().toISOString()
+        };
+        
+        res.json(tradingData);
+      } else {
+        throw new Error("No trading pairs found");
+      }
+    } catch (error) {
+      console.error("Error fetching DexScreener data:", error);
+      
+      // Return loading state for live data
+      res.json({
+        price: "Loading...",
+        marketCap: "Loading...",
+        volume: "Loading...",
+        priceChange: "0.00%",
+        marketCapChange: "0.00%",
+        volumeChange: "0.00%",
+        liquidity: "Loading...",
+        timestamp: new Date().toISOString()
+      });
+    }
   });
 
   // === LEADERBOARD SYSTEM APIs ===
