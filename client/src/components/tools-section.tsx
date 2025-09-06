@@ -985,7 +985,7 @@ export default function ToolsSection() {
                     <img 
                       src={generatedMemeImage} 
                       alt="Generated meme"
-                      className="w-full h-full object-contain rounded-lg"
+                      className="w-full h-full object-cover object-center rounded-lg"
                       data-testid="generated-meme-image"
                     />
                   ) : (
@@ -997,7 +997,7 @@ export default function ToolsSection() {
                           <img 
                             src={template.imageUrl} 
                             alt={template.name}
-                            className="w-full h-full object-contain rounded-lg"
+                            className="w-full h-full object-cover object-center rounded-lg"
                             data-testid="meme-preview-image"
                           />
                         );
@@ -1189,7 +1189,7 @@ export default function ToolsSection() {
                     <img 
                       src={generatedPfpImage} 
                       alt={currentPfp.name}
-                      className="w-full h-full object-cover rounded-lg"
+                      className="w-full h-full object-cover object-center rounded-lg"
                       data-testid="generated-pfp-image"
                     />
                   ) : (
