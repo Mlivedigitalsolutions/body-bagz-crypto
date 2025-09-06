@@ -749,45 +749,81 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Live Trading Data API - Real DexScreener integration
+  // Live Trading Data API - Dual Token Support with DexScreener integration
   app.get("/api/trading-data", async (req, res) => {
     try {
-      const CONTRACT_ADDRESS = "7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon";
+      const MOONSHOT_CA = "7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon";
+      const PUMPFUN_CA = "6sw8wayQp769fAHrJxo6brH9D8BwghYHRSnZ1xeHpump";
       
-      // Fetch from DexScreener API
-      const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${CONTRACT_ADDRESS}`);
-      const data = await response.json();
+      // Fetch both tokens simultaneously
+      const [moonshotResponse, pumpfunResponse] = await Promise.all([
+        fetch(`https://api.dexscreener.com/latest/dex/tokens/${MOONSHOT_CA}`),
+        fetch(`https://api.dexscreener.com/latest/dex/tokens/${PUMPFUN_CA}`)
+      ]);
       
-      if (data.pairs && data.pairs.length > 0) {
-        const pair = data.pairs[0]; // Get the most liquid pair
-        const tradingData = {
-          price: parseFloat(pair.priceUsd).toFixed(8),
-          marketCap: pair.marketCap ? (pair.marketCap / 1000000).toFixed(2) + "M" : "N/A",
-          volume: pair.volume?.h24 ? (pair.volume.h24 / 1000).toFixed(1) + "K" : "N/A",
-          priceChange: pair.priceChange?.h24 ? pair.priceChange.h24.toFixed(2) + "%" : "0.00%",
-          marketCapChange: pair.priceChange?.h24 ? pair.priceChange.h24.toFixed(2) + "%" : "0.00%",
-          volumeChange: pair.volume?.h24 && pair.volume?.h6 ? ((pair.volume.h24 / pair.volume.h6 - 1) * 100).toFixed(1) + "%" : "0.00%",
-          liquidity: pair.liquidity?.usd ? (pair.liquidity.usd / 1000).toFixed(1) + "K" : "N/A",
-          timestamp: new Date().toISOString()
-        };
-        
-        res.json(tradingData);
-      } else {
-        throw new Error("No trading pairs found");
-      }
+      const [moonshotData, pumpfunData] = await Promise.all([
+        moonshotResponse.json(),
+        pumpfunResponse.json()
+      ]);
+      
+      const formatTokenData = (data: any, tokenName: string) => {
+        if (data.pairs && data.pairs.length > 0) {
+          const pair = data.pairs[0];
+          return {
+            price: parseFloat(pair.priceUsd).toFixed(8),
+            marketCap: pair.marketCap ? (pair.marketCap / 1000).toFixed(1) + "K" : "N/A",
+            volume: pair.volume?.h24 ? (pair.volume.h24 / 1000).toFixed(1) + "K" : "N/A",
+            priceChange: pair.priceChange?.h24 ? pair.priceChange.h24.toFixed(2) + "%" : "0.00%",
+            marketCapChange: pair.priceChange?.h24 ? pair.priceChange.h24.toFixed(2) + "%" : "0.00%",
+            volumeChange: pair.volume?.h24 && pair.volume?.h6 ? ((pair.volume.h24 / pair.volume.h6 - 1) * 100).toFixed(1) + "%" : "0.00%",
+            liquidity: pair.liquidity?.usd ? (pair.liquidity.usd / 1000).toFixed(1) + "K" : "N/A",
+            timestamp: new Date().toISOString()
+          };
+        } else {
+          return {
+            price: "N/A",
+            marketCap: "N/A", 
+            volume: "N/A",
+            priceChange: "0.00%",
+            marketCapChange: "0.00%",
+            volumeChange: "0.00%",
+            liquidity: "N/A",
+            timestamp: new Date().toISOString()
+          };
+        }
+      };
+      
+      const tradingData = {
+        moonshot: formatTokenData(moonshotData, "Moonshot"),
+        pumpfun: formatTokenData(pumpfunData, "Pump.fun")
+      };
+      
+      res.json(tradingData);
     } catch (error) {
       console.error("Error fetching DexScreener data:", error);
       
       // Return loading state for live data
       res.json({
-        price: "Loading...",
-        marketCap: "Loading...",
-        volume: "Loading...",
-        priceChange: "0.00%",
-        marketCapChange: "0.00%",
-        volumeChange: "0.00%",
-        liquidity: "Loading...",
-        timestamp: new Date().toISOString()
+        moonshot: {
+          price: "Loading...",
+          marketCap: "Loading...",
+          volume: "Loading...",
+          priceChange: "0.00%",
+          marketCapChange: "0.00%",
+          volumeChange: "0.00%",
+          liquidity: "Loading...",
+          timestamp: new Date().toISOString()
+        },
+        pumpfun: {
+          price: "Loading...",
+          marketCap: "Loading...",
+          volume: "Loading...",
+          priceChange: "0.00%",
+          marketCapChange: "0.00%",
+          volumeChange: "0.00%",
+          liquidity: "Loading...",
+          timestamp: new Date().toISOString()
+        }
       });
     }
   });
