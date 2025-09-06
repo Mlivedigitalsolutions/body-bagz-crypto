@@ -7,6 +7,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserProvider } from "@/contexts/UserContext";
 import Home from "@/pages/home";
 import AccountPage from "@/pages/account";
+import ToolsPage from "@/pages/tools";
+import MerchPage from "@/pages/merch";
 import { BannerDemo } from "@/pages/banner-demo";
 import { LogoShowcase } from "@/pages/logo-showcase";
 import NotFound from "@/pages/not-found";
@@ -16,6 +18,8 @@ function Router() {
     <Switch>
       <Route path="/" component={Home}/>
       <Route path="/account" component={AccountPage}/>
+      <Route path="/tools" component={ToolsPage}/>
+      <Route path="/merch" component={MerchPage}/>
       <Route path="/banner" component={BannerDemo}/>
       <Route path="/logos" component={LogoShowcase}/>
       <Route component={NotFound} />
