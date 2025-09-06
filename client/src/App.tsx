@@ -10,6 +10,7 @@ import AccountPage from "@/pages/account";
 import ToolsPage from "@/pages/tools";
 import MerchPage from "@/pages/merch";
 import LeaderboardPage from "@/pages/leaderboard";
+import AdminPage from "@/pages/admin";
 import { BannerDemo } from "@/pages/banner-demo";
 import { LogoShowcase } from "@/pages/logo-showcase";
 import NotFound from "@/pages/not-found";
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/tools" component={ToolsPage}/>
       <Route path="/merch" component={MerchPage}/>
       <Route path="/leaderboard" component={LeaderboardPage}/>
+      <Route path="/admin" component={AdminPage}/>
       <Route path="/banner" component={BannerDemo}/>
       <Route path="/logos" component={LogoShowcase}/>
       <Route component={NotFound} />

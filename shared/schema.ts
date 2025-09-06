@@ -10,6 +10,7 @@ export const users = pgTable("users", {
   xUsername: text("x_username"),
   telegramUsername: text("telegram_username"),
   solanaWallet: text("solana_wallet"),
+  isAdmin: boolean("is_admin").default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -77,6 +78,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
   xUsername: true,
   telegramUsername: true,
   solanaWallet: true,
+  isAdmin: true,
 });
 
 export const insertLeaderboardEntrySchema = createInsertSchema(leaderboardEntries).pick({

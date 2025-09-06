@@ -47,6 +47,14 @@ export interface IStorage {
   getUserPreferences(userId: string): Promise<UserPreferences | undefined>;
   createUserPreferences(preferences: InsertUserPreferences): Promise<UserPreferences>;
   updateUserPreferences(userId: string, preferences: Partial<InsertUserPreferences>): Promise<UserPreferences>;
+  
+  // Admin operations
+  executeRawSQL(query: string): Promise<any>;
+  getAdminStats(): Promise<{
+    totalUsers: number;
+    totalActions: number;
+    totalContent: number;
+  }>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -255,6 +263,37 @@ export class DatabaseStorage implements IStorage {
       .where(eq(userPreferences.userId, userId))
       .returning();
     return updated;
+  }
+
+  // Admin operations
+  async executeRawSQL(query: string): Promise<any> {
+    try {
+      const result = await db.execute(sql.raw(query));
+      return result;
+    } catch (error) {
+      throw new Error(`SQL execution failed: ${error}`);
+    }
+  }
+
+  async getAdminStats(): Promise<{
+    totalUsers: number;
+    totalActions: number;
+    totalContent: number;
+  }> {
+    try {
+      const [userCount] = await db.select({ count: sql`COUNT(*)` }).from(users);
+      const [actionCount] = await db.select({ count: sql`COUNT(*)` }).from(leaderboardEntries);
+      const [contentCount] = await db.select({ count: sql`COUNT(*)` }).from(savedContent);
+
+      return {
+        totalUsers: Number(userCount.count) || 0,
+        totalActions: Number(actionCount.count) || 0,
+        totalContent: Number(contentCount.count) || 0,
+      };
+    } catch (error) {
+      console.error('Error getting admin stats:', error);
+      return { totalUsers: 0, totalActions: 0, totalContent: 0 };
+    }
   }
 }
 

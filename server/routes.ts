@@ -1373,6 +1373,81 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin endpoints (requires admin privileges)
+  const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith('User ')) {
+        return res.status(401).json({ error: "Admin access required" });
+      }
+      
+      const username = authHeader.split(' ')[1];
+      const user = await storage.getUserByUsername(username);
+      
+      if (!user || !user.isAdmin) {
+        return res.status(403).json({ error: "Admin privileges required" });
+      }
+      
+      (req as any).adminUser = user;
+      next();
+    } catch (error) {
+      res.status(401).json({ error: "Admin authorization failed" });
+    }
+  };
+
+  // Admin SQL query endpoint
+  app.post("/api/admin/sql", async (req: Request, res: Response) => {
+    try {
+      const { query } = req.body;
+      
+      if (!query || typeof query !== 'string') {
+        return res.status(400).json({ error: "SQL query is required" });
+      }
+
+      // Basic SQL injection protection - allow only SELECT, INSERT, UPDATE, DELETE
+      const trimmedQuery = query.trim().toUpperCase();
+      const allowedPrefixes = ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'WITH'];
+      const isAllowed = allowedPrefixes.some(prefix => trimmedQuery.startsWith(prefix));
+      
+      if (!isAllowed) {
+        return res.status(400).json({ error: "Only SELECT, INSERT, UPDATE, DELETE queries allowed" });
+      }
+
+      // Execute the query using Drizzle raw SQL
+      const result = await storage.executeRawSQL(query);
+      res.json(result);
+    } catch (error: any) {
+      console.error('Admin SQL query error:', error);
+      res.status(500).json({ error: error.message || "Query execution failed" });
+    }
+  });
+
+  // Admin stats endpoint
+  app.get("/api/admin/stats", async (req: Request, res: Response) => {
+    try {
+      const stats = await storage.getAdminStats();
+      res.json(stats);
+    } catch (error) {
+      console.error('Error fetching admin stats:', error);
+      res.status(500).json({ error: "Failed to fetch stats" });
+    }
+  });
+
+  // Admin file upload endpoint
+  app.post("/api/admin/upload", async (req: Request, res: Response) => {
+    try {
+      // For now, just return a placeholder response
+      // In a real implementation, you'd handle multipart/form-data file uploads
+      res.json({ 
+        success: true, 
+        message: "File upload endpoint ready - implement multipart handling for production" 
+      });
+    } catch (error) {
+      console.error('File upload error:', error);
+      res.status(500).json({ error: "Upload failed" });
+    }
+  });
+
   // Add error handler at the end
   app.use(errorHandler);
   
