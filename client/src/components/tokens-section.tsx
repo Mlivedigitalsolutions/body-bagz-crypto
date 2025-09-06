@@ -77,30 +77,27 @@ export default function TokensSection() {
                 </div>
               </div>
               
-              {/* Action Buttons */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a
-                  href={MOONSHOT_DEX}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-toxic-green/20 to-emerald-600/20 border border-toxic-green rounded-lg font-tech text-toxic-green hover:shadow-green-glow transition-all duration-200 group"
-                  data-testid="moonshot-chart-btn"
-                  onClick={() => handleAnalytics('open_moonshot_dex', 'view_chart')}
-                >
-                  <span className="mr-2">📊</span>
-                  View Chart ↗
-                </a>
-                <a
-                  href={`${MOONSHOT_DEX}#trade`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white hover:shadow-green-glow transition-all duration-200"
-                  data-testid="moonshot-buy-btn"
-                  onClick={() => handleAnalytics('buy_moonshot', 'dex_trade')}
-                >
-                  <span className="mr-2">💀</span>
-                  Buy on Dex ↗
-                </a>
+              {/* Tokenomics Preview */}
+              <div className="space-y-3">
+                <h4 className="font-tech text-toxic-green text-sm tracking-wide">FLAGSHIP TOKEN FEATURES</h4>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-dim-gray">Liquidity:</span>
+                    <span className="text-ash-white font-semibold">Locked</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-dim-gray">Supply:</span>
+                    <span className="text-ash-white font-semibold">Fixed</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-dim-gray">Ownership:</span>
+                    <span className="text-ash-white font-semibold">Renounced</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-dim-gray">Focus:</span>
+                    <span className="text-ash-white font-semibold">Long-term</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -145,30 +142,27 @@ export default function TokensSection() {
                 </div>
               </div>
               
-              {/* Action Buttons */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a
-                  href={PUMPFUN_DEX}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blood-red/20 to-red-600/20 border border-blood-red rounded-lg font-tech text-blood-red hover:shadow-red-glow transition-all duration-200 group"
-                  data-testid="pumpfun-chart-btn"
-                  onClick={() => handleAnalytics('open_pumpfun_dex', 'view_chart')}
-                >
-                  <span className="mr-2">📊</span>
-                  View Chart ↗
-                </a>
-                <a
-                  href={`${PUMPFUN_DEX}#trade`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blood-red to-red-600 rounded-lg font-tech text-white hover:shadow-red-glow transition-all duration-200"
-                  data-testid="pumpfun-buy-btn"
-                  onClick={() => handleAnalytics('buy_pumpfun', 'dex_trade')}
-                >
-                  <span className="mr-2">💀</span>
-                  Buy on Dex ↗
-                </a>
+              {/* Tokenomics Preview */}
+              <div className="space-y-3">
+                <h4 className="font-tech text-blood-red text-sm tracking-wide">CHAOS PIT FEATURES</h4>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-dim-gray">Type:</span>
+                    <span className="text-ash-white font-semibold">Degen</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-dim-gray">Rewards:</span>
+                    <span className="text-ash-white font-semibold">Staking</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-dim-gray">Speed:</span>
+                    <span className="text-ash-white font-semibold">Fast moves</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-dim-gray">Focus:</span>
+                    <span className="text-ash-white font-semibold">Memes</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

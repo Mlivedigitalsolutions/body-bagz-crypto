@@ -283,9 +283,9 @@ export default function Home() {
         </section>
 
         <TradingDataSection />
-        <VideoShowcase />
         <VisionSection />
         <TokensSection />
+        <VideoShowcase />
         <RoadmapSection />
         <Leaderboard />
         <CommunitySection />
