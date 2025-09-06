@@ -6,7 +6,6 @@ import TokensSection from "@/components/tokens-section";
 import RoadmapSection from "@/components/roadmap-section";
 import TradingDataSection from "@/components/trading-data-section";
 import CommunitySection from "@/components/community-section";
-import TradingPanel from "@/components/trading-panel";
 import Footer from "@/components/footer";
 import { UserButton } from "@/components/UserAuth";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
@@ -238,9 +237,6 @@ export default function Home() {
       {/* Main Content */}
       <main>
         <HeroSection titleRef={mainTitleRef} />
-        
-        {/* Trading Panel */}
-        <TradingPanel />
         
         {/* Streamlined Introduction Section */}
         <section className="relative z-10 py-12 md:py-16 px-4 md:px-6">
