@@ -49,7 +49,7 @@ export default function VideoShowcase() {
                 <img 
                   src={movement.image} 
                   alt={movement.title}
-                  className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover object-center transition-all duration-300 group-hover:scale-105"
                   data-testid={`movement-image-${movement.id}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-jet-black/80 via-transparent to-transparent group-hover:from-jet-black/60 transition-all duration-300">
