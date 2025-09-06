@@ -21,8 +21,8 @@ export default function TokensSection() {
   };
 
   const handleAnalytics = (eventName: string, label: string) => {
-    if (window.gtag) {
-      window.gtag('event', eventName, {
+    if ((window as any).gtag) {
+      (window as any).gtag('event', eventName, {
         event_category: 'tokens',
         event_label: label
       });

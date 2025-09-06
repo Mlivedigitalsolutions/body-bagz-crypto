@@ -105,8 +105,8 @@ export default function Home() {
                 className="px-3 py-2 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-xs xl:text-sm hover:shadow-green-glow transition-all duration-200 group"
                 data-testid="nav-moonshot-chart"
                 onClick={() => {
-                  if (window.gtag) {
-                    window.gtag('event', 'open_moonshot_dex', {
+                  if ((window as any).gtag) {
+                    (window as any).gtag('event', 'open_moonshot_dex', {
                       event_category: 'navigation',
                       event_label: 'header_quick_action'
                     });
@@ -122,8 +122,8 @@ export default function Home() {
                 className="px-3 py-2 bg-gradient-to-r from-blood-red to-red-600 rounded-lg font-tech text-white text-xs xl:text-sm hover:shadow-red-glow transition-all duration-200 group"
                 data-testid="nav-pumpfun-chart"
                 onClick={() => {
-                  if (window.gtag) {
-                    window.gtag('event', 'open_pumpfun_dex', {
+                  if ((window as any).gtag) {
+                    (window as any).gtag('event', 'open_pumpfun_dex', {
                       event_category: 'navigation',
                       event_label: 'header_quick_action'
                     });

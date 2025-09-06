@@ -79,23 +79,62 @@ export default function TradingDataSection() {
             </div>
           </div>
           
-          {/* Live Chart Integration with Tech Effects */}
-          <div className="bg-jet-black rounded-lg border border-dim-gray h-64 flex items-center justify-center relative overflow-hidden" data-testid="chart-placeholder">
-            <div className="tech-scanline-overlay"></div>
-            <div className="holographic-overlay"></div>
-            <div className="absolute inset-0 grid-overlay opacity-20"></div>
-            <div className="text-center relative z-10">
-              <div className="font-tech text-toxic-green mb-2 text-lg tracking-widest">LIVE CHART</div>
-              <div className="text-dim-gray text-sm font-medium mb-4">Available on DexScreener post-launch</div>
-              <a 
-                href="https://dexscreener.com/solana/hcspcc1loaejempvs7gh6nzhyxbypmcv6dvc9kjjxeye" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-sm hover:shadow-green-glow transition-all duration-200"
-              >
-                VIEW ON DEXSCREENER ↗
-              </a>
-              <div className="scanline-overlay w-32 h-1 mx-auto mt-4 rounded"></div>
+          {/* Dual Chart Integration with Tech Effects */}
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Moonshot Chart */}
+            <div className="bg-jet-black rounded-lg border border-toxic-green/30 h-64 flex items-center justify-center relative overflow-hidden" data-testid="moonshot-chart-placeholder">
+              <div className="tech-scanline-overlay"></div>
+              <div className="holographic-overlay"></div>
+              <div className="absolute inset-0 grid-overlay opacity-20"></div>
+              <div className="text-center relative z-10">
+                <div className="font-tech text-toxic-green mb-2 text-lg tracking-widest">🪦 MOONSHOT CHART</div>
+                <div className="text-dim-gray text-sm font-medium mb-4">Flagship Token - Live on DexScreener</div>
+                <a 
+                  href="https://dexscreener.com/solana/hcspcc1loaejempvs7gh6nzhyxbypmcv6dvc9kjjxeye" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-sm hover:shadow-green-glow transition-all duration-200"
+                  onClick={() => {
+                    if ((window as any).gtag) {
+                      (window as any).gtag('event', 'open_moonshot_dex', {
+                        event_category: 'trading_data',
+                        event_label: 'chart_view'
+                      });
+                    }
+                  }}
+                >
+                  VIEW MOONSHOT CHART ↗
+                </a>
+                <div className="scanline-overlay w-32 h-1 mx-auto mt-4 rounded bg-toxic-green/30"></div>
+              </div>
+            </div>
+
+            {/* Pump.fun Chart */}
+            <div className="bg-jet-black rounded-lg border border-blood-red/30 h-64 flex items-center justify-center relative overflow-hidden" data-testid="pumpfun-chart-placeholder">
+              <div className="tech-scanline-overlay"></div>
+              <div className="holographic-overlay"></div>
+              <div className="absolute inset-0 grid-overlay opacity-20"></div>
+              <div className="text-center relative z-10">
+                <div className="font-tech text-blood-red mb-2 text-lg tracking-widest">🔥 PUMP.FUN CHART</div>
+                <div className="text-dim-gray text-sm font-medium mb-4">Chaos Pit - Live on DexScreener</div>
+                <a 
+                  href="https://dexscreener.com/solana/hg4pxoq8cxyhdfbkx3ehwevvbwtlyemgccryvpkqia8p" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-blood-red to-red-600 rounded-lg font-tech text-white text-sm hover:shadow-red-glow transition-all duration-200"
+                  onClick={() => {
+                    if ((window as any).gtag) {
+                      (window as any).gtag('event', 'open_pumpfun_dex', {
+                        event_category: 'trading_data',
+                        event_label: 'chart_view'
+                      });
+                    }
+                  }}
+                >
+                  VIEW PUMP.FUN CHART ↗
+                </a>
+                <div className="scanline-overlay w-32 h-1 mx-auto mt-4 rounded bg-blood-red/30"></div>
+              </div>
             </div>
           </div>
         </div>
