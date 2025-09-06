@@ -4,8 +4,6 @@ import VideoShowcase from "@/components/video-showcase";
 import VisionSection from "@/components/vision-section";
 import TokensSection from "@/components/tokens-section";
 import RoadmapSection from "@/components/roadmap-section";
-import ToolsSection from "@/components/tools-section";
-import MerchSection from "@/components/merch-section";
 import TradingDataSection from "@/components/trading-data-section";
 import CommunitySection from "@/components/community-section";
 import TradingPanel from "@/components/trading-panel";
@@ -90,8 +88,8 @@ export default function Home() {
             <div className="hidden lg:flex space-x-6 xl:space-x-8">
               <a href="#vision" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
               <a href="#tokens" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokens">TOKENS</a>
-              <a href="#tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">TOOLS</a>
-              <a href="#merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
+              <a href="/tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">CHAOS TOOLS</a>
+              <a href="/merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
               <a href="#leaderboard" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
               <a href="#community" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
             </div>
@@ -187,8 +185,8 @@ export default function Home() {
           <nav className="space-y-6">
             <a href="#vision" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>VISION</a>
             <a href="#tokens" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOKENS</a>
-            <a href="#tools" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOOLS</a>
-            <a href="#merch" className="block text-ash-white hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>MERCH</a>
+            <a href="/tools" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>CHAOS TOOLS</a>
+            <a href="/merch" className="block text-ash-white hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>MERCH</a>
             <a href="#leaderboard" className="block text-ash-white hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>LEADERBOARD</a>
             <a href="#community" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>COMMUNITY</a>
           </nav>
@@ -288,8 +286,6 @@ export default function Home() {
         <VideoShowcase />
         <VisionSection />
         <TokensSection />
-        <ToolsSection />
-        <MerchSection />
         <RoadmapSection />
         <Leaderboard />
         <CommunitySection />
