@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import HeroSection from "@/components/hero-section";
 import VideoShowcase from "@/components/video-showcase";
 import VisionSection from "@/components/vision-section";
-import TokenomicsSection from "@/components/tokenomics-section";
+import TokensSection from "@/components/tokens-section";
 import RoadmapSection from "@/components/roadmap-section";
 import ToolsSection from "@/components/tools-section";
 import MerchSection from "@/components/merch-section";
@@ -89,32 +89,48 @@ export default function Home() {
           <div className="flex items-center space-x-6">
             <div className="hidden lg:flex space-x-6 xl:space-x-8">
               <a href="#vision" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
-              <a href="#tokenomics" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokenomics">TOKENOMICS</a>
+              <a href="#tokens" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokens">TOKENS</a>
               <a href="#tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">TOOLS</a>
               <a href="#merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
               <a href="#leaderboard" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
               <a href="#community" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
             </div>
             
-            {/* Mobile-Optimized Trading CTAs */}
+            {/* Dual Token Quick Actions */}
             <div className="hidden xl:flex space-x-3">
               <a
                 href="https://dexscreener.com/solana/hcspcc1loaejempvs7gh6nzhyxbypmcv6dvc9kjjxeye"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-2 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-xs xl:text-sm hover:shadow-green-glow transition-all duration-200 group"
-                data-testid="nav-dexscreener"
+                data-testid="nav-moonshot-chart"
+                onClick={() => {
+                  if (window.gtag) {
+                    window.gtag('event', 'open_moonshot_dex', {
+                      event_category: 'navigation',
+                      event_label: 'header_quick_action'
+                    });
+                  }
+                }}
               >
-                Trade on Dexscreener ↗
+                Moonshot Chart ↗
               </a>
               <a
-                href="https://moonshot.com?ref=hmcVBJO6br"
+                href="https://dexscreener.com/solana/hg4pxoq8cxyhdfbkx3ehwevvbwtlyemgccryvpkqia8p"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-2 bg-gradient-to-r from-glitch-purple to-purple-600 rounded-lg font-tech text-white text-xs xl:text-sm hover:shadow-purple-glow transition-all duration-200 group"
-                data-testid="nav-moonshot"
+                className="px-3 py-2 bg-gradient-to-r from-blood-red to-red-600 rounded-lg font-tech text-white text-xs xl:text-sm hover:shadow-red-glow transition-all duration-200 group"
+                data-testid="nav-pumpfun-chart"
+                onClick={() => {
+                  if (window.gtag) {
+                    window.gtag('event', 'open_pumpfun_dex', {
+                      event_category: 'navigation',
+                      event_label: 'header_quick_action'
+                    });
+                  }
+                }}
               >
-                Get Moonshot ↗
+                Pump.fun Chart ↗
               </a>
             </div>
             
@@ -170,7 +186,7 @@ export default function Home() {
           
           <nav className="space-y-6">
             <a href="#vision" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>VISION</a>
-            <a href="#tokenomics" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOKENOMICS</a>
+            <a href="#tokens" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOKENS</a>
             <a href="#tools" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOOLS</a>
             <a href="#merch" className="block text-ash-white hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>MERCH</a>
             <a href="#leaderboard" className="block text-ash-white hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>LEADERBOARD</a>
@@ -185,16 +201,16 @@ export default function Home() {
               className="block w-full px-4 py-3 bg-gradient-to-r from-toxic-green to-emerald-600 rounded-lg font-tech text-white text-center hover:shadow-green-glow transition-all duration-200"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Trade on Dexscreener ↗
+              Moonshot Chart ↗
             </a>
             <a
-              href="https://moonshot.com?ref=hmcVBJO6br"
+              href="https://dexscreener.com/solana/hg4pxoq8cxyhdfbkx3ehwevvbwtlyemgccryvpkqia8p"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full px-4 py-3 bg-gradient-to-r from-glitch-purple to-purple-600 rounded-lg font-tech text-white text-center hover:shadow-purple-glow transition-all duration-200"
+              className="block w-full px-4 py-3 bg-gradient-to-r from-blood-red to-red-600 rounded-lg font-tech text-white text-center hover:shadow-red-glow transition-all duration-200"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Get Moonshot ↗
+              Pump.fun Chart ↗
             </a>
           </div>
           
@@ -271,7 +287,7 @@ export default function Home() {
         <TradingDataSection />
         <VideoShowcase />
         <VisionSection />
-        <TokenomicsSection />
+        <TokensSection />
         <ToolsSection />
         <MerchSection />
         <RoadmapSection />
