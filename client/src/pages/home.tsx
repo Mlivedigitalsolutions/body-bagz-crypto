@@ -8,9 +8,9 @@ import TradingDataSection from "@/components/trading-data-section";
 import CommunitySection from "@/components/community-section";
 import TradingPanel from "@/components/trading-panel";
 import Footer from "@/components/footer";
-import { Leaderboard } from "@/components/Leaderboard";
 import { UserButton } from "@/components/UserAuth";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
+import { TrophyIcon } from "lucide-react";
 import { CompactMusicPlayer } from "@/components/CompactMusicPlayer";
 import mainBrandLogo from "@assets/generated_images/Official_Body_Bagz_brand_logo_94353dbf.png";
 
@@ -90,7 +90,7 @@ export default function Home() {
               <a href="#tokens" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokens">TOKENS</a>
               <a href="/tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">CHAOS TOOLS</a>
               <a href="/merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
-              <a href="#leaderboard" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
+              <a href="/leaderboard" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
               <a href="#community" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
             </div>
             
@@ -287,7 +287,54 @@ export default function Home() {
         <TokensSection />
         <VideoShowcase />
         <RoadmapSection />
-        <Leaderboard />
+        {/* Leaderboard Preview */}
+        <section id="leaderboard" className="relative z-10 py-20 px-6">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="font-brand text-4xl md:text-5xl text-blood-red mb-6" data-testid="leaderboard-preview-title">
+              CHAOS LEADERBOARD
+            </h2>
+            <p className="text-ash-white/90 text-lg font-medium mb-8">
+              Compete for monthly rewards. Top performers earn up to <span className="text-toxic-green font-bold">10,000 $BAGZ tokens</span>
+            </p>
+            
+            <div className="neon-card p-8 rounded-xl hover:shadow-red-glow transition-all duration-200 max-w-2xl mx-auto">
+              <div className="flex items-center justify-center mb-6">
+                <TrophyIcon className="w-12 h-12 text-blood-red mr-4" />
+                <div className="text-left">
+                  <h3 className="font-tech text-2xl text-blood-red mb-2">Monthly Competition</h3>
+                  <p className="text-ash-white">Earn points by creating content, sharing tweets, and engaging with the community.</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div className="text-center">
+                  <div className="text-toxic-green font-bold text-lg">6 pts</div>
+                  <div className="text-ash-white/80 text-sm">Share Tweet</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-blood-red font-bold text-lg">5 pts</div>
+                  <div className="text-ash-white/80 text-sm">Generate Tweet</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-glitch-purple font-bold text-lg">4 pts</div>
+                  <div className="text-ash-white/80 text-sm">Create Meme</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-yellow-400 font-bold text-lg">3 pts</div>
+                  <div className="text-ash-white/80 text-sm">Download PFP</div>
+                </div>
+              </div>
+              
+              <a 
+                href="/leaderboard"
+                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blood-red to-red-600 rounded-lg font-tech text-white hover:shadow-red-glow transition-all duration-200 text-lg"
+                data-testid="view-full-leaderboard"
+              >
+                View Full Leaderboard →
+              </a>
+            </div>
+          </div>
+        </section>
         <CommunitySection />
       </main>
 
