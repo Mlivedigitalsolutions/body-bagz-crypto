@@ -6,12 +6,17 @@ import blackHoodie from "@assets/generated_images/BAGZ_black_hoodie_model_34d9bb
 import villainTshirt from "@assets/generated_images/VILLAIN_ERA_t-shirt_female_model_5b7b8fe4.png";
 import armyTank from "@assets/generated_images/BAGZ_ARMY_tank_top_model_a2433c2e.png";
 import greenHoodie from "@assets/generated_images/Green_BAGZ_hoodie_female_model_878fd980.png";
-import snapbackCap from "@assets/generated_images/BAGZ_snapback_cap_model_d91a27ec.png";
+import snapbackCap from "@assets/generated_images/Snapback_hat_product_photo_18df3d7f.png";
 import redSweatshirt from "@assets/generated_images/Red_villain_era_sweatshirt_model_25be772d.png";
 import beanie from "@assets/generated_images/BAGZ_beanie_model_shot_ebbb05c9.png";
 import bomberJacket from "@assets/generated_images/BAGZ_bomber_jacket_female_model_06707ce8.png";
 import whiteTshirt from "@assets/generated_images/White_BAGZ_t-shirt_model_95780a6e.png";
 import cropTop from "@assets/generated_images/VILLAIN_crop_top_model_2e90c5f7.png";
+
+// Import new merchandise images
+import blackSkiMask from "@assets/generated_images/Black_ski_mask_product_photo_37fa92eb.png";
+import greenSkiMask from "@assets/generated_images/Green_ski_mask_product_photo_495c63da.png";
+import leatherVest from "@assets/generated_images/Leather_vest_product_photo_6376fa4e.png";
 
 interface MerchItem {
   id: number;
@@ -31,7 +36,7 @@ const merchandiseData: MerchItem[] = [
     name: "Villain Era Ski Mask",
     category: "Headwear",
     price: "$34.99",
-    image: blackHoodie, // Using placeholder image
+    image: blackSkiMask,
     description: "Black ribbed knit balaclava with BODY BAGZ embroidered logo",
     featured: true,
     isNew: true
@@ -41,7 +46,7 @@ const merchandiseData: MerchItem[] = [
     name: "Chaos Energy Ski Mask",
     category: "Headwear", 
     price: "$34.99",
-    image: greenHoodie, // Using placeholder image
+    image: greenSkiMask,
     description: "Limited edition with glow-in-the-dark toxic green branding",
     featured: true,
     isNew: true
@@ -51,7 +56,7 @@ const merchandiseData: MerchItem[] = [
     name: "Villain MC Vest",
     category: "Outerwear",
     price: "$199.99",
-    image: bomberJacket, // Using placeholder image
+    image: leatherVest,
     description: "Premium leather motorcycle vest with custom villain patches",
     featured: true,
     isNew: true
