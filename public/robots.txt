@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://bodybagz.repl.co/sitemap.xml
+Sitemap: https://body-bagz.replit.app/sitemap.xml
 
 # Block sensitive areas
 Disallow: /api/

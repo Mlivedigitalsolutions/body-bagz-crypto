@@ -14,6 +14,9 @@ import AdminPage from "@/pages/admin";
 import Mission from "@/pages/mission";
 import Meetups from "@/pages/meetups";
 import Marketplace from "@/pages/marketplace";
+import Tokenomics from "@/pages/tokenomics";
+import Privacy from "@/pages/privacy";
+import Terms from "@/pages/terms";
 import { BannerDemo } from "@/pages/banner-demo";
 import { LogoShowcase } from "@/pages/logo-showcase";
 import NotFound from "@/pages/not-found";
@@ -30,6 +33,9 @@ function Router() {
       <Route path="/mission" component={Mission}/>
       <Route path="/meetups" component={Meetups}/>
       <Route path="/market" component={Marketplace}/>
+      <Route path="/tokenomics" component={Tokenomics}/>
+      <Route path="/privacy" component={Privacy}/>
+      <Route path="/terms" component={Terms}/>
       <Route path="/banner" component={BannerDemo}/>
       <Route path="/logos" component={LogoShowcase}/>
       <Route component={NotFound} />
