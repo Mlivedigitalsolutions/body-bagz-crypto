@@ -347,11 +347,7 @@ export class DatabaseStorage implements IStorage {
   async createMeetup(meetupData: InsertMeetup): Promise<Meetup> {
     const [meetup] = await db
       .insert(meetups)
-      .values({
-        ...meetupData,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      })
+      .values(meetupData)
       .returning();
     return meetup;
   }
@@ -369,10 +365,7 @@ export class DatabaseStorage implements IStorage {
   async createMeetupRsvp(rsvpData: InsertMeetupRsvp): Promise<MeetupRsvp> {
     const [rsvp] = await db
       .insert(meetupRsvps)
-      .values({
-        ...rsvpData,
-        createdAt: new Date(),
-      })
+      .values(rsvpData)
       .returning();
     return rsvp;
   }
@@ -390,11 +383,7 @@ export class DatabaseStorage implements IStorage {
   async createListing(listingData: InsertListing): Promise<Listing> {
     const [listing] = await db
       .insert(listings)
-      .values({
-        ...listingData,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      })
+      .values(listingData)
       .returning();
     return listing;
   }
@@ -413,10 +402,7 @@ export class DatabaseStorage implements IStorage {
   async createReport(reportData: InsertReport): Promise<Report> {
     const [report] = await db
       .insert(reports)
-      .values({
-        ...reportData,
-        createdAt: new Date(),
-      })
+      .values(reportData)
       .returning();
     return report;
   }
