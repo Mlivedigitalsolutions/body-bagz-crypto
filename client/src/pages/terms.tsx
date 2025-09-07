@@ -162,6 +162,7 @@ export default function Terms() {
               <div className="space-y-4 text-dim-enhanced">
                 <p>For questions about these Terms of Service, contact us:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
+                  <li>Email: <a href="mailto:team@bodybagz.org" className="text-toxic-green hover:text-toxic-green/80">team@bodybagz.org</a></li>
                   <li>Telegram: <a href="https://t.me/BodyBagzs" className="text-toxic-green hover:text-toxic-green/80">https://t.me/BodyBagzs</a></li>
                   <li>X (Twitter): <a href="https://x.com/VillianEra187" className="text-toxic-green hover:text-toxic-green/80">@VillianEra187</a></li>
                 </ul>

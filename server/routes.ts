@@ -527,7 +527,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Links endpoint for integrations
   app.get("/api/links", (req, res) => {
     res.json({
-      website: "https://body-bagz.replit.app",
+      website: "https://bodybagz.org",
+      email: "team@bodybagz.org",
       telegram: "https://t.me/BodyBagzs",
       xCommunity: "https://twitter.com/i/communities/1960797896896602475"
     });
