@@ -12,7 +12,7 @@ const GameCanvas = lazy(() => import('@/game/rughunter/GameCanvas').then(module 
 
 export default function RugHunterPage() {
   const [gameStarted, setGameStarted] = useState(false);
-  const [showInstructions, setShowInstructions] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(true);
 
   const handleStartGame = () => {
     setGameStarted(true);
@@ -187,7 +187,7 @@ export default function RugHunterPage() {
                 <Button
                   onClick={() => setShowInstructions(!showInstructions)}
                   variant="outline"
-                  className="text-ash-white border-dim-gray"
+                  className="text-ash-white border-dim-gray hover:bg-dim-gray/10"
                 >
                   {showInstructions ? 'Hide' : 'Show'} Instructions
                 </Button>

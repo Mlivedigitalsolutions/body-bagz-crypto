@@ -68,37 +68,41 @@ export class MainScene extends Scene {
   }
 
   preload() {
-    // Create colored rectangles as placeholder sprites
-    this.load.image('bg', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==');
-    
-    // Player sprite (green rectangle)
+    // Create colored rectangles as placeholder sprites first
     this.add.graphics()
       .fillStyle(0x39FF14)
       .fillRect(0, 0, 32, 48)
       .generateTexture('player', 32, 48);
 
-    // Enemy sprite (red rectangle)  
     this.add.graphics()
       .fillStyle(0xFF1439)
       .fillRect(0, 0, 36, 44)
       .generateTexture('enemy', 36, 44);
 
-    // Coin sprite (yellow circle)
     this.add.graphics()
       .fillStyle(0xFFD700)
       .fillCircle(12, 12, 12)
       .generateTexture('coin', 24, 24);
 
-    // Obstacle sprite (purple rectangle)
     this.add.graphics()
       .fillStyle(0x9013FE)
       .fillRect(0, 0, 40, 60)
       .generateTexture('obstacle', 40, 60);
 
-    // Load actual game assets if they exist
-    this.load.image('game-bg', '/attached_assets/generated_images/Cyberpunk_game_background_scene_4da1e19e.png');
+    // Create a simple dark background
+    this.add.graphics()
+      .fillStyle(0x0A0A0A)
+      .fillRect(0, 0, 1920, 1080)
+      .generateTexture('game-bg', 1920, 1080);
+
+    // Try to load actual game assets as fallbacks
     this.load.image('player-sprite', '/attached_assets/generated_images/Player_character_hunter_sprite_d55cef13.png');
     this.load.image('enemy-sprite', '/attached_assets/generated_images/Enemy_rugger_character_sprite_2687a359.png');
+    
+    // Set up error handling for missing assets
+    this.load.on('loaderror', (file: any) => {
+      console.log('Asset failed to load:', file.key, 'using fallback');
+    });
   }
 
   create() {
@@ -109,8 +113,9 @@ export class MainScene extends Scene {
     this.background.setOrigin(0, 0);
     this.background.setScale(width / 1920, height / 1080); // Scale to fit
 
-    // Create player
-    this.player = this.add.sprite(width * 0.2, height * 0.7, 'player-sprite');
+    // Create player - use fallback if custom sprite failed to load
+    const playerTexture = this.textures.exists('player-sprite') ? 'player-sprite' : 'player';
+    this.player = this.add.sprite(width * 0.2, height * 0.7, playerTexture);
     this.player.setScale(0.5);
     this.player.setInteractive();
 
@@ -121,7 +126,7 @@ export class MainScene extends Scene {
     this.particlePool = this.add.group();
 
     // Set up physics
-    this.physics.world.enable([this.player, this.enemies, this.coins, this.obstacles]);
+    this.physics.world.enable(this.player);
 
     // Set up input
     this.setupInput();
@@ -300,9 +305,9 @@ export class MainScene extends Scene {
 
     this.enemies.children.entries.forEach(enemy => {
       const sprite = enemy as GameObjects.Sprite;
-      const distance = Phaser.Geom.Point.Distance(
-        { x: this.player!.x, y: this.player!.y },
-        { x: sprite.x, y: sprite.y }
+      const distance = Phaser.Math.Distance.Between(
+        this.player!.x, this.player!.y,
+        sprite.x, sprite.y
       );
 
       if (distance < nearestDistance) {
@@ -368,7 +373,8 @@ export class MainScene extends Scene {
     if (!this.enemies) return;
     
     const { width, height } = this.scale;
-    const enemy = this.add.sprite(width + 50, height * 0.7, 'enemy-sprite');
+    const enemyTexture = this.textures.exists('enemy-sprite') ? 'enemy-sprite' : 'enemy';
+    const enemy = this.add.sprite(width + 50, height * 0.7, enemyTexture);
     enemy.setScale(0.4);
     
     this.physics.world.enable(enemy);
