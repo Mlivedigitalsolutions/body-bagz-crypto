@@ -328,10 +328,11 @@ export function UserButton() {
     <>
       <Button
         onClick={() => setAuthOpen(true)}
-        className="p-2 bg-toxic-green/20 hover:bg-toxic-green/40 border border-toxic-green/30 rounded-lg transition-all duration-200"
+        className="flex items-center gap-2 px-3 py-2 bg-toxic-green/20 hover:bg-toxic-green/40 border border-toxic-green/30 rounded-lg transition-all duration-200"
         data-testid="button-login-open"
       >
         <UserIcon className="w-4 h-4 text-toxic-green" />
+        <span className="text-sm text-toxic-green font-semibold">LOGIN</span>
       </Button>
       <UserAuth open={authOpen} onOpenChange={setAuthOpen} />
     </>
