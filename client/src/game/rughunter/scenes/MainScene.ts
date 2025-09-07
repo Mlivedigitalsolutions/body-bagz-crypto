@@ -68,41 +68,72 @@ export class MainScene extends Scene {
   }
 
   preload() {
-    // Create bigger, more visible sprites for mobile
-    this.add.graphics()
-      .fillStyle(0x39FF14)
-      .fillRect(0, 0, 64, 80)
-      .generateTexture('player', 64, 80);
-
-    this.add.graphics()
-      .fillStyle(0xFF1439)
-      .fillRect(0, 0, 60, 70)
-      .generateTexture('enemy', 60, 70);
-
-    this.add.graphics()
-      .fillStyle(0xFFD700)
-      .fillCircle(20, 20, 20)
-      .generateTexture('coin', 40, 40);
-
-    this.add.graphics()
-      .fillStyle(0x9013FE)
-      .fillRect(0, 0, 60, 80)
-      .generateTexture('obstacle', 60, 80);
-
-    // Create a simple dark background
-    this.add.graphics()
-      .fillStyle(0x0A0A0A)
-      .fillRect(0, 0, 1920, 1080)
-      .generateTexture('game-bg', 1920, 1080);
-
-    // Try to load actual game assets as fallbacks
-    this.load.image('player-sprite', '/attached_assets/generated_images/Player_character_hunter_sprite_d55cef13.png');
-    this.load.image('enemy-sprite', '/attached_assets/generated_images/Enemy_rugger_character_sprite_2687a359.png');
+    // Create large, vibrant sprites that are easy to see on mobile
     
-    // Set up error handling for missing assets
-    this.load.on('loaderror', (file: any) => {
-      console.log('Asset failed to load:', file.key, 'using fallback');
-    });
+    // Player - Bright green hero character
+    const playerGraphics = this.add.graphics();
+    playerGraphics.fillStyle(0x39FF14); // Bright green
+    playerGraphics.fillRoundedRect(0, 0, 80, 100, 8);
+    playerGraphics.fillStyle(0xFFFFFF); // White eyes
+    playerGraphics.fillCircle(20, 25, 8);
+    playerGraphics.fillCircle(60, 25, 8);
+    playerGraphics.fillStyle(0x000000); // Black pupils
+    playerGraphics.fillCircle(20, 25, 4);
+    playerGraphics.fillCircle(60, 25, 4);
+    playerGraphics.generateTexture('player', 80, 100);
+    playerGraphics.destroy();
+
+    // Enemy - Bright red villain
+    const enemyGraphics = this.add.graphics();
+    enemyGraphics.fillStyle(0xFF1439); // Bright red
+    enemyGraphics.fillRoundedRect(0, 0, 70, 90, 8);
+    enemyGraphics.fillStyle(0xFFFF00); // Yellow angry eyes
+    enemyGraphics.fillCircle(18, 25, 8);
+    enemyGraphics.fillCircle(52, 25, 8);
+    enemyGraphics.fillStyle(0x000000); // Black pupils
+    enemyGraphics.fillCircle(18, 25, 3);
+    enemyGraphics.fillCircle(52, 25, 3);
+    enemyGraphics.generateTexture('enemy', 70, 90);
+    enemyGraphics.destroy();
+
+    // Coin - Golden treasure
+    const coinGraphics = this.add.graphics();
+    coinGraphics.fillStyle(0xFFD700); // Gold
+    coinGraphics.fillCircle(30, 30, 28);
+    coinGraphics.fillStyle(0xFFA500); // Orange inner
+    coinGraphics.fillCircle(30, 30, 20);
+    coinGraphics.fillStyle(0xFFD700); // Gold center
+    coinGraphics.fillCircle(30, 30, 12);
+    coinGraphics.generateTexture('coin', 60, 60);
+    coinGraphics.destroy();
+
+    // Obstacle - Purple barrier
+    const obstacleGraphics = this.add.graphics();
+    obstacleGraphics.fillStyle(0x9013FE); // Purple
+    obstacleGraphics.fillRect(0, 0, 80, 120);
+    obstacleGraphics.fillStyle(0xBB33FF); // Lighter purple stripes
+    obstacleGraphics.fillRect(10, 0, 10, 120);
+    obstacleGraphics.fillRect(30, 0, 10, 120);
+    obstacleGraphics.fillRect(50, 0, 10, 120);
+    obstacleGraphics.generateTexture('obstacle', 80, 120);
+    obstacleGraphics.destroy();
+
+    // Create cyberpunk grid background
+    const bgGraphics = this.add.graphics();
+    bgGraphics.fillStyle(0x0A0A0A); // Dark background
+    bgGraphics.fillRect(0, 0, 1920, 1080);
+    
+    // Add grid lines
+    bgGraphics.lineStyle(1, 0x39FF14, 0.3); // Green grid lines
+    for (let x = 0; x < 1920; x += 60) {
+      bgGraphics.lineBetween(x, 0, x, 1080);
+    }
+    for (let y = 0; y < 1080; y += 60) {
+      bgGraphics.lineBetween(0, y, 1920, y);
+    }
+    
+    bgGraphics.generateTexture('game-bg', 1920, 1080);
+    bgGraphics.destroy();
   }
 
   create() {
@@ -113,10 +144,9 @@ export class MainScene extends Scene {
     this.background.setOrigin(0, 0);
     this.background.setScale(width / 1920, height / 1080); // Scale to fit
 
-    // Create player - use fallback if custom sprite failed to load
-    const playerTexture = this.textures.exists('player-sprite') ? 'player-sprite' : 'player';
-    this.player = this.add.sprite(width * 0.15, height * 0.7, playerTexture);
-    this.player.setScale(0.8);
+    // Create player - large and visible
+    this.player = this.add.sprite(width * 0.15, height * 0.5, 'player');
+    this.player.setScale(1.2);
     this.player.setInteractive();
 
     // Create groups
@@ -127,6 +157,13 @@ export class MainScene extends Scene {
 
     // Set up physics
     this.physics.world.enable(this.player);
+    this.physics.world.setBounds(0, 0, width, height);
+    
+    // Set player physics properties
+    const playerBody = this.player.body as Phaser.Physics.Arcade.Body;
+    playerBody.setBounce(0);
+    playerBody.setCollideWorldBounds(true);
+    playerBody.setGravityY(600); // Add gravity for jumping
 
     // Set up input
     this.setupInput();
@@ -159,6 +196,9 @@ export class MainScene extends Scene {
       callbackScope: this,
       loop: true
     });
+
+    // Show gameplay instructions at start
+    this.showGameplayInstructions();
   }
 
   setupInput() {
@@ -257,10 +297,24 @@ export class MainScene extends Scene {
   movePlayer(direction: number, isPressed: boolean) {
     if (!this.player) return;
 
+    const { width } = this.scale;
     const speed = 200;
     const body = this.player.body as Phaser.Physics.Arcade.Body;
     
+    // Set boundaries for player movement
+    const leftBound = this.player.displayWidth / 2;
+    const rightBound = width * 0.6; // Allow player to move up to 60% of screen width
+    
     if (isPressed) {
+      // Check boundaries before applying velocity
+      if (direction > 0 && this.player.x >= rightBound) {
+        body.setVelocityX(0);
+        return;
+      }
+      if (direction < 0 && this.player.x <= leftBound) {
+        body.setVelocityX(0);
+        return;
+      }
       body.setVelocityX(speed * direction);
     } else {
       body.setVelocityX(0);
@@ -282,10 +336,10 @@ export class MainScene extends Scene {
     if (!this.player) return;
     
     // Implement slide mechanic
-    this.player.setScale(0.5, 0.3); // Make player shorter
+    this.player.setScale(1.2, 0.8); // Make player shorter but keep proper scale
     this.time.delayedCall(500, () => {
       if (this.player) {
-        this.player.setScale(0.5);
+        this.player.setScale(1.2);
       }
     });
     
@@ -373,9 +427,8 @@ export class MainScene extends Scene {
     if (!this.enemies) return;
     
     const { width, height } = this.scale;
-    const enemyTexture = this.textures.exists('enemy-sprite') ? 'enemy-sprite' : 'enemy';
-    const enemy = this.add.sprite(width + 50, height * 0.7, enemyTexture);
-    enemy.setScale(0.6);
+    const enemy = this.add.sprite(width + 50, height * 0.5, 'enemy');
+    enemy.setScale(1.0);
     
     this.physics.world.enable(enemy);
     const body = enemy.body as Phaser.Physics.Arcade.Body;
@@ -388,8 +441,8 @@ export class MainScene extends Scene {
     if (!this.coins) return;
     
     const { width, height } = this.scale;
-    const coin = this.add.sprite(width + 50, height * (0.4 + Math.random() * 0.4), 'coin');
-    coin.setScale(1.2);
+    const coin = this.add.sprite(width + 50, height * (0.3 + Math.random() * 0.4), 'coin');
+    coin.setScale(1.0);
     
     this.physics.world.enable(coin);
     const body = coin.body as Phaser.Physics.Arcade.Body;
@@ -410,8 +463,8 @@ export class MainScene extends Scene {
     if (!this.obstacles) return;
     
     const { width, height } = this.scale;
-    const obstacle = this.add.sprite(width + 50, height * 0.8, 'obstacle');
-    obstacle.setScale(0.8);
+    const obstacle = this.add.sprite(width + 50, height * 0.75, 'obstacle');
+    obstacle.setScale(0.7);
     
     this.physics.world.enable(obstacle);
     const body = obstacle.body as Phaser.Physics.Arcade.Body;
@@ -577,5 +630,33 @@ export class MainScene extends Scene {
 
   update() {
     // Main update loop - handled by events above
+  }
+
+  // Add gameplay instructions
+  showGameplayInstructions() {
+    const { width, height } = this.scale;
+    
+    // Create instruction text that fades out after 5 seconds
+    const instructionText = this.add.text(width / 2, height * 0.15, 
+      'SWIPE TO MOVE • TAP TO ATTACK • COLLECT COINS', {
+      fontFamily: 'Arial',
+      fontSize: '20px',
+      color: '#39FF14',
+      align: 'center'
+    });
+    instructionText.setOrigin(0.5);
+    instructionText.setShadow(2, 2, '#000000', 4);
+    instructionText.setAlpha(0.9);
+    
+    // Fade out instructions after 5 seconds
+    this.tweens.add({
+      targets: instructionText,
+      alpha: 0,
+      duration: 2000,
+      delay: 5000,
+      onComplete: () => {
+        instructionText.destroy();
+      }
+    });
   }
 }
