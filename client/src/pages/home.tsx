@@ -3,7 +3,7 @@ import HeroSection from "@/components/hero-section";
 import VideoShowcase from "@/components/video-showcase";
 import VisionSection from "@/components/vision-section";
 import TokensSection from "@/components/tokens-section";
-import RoadmapSection from "@/components/roadmap-section";
+import roadmapBanner from "@assets/generated_images/Cyberpunk_roadmap_banner_b0b661f9.png";
 import TradingDataSection from "@/components/trading-data-section";
 import CommunitySection from "@/components/community-section";
 import Footer from "@/components/footer";
@@ -284,7 +284,22 @@ export default function Home() {
         <VisionSection />
         <TokensSection />
         <VideoShowcase />
-        <RoadmapSection />
+        {/* Roadmap Banner */}
+        <section className="relative z-10 py-12 px-6">
+          <div className="max-w-4xl mx-auto">
+            <a 
+              href="/roadmap" 
+              className="block neon-card rounded-xl overflow-hidden hover:shadow-red-glow transition-all duration-300 group"
+              data-testid="roadmap-banner-link"
+            >
+              <img 
+                src={roadmapBanner} 
+                alt="Body Bagz Roadmap - Click to view full roadmap"
+                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </a>
+          </div>
+        </section>
         {/* Leaderboard Preview */}
         <section id="leaderboard" className="relative z-10 py-20 px-6">
           <div className="max-w-6xl mx-auto text-center">
