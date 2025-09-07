@@ -344,7 +344,7 @@ export default function Meetups() {
                   <SelectValue placeholder="Filter by tag..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Tags</SelectItem>
+                  <SelectItem value="all">All Tags</SelectItem>
                   {AVAILABLE_TAGS.map(tag => (
                     <SelectItem key={tag} value={tag}>{tag}</SelectItem>
                   ))}
