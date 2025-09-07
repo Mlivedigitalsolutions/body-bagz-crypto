@@ -1,0 +1,107 @@
+Update the Body Bagz site with three new top-level pages and safe backend support. DO NOT refactor unrelated code or break existing routes/SEO.
+
+GOALS (open in new page/tab from the homepage cards)
+1) /mission  → “Why We Exist” long-form page
+2) /meetups  → Community Meetups hub (registered users can post; images allowed)
+3) /market   → Peer-to-Peer Marketplace hub (registered users can post; images allowed)
+
+NAV & HOMEPAGE
+- Keep the three neon cards on the homepage but turn each into a link that opens in a NEW TAB (target="_blank", rel="noopener").
+  • FOR THE CULTURE → /mission
+  • FOR THE CHAOS → /meetups
+  • FOR THE PEOPLE → /market
+- Add a “Movement” menu with Mission, Meetups, Marketplace.
+
+PAGE CONTENT & UX
+A) /mission (document page)
+- Headline: “Why We Exist — The Villain Era Manifesto”
+- Sections:
+  • Mission: “Give Gen Z tools, culture, and power to fight rigged systems while building real value together.”
+  • Dual Token Thesis: Moonshot = Villain Era (stability, staking base). Pump.fun = Chaos Energy (volatility, meme force).
+  • Call to Action: Join TG, use Tweet Generator, climb Leaderboard, show up at meetups.
+- Include a CTA row: “Join Telegram”, “Use Tweet Generator”, “View Leaderboard”.
+
+B) /meetups (Community Meetups)
+- Visible to all for browsing; posting requires login (use existing auth pattern).
+- Features:
+  • Feed of meetup posts (card list): title, city, date/time, description, tags, images (max 4), creator handle, RSVP count.
+  • Filters: by city, date range, tags (“shill-raid”, “IRL-sticker-run”, “launch-party”, etc.)
+  • Post composer (logged-in only): title (max 80), description (max 1,000), location (city/country), date/time (ISO), tags (multi-select), image upload (1–4).
+  • RSVPs: logged-in users can RSVP/Un-RSVP; show count + avatars.
+  • Comments (optional v2 toggle; stub UI okay with disabled backend).
+- Mobile-first layout; large tap targets; safe-area padding for notches.
+- Add a sidebar panel: “Community Rules” (no doxxing, no hate, legal only; mods may remove).
+
+C) /market (P2P Marketplace)
+- Visible to all; posting requires login.
+- Features:
+  • Listings feed (card list): title, category (art/music/merch/services/events/other), price (text input, optional), description, images (up to 6), seller handle, contact method (X handle, TG @user; no emails required).
+  • Filters: category, “has images”, sort by newest.
+  • Post composer (logged-in only), same validations as meetups but allow up to 6 images.
+  • Button “Pay with $BAGZ (Coming Soon)” placeholder; later we can wire token checkout.
+  • Report Listing button → POST a report entry for mods.
+- Warning banner: “Peer-to-peer at your own risk. No escrow. Verify before meeting or trading.”
+
+BACKEND (Express) — add minimal, safe endpoints; reuse existing middleware
+- Use existing security middleware, generalLimiter/strictLimiter, validateActionTracking where relevant, and error handling.
+- Add upload support using multer with disk storage to /public/uploads, OR base64 accept in JSON. Cap file size (e.g., 2 MB per image), restrict types (png,jpg,jpeg,webp). Create /public/uploads/{meetups|market}/yyyy/mm/ filenames with UUID.
+- New tables/collections via storage (extend existing storage layer):
+  • meetups: id, userId, title, description, city, country, eventAt (datetime), tags (string[]), images (string[] urls), createdAt, updatedAt
+  • meetup_rsvps: id, meetupId, userId, createdAt (unique userId+meetupId)
+  • listings: id, userId, title, category, description, priceText, images (string[] urls), contact (xUsername|telegramUsername pulled from user profile if missing), createdAt, updatedAt
+  • reports: id, type (“listing”|“meetup”), refId, userId, reason, createdAt
+- Endpoints (JSON):
+  • POST /api/meetups            {title, description, city, country, eventAt, tags[], images[]?} (auth required)
+  • GET  /api/meetups            ?q=&city=&from=&to=&tags=&page=&limit=
+  • POST /api/meetups/:id/rsvp   { userId } (auth)
+  • DELETE /api/meetups/:id/rsvp (auth)
+  • POST /api/meetups/upload     multipart/form-data (images[]) → returns array of urls
+  • POST /api/market/listings    {title, category, description, priceText?, images[], contact?} (auth)
+  • GET  /api/market/listings    ?q=&category=&page=&limit=&hasImages=
+  • POST /api/market/upload      multipart/form-data (images[]) → returns array of urls
+  • POST /api/report             { type, refId, reason } (auth)
+- Sanitize & validate all inputs (lengths, allowed categories/tags). Strip HTML; allow basic markdown in descriptions (render safe).
+- Rate limits: strictLimiter on POST routes; generalLimiter on GET routes.
+- On successful post creation, also record an action for leaderboard:
+  • actionType: "meetup_post" (points 6), "market_post" (points 6), "meetup_rsvp" (points 2)
+
+FRONTEND (React + TS)
+- Create pages/components under /src/pages:
+  • Mission.tsx
+  • Meetups.tsx (Feed, Filters, Composer, RSVP)
+  • Marketplace.tsx (Feed, Filters, Composer)
+- Shared components: ImageUploader (drag/drop + mobile tap), TagPicker, Pagination, EmptyState.
+- Use TanStack Query for data; optimistic updates; skeleton loaders.
+- ImageUploader: compress to webp client-side if large; show progress; limit 4 (meetups) / 6 (listings).
+- Use existing toasts and neon styling; icons: calendar, map-pin, tag, camera, shield-alert.
+
+SECURITY & MODERATION
+- All images scanned by mime-type; reject executable content. Filename randomization.
+- Provide simple moderation toggles (v1 stub):
+  • Hidden flag on meetups/listings; add GET admin query ?hidden=true for mods.
+- Content rules banner on both pages; checkbox “I agree” before posting.
+
+LINKS & INTEGRATION
+- From homepage cards:
+  • “FOR THE CULTURE” → /mission (new tab)
+  • “FOR THE CHAOS” → /meetups (new tab)
+  • “FOR THE PEOPLE” → /market (new tab)
+- Add “Games ▸ Rug Hunter” link unchanged.
+- In post composers, if user profile lacks xUsername/telegramUsername, show tip to update profile at /profile for better contact.
+
+ROADMAP NOTE (to show on /mission and footer)
+- Add a “Roadmap 2026” block:
+  • Q1 2026: Staking pool for Moonshot; rewards paid in Pump.fun token.
+  • Q2 2026: Merch checkout accepts both tokens.
+  • Q3 2026: PFP generator random NFT drops with utility.
+  • Q4 2026: Rug Hunter P2E economy preview.
+
+ACCEPTANCE CRITERIA
+- Three new routes load in new tabs from homepage cards.
+- Logged-in users can create meetups/listings with images; guests can browse.
+- Uploads are size/type validated; thumbnails render fast on mobile.
+- RSVPs increment and persist; actions tracked to leaderboard.
+- No regressions to existing pages (home, tweet generator, meme factory, PFP, leaderboard).
+- Lighthouse mobile performance ≥ 85 on new pages.
+
+Do not alter existing SEO meta. Keep styles consistent with the current neon cyberpunk theme.
