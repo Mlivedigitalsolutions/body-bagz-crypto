@@ -88,7 +88,6 @@ export default function Home() {
               <a href="#vision" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
               <a href="#tokens" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokens">TOKENS</a>
               <a href="/tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">CHAOS TOOLS</a>
-              <a href="/game/rughunter" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-games">GAMES</a>
               <a href="/merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
               <a href="/leaderboard" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
               <a href="#community" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
@@ -281,121 +280,6 @@ export default function Home() {
 
         <TradingDataSection />
         
-        {/* Games Section */}
-        <section id="games" className="relative py-16 px-6 md:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-brand text-4xl md:text-5xl lg:text-6xl text-blood-red mb-4 animate-flicker" data-testid="games-title">
-                VILLAIN ARCADE
-              </h2>
-              <p className="text-ash-white/90 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-                Hunt ruggers, earn chaos points, and dominate the mobile gaming leaderboard
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              {/* Game Preview Card */}
-              <div className="neon-card bg-jet-black border-blood-red p-6 group hover:shadow-red-glow transition-all duration-300">
-                <div className="mb-6">
-                  <h3 className="font-brand text-3xl text-toxic-green mb-3">RUG HUNTER</h3>
-                  <p className="text-ash-white/90 leading-relaxed mb-4">
-                    Fast-paced mobile arcade action where you hunt down crypto scammers. 
-                    One-thumb controls, cyberpunk vibes, and real rewards for high scores.
-                  </p>
-                  
-                  <div className="grid grid-cols-3 gap-3 mb-6">
-                    <div className="text-center p-2 bg-toxic-green/10 border border-toxic-green/30 rounded">
-                      <div className="text-xl font-bold text-toxic-green">60</div>
-                      <div className="text-xs text-ash-white/80">FPS</div>
-                    </div>
-                    <div className="text-center p-2 bg-glitch-purple/10 border border-glitch-purple/30 rounded">
-                      <div className="text-xl font-bold text-glitch-purple">1</div>
-                      <div className="text-xs text-ash-white/80">Thumb</div>
-                    </div>
-                    <div className="text-center p-2 bg-blood-red/10 border border-blood-red/30 rounded">
-                      <div className="text-xl font-bold text-blood-red">50</div>
-                      <div className="text-xs text-ash-white/80">Max Pts</div>
-                    </div>
-                  </div>
-                </div>
-
-                <a
-                  href="/game/rughunter"
-                  className="w-full bg-gradient-to-r from-blood-red to-red-600 hover:from-blood-red/80 hover:to-red-600/80 text-white font-bold text-lg px-6 py-4 rounded-lg transition-all duration-200 shadow-red-glow flex items-center justify-center gap-3 group"
-                  data-testid="play-rug-hunter-button"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                  Play Now - Hunt Ruggers
-                </a>
-              </div>
-
-              {/* Game Features */}
-              <div className="space-y-4">
-                <div className="neon-card bg-onyx border-toxic-green p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 bg-toxic-green/20 rounded flex items-center justify-center">
-                      <svg className="w-4 h-4 text-toxic-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <h4 className="font-tech text-lg text-toxic-green">Gesture Controls</h4>
-                  </div>
-                  <p className="text-ash-white/90 text-sm">
-                    Swipe to move, tap to attack. Buttery smooth 60 FPS gameplay designed for one-handed mobile play.
-                  </p>
-                </div>
-
-                <div className="neon-card bg-onyx border-glitch-purple p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 bg-glitch-purple/20 rounded flex items-center justify-center">
-                      <svg className="w-4 h-4 text-glitch-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <h4 className="font-tech text-lg text-glitch-purple">Villain Streaks</h4>
-                  </div>
-                  <p className="text-ash-white/90 text-sm">
-                    Build combo multipliers by tagging ruggers without taking damage. Higher streaks = more chaos points.
-                  </p>
-                </div>
-
-                <div className="neon-card bg-onyx border-blood-red p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 bg-blood-red/20 rounded flex items-center justify-center">
-                      <TrophyIcon className="w-4 h-4 text-blood-red" />
-                    </div>
-                    <h4 className="font-tech text-lg text-blood-red">Leaderboard Rewards</h4>
-                  </div>
-                  <p className="text-ash-white/90 text-sm">
-                    High scores earn up to 50 chaos points per session. Compete monthly for villain status.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Call to Action */}
-            <div className="text-center mt-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-toxic-green/10 border border-toxic-green/30 rounded-full text-toxic-green text-sm mb-4">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-                Available Now • Mobile Ready • One-Thumb Controls
-              </div>
-              <a 
-                href="/game/rughunter"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-blood-red to-red-600 hover:from-blood-red/80 hover:to-red-600/80 text-white font-bold text-lg px-8 py-3 rounded-lg transition-all duration-200 shadow-red-glow"
-                data-testid="games-cta-button"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-                Start Your Hunt
-              </a>
-            </div>
-          </div>
-        </section>
 
         <VisionSection />
         <TokensSection />

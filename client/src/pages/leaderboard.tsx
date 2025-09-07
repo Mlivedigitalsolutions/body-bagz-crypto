@@ -29,7 +29,7 @@ export default function LeaderboardPage() {
     return `${estDate.getFullYear()}-${String(estDate.getMonth() + 1).padStart(2, '0')}`;
   });
   
-  const [activeTab, setActiveTab] = useState<'all' | 'arcade'>('all');
+  const [activeTab, setActiveTab] = useState<'all'>('all');
   
   const { user } = useUser();
 
@@ -105,7 +105,6 @@ export default function LeaderboardPage() {
               <a href="/#vision" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
               <a href="/#tokens" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokens">TOKENS</a>
               <a href="/tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">CHAOS TOOLS</a>
-              <a href="/game/rughunter" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-games">GAMES</a>
               <a href="/merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
               <a href="/leaderboard" className="text-blood-red hover:text-blood-red transition-colors font-semibold border-b-2 border-blood-red" data-testid="nav-leaderboard">LEADERBOARD</a>
               <a href="/#community" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
@@ -211,7 +210,7 @@ export default function LeaderboardPage() {
                     <div className="flex items-center justify-between p-3 bg-onyx rounded-lg border border-blood-red/30">
                       <div className="flex items-center gap-3">
                         <Target className="w-5 h-5 text-blood-red" />
-                        <span className="text-ash-white">Arcade High Score</span>
+                        <span className="text-ash-white">Community Engagement</span>
                       </div>
                       <span className="text-blood-red font-bold text-lg">Up to 50 pts</span>
                     </div>
@@ -329,16 +328,6 @@ export default function LeaderboardPage() {
                         }`}
                       >
                         All Activities
-                      </button>
-                      <button
-                        onClick={() => setActiveTab('arcade')}
-                        className={`px-4 py-2 rounded-md text-sm font-semibold transition-all ${
-                          activeTab === 'arcade'
-                            ? 'bg-blood-red text-white'
-                            : 'text-ash-white hover:text-blood-red'
-                        }`}
-                      >
-                        Arcade Scores
                       </button>
                     </div>
                   </div>

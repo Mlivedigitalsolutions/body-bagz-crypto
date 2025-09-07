@@ -1,7 +1,6 @@
 import { RefObject } from "react";
 import { Button } from "@/components/ui/button";
 import heroBanner from "../assets/hero-banner.png";
-import EasterEggTrigger from "./easter-egg-trigger";
 
 interface HeroSectionProps {
   titleRef: RefObject<HTMLHeadingElement>;
@@ -31,7 +30,6 @@ export default function HeroSection({ titleRef }: HeroSectionProps) {
       <div className="max-w-7xl mx-auto text-center relative z-10">
         {/* EPIC CYBERPUNK HERO BANNER */}
         <div className="mb-8 flex justify-center">
-          <EasterEggTrigger hoverDuration={3000}>
             <div className="relative animate-pulse-glow premium-banner-container">
               <div className="w-full max-w-4xl rounded-2xl overflow-hidden neon-card premium-3d-frame">
                 <img 
@@ -45,7 +43,6 @@ export default function HeroSection({ titleRef }: HeroSectionProps) {
               <div className="absolute inset-0 premium-banner-overlay"></div>
               <div className="absolute -inset-4 premium-banner-glow rounded-3xl"></div>
             </div>
-          </EasterEggTrigger>
         </div>
 
         {/* Enhanced Tagline - Banner says it all! */}
