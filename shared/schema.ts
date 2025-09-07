@@ -123,3 +123,107 @@ export type InsertSavedContent = z.infer<typeof insertSavedContentSchema>;
 export type SavedContent = typeof savedContent.$inferSelect;
 export type InsertUserPreferences = z.infer<typeof insertUserPreferencesSchema>;
 export type UserPreferences = typeof userPreferences.$inferSelect;
+
+// Meetups tables
+export const meetups = pgTable("meetups", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().references(() => users.id),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  city: text("city").notNull(),
+  country: text("country").notNull(),
+  eventAt: timestamp("event_at").notNull(),
+  tags: json("tags").default([]).$type<string[]>(),
+  images: json("images").default([]).$type<string[]>(),
+  hidden: boolean("hidden").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_meetups_user").on(table.userId),
+  index("idx_meetups_city").on(table.city),
+  index("idx_meetups_event_date").on(table.eventAt),
+]);
+
+export const meetupRsvps = pgTable("meetup_rsvps", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  meetupId: varchar("meetup_id").notNull().references(() => meetups.id, { onDelete: "cascade" }),
+  userId: varchar("user_id").notNull().references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_rsvp_meetup").on(table.meetupId),
+  index("idx_rsvp_user").on(table.userId),
+]);
+
+// Marketplace tables
+export const listings = pgTable("listings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().references(() => users.id),
+  title: text("title").notNull(),
+  category: text("category").notNull(), // art, music, merch, services, events, other
+  description: text("description").notNull(),
+  priceText: text("price_text"), // Optional price as text
+  contact: text("contact"), // X handle or Telegram username
+  images: json("images").default([]).$type<string[]>(),
+  hidden: boolean("hidden").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+}, (table) => [
+  index("idx_listings_user").on(table.userId),
+  index("idx_listings_category").on(table.category),
+  index("idx_listings_created").on(table.createdAt),
+]);
+
+// Reports table for moderation
+export const reports = pgTable("reports", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  type: text("type").notNull(), // "listing" | "meetup"
+  refId: varchar("ref_id").notNull(), // ID of the reported item
+  userId: varchar("user_id").notNull().references(() => users.id),
+  reason: text("reason").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+}, (table) => [
+  index("idx_reports_type_ref").on(table.type, table.refId),
+  index("idx_reports_user").on(table.userId),
+]);
+
+export const insertMeetupSchema = createInsertSchema(meetups).pick({
+  userId: true,
+  title: true,
+  description: true,
+  city: true,
+  country: true,
+  eventAt: true,
+  tags: true,
+  images: true,
+});
+
+export const insertMeetupRsvpSchema = createInsertSchema(meetupRsvps).pick({
+  meetupId: true,
+  userId: true,
+});
+
+export const insertListingSchema = createInsertSchema(listings).pick({
+  userId: true,
+  title: true,
+  category: true,
+  description: true,
+  priceText: true,
+  contact: true,
+  images: true,
+});
+
+export const insertReportSchema = createInsertSchema(reports).pick({
+  type: true,
+  refId: true,
+  userId: true,
+  reason: true,
+});
+
+export type InsertMeetup = z.infer<typeof insertMeetupSchema>;
+export type Meetup = typeof meetups.$inferSelect;
+export type InsertMeetupRsvp = z.infer<typeof insertMeetupRsvpSchema>;
+export type MeetupRsvp = typeof meetupRsvps.$inferSelect;
+export type InsertListing = z.infer<typeof insertListingSchema>;
+export type Listing = typeof listings.$inferSelect;
+export type InsertReport = z.infer<typeof insertReportSchema>;
+export type Report = typeof reports.$inferSelect;
