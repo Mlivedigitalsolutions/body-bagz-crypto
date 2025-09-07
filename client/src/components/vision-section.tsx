@@ -6,19 +6,19 @@ import peopleImg from "@assets/generated_images/People_card_cyberpunk_image_229a
 
 export default function VisionSection() {
   return (
-    <section id="vision" className="relative z-10 py-12 px-6">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="font-brand text-3xl md:text-4xl text-center text-blood-red mb-8" data-testid="vision-title">
+    <section id="vision" className="relative z-10 py-8 px-6">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="font-brand text-2xl md:text-3xl text-center text-blood-red mb-6" data-testid="vision-title">
           OUR VISION
         </h2>
         
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
           {/* For the Culture Card */}
           <a 
             href="/mission" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="neon-card p-6 rounded-xl text-center group hover:scale-105 transition-all duration-300 hover:shadow-green-glow cursor-pointer block" 
+            className="neon-card p-4 rounded-lg text-center group hover:scale-105 transition-all duration-300 hover:shadow-green-glow cursor-pointer block" 
             data-testid="card-culture"
           >
             <div className="mb-4 flex justify-center">
@@ -35,7 +35,7 @@ export default function VisionSection() {
             href="/meetups" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="neon-card p-6 rounded-xl text-center group hover:scale-105 transition-all duration-300 hover:shadow-red-glow cursor-pointer block" 
+            className="neon-card p-4 rounded-lg text-center group hover:scale-105 transition-all duration-300 hover:shadow-red-glow cursor-pointer block" 
             data-testid="card-chaos"
           >
             <div className="mb-4 flex justify-center">
@@ -52,7 +52,7 @@ export default function VisionSection() {
             href="/market" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="neon-card p-6 rounded-xl text-center group hover:scale-105 transition-all duration-300 hover:shadow-purple-glow cursor-pointer block" 
+            className="neon-card p-4 rounded-lg text-center group hover:scale-105 transition-all duration-300 hover:shadow-purple-glow cursor-pointer block col-span-2" 
             data-testid="card-people"
           >
             <div className="mb-4 flex justify-center">
