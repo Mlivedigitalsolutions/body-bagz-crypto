@@ -71,10 +71,7 @@ export default function Meetups() {
   // Create meetup mutation
   const createMeetupMutation = useMutation({
     mutationFn: async (meetupData: typeof newMeetup) => {
-      return apiRequest("/api/meetups", {
-        method: "POST",
-        body: JSON.stringify(meetupData),
-      });
+      return apiRequest("POST", "/api/meetups", meetupData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/meetups"] });
@@ -117,9 +114,9 @@ export default function Meetups() {
   const rsvpMutation = useMutation({
     mutationFn: async ({ meetupId, action }: { meetupId: string; action: 'rsvp' | 'unrsvp' }) => {
       if (action === 'rsvp') {
-        return apiRequest(`/api/meetups/${meetupId}/rsvp`, { method: "POST" });
+        return apiRequest("POST", `/api/meetups/${meetupId}/rsvp`);
       } else {
-        return apiRequest(`/api/meetups/${meetupId}/rsvp`, { method: "DELETE" });
+        return apiRequest("DELETE", `/api/meetups/${meetupId}/rsvp`);
       }
     },
     onSuccess: () => {
@@ -374,7 +371,7 @@ export default function Meetups() {
                 <div className="animate-spin w-8 h-8 border-2 border-toxic-green border-t-transparent rounded-full mx-auto"></div>
                 <p className="text-dim-enhanced mt-4">Loading meetups...</p>
               </div>
-            ) : meetups.length === 0 ? (
+            ) : (meetups as MeetupWithRsvps[]).length === 0 ? (
               <div className="text-center py-12">
                 <Users className="w-16 h-16 text-dim-gray mx-auto mb-4" />
                 <h3 className="text-xl text-ash-white mb-2">No meetups found</h3>
@@ -386,7 +383,7 @@ export default function Meetups() {
                 </p>
               </div>
             ) : (
-              meetups.map((meetup: MeetupWithRsvps) => (
+              (meetups as MeetupWithRsvps[]).map((meetup: MeetupWithRsvps) => (
                 <div key={meetup.id} className="neon-card p-6 rounded-xl" data-testid={`meetup-card-${meetup.id}`}>
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex-1">
@@ -398,7 +395,7 @@ export default function Meetups() {
                         </span>
                         <span className="flex items-center">
                           <Clock className="w-4 h-4 mr-1" />
-                          {formatDate(meetup.eventAt)}
+                          {formatDate(meetup.eventAt.toString())}
                         </span>
                         <span className="flex items-center">
                           <Users className="w-4 h-4 mr-1" />

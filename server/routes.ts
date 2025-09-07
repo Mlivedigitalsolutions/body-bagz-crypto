@@ -1449,6 +1449,233 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Meetups API routes
+  app.post("/api/meetups", generalLimiter, validateActionTracking, async (req: Request, res: Response) => {
+    try {
+      const { title, description, city, country, eventAt, tags, images } = req.body;
+      const userId = req.headers.authorization?.split(' ')[1];
+      
+      if (!userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
+      const user = await storage.getUserByUsername(userId);
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+
+      const meetup = await storage.createMeetup({
+        userId: user.id,
+        title,
+        description,
+        city,
+        country,
+        eventAt: new Date(eventAt),
+        tags: tags || [],
+        images: images || []
+      });
+
+      // Track leaderboard action
+      await storage.trackAction({
+        userId: user.id,
+        actionType: "meetup_post",
+        points: 6,
+        monthYear: new Date().toISOString().slice(0, 7)
+      });
+
+      res.json({ meetup });
+    } catch (error: any) {
+      console.error('Create meetup error:', error);
+      res.status(500).json({ error: error.message || "Failed to create meetup" });
+    }
+  });
+
+  app.get("/api/meetups", async (req: Request, res: Response) => {
+    try {
+      const { q, city, tags, sort } = req.query;
+      const meetups = await storage.getMeetups({
+        searchQuery: q as string,
+        city: city as string,
+        tags: tags as string,
+        sortBy: sort as string
+      });
+      res.json(meetups);
+    } catch (error: any) {
+      console.error('Get meetups error:', error);
+      res.status(500).json({ error: error.message || "Failed to fetch meetups" });
+    }
+  });
+
+  app.post("/api/meetups/:id/rsvp", generalLimiter, async (req: Request, res: Response) => {
+    try {
+      const meetupId = req.params.id;
+      const userId = req.headers.authorization?.split(' ')[1];
+      
+      if (!userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
+      const user = await storage.getUserByUsername(userId);
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+
+      await storage.createMeetupRsvp({
+        meetupId,
+        userId: user.id
+      });
+
+      // Track leaderboard action
+      await storage.trackAction({
+        userId: user.id,
+        actionType: "meetup_rsvp", 
+        points: 2,
+        monthYear: new Date().toISOString().slice(0, 7)
+      });
+
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error('RSVP meetup error:', error);
+      res.status(500).json({ error: error.message || "Failed to RSVP" });
+    }
+  });
+
+  app.delete("/api/meetups/:id/rsvp", generalLimiter, async (req: Request, res: Response) => {
+    try {
+      const meetupId = req.params.id;
+      const userId = req.headers.authorization?.split(' ')[1];
+      
+      if (!userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
+      const user = await storage.getUserByUsername(userId);
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+
+      await storage.deleteMeetupRsvp(meetupId, user.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error('Delete RSVP error:', error);
+      res.status(500).json({ error: error.message || "Failed to delete RSVP" });
+    }
+  });
+
+  // Marketplace API routes
+  app.post("/api/market/listings", generalLimiter, validateActionTracking, async (req: Request, res: Response) => {
+    try {
+      const { title, category, description, priceText, contact, images } = req.body;
+      const userId = req.headers.authorization?.split(' ')[1];
+      
+      if (!userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
+      const user = await storage.getUserByUsername(userId);
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+
+      const listing = await storage.createListing({
+        userId: user.id,
+        title,
+        category,
+        description,
+        priceText,
+        contact: contact || user.xUsername || user.telegramUsername,
+        images: images || []
+      });
+
+      // Track leaderboard action
+      await storage.trackAction({
+        userId: user.id,
+        actionType: "market_post",
+        points: 6,
+        monthYear: new Date().toISOString().slice(0, 7)
+      });
+
+      res.json({ listing });
+    } catch (error: any) {
+      console.error('Create listing error:', error);
+      res.status(500).json({ error: error.message || "Failed to create listing" });
+    }
+  });
+
+  app.get("/api/market/listings", async (req: Request, res: Response) => {
+    try {
+      const { q, category, hasImages, sort } = req.query;
+      const listings = await storage.getListings({
+        searchQuery: q as string,
+        category: category as string,
+        hasImages: hasImages === 'true',
+        sortBy: sort as string
+      });
+      res.json(listings);
+    } catch (error: any) {
+      console.error('Get listings error:', error);
+      res.status(500).json({ error: error.message || "Failed to fetch listings" });
+    }
+  });
+
+  // Reports API route
+  app.post("/api/report", generalLimiter, async (req: Request, res: Response) => {
+    try {
+      const { type, refId, reason } = req.body;
+      const userId = req.headers.authorization?.split(' ')[1];
+      
+      if (!userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
+      const user = await storage.getUserByUsername(userId);
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+
+      await storage.createReport({
+        type,
+        refId,
+        userId: user.id,
+        reason
+      });
+
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error('Create report error:', error);
+      res.status(500).json({ error: error.message || "Failed to submit report" });
+    }
+  });
+
+  // Image upload routes (placeholder for now)
+  app.post("/api/meetups/upload", generalLimiter, async (req: Request, res: Response) => {
+    try {
+      // Placeholder for image upload functionality
+      res.json({ 
+        success: true, 
+        urls: [],
+        message: "Image upload endpoint ready - implement multipart handling for production" 
+      });
+    } catch (error: any) {
+      console.error('Meetup image upload error:', error);
+      res.status(500).json({ error: error.message || "Upload failed" });
+    }
+  });
+
+  app.post("/api/market/upload", generalLimiter, async (req: Request, res: Response) => {
+    try {
+      // Placeholder for image upload functionality
+      res.json({ 
+        success: true, 
+        urls: [],
+        message: "Image upload endpoint ready - implement multipart handling for production" 
+      });
+    } catch (error: any) {
+      console.error('Market image upload error:', error);
+      res.status(500).json({ error: error.message || "Upload failed" });
+    }
+  });
+
   // Add error handler at the end
   app.use(errorHandler);
   

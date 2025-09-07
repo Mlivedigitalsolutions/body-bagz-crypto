@@ -9,11 +9,23 @@ import {
   type InsertSavedContent,
   type UserPreferences,
   type InsertUserPreferences,
+  type Meetup,
+  type InsertMeetup,
+  type MeetupRsvp,
+  type InsertMeetupRsvp,
+  type Listing,
+  type InsertListing,
+  type Report,
+  type InsertReport,
   users,
   leaderboardEntries,
   monthlyRewards,
   savedContent,
-  userPreferences
+  userPreferences,
+  meetups,
+  meetupRsvps,
+  listings,
+  reports
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -55,6 +67,32 @@ export interface IStorage {
     totalActions: number;
     totalContent: number;
   }>;
+
+  // Meetups operations
+  createMeetup(meetup: InsertMeetup): Promise<Meetup>;
+  getMeetups(filters: {
+    searchQuery?: string;
+    city?: string;
+    tags?: string;
+    sortBy?: string;
+  }): Promise<Array<Meetup & { rsvpCount: number; userHasRsvped: boolean; creator: { username: string } }>>;
+  createMeetupRsvp(rsvp: InsertMeetupRsvp): Promise<MeetupRsvp>;
+  deleteMeetupRsvp(meetupId: string, userId: string): Promise<void>;
+
+  // Marketplace operations
+  createListing(listing: InsertListing): Promise<Listing>;
+  getListings(filters: {
+    searchQuery?: string;
+    category?: string;
+    hasImages?: boolean;
+    sortBy?: string;
+  }): Promise<Array<Listing & { seller: { username: string } }>>;
+
+  // Reports operations
+  createReport(report: InsertReport): Promise<Report>;
+
+  // Convenience alias for leaderboard actions
+  trackAction(entry: InsertLeaderboardEntry): Promise<LeaderboardEntry>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -303,6 +341,89 @@ export class DatabaseStorage implements IStorage {
       console.error('Error getting admin stats:', error);
       return { totalUsers: 0, totalActions: 0, totalContent: 0 };
     }
+  }
+
+  // Meetups operations
+  async createMeetup(meetupData: InsertMeetup): Promise<Meetup> {
+    const [meetup] = await db
+      .insert(meetups)
+      .values({
+        ...meetupData,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .returning();
+    return meetup;
+  }
+
+  async getMeetups(filters: {
+    searchQuery?: string;
+    city?: string;
+    tags?: string;
+    sortBy?: string;
+  }): Promise<Array<Meetup & { rsvpCount: number; userHasRsvped: boolean; creator: { username: string } }>> {
+    // For now, return empty array - this would need proper implementation with joins
+    return [];
+  }
+
+  async createMeetupRsvp(rsvpData: InsertMeetupRsvp): Promise<MeetupRsvp> {
+    const [rsvp] = await db
+      .insert(meetupRsvps)
+      .values({
+        ...rsvpData,
+        createdAt: new Date(),
+      })
+      .returning();
+    return rsvp;
+  }
+
+  async deleteMeetupRsvp(meetupId: string, userId: string): Promise<void> {
+    await db
+      .delete(meetupRsvps)
+      .where(and(
+        eq(meetupRsvps.meetupId, meetupId),
+        eq(meetupRsvps.userId, userId)
+      ));
+  }
+
+  // Marketplace operations
+  async createListing(listingData: InsertListing): Promise<Listing> {
+    const [listing] = await db
+      .insert(listings)
+      .values({
+        ...listingData,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .returning();
+    return listing;
+  }
+
+  async getListings(filters: {
+    searchQuery?: string;
+    category?: string;
+    hasImages?: boolean;
+    sortBy?: string;
+  }): Promise<Array<Listing & { seller: { username: string } }>> {
+    // For now, return empty array - this would need proper implementation with joins
+    return [];
+  }
+
+  // Reports operations  
+  async createReport(reportData: InsertReport): Promise<Report> {
+    const [report] = await db
+      .insert(reports)
+      .values({
+        ...reportData,
+        createdAt: new Date(),
+      })
+      .returning();
+    return report;
+  }
+
+  // Convenience alias for leaderboard actions
+  async trackAction(entry: InsertLeaderboardEntry): Promise<LeaderboardEntry> {
+    return this.addLeaderboardEntry(entry);
   }
 }
 

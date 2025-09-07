@@ -82,10 +82,7 @@ export default function Marketplace() {
   // Create listing mutation
   const createListingMutation = useMutation({
     mutationFn: async (listingData: typeof newListing) => {
-      return apiRequest("/api/market/listings", {
-        method: "POST",
-        body: JSON.stringify(listingData),
-      });
+      return apiRequest("POST", "/api/market/listings", listingData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/market/listings"] });
@@ -126,13 +123,10 @@ export default function Marketplace() {
   // Report listing mutation
   const reportListingMutation = useMutation({
     mutationFn: async ({ listingId, reason }: { listingId: string; reason: string }) => {
-      return apiRequest("/api/report", {
-        method: "POST",
-        body: JSON.stringify({
-          type: "listing",
-          refId: listingId,
-          reason
-        }),
+      return apiRequest("POST", "/api/report", {
+        type: "listing",
+        refId: listingId,
+        reason
       });
     },
     onSuccess: () => {
@@ -394,7 +388,7 @@ export default function Marketplace() {
                 <div className="animate-spin w-8 h-8 border-2 border-glitch-purple border-t-transparent rounded-full mx-auto"></div>
                 <p className="text-dim-enhanced mt-4">Loading listings...</p>
               </div>
-            ) : listings.length === 0 ? (
+            ) : (listings as ListingWithSeller[]).length === 0 ? (
               <div className="col-span-full text-center py-12">
                 <ShoppingBag className="w-16 h-16 text-dim-gray mx-auto mb-4" />
                 <h3 className="text-xl text-ash-white mb-2">No listings found</h3>
@@ -406,7 +400,7 @@ export default function Marketplace() {
                 </p>
               </div>
             ) : (
-              listings.map((listing: ListingWithSeller) => (
+              (listings as ListingWithSeller[]).map((listing: ListingWithSeller) => (
                 <div key={listing.id} className="neon-card p-6 rounded-xl" data-testid={`listing-card-${listing.id}`}>
                   <div className="mb-4">
                     <div className="flex justify-between items-start mb-3">
