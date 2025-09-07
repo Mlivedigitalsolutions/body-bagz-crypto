@@ -13,8 +13,49 @@ import bomberJacket from "@assets/generated_images/BAGZ_bomber_jacket_female_mod
 import whiteTshirt from "@assets/generated_images/White_BAGZ_t-shirt_model_95780a6e.png";
 import cropTop from "@assets/generated_images/VILLAIN_crop_top_model_2e90c5f7.png";
 
+interface MerchItem {
+  id: number;
+  name: string;
+  category: string;
+  price: string;
+  image: string;
+  description: string;
+  featured: boolean;
+  isNew?: boolean;
+}
+
 // Featured merchandise - most popular items
-const merchandiseData = [
+const merchandiseData: MerchItem[] = [
+  {
+    id: 11,
+    name: "Villain Era Ski Mask",
+    category: "Headwear",
+    price: "$34.99",
+    image: blackHoodie, // Using placeholder image
+    description: "Black ribbed knit balaclava with BODY BAGZ embroidered logo",
+    featured: true,
+    isNew: true
+  },
+  {
+    id: 12,
+    name: "Chaos Energy Ski Mask",
+    category: "Headwear", 
+    price: "$34.99",
+    image: greenHoodie, // Using placeholder image
+    description: "Limited edition with glow-in-the-dark toxic green branding",
+    featured: true,
+    isNew: true
+  },
+  {
+    id: 13,
+    name: "Villain MC Vest",
+    category: "Outerwear",
+    price: "$199.99",
+    image: bomberJacket, // Using placeholder image
+    description: "Premium leather motorcycle vest with custom villain patches",
+    featured: true,
+    isNew: true
+  },
   {
     id: 1,
     name: "Black Cyberpunk Hoodie",
@@ -71,7 +112,7 @@ const merchandiseData = [
   }
 ];
 
-const categories = ["All", "Hoodies", "T-Shirts", "Headwear", "Outerwear"];
+const categories = ["All", "Hoodies", "T-Shirts", "Headwear", "Outerwear", "New Drops"];
 
 export default function MerchSection() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -79,6 +120,8 @@ export default function MerchSection() {
 
   const filteredMerch = selectedCategory === "All" 
     ? merchandiseData 
+    : selectedCategory === "New Drops"
+    ? merchandiseData.filter(item => item.isNew)
     : merchandiseData.filter(item => item.category === selectedCategory);
 
   return (
@@ -159,6 +202,13 @@ export default function MerchSection() {
                 <div className="absolute top-4 left-4 bg-toxic-green/20 backdrop-blur-sm border border-toxic-green/50 px-3 py-1 rounded-full">
                   <span className="text-toxic-green font-medium text-xs uppercase tracking-wider">{item.category}</span>
                 </div>
+                
+                {/* New Item Badge */}
+                {item.isNew && (
+                  <div className="absolute top-12 left-4 bg-blood-red/90 backdrop-blur-sm px-2 py-1 rounded-full">
+                    <span className="text-ash-white font-bold text-xs">NEW</span>
+                  </div>
+                )}
               </div>
 
               {/* Compact Product Info */}

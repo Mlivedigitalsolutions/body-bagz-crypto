@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Bagz ($BAGZ) Whitepaper v2.0</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton:wght@400&family=Bebas+Neue&family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .cover-page {
+            height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 2rem;
+        }
+        
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 4rem;
+            color: #dc2626;
+            text-shadow: 0 0 20px #dc2626;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+        
+        .tagline {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #22c55e;
+            text-shadow: 0 0 10px #22c55e;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a855f7;
+            margin-bottom: 2rem;
+        }
+        
+        .version {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-family: 'Orbitron', monospace;
+            color: #666;
+        }
+        
+        .page {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            page-break-before: always;
+        }
+        
+        .page:first-child {
+            page-break-before: auto;
+        }
+        
+        h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            color: #dc2626;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            border-bottom: 3px solid #22c55e;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: #a855f7;
+            margin: 2rem 0 1rem 0;
+            font-weight: 700;
+        }
+        
+        h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            color: #333;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 700;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .villain-text {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        
+        .chaos-text {
+            color: #a855f7;
+            font-weight: bold;
+        }
+        
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border: 2px solid #22c55e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #dc2626;
+            font-weight: 900;
+        }
+        
+        .stat-label {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.2rem;
+            color: #333;
+            margin-top: 0.5rem;
+        }
+        
+        .dual-token-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .token-card {
+            border: 3px solid #a855f7;
+            border-radius: 12px;
+            padding: 2rem;
+            background: linear-gradient(135deg, #fafafa, #f0f0f0);
+        }
+        
+        .moonshot-card {
+            border-color: #22c55e;
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        }
+        
+        .pump-card {
+            border-color: #dc2626;
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            border: 2px solid #a855f7;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: #fafafa;
+        }
+        
+        .feature-title {
+            font-family: 'Orbitron', monospace;
+            color: #a855f7;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .checkmark {
+            color: #22c55e;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .table th {
+            background: #22c55e;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+        }
+        
+        .roadmap-phase {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-left: 5px solid #22c55e;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .phase-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+        
+        .new-feature {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border: 2px solid #dc2626;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .new-title {
+            font-family: 'Orbitron', monospace;
+            color: #dc2626;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <div class="cover-content">
+            <div class="logo">BODY BAGZ</div>
+            <div class="tagline">THE VILLAIN ERA HAS BEGUN</div>
+            <div class="title">WHITEPAPER v2.0</div>
+            <div class="subtitle">Dual-Token Cyberpunk Ecosystem</div>
+        </div>
+        <div class="version">Version 2.0 | September 2025</div>
+    </div>
+
+    <!-- Executive Summary -->
+    <div class="page">
+        <h1>⚡ EXECUTIVE SUMMARY</h1>
+        <p>Body Bagz ($BAGZ) has evolved beyond a single meme token into a <span class="highlight">dual-token cyberpunk ecosystem</span>. Built on Solana and powered by chaos, our platform now features two complementary tokens that create a yin-yang dynamic: <span class="villain-text">Villain Era (Moonshot)</span> representing stability and structure, and <span class="chaos-text">Chaos Energy (Pump.fun)</span> representing volatility and movement.</p>
+        
+        <p>Through our comprehensive ecosystem of tools, staking mechanics, NFT integration, and physical merchandise, Body Bagz is establishing the <span class="highlight">ultimate villain culture platform</span> where digital assets meet real-world utility.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Token Ecosystem</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Premium Tools</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Chaos Potential</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dual Token Ecosystem -->
+    <div class="page">
+        <h1>⚡ DUAL TOKEN ECOSYSTEM</h1>
+        
+        <p>Body Bagz introduces a revolutionary <span class="highlight">dual-token architecture</span> that balances stability with volatility, creating synergy between structured growth and chaotic energy.</p>
+        
+        <div class="dual-token-grid">
+            <div class="token-card moonshot-card">
+                <h3 style="color: #22c55e; font-family: 'Orbitron', monospace;">🏛️ MOONSHOT TOKEN</h3>
+                <h4 style="color: #16a34a; font-family: 'Bebas Neue';">$BAGZ | Villain Era</h4>
+                <ul>
+                    <li><strong>Represents:</strong> Stability, community trust, foundation</li>
+                    <li><strong>Function:</strong> Primary staking token</li>
+                    <li><strong>Contract:</strong> 7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon</li>
+                    <li><strong>Utility:</strong> Governance, staking rewards, merchandise payments</li>
+                    <li><strong>Character:</strong> The structured villain empire</li>
+                </ul>
+            </div>
+            
+            <div class="token-card pump-card">
+                <h3 style="color: #dc2626; font-family: 'Orbitron', monospace;">⚡ PUMP.FUN TOKEN</h3>
+                <h4 style="color: #991b1b; font-family: 'Bebas Neue';">$BAGZ | Chaos Energy</h4>
+                <ul>
+                    <li><strong>Represents:</strong> Raw chaos, volatility, meme culture</li>
+                    <li><strong>Function:</strong> Reward token for stakers</li>
+                    <li><strong>Contract:</strong> 6sw8wayQp769fAHrJxo6brH9D8BwghYHRSnZ1xeHpump</li>
+                    <li><strong>Utility:</strong> Trading rewards, bonus payments, speculation</li>
+                    <li><strong>Character:</strong> The chaotic villain energy</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="new-feature">
+            <div class="new-title">🔗 YIN-YANG DYNAMIC</div>
+            <p>These two tokens form a <strong>complementary ecosystem</strong> where Villain Era provides structure and stability, while Chaos Energy fuels movement and speculation. Together, they create a self-balancing economy that rewards both long-term holders and active traders.</p>
+        </div>
+    </div>
+
+    <!-- Staking Mechanics -->
+    <div class="page">
+        <h1>⚡ STAKING MECHANICS</h1>
+        
+        <div class="new-feature">
+            <div class="new-title">🏦 MOONSHOT STAKING POOLS</div>
+            <p>Starting Q1 2026, holders can stake their <span class="villain-text">Moonshot $BAGZ tokens</span> to earn rewards in <span class="chaos-text">Pump.fun $BAGZ tokens</span>, creating a bridge between stability and volatility.</p>
+        </div>
+        
+        <h2>Staking Benefits</h2>
+        <ul>
+            <li><strong>Dual Token Rewards:</strong> Stake Moonshot, earn Pump.fun tokens</li>
+            <li><strong>Ecosystem Synergy:</strong> Links both token economies</li>
+            <li><strong>Flexible Terms:</strong> Multiple staking duration options</li>
+            <li><strong>Bonus Multipliers:</strong> Longer stakes = higher APY</li>
+            <li><strong>NFT Boosts:</strong> Rare NFTs increase staking rewards</li>
+        </ul>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Staking Period</th>
+                    <th>Base APY</th>
+                    <th>NFT Multiplier</th>
+                    <th>Reward Token</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>30 Days</td>
+                    <td>15%</td>
+                    <td>1.2x - 2.0x</td>
+                    <td>Pump.fun $BAGZ</td>
+                </tr>
+                <tr>
+                    <td>90 Days</td>
+                    <td>25%</td>
+                    <td>1.5x - 2.5x</td>
+                    <td>Pump.fun $BAGZ</td>
+                </tr>
+                <tr>
+                    <td>180 Days</td>
+                    <td>40%</td>
+                    <td>2.0x - 3.0x</td>
+                    <td>Pump.fun $BAGZ</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Merch Utility -->
+    <div class="page">
+        <h1>⚡ MERCH UTILITY & VILLAIN GEAR</h1>
+        
+        <div class="new-feature">
+            <div class="new-title">👕 CRYPTO-ENABLED MERCHANDISE</div>
+            <p>All Body Bagz tokens (both Moonshot and Pump.fun) will be accepted for official Villain Era merchandise purchases, creating real-world utility for digital assets.</p>
+        </div>
+        
+        <h2>First Wave Merch Collection</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-title">🎭 Villain Ski Masks</div>
+                <ul>
+                    <li>Black ribbed knit balaclava design</li>
+                    <li>Embroidered BODY BAGZ logo options</li>
+                    <li>Glow-in-the-dark toxic green variants</li>
+                    <li>Limited edition numbering</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">🏍️ Motorcycle Vests</div>
+                <ul>
+                    <li>Premium leather construction</li>
+                    <li>Custom villain patches (1% MC style)</li>
+                    <li>BODY BAGZ back patch design</li>
+                    <li>Numbered club membership</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">🧢 Villain Headwear</div>
+                <ul>
+                    <li>Embroidered snapback caps</li>
+                    <li>Skull logo beanies</li>
+                    <li>Tactical bandanas</li>
+                    <li>Limited colorway drops</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">💎 Cultural Identity</div>
+                <ul>
+                    <li>Merch acts as Villain Army identification</li>
+                    <li>Exclusive drops for token holders</li>
+                    <li>Discord role verification via purchase</li>
+                    <li>Real-world community building</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h2>Token Payment Integration</h2>
+        <ul>
+            <li><strong>Dual Token Acceptance:</strong> Pay with either Moonshot or Pump.fun $BAGZ</li>
+            <li><strong>Dynamic Pricing:</strong> Real-time token price conversion</li>
+            <li><strong>Holder Discounts:</strong> Token holders receive 15-25% off retail prices</li>
+            <li><strong>Staker Benefits:</strong> Active stakers get priority access to limited drops</li>
+            <li><strong>NFT Perks:</strong> Rare NFT holders unlock exclusive merchandise</li>
+        </ul>
+    </div>
+
+    <!-- NFT & PFP Expansion -->
+    <div class="page">
+        <h1>⚡ NFT & PFP GENERATOR EXPANSION</h1>
+        
+        <div class="new-feature">
+            <div class="new-title">🎲 RANDOMIZED NFT DROPS</div>
+            <p>The current PFP generator will be upgraded with hidden <span class="highlight">surprise NFT drops</span> that carry real value and utility within the ecosystem.</p>
+        </div>
+        
+        <h2>Enhanced PFP System</h2>
+        <ul>
+            <li><strong>Hidden Rarity Algorithm:</strong> 1 in 100 PFP generations triggers rare NFT</li>
+            <li><strong>Surprise Value:</strong> Users don't know when they'll hit jackpot</li>
+            <li><strong>Multiple Tiers:</strong> Common, Rare, Epic, Legendary NFT drops</li>
+            <li><strong>Dynamic Metadata:</strong> Each NFT carries unique villain attributes</li>
+            <li><strong>Cross-Platform Integration:</strong> NFTs work across all Body Bagz tools</li>
+        </ul>
+        
+        <h2>NFT Utility Framework</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-title">🛍️ Merchandise Discounts</div>
+                <ul>
+                    <li>Common NFTs: 10% off merch</li>
+                    <li>Rare NFTs: 20% off merch</li>
+                    <li>Epic NFTs: 35% off merch</li>
+                    <li>Legendary NFTs: 50% off merch</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">🎪 Event Access</div>
+                <ul>
+                    <li>VIP villain meetups</li>
+                    <li>Exclusive online events</li>
+                    <li>Early access to new tools</li>
+                    <li>Private community channels</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">💰 Staking Boosts</div>
+                <ul>
+                    <li>Enhanced staking APY multipliers</li>
+                    <li>Reduced staking cooldown periods</li>
+                    <li>Bonus token airdrops</li>
+                    <li>Priority withdrawal access</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">🎮 Gaming Benefits</div>
+                <ul>
+                    <li>Higher chaos point multipliers</li>
+                    <li>Exclusive in-game assets</li>
+                    <li>Tournament entry privileges</li>
+                    <li>Leaderboard badge displays</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Updated Roadmap -->
+    <div class="page">
+        <h1>⚡ ROADMAP 2026+</h1>
+        
+        <div class="roadmap-phase">
+            <div class="phase-title">Q1 2026: Dual Token Launch</div>
+            <ul>
+                <li><span class="checkmark">🎯</span> Launch Moonshot staking pools</li>
+                <li><span class="checkmark">🎯</span> Integrate Pump.fun reward distribution</li>
+                <li><span class="checkmark">🎯</span> Cross-token utility implementation</li>
+                <li><span class="checkmark">🎯</span> Advanced staking dashboard</li>
+                <li><span class="checkmark">🎯</span> Token economy balancing mechanisms</li>
+            </ul>
+        </div>
+        
+        <div class="roadmap-phase">
+            <div class="phase-title">Q2 2026: Merch Store Integration</div>
+            <ul>
+                <li><span class="checkmark">🎯</span> Official merchandise line launch</li>
+                <li><span class="checkmark">🎯</span> Dual token payment system</li>
+                <li><span class="checkmark">🎯</span> Ski masks & villain gear production</li>
+                <li><span class="checkmark">🎯</span> Motorcycle vest collection</li>
+                <li><span class="checkmark">🎯</span> Global shipping infrastructure</li>
+            </ul>
+        </div>
+        
+        <div class="roadmap-phase">
+            <div class="phase-title">Q3 2026: NFT Randomizer Activation</div>
+            <ul>
+                <li><span class="checkmark">🎯</span> Enhanced PFP generator with NFT drops</li>
+                <li><span class="checkmark">🎯</span> First wave of hidden NFT distribution</li>
+                <li><span class="checkmark">🎯</span> NFT utility system implementation</li>
+                <li><span class="checkmark">🎯</span> Marketplace integration</li>
+                <li><span class="checkmark">🎯</span> Cross-platform NFT benefits</li>
+            </ul>
+        </div>
+        
+        <div class="roadmap-phase">
+            <div class="phase-title">Q4 2026: Play-to-Earn Development</div>
+            <ul>
+                <li><span class="checkmark">🎯</span> Rug Hunter game development begins</li>
+                <li><span class="checkmark">🎯</span> Play-to-earn mechanics design</li>
+                <li><span class="checkmark">🎯</span> Mobile gaming optimization</li>
+                <li><span class="checkmark">🎯</span> Tournament system creation</li>
+                <li><span class="checkmark">🎯</span> Competitive leaderboards</li>
+            </ul>
+        </div>
+        
+        <div class="roadmap-phase">
+            <div class="phase-title">2027+: Ecosystem Expansion</div>
+            <ul>
+                <li><span class="checkmark">🎯</span> DeFi protocol integration</li>
+                <li><span class="checkmark">🎯</span> Cross-chain token bridges</li>
+                <li><span class="checkmark">🎯</span> Metaverse villain districts</li>
+                <li><span class="checkmark">🎯</span> Global villain community events</li>
+                <li><span class="checkmark">🎯</span> Enterprise chaos solutions</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Current Ecosystem Features -->
+    <div class="page">
+        <h1>⚡ CURRENT ECOSYSTEM FEATURES</h1>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-title">1. Meme Factory</div>
+                <ul>
+                    <li>11 custom "Bullish Reaper" templates</li>
+                    <li>Viral-ready, optimized for socials</li>
+                    <li>Chaos & Reaper-themed meme library</li>
+                    <li>Instant generation with custom text</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">2. Tweet Generator</div>
+                <ul>
+                    <li>AI-powered villain voice tweets</li>
+                    <li>Aggressive/strategic/chaos tone modes</li>
+                    <li>Designed for virality on X</li>
+                    <li>Optimized engagement algorithms</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">3. Premium PFP Collection</div>
+                <ul>
+                    <li>20+ high-quality cyberpunk villain PFPs</li>
+                    <li>Rarity levels: Common, Rare, Legendary</li>
+                    <li>NFT-ready for future integration</li>
+                    <li>Instant download, no AI delays</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">4. Chaos Leaderboard</div>
+                <ul>
+                    <li>Meme Creation → 4 pts</li>
+                    <li>Tweet Generation → 5 pts</li>
+                    <li>PFP Download → 3 pts</li>
+                    <li>Community Engagement → Up to 50 pts</li>
+                    <li>Monthly competitions w/ token rewards</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">5. Real-Time Trading Data</div>
+                <ul>
+                    <li>Live price feeds for both tokens</li>
+                    <li>Market cap tracking</li>
+                    <li>Volume analysis</li>
+                    <li>Trading pair monitoring</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">6. Community Tools</div>
+                <ul>
+                    <li>User authentication system</li>
+                    <li>Profile management</li>
+                    <li>Activity tracking</li>
+                    <li>Social engagement features</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technical Architecture -->
+    <div class="page">
+        <h1>⚡ TECHNICAL ARCHITECTURE</h1>
+        
+        <h2>Frontend Technology Stack</h2>
+        <ul>
+            <li><strong>Framework:</strong> React + TypeScript for type safety</li>
+            <li><strong>Build Tool:</strong> Vite for optimized performance</li>
+            <li><strong>UI Library:</strong> Radix UI with shadcn components</li>
+            <li><strong>Styling:</strong> Tailwind CSS with cyberpunk theme</li>
+            <li><strong>State Management:</strong> TanStack Query for server state</li>
+            <li><strong>Routing:</strong> Wouter for lightweight navigation</li>
+        </ul>
+        
+        <h2>Backend Infrastructure</h2>
+        <ul>
+            <li><strong>Server:</strong> Express.js with TypeScript</li>
+            <li><strong>Database:</strong> PostgreSQL with Drizzle ORM</li>
+            <li><strong>Authentication:</strong> Replit Auth integration</li>
+            <li><strong>Caching:</strong> Node-cache for performance optimization</li>
+            <li><strong>Security:</strong> Express-rate-limit and helmet</li>
+            <li><strong>Object Storage:</strong> Integrated file management system</li>
+        </ul>
+        
+        <h2>Design System</h2>
+        <ul>
+            <li><strong>Color Palette:</strong> Black / Blood-Red / Toxic Green / Glitch Purple</li>
+            <li><strong>Typography:</strong> Anton, Bebas Neue, Orbitron (villain-era fonts)</li>
+            <li><strong>Animations:</strong> CSS-based glitch effects and neon glows</li>
+            <li><strong>Responsive:</strong> Mobile-first design approach</li>
+        </ul>
+    </div>
+
+    <!-- Community Infrastructure -->
+    <div class="page">
+        <h1>⚡ COMMUNITY INFRASTRUCTURE</h1>
+        
+        <h2>Multi-Platform Presence</h2>
+        <ul>
+            <li><strong>Official X:</strong> @VillianEra187 - The villain headquarters</li>
+            <li><strong>X Community:</strong> Meme warfare hub for coordinated chaos</li>
+            <li><strong>Telegram:</strong> Real-time chaos coordination and updates</li>
+            <li><strong>Website:</strong> Complete ecosystem and tool access</li>
+        </ul>
+        
+        <h2>Community Engagement</h2>
+        <ul>
+            <li>Weekly meme contests with token airdrops</li>
+            <li>Community voting on new templates & features</li>
+            <li>Transparent treasury reporting</li>
+            <li>Chaos Leaderboard governance + rewards hybrid</li>
+            <li>User-generated content integration</li>
+        </ul>
+        
+        <h2>Governance Model</h2>
+        <p>Body Bagz operates on a <span class="highlight">community-first governance model</span> where token holders and active participants have direct input on:</p>
+        <ul>
+            <li>New meme template additions</li>
+            <li>Feature development priorities</li>
+            <li>Treasury fund allocation</li>
+            <li>Partnership decisions</li>
+            <li>Community reward distributions</li>
+            <li>Dual token economic parameters</li>
+        </ul>
+    </div>
+
+    <!-- Risk Factors -->
+    <div class="page">
+        <h1>⚡ RISKS & DISCLAIMER</h1>
+        
+        <div class="new-feature">
+            <div class="new-title">⚠️ INVESTMENT RISKS</div>
+            <ul>
+                <li>$BAGZ tokens are <strong>meme tokens</strong> created for culture & entertainment</li>
+                <li>High risk / high volatility — only invest what you can afford to lose</li>
+                <li>No financial guarantees or promises of returns</li>
+                <li>Dual token system adds complexity and additional risk factors</li>
+                <li>Subject to evolving regulation and market conditions</li>
+                <li>Cryptocurrency markets are highly unpredictable</li>
+            </ul>
+        </div>
+        
+        <h2>Platform Risks</h2>
+        <ul>
+            <li><strong>Technology Dependencies:</strong> Reliance on Solana blockchain infrastructure</li>
+            <li><strong>Community Engagement:</strong> Value depends on active community participation</li>
+            <li><strong>Regulatory Changes:</strong> Potential impact from evolving crypto regulations</li>
+            <li><strong>Market Competition:</strong> Competitive landscape in meme token space</li>
+            <li><strong>Dual Token Complexity:</strong> Managing two token economies simultaneously</li>
+        </ul>
+        
+        <h2>Mitigation Strategies</h2>
+        <ul>
+            <li>Diversified revenue streams through multiple utility features</li>
+            <li>Strong community engagement mechanisms</li>
+            <li>Transparent development and regular updates</li>
+            <li>Professional security audits and best practices</li>
+            <li>Conservative tokenomics and sustainable growth focus</li>
+        </ul>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="page">
+        <h1>⚡ CONCLUSION</h1>
+        
+        <p>Body Bagz has evolved from a single meme token into a <span class="highlight">comprehensive villain ecosystem</span> featuring dual tokens, real-world merchandise, NFT utility, and community-driven governance. The introduction of the Moonshot/Pump.fun dual token architecture creates sustainable value while maintaining the chaotic energy that defines our brand.</p>
+        
+        <p>With staking mechanics linking stability to volatility, merchandise that bridges digital and physical worlds, and NFT drops that reward community engagement, Body Bagz is building the <span class="villain-text">ultimate platform for villain culture</span>.</p>
+        
+        <p>The <span class="chaos-text">Villain Era</span> isn't just beginning — it's evolving. Join us as we build chaos, own the movement, and establish the new standard for meme token ecosystems.</p>
+        
+        <div class="new-feature">
+            <div class="new-title">💀 THE EVOLUTION CONTINUES</div>
+            <p><em>Not financial advice. Powered by dual chaos. Built for villains, by villains.</em></p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem; font-family: 'Orbitron', monospace;">
+            <h3 style="color: #dc2626;">Official Links</h3>
+            <p><strong>Website:</strong> bodybagz.org</p>
+            <p><strong>Telegram:</strong> t.me/BodyBagzs</p>
+            <p><strong>X:</strong> @VillianEra187</p>
+            <p><strong>Moonshot CA:</strong> 7eyYetAuD84SFfANFKmhUDqpTgGfJUQExVUZxhNBmoon</p>
+            <p><strong>Pump.fun CA:</strong> 6sw8wayQp769fAHrJxo6brH9D8BwghYHRSnZ1xeHpump</p>
+        </div>
+    </div>
+</body>
+</html>
