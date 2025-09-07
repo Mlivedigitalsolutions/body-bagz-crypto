@@ -12,13 +12,13 @@ export default function VisionSection() {
           OUR VISION
         </h2>
         
-        <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
+        <div className="flex flex-col sm:flex-row gap-3 max-w-4xl mx-auto">
           {/* For the Culture Card */}
           <a 
             href="/mission" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="neon-card p-4 rounded-lg text-center group hover:scale-105 transition-all duration-300 hover:shadow-green-glow cursor-pointer block" 
+            className="neon-card p-3 rounded-lg text-center group hover:scale-105 transition-all duration-300 hover:shadow-green-glow cursor-pointer block flex-1" 
             data-testid="card-culture"
           >
             <div className="mb-4 flex justify-center">
@@ -35,7 +35,7 @@ export default function VisionSection() {
             href="/meetups" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="neon-card p-4 rounded-lg text-center group hover:scale-105 transition-all duration-300 hover:shadow-red-glow cursor-pointer block" 
+            className="neon-card p-3 rounded-lg text-center group hover:scale-105 transition-all duration-300 hover:shadow-red-glow cursor-pointer block flex-1" 
             data-testid="card-chaos"
           >
             <div className="mb-4 flex justify-center">
@@ -52,7 +52,7 @@ export default function VisionSection() {
             href="/market" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="neon-card p-4 rounded-lg text-center group hover:scale-105 transition-all duration-300 hover:shadow-purple-glow cursor-pointer block col-span-2" 
+            className="neon-card p-3 rounded-lg text-center group hover:scale-105 transition-all duration-300 hover:shadow-purple-glow cursor-pointer block flex-1" 
             data-testid="card-people"
           >
             <div className="mb-4 flex justify-center">
