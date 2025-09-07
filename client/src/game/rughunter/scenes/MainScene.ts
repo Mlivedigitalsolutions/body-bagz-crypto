@@ -68,26 +68,26 @@ export class MainScene extends Scene {
   }
 
   preload() {
-    // Create colored rectangles as placeholder sprites first
+    // Create bigger, more visible sprites for mobile
     this.add.graphics()
       .fillStyle(0x39FF14)
-      .fillRect(0, 0, 32, 48)
-      .generateTexture('player', 32, 48);
+      .fillRect(0, 0, 64, 80)
+      .generateTexture('player', 64, 80);
 
     this.add.graphics()
       .fillStyle(0xFF1439)
-      .fillRect(0, 0, 36, 44)
-      .generateTexture('enemy', 36, 44);
+      .fillRect(0, 0, 60, 70)
+      .generateTexture('enemy', 60, 70);
 
     this.add.graphics()
       .fillStyle(0xFFD700)
-      .fillCircle(12, 12, 12)
-      .generateTexture('coin', 24, 24);
+      .fillCircle(20, 20, 20)
+      .generateTexture('coin', 40, 40);
 
     this.add.graphics()
       .fillStyle(0x9013FE)
-      .fillRect(0, 0, 40, 60)
-      .generateTexture('obstacle', 40, 60);
+      .fillRect(0, 0, 60, 80)
+      .generateTexture('obstacle', 60, 80);
 
     // Create a simple dark background
     this.add.graphics()
@@ -115,8 +115,8 @@ export class MainScene extends Scene {
 
     // Create player - use fallback if custom sprite failed to load
     const playerTexture = this.textures.exists('player-sprite') ? 'player-sprite' : 'player';
-    this.player = this.add.sprite(width * 0.2, height * 0.7, playerTexture);
-    this.player.setScale(0.5);
+    this.player = this.add.sprite(width * 0.15, height * 0.7, playerTexture);
+    this.player.setScale(0.8);
     this.player.setInteractive();
 
     // Create groups
@@ -375,7 +375,7 @@ export class MainScene extends Scene {
     const { width, height } = this.scale;
     const enemyTexture = this.textures.exists('enemy-sprite') ? 'enemy-sprite' : 'enemy';
     const enemy = this.add.sprite(width + 50, height * 0.7, enemyTexture);
-    enemy.setScale(0.4);
+    enemy.setScale(0.6);
     
     this.physics.world.enable(enemy);
     const body = enemy.body as Phaser.Physics.Arcade.Body;
@@ -388,8 +388,8 @@ export class MainScene extends Scene {
     if (!this.coins) return;
     
     const { width, height } = this.scale;
-    const coin = this.add.sprite(width + 50, height * (0.5 + Math.random() * 0.3), 'coin');
-    coin.setScale(0.8);
+    const coin = this.add.sprite(width + 50, height * (0.4 + Math.random() * 0.4), 'coin');
+    coin.setScale(1.2);
     
     this.physics.world.enable(coin);
     const body = coin.body as Phaser.Physics.Arcade.Body;
@@ -410,8 +410,8 @@ export class MainScene extends Scene {
     if (!this.obstacles) return;
     
     const { width, height } = this.scale;
-    const obstacle = this.add.sprite(width + 50, height * 0.75, 'obstacle');
-    obstacle.setScale(0.6);
+    const obstacle = this.add.sprite(width + 50, height * 0.8, 'obstacle');
+    obstacle.setScale(0.8);
     
     this.physics.world.enable(obstacle);
     const body = obstacle.body as Phaser.Physics.Arcade.Body;
