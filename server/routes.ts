@@ -1,4 +1,4 @@
-import type { Express, Request, Response } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import path from "path";
 import { existsSync } from "fs";
@@ -1044,9 +1044,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const estDate = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
       const currentMonthYear = `${estDate.getFullYear()}-${String(estDate.getMonth() + 1).padStart(2, '0')}`;
       const monthYear = (req.query.month as string) || currentMonthYear;
+      const filter = req.query.filter as string; // 'all' | 'arcade'
       
-      const leaderboard = await storage.getLeaderboard(monthYear);
-      res.json({ leaderboard, monthYear });
+      const leaderboard = await storage.getLeaderboard(monthYear, filter);
+      res.json({ leaderboard, monthYear, filter: filter || 'all' });
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
       res.status(500).json({ error: "Failed to fetch leaderboard" });

@@ -29,10 +29,12 @@ export default function LeaderboardPage() {
     return `${estDate.getFullYear()}-${String(estDate.getMonth() + 1).padStart(2, '0')}`;
   });
   
+  const [activeTab, setActiveTab] = useState<'all' | 'arcade'>('all');
+  
   const { user } = useUser();
 
   const { data: leaderboardData, isLoading } = useQuery({
-    queryKey: ["/api/leaderboard", `?month=${selectedMonth}`],
+    queryKey: ["/api/leaderboard", `?month=${selectedMonth}&filter=${activeTab}`],
     refetchInterval: 300000,
     retry: 1,
     retryDelay: 10000,
@@ -103,6 +105,7 @@ export default function LeaderboardPage() {
               <a href="/#vision" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
               <a href="/#tokens" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokens">TOKENS</a>
               <a href="/tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">CHAOS TOOLS</a>
+              <a href="/game/rughunter" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-games">GAMES</a>
               <a href="/merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
               <a href="/leaderboard" className="text-blood-red hover:text-blood-red transition-colors font-semibold border-b-2 border-blood-red" data-testid="nav-leaderboard">LEADERBOARD</a>
               <a href="/#community" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
@@ -204,6 +207,14 @@ export default function LeaderboardPage() {
                       </div>
                       <span className="text-yellow-400 font-bold text-lg">3 pts</span>
                     </div>
+
+                    <div className="flex items-center justify-between p-3 bg-onyx rounded-lg border border-blood-red/30">
+                      <div className="flex items-center gap-3">
+                        <Target className="w-5 h-5 text-blood-red" />
+                        <span className="text-ash-white">Arcade High Score</span>
+                      </div>
+                      <span className="text-blood-red font-bold text-lg">Up to 50 pts</span>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -301,10 +312,36 @@ export default function LeaderboardPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-blood-red/20 to-transparent"></div>
                   </div>
-                  <h3 className="font-tech text-2xl text-blood-red tracking-wide flex items-center gap-3">
-                    <TrophyIcon className="w-8 h-8" />
-                    {formatMonthDisplay(currentMonthYear)} Rankings
-                  </h3>
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-tech text-2xl text-blood-red tracking-wide flex items-center gap-3">
+                      <TrophyIcon className="w-8 h-8" />
+                      {formatMonthDisplay(currentMonthYear)} Rankings
+                    </h3>
+                    
+                    {/* Tab Navigation */}
+                    <div className="flex bg-onyx rounded-lg p-1">
+                      <button
+                        onClick={() => setActiveTab('all')}
+                        className={`px-4 py-2 rounded-md text-sm font-semibold transition-all ${
+                          activeTab === 'all'
+                            ? 'bg-blood-red text-white'
+                            : 'text-ash-white hover:text-blood-red'
+                        }`}
+                      >
+                        All Activities
+                      </button>
+                      <button
+                        onClick={() => setActiveTab('arcade')}
+                        className={`px-4 py-2 rounded-md text-sm font-semibold transition-all ${
+                          activeTab === 'arcade'
+                            ? 'bg-blood-red text-white'
+                            : 'text-ash-white hover:text-blood-red'
+                        }`}
+                      >
+                        Arcade Scores
+                      </button>
+                    </div>
+                  </div>
                 </CardHeader>
                 <CardContent className="p-6">
                   {isLoading ? (

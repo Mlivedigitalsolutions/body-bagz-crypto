@@ -28,7 +28,7 @@ export interface IStorage {
   
   // Leaderboard operations
   addLeaderboardEntry(entry: InsertLeaderboardEntry): Promise<LeaderboardEntry>;
-  getLeaderboard(monthYear: string): Promise<Array<{ user: User; totalPoints: number; rank: number }>>;
+  getLeaderboard(monthYear: string, filter?: string): Promise<Array<{ user: User; totalPoints: number; rank: number }>>;
   getUserMonthlyStats(userId: string, monthYear: string): Promise<{ totalPoints: number; entries: LeaderboardEntry[] }>;
   
   // Monthly rewards operations
@@ -98,7 +98,14 @@ export class DatabaseStorage implements IStorage {
     return leaderboardEntry;
   }
 
-  async getLeaderboard(monthYear: string): Promise<Array<{ user: User; totalPoints: number; rank: number }>> {
+  async getLeaderboard(monthYear: string, filter?: string): Promise<Array<{ user: User; totalPoints: number; rank: number }>> {
+    let whereConditions = [eq(leaderboardEntries.monthYear, monthYear)];
+    
+    // Add filter condition if specified
+    if (filter === 'arcade') {
+      whereConditions.push(eq(leaderboardEntries.actionType, 'arcade_score'));
+    }
+    
     const result = await db
       .select({
         userId: leaderboardEntries.userId,
@@ -107,14 +114,15 @@ export class DatabaseStorage implements IStorage {
         xUsername: users.xUsername,
         telegramUsername: users.telegramUsername,
         solanaWallet: users.solanaWallet,
+        isAdmin: users.isAdmin,
         createdAt: users.createdAt,
         password: users.password,
         id: users.id,
       })
       .from(leaderboardEntries)
       .leftJoin(users, eq(leaderboardEntries.userId, users.id))
-      .where(eq(leaderboardEntries.monthYear, monthYear))
-      .groupBy(leaderboardEntries.userId, users.id, users.username, users.xUsername, users.telegramUsername, users.solanaWallet, users.createdAt, users.password)
+      .where(and(...whereConditions))
+      .groupBy(leaderboardEntries.userId, users.id, users.username, users.xUsername, users.telegramUsername, users.solanaWallet, users.isAdmin, users.createdAt, users.password)
       .orderBy(desc(sql`sum(${leaderboardEntries.points})`));
 
     return result.map((row, index) => ({
@@ -123,6 +131,7 @@ export class DatabaseStorage implements IStorage {
         username: row.username!,
         password: row.password!,
         xUsername: row.xUsername,
+        isAdmin: row.isAdmin,
         telegramUsername: row.telegramUsername,
         solanaWallet: row.solanaWallet,
         createdAt: row.createdAt,
