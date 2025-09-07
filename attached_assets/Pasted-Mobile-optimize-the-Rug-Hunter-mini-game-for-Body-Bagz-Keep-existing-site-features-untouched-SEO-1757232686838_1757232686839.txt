@@ -1,0 +1,76 @@
+Mobile-optimize the “Rug Hunter” mini-game for Body Bagz. Keep existing site features untouched (SEO/routes). Prioritize buttery mobile play, one-thumb control, and low input latency.
+
+CORE: GAME & CONTROLS
+- Default control scheme = GESTURES (one-hand):
+  • Swipe LEFT/RIGHT: dash horizontally (lane change or short strafe).
+  • Swipe UP: jump (clear hazards).
+  • Swipe DOWN: slide/dodge (pass under hazards).
+  • TAP anywhere: TAG/attack nearest “rugger” in front (auto-aim within small cone).
+- Accessibility: toggle to BUTTONS mode in the HUD:
+  • Bottom-left: ⬅️ ⮕ (move left/right)
+  • Bottom-right: large “TAG” button; above it a small “JUMP”; swipe-down still triggers SLIDE.
+  • Buttons should be 56–64px with 8–12px spacing (thumb-friendly), placed in “thumb zones”.
+- Input polish:
+  • Input buffering 120ms (queue one action).
+  • Gesture dead-zone & min distance to avoid accidental triggers.
+  • Attack assist: expand hurtbox by 8–12px toward facing direction.
+  • Cooldowns: TAG 250ms, JUMP 500ms, SLIDE 500ms (cancel windows feel responsive).
+  • Haptics (Vibration API): 15ms on tag hit, 35ms on damage, 60ms on game-over (fallback safe).
+  • Sound: unlock WebAudio on first touch; single master limiter to prevent clipping.
+
+PERFORMANCE ON MOBILE
+- Phaser 3 in a <GameCanvas/> component; lock target 60 FPS with dynamic resolution scaling (0.75 on low-end via RAF delta).
+- Use requestAnimationFrame visibility pause; reduce particle count & shadow effects on “Performance Mode.”
+- Sprite atlas & compressed textures (webp/avif) under /public/game/rughunter/.
+- Sprite sizes targeting 720p logical canvas (scale up to device DPR).
+- Avoid layout thrash: canvas as fixed-layer element; translate3d for HUD animations.
+- Lazy-load game chunk with React.lazy/Suspense.
+
+UI/UX & BRAND
+- Cyberpunk/villain theme (jet black bg, neon #39FF14 + glitch purple accent).
+- HUD top: SCORE (large), TIME, COMBO “Villain Streak xN”.
+- Pause button (top-right) → Resume / Controls / Performance Mode / Exit.
+- Game-over panel (full-screen modal):
+  • Final Score, Best Score (local), Combo Peak, Time Survived.
+  • CTAs: “Post a Chaos Tweet” (deep-link to Tweet Generator), “Climb Leaderboard”, “Play Again”.
+- Safe areas: respect device notches; maintain 12–16px edge insets; minimum tap targets 44px.
+
+GAME LOOP
+- 60–120s session target with difficulty ramp every 20s (spawn rate & speed).
+- Tagging “ruggers” = +10; coins = +1; streak multiplier when tagging without being hit.
+- 3 hits = game-over; brief invuln on hit (500ms).
+- Camera subtle screen-shake on hits & drops (mobile-friendly amplitude).
+
+BACKEND INTEGRATION (unchanged endpoints)
+- On game-over:
+  POST /api/actions/track { userId, actionType: "arcade_score", points }
+  • points = floor(score/10), max 50 per session.
+  POST /api/users/:userId/content
+  { contentType:"game_score", title:"Rug Hunter", content:"{score:N}", metadata:{mode:"mobile"} }
+- Add “Arcade” tab to /leaderboard view filtering arcade_score actions.
+
+ANALYTICS
+- POST /api/analytics events: game_start, game_end {score,duration,controls:"gestures|buttons"}, tag_hit, coin_pickup, damage_taken, settings_changed.
+
+ROUTING & NAV
+- New route: /game/rughunter; Nav: “Games ▸ Rug Hunter”.
+- Add home hero chip “Mobile Ready • One-Thumb Controls”.
+
+ACCESSIBILITY
+- Reduce-motion toggle (disables shakes/ambient effects).
+- All buttons have aria-labels; color-contrast ≥ 4.5:1 for HUD text.
+- Provide text “How to Play” with animated GIF demo (under the game, collapsible).
+
+ACCEPTANCE CRITERIA
+- Gestures work smoothly on iOS/Android (Safari/Chrome), with <100ms perceived latency.
+- Optional Buttons mode, persistent via localStorage.
+- 60 FPS on modern phones; auto-scales on low-end.
+- Score posts to backend; Arcade tab shows monthly points.
+- No regressions to homepage, Tweet Generator, Meme Factory, or PFP pages.
+
+FILE LAYOUT
+- /src/game/rughunter/
+  • GameCanvas.tsx (React host)
+  • scenes/MainScene.ts, ui/Hud.ts, input/GestureInput.ts, input/ButtonsInput.ts
+  • assets in /public/game/rughunter/ (placeholders ok)
+Do not modify unrelated SEO or routes beyond adding the game & menu link.
