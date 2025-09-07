@@ -1297,11 +1297,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Serve static whitepaper HTML for manual PDF conversion
-  app.get("/api/whitepaper/html", (req, res) => {
+  // Serve dynamic whitepaper HTML from template
+  app.get("/api/whitepaper/html", async (req, res) => {
     try {
-      const htmlPath = path.join(process.cwd(), 'attached_assets', 'Body_Bagz_Whitepaper_Static.html');
-      res.sendFile(htmlPath);
+      const fs = await import('fs');
+      const templatePath = path.join(process.cwd(), 'server', 'templates', 'whitepaper.html');
+      let htmlContent = fs.readFileSync(templatePath, 'utf8');
+      
+      // Replace placeholders
+      const coverImagePath = path.join(process.cwd(), 'attached_assets', 'generated_images', 'Professional_whitepaper_cover_design_e5d7badf.png');
+      const coverImageUrl = `file://${coverImagePath}`;
+      const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      
+      htmlContent = htmlContent.replace('{{COVER_IMAGE_URL}}', coverImageUrl);
+      htmlContent = htmlContent.replace('{{DATE}}', currentDate);
+      
+      res.setHeader('Content-Type', 'text/html');
+      res.send(htmlContent);
     } catch (error) {
       console.error('Error serving whitepaper HTML:', error);
       res.status(500).json({ error: "Failed to serve whitepaper HTML" });
