@@ -11,6 +11,9 @@ import ToolsPage from "@/pages/tools";
 import MerchPage from "@/pages/merch";
 import LeaderboardPage from "@/pages/leaderboard";
 import AdminPage from "@/pages/admin";
+import Mission from "@/pages/mission";
+import Meetups from "@/pages/meetups";
+import Marketplace from "@/pages/marketplace";
 import { BannerDemo } from "@/pages/banner-demo";
 import { LogoShowcase } from "@/pages/logo-showcase";
 import NotFound from "@/pages/not-found";
@@ -24,6 +27,9 @@ function Router() {
       <Route path="/merch" component={MerchPage}/>
       <Route path="/leaderboard" component={LeaderboardPage}/>
       <Route path="/admin" component={AdminPage}/>
+      <Route path="/mission" component={Mission}/>
+      <Route path="/meetups" component={Meetups}/>
+      <Route path="/market" component={Marketplace}/>
       <Route path="/banner" component={BannerDemo}/>
       <Route path="/logos" component={LogoShowcase}/>
       <Route component={NotFound} />
