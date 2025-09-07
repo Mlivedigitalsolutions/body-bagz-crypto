@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton:wght@400&family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,10 +8,10 @@
   /* Brand Colors - Exact Hex Values */
   --jet-black: #000000;
   --onyx: #1A1A1A;
-  --blood-red: #E7352C;
-  --toxic-green: #39FF14;
+  --blood-red: #EF4444;
+  --toxic-green: #22C55E;
   --glitch-purple: #7A3BFF;
-  --ash-white: #EDEEF0;
+  --ash-white: #F1F3F4;
   --dim-gray: #2A2B31;
 
   /* Shadcn Theme Variables */
@@ -21,35 +21,35 @@
   --card-foreground: #EDEEF0;
   --popover: #000000;
   --popover-foreground: #EDEEF0;
-  --primary: #E7352C;
+  --primary: #EF4444;
   --primary-foreground: #0A0A0A;
   --secondary: #2A2B31;
   --secondary-foreground: #EDEEF0;
   --muted: #2A2B31;
   --muted-foreground: #EDEEF0;
-  --accent: #39FF14;
+  --accent: #22C55E;
   --accent-foreground: #0A0A0A;
-  --destructive: #E7352C;
+  --destructive: #EF4444;
   --destructive-foreground: #EDEEF0;
   --border: #2A2B31;
   --input: #2A2B31;
-  --ring: #E7352C;
-  --chart-1: #E7352C;
-  --chart-2: #39FF14;
+  --ring: #EF4444;
+  --chart-1: #EF4444;
+  --chart-2: #22C55E;
   --chart-3: #7A3BFF;
   --chart-4: #EDEEF0;
   --chart-5: #2A2B31;
   --sidebar: #1A1A1A;
   --sidebar-foreground: #EDEEF0;
-  --sidebar-primary: #E7352C;
+  --sidebar-primary: #EF4444;
   --sidebar-primary-foreground: #0A0A0A;
-  --sidebar-accent: #39FF14;
+  --sidebar-accent: #22C55E;
   --sidebar-accent-foreground: #0A0A0A;
   --sidebar-border: #2A2B31;
-  --sidebar-ring: #E7352C;
-  --font-sans: 'Exo 2', 'Orbitron', 'Inter', sans-serif;
-  --font-serif: 'Exo 2', serif;
-  --font-mono: 'Fira Code', 'Orbitron', monospace;
+  --sidebar-ring: #EF4444;
+  --font-sans: 'Inter', 'Poppins', sans-serif;
+  --font-serif: 'Inter', serif;
+  --font-mono: 'Space Grotesk', monospace;
   --radius: 0.75rem;
 }
 
@@ -89,57 +89,30 @@
 
 @layer components {
   .font-brand {
-    font-family: 'Anton', 'Bebas Neue', 'Orbitron', 'Impact', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: linear-gradient(
-      135deg, 
-      #C7CBD1 0%, 
-      #39FF14 25%, 
-      #E7352C 50%, 
-      #7A3BFF 75%, 
-      #C7CBD1 100%
-    );
-    background-size: 200% 200%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 
-      0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(231, 53, 44, 0.6),
-      0 0 30px rgba(57, 255, 20, 0.4),
-      0 0 40px rgba(122, 59, 255, 0.3);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #F1F3F4;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   .font-tech {
-    font-family: 'Orbitron', 'Exo 2', 'Fira Code', monospace;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: #39FF14;
-    text-shadow: 
-      0 0 5px #39FF14,
-      0 0 10px #39FF14,
-      0 0 15px #39FF14,
-      0 0 20px rgba(57, 255, 20, 0.5),
-      0 2px 4px rgba(0, 0, 0, 0.8);
-    filter: brightness(1.2) contrast(1.1);
-    position: relative;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: #22C55E;
+    text-shadow: none;
   }
 
   .font-body {
-    font-family: 'Exo 2', 'Inter', 'Montserrat', sans-serif;
-    font-size: 18px;
-    line-height: 1.7;
+    font-family: 'Inter', 'Poppins', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
     font-variant-numeric: tabular-nums;
-    color: #EDEEF0;
-    text-shadow: 
-      0 1px 2px rgba(0, 0, 0, 0.8),
-      0 0 8px rgba(237, 238, 240, 0.2);
-    font-weight: 500;
-    letter-spacing: 0.025em;
+    color: #F1F3F4;
+    text-shadow: none;
+    font-weight: 400;
+    letter-spacing: 0;
   }
 
   .cyber-button {

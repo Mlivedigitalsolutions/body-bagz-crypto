@@ -14,10 +14,10 @@ export default {
         // Brand Colors
         'jet-black': '#0A0A0B',
         'onyx': '#111214',
-        'blood-red': '#E7352C',
-        'toxic-green': '#39FF14',
+        'blood-red': '#EF4444',
+        'toxic-green': '#22C55E',
         'glitch-purple': '#7A3BFF',
-        'ash-white': '#EDEEF0',
+        'ash-white': '#F1F3F4',
         'dim-gray': '#2A2B31',
         
         // Shadcn Theme Colors
@@ -76,9 +76,9 @@ export default {
         sans: ["var(--font-sans)"],
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
-        brand: ['Anton', 'Bebas Neue', 'Impact', 'Arial Black', 'sans-serif'],
-        tech: ['Orbitron', 'Exo 2', 'monospace'],
-        body: ['Inter', 'Montserrat', 'sans-serif'],
+        brand: ['Space Grotesk', 'Inter', 'Poppins', 'sans-serif'],
+        tech: ['Space Grotesk', 'Inter', 'sans-serif'],
+        body: ['Inter', 'Poppins', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {
