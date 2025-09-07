@@ -45,13 +45,92 @@ export default function Tokenomics() {
             </div>
           </div>
 
+          {/* Tokenomics Overview */}
+          <div className="neon-card p-8 rounded-xl mb-8">
+            <h2 className="font-tech text-2xl text-toxic-green mb-6">Moonshot $BAGZ Tokenomics</h2>
+            <div className="bg-toxic-green/5 border border-toxic-green/20 rounded-lg p-6 mb-6">
+              <p className="text-ash-white font-semibold mb-4">
+                Moonshot $BAGZ launched with no presale and no team allocation. 
+                The majority of supply is distributed transparently through Moonshot's bonding curve and automatic burn system.
+              </p>
+              <p className="text-dim-enhanced">
+                The Body Bagz ecosystem is anchored by a long-term reserve of 20M BAGZ locked until March 2026, 
+                and a Treasury Wallet of 36M BAGZ for ecosystem growth and rewards. 
+                Liquidity is permanently secured through Moonshot's LP burn process once bonding is complete.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              {/* Community Distribution */}
+              <div className="bg-toxic-green/10 border border-toxic-green/30 rounded-lg p-6">
+                <h3 className="font-tech text-xl text-toxic-green mb-4">Community Distribution — Dynamic (Majority of Supply)</h3>
+                <p className="text-dim-enhanced mb-4">
+                  Distributed directly through Moonshot's bonding curve mechanics. The final circulating amount depends on market participation and Moonshot's automatic supply burn when the bonding cap is reached.
+                </p>
+                <ul className="space-y-2 text-dim-enhanced">
+                  <li>• Fair launch via bonding curve</li>
+                  <li>• No presale or team allocation</li>
+                  <li>• Automatic supply management</li>
+                  <li>• Community-driven distribution</li>
+                </ul>
+              </div>
+
+              {/* Long-Term Reserve */}
+              <div className="bg-blood-red/10 border border-blood-red/30 rounded-lg p-6">
+                <h3 className="font-tech text-xl text-blood-red mb-4">20M Long-Term Reserve (Locked)</h3>
+                <p className="text-dim-enhanced mb-4">
+                  Locked until March 18, 2026 via Streamflow for long-term ecosystem stability.
+                </p>
+                <div className="bg-jet-black/50 rounded p-3 mb-4">
+                  <p className="text-ash-white font-semibold text-sm mb-2">📌 Proof of Lock:</p>
+                  <a 
+                    href="https://app.streamflow.finance/contract/solana/mainnet/35drUjYCwvTdbYaaXP6cPMAKRLcFSLTBnkaweCCMFFxd?ref=psychically-impish-marten"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-toxic-green hover:text-toxic-green/80 break-all text-xs"
+                  >
+                    35drUjYCwvTdbYaaXP6cPMAKRLcFSLTBnkaweCCMFFxd
+                  </a>
+                </div>
+              </div>
+
+              {/* Treasury Wallet */}
+              <div className="bg-glitch-purple/10 border border-glitch-purple/30 rounded-lg p-6">
+                <h3 className="font-tech text-xl text-glitch-purple mb-4">36M Treasury Wallet (Active)</h3>
+                <p className="text-dim-enhanced mb-4">
+                  Treasury funds are dedicated to ecosystem growth, staking rewards, buybacks, contests, marketing, and development.
+                </p>
+                <div className="bg-jet-black/50 rounded p-3 mb-4">
+                  <p className="text-ash-white font-semibold text-sm mb-2">📌 Treasury Wallet Address:</p>
+                  <a 
+                    href="https://solscan.io/address/3jMTx4EHRXv5vUwgmbECUPFb1mGntQnczHfMfRMufKR7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-toxic-green hover:text-toxic-green/80 break-all text-xs"
+                  >
+                    3jMTx4EHRXv5vUwgmbECUPFb1mGntQnczHfMfRMufKR7
+                  </a>
+                </div>
+              </div>
+
+              {/* Liquidity Lock */}
+              <div className="bg-ash-white/10 border border-ash-white/30 rounded-lg p-6">
+                <h3 className="font-tech text-xl text-ash-white mb-4">Liquidity — Permanently Locked via Moonshot</h3>
+                <p className="text-dim-enhanced">
+                  Once the bonding cap is reached (~500 SOL market cap), Moonshot automatically creates the Raydium pool and burns LP tokens. 
+                  This permanently locks liquidity and removes rug-pull risk.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Dual Token Ecosystem */}
           <div className="neon-card p-8 rounded-xl mb-8">
             <h2 className="font-tech text-2xl text-toxic-green mb-6">Dual Token Ecosystem</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-toxic-green/10 border border-toxic-green/30 rounded-lg p-6">
                 <h3 className="font-tech text-xl text-toxic-green mb-4">Moonshot $BAGZ</h3>
-                <p className="text-dim-enhanced mb-4">The stable, community-focused token for long-term holders and ecosystem governance.</p>
+                <p className="text-dim-enhanced mb-4">The primary ecosystem token with transparent tokenomics and community governance.</p>
                 <ul className="space-y-2 text-dim-enhanced">
                   <li>• Community governance rights</li>
                   <li>• Monthly reward eligibility</li>
