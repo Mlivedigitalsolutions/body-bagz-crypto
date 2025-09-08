@@ -1,0 +1,47 @@
+Create a staking entry point on the Body Bagz website with two layers:
+
+1) New route/page: /stake
+   - Purpose: central hub for staking info and actions.
+   - Content sections:
+     • Hero title: “Stake $BAGZ — Genesis Villain Pool”
+     • Key facts (pull from current config text, not hard-coded numbers):
+         - Rewards funded: 200,000 $BAGZ
+         - Duration: 15 days
+         - Reward rate: 0.75% daily (≈11.25% total)
+         - Min stake: 10,000 Moonshot $BAGZ
+     • Primary CTA: “Stake Now”
+     • Secondary CTA: “View on Smithii”
+     • Small disclaimer: “Not financial advice. Always DYOR.”
+
+   - Embedding:
+     • Attempt to embed the staking app at https://stake.smithii.io/bagz in a responsive container (iframe or equivalent).
+     • If embedding is blocked by CSP/X-Frame-Options, automatically fall back to showing a styled card with the CTAs:
+         - Primary CTA opens https://stake.smithii.io/bagz in a new tab (target=_blank, rel=noopener).
+         - Secondary CTA does the same.
+
+   - Tracking:
+     • Add click tracking to both CTAs (e.g., window.analytics or our existing /api/analytics) with events:
+         - "stake_cta_click" (properties: { location: "stake_page_primary" })
+         - "stake_cta_click" (properties: { location: "stake_page_secondary" })
+
+   - SEO:
+     • Title tag: “Stake $BAGZ | Body Bagz”
+     • Meta description: “Stake your Moonshot $BAGZ in the Genesis Villain Pool. 15-day lock, ~0.75% daily rewards. Join the Villain Era.”
+     • Canonical: https://bodybagz.org/stake
+     • Add an internal link to /stake from the homepage hero and navigation.
+
+2) Global navigation + homepage:
+   - Add a visible “Stake” button to the main navbar and homepage hero.
+   - Both link to /stake (not directly to Smithii), so we control the UX and analytics.
+
+3) Styling:
+   - Keep styling consistent with Body Bagz brand (cyberpunk/villain aesthetic).
+   - Add small stat badges (e.g., “15 Days”, “~0.75% Daily”, “200K Rewards”).
+   - Mobile-first responsive layout.
+
+4) Content safety:
+   - Do not hard-code wallet secrets or private keys.
+   - Do not mutate any staking configuration; this page is a frontend entry only.
+
+Use this external URL for the live pool:
+• Staking URL: https://stake.smithii.io/bagz
