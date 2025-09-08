@@ -4,7 +4,8 @@ import { ChevronLeft } from "lucide-react";
 import analytics from "@/lib/analytics";
 
 export default function StakePage() {
-  const [embedError, setEmbedError] = useState(false);
+  // Removed iframe embedding - DeFi platforms typically require wallet connections
+  // and have security restrictions that prevent embedding
 
   useEffect(() => {
     // Track page view
@@ -34,10 +35,6 @@ export default function StakePage() {
       location: location
     });
     window.open('https://stake.smithii.io/bagz', '_blank', 'noopener');
-  };
-
-  const handleIframeError = () => {
-    setEmbedError(true);
   };
 
   return (
@@ -104,56 +101,60 @@ export default function StakePage() {
 
           {/* Main Staking Interface */}
           <div className="bg-jet-black/80 border border-dim-gray rounded-xl p-6 md:p-8 backdrop-blur-sm">
-            {!embedError ? (
-              <div className="relative">
-                <iframe
-                  src="https://stake.smithii.io/bagz"
-                  className="w-full h-[600px] md:h-[700px] rounded-lg border border-dim-gray"
-                  title="Body Bagz Staking Interface"
-                  onError={handleIframeError}
-                  sandbox="allow-scripts allow-same-origin allow-forms"
-                  data-testid="staking-iframe"
-                />
-                <div className="absolute top-2 right-2">
-                  <div className="bg-toxic-green/20 border border-toxic-green/50 rounded-full px-3 py-1 text-xs text-toxic-green font-tech">
-                    LIVE
+            <div className="text-center py-16">
+              <div className="bg-gradient-to-r from-blood-red/10 to-glitch-purple/10 border border-blood-red/30 rounded-xl p-8 max-w-lg mx-auto">
+                <div className="text-5xl mb-6">⚡</div>
+                <h3 className="font-brand text-2xl text-blood-red mb-6">
+                  Genesis Villain Pool
+                </h3>
+                <div className="space-y-4 text-ash-white/80 mb-8">
+                  <div className="flex items-center justify-between text-sm">
+                    <span>Stake:</span>
+                    <span className="text-toxic-green font-tech">Moonshot $BAGZ</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span>Earn:</span>
+                    <span className="text-blood-red font-tech">Pump.fun $BAGZ</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span>Daily Rate:</span>
+                    <span className="text-glitch-purple font-tech">0.75% (~11.25% total)</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span>Lock Period:</span>
+                    <span className="text-ash-white font-tech">15 days</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span>Minimum:</span>
+                    <span className="text-ash-white font-tech">10,000 $BAGZ</span>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div className="text-center py-16">
-                <div className="bg-gradient-to-r from-blood-red/10 to-glitch-purple/10 border border-blood-red/30 rounded-xl p-8 max-w-md mx-auto">
-                  <div className="text-4xl mb-4">⚡</div>
-                  <h3 className="font-brand text-xl text-blood-red mb-4">
-                    Genesis Villain Pool
-                  </h3>
-                  <div className="space-y-3 text-ash-white/80 text-sm mb-6">
-                    <div>• Stake Moonshot $BAGZ → Earn Pump.fun $BAGZ</div>
-                    <div>• 0.75% daily rewards (~11.25% total)</div>
-                    <div>• 15-day lock period</div>
-                    <div>• 10,000 minimum stake</div>
-                  </div>
+                
+                <div className="space-y-4">
+                  <button
+                    onClick={() => handleStakeCTA('stake_page_primary')}
+                    className="w-full bg-gradient-to-r from-blood-red to-glitch-purple hover:from-blood-red/80 hover:to-glitch-purple/80 text-white font-tech py-4 px-8 rounded-lg transition-all duration-200 hover:shadow-red-glow text-lg"
+                    data-testid="stake-cta-primary"
+                  >
+                    🚀 Launch Staking App
+                  </button>
                   
-                  <div className="space-y-3">
-                    <button
-                      onClick={() => handleStakeCTA('stake_page_primary')}
-                      className="w-full bg-gradient-to-r from-blood-red to-glitch-purple hover:from-blood-red/80 hover:to-glitch-purple/80 text-white font-tech py-3 px-6 rounded-lg transition-all duration-200 hover:shadow-red-glow"
-                      data-testid="stake-cta-primary"
-                    >
-                      Stake Now ⚡
-                    </button>
-                    
-                    <button
-                      onClick={() => handleStakeCTA('stake_page_secondary')}
-                      className="w-full bg-jet-black border border-dim-gray hover:border-toxic-green text-ash-white hover:text-toxic-green font-tech py-3 px-6 rounded-lg transition-all duration-200"
-                      data-testid="stake-cta-secondary"
-                    >
-                      View on Smithii ↗
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => handleStakeCTA('stake_page_secondary')}
+                    className="w-full bg-jet-black border border-dim-gray hover:border-toxic-green text-ash-white hover:text-toxic-green font-tech py-3 px-6 rounded-lg transition-all duration-200"
+                    data-testid="stake-cta-secondary"
+                  >
+                    View on Smithii.io ↗
+                  </button>
+                </div>
+                
+                <div className="mt-6 pt-6 border-t border-dim-gray/30">
+                  <p className="text-xs text-ash-white/60">
+                    Connect your Solana wallet on Smithii to start staking
+                  </p>
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Key Features */}
