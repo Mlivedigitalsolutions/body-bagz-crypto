@@ -240,6 +240,51 @@ export default function Home() {
       <main>
         <HeroSection titleRef={mainTitleRef} />
         
+        {/* Genesis Staking Pool Announcement */}
+        <section className="relative z-10 py-8 px-4 md:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="bg-gradient-to-r from-blood-red/10 via-glitch-purple/10 to-toxic-green/10 border border-blood-red/30 rounded-xl p-6 md:p-8 backdrop-blur-sm">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="text-center md:text-left">
+                  <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
+                    <span className="text-2xl">⚡</span>
+                    <h3 className="font-brand text-xl md:text-2xl text-blood-red">Genesis Villain Pool</h3>
+                    <span className="bg-toxic-green/20 border border-toxic-green/50 text-toxic-green text-xs font-tech px-2 py-1 rounded-full">
+                      LIVE
+                    </span>
+                  </div>
+                  <p className="text-ash-white/80 text-sm md:text-base">
+                    Stake Moonshot $BAGZ → Earn Pump.fun $BAGZ | 0.75% daily rewards for 15-day locks
+                  </p>
+                  <div className="flex flex-wrap justify-center md:justify-start gap-4 mt-3 text-xs text-ash-white/60">
+                    <span>200K $BAGZ funded</span>
+                    <span>•</span>
+                    <span>10K minimum stake</span>
+                    <span>•</span>
+                    <span>~11.25% total return</span>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href="/stake"
+                    className="px-6 py-3 bg-gradient-to-r from-blood-red to-glitch-purple hover:from-blood-red/80 hover:to-glitch-purple/80 text-white font-tech rounded-lg transition-all duration-200 hover:shadow-red-glow text-center"
+                    data-testid="home-stake-cta"
+                  >
+                    🚀 Start Staking
+                  </a>
+                  <a
+                    href="/stake"
+                    className="px-6 py-3 bg-jet-black/60 border border-dim-gray hover:border-toxic-green text-ash-white hover:text-toxic-green font-tech rounded-lg transition-all duration-200 text-center"
+                    data-testid="home-stake-info"
+                  >
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         {/* Streamlined Introduction Section */}
         <section className="relative z-10 py-12 md:py-16 px-4 md:px-6">
           <div className="max-w-4xl mx-auto">
