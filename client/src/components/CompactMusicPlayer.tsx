@@ -9,6 +9,104 @@ interface Song {
 }
 
 const playlist: Song[] = [
+  // Newest uploads first (latest batch)
+  {
+    id: 'champagne-dreams',
+    title: 'Champagne Dreams',
+    src: '/api/audio/champagne dreams_1757383060150.mp3'
+  },
+  {
+    id: 'villain-creed',
+    title: 'Villain Creed',
+    src: '/api/audio/Villian creed _1757383060158.mp3'
+  },
+  {
+    id: 'chaos-amplified',
+    title: 'Chaos Amplified',
+    src: '/api/audio/Chaos amplified _1757383060165.mp3'
+  },
+  {
+    id: 'straight-out-da-trenches-remix-wav',
+    title: 'Straight Out Da Trenches Remix',
+    src: '/api/audio/Straight out Da Trenches remix_1757383060172.wav'
+  },
+  {
+    id: 'straight-out-da-trenches',
+    title: 'Straight Out Da Trenches',
+    src: '/api/audio/Straight out Da Trenches _1757383060179.mp3'
+  },
+  {
+    id: 'straight-out-da-trenches-remix',
+    title: 'Straight Out Da Trenches Remix',
+    src: '/api/audio/Straight out Da Trenches remix_1757383060186.mp3'
+  },
+  {
+    id: 'villain-revolution-remix',
+    title: 'Villain Revolution Remix',
+    src: '/api/audio/Villian Revolution remix_1757383060192.mp3'
+  },
+  {
+    id: 'villain-revolution-1',
+    title: 'Villain Revolution I',
+    src: '/api/audio/Villian Revolution 1_1757383060200.mp3'
+  },
+  {
+    id: 'gen-z-stand-up-remix',
+    title: 'Gen Z Stand Up Remix',
+    src: '/api/audio/Gen Z Stand up remix_1757383060208.mp3'
+  },
+  {
+    id: 'gen-z-stand-up',
+    title: 'Gen Z Stand Up!!',
+    src: '/api/audio/Gez Z Stand Up!!_1757383060216.mp3'
+  },
+  // Second batch uploads
+  {
+    id: 'rug-hunter-club-mix',
+    title: 'Rug Hunter Club Mix',
+    src: '/api/audio/Rug Hunter club mix_1757382875327.mp3'
+  },
+  {
+    id: 'rug-hunter',
+    title: 'Rug Hunter',
+    src: '/api/audio/Rug Hunter_1757382875336.mp3'
+  },
+  {
+    id: '10x-100x-1000x-remix',
+    title: '10x 100x 1000x Remix',
+    src: '/api/audio/10x 100x 1000x remix_1757382875344.mp3'
+  },
+  {
+    id: '10x-100x-1000x-mix',
+    title: '10x 100x 1000x Mix',
+    src: '/api/audio/10x 100x 1000x mix_1757382875353.mp3'
+  },
+  {
+    id: '10x-100x-real',
+    title: '10x 100x Real',
+    src: '/api/audio/10x 100x real_1757382875361.mp3'
+  },
+  {
+    id: '10x-100x-raw',
+    title: '10x 100x Raw',
+    src: '/api/audio/10x 100x raw_1757382875370.mp3'
+  },
+  {
+    id: 'ten-x-style',
+    title: 'Ten X Style',
+    src: '/api/audio/Ten x style_1757382875379.mp3'
+  },
+  {
+    id: 'ten-x',
+    title: 'Ten X',
+    src: '/api/audio/Ten x_1757382875387.mp3'
+  },
+  {
+    id: 'champagne-dreams-duet',
+    title: 'Champagne Dreams Duet',
+    src: '/api/audio/champagne dreams duet _1757382875396.mp3'
+  },
+  // Original tracks
   {
     id: 'villain-mode',
     title: 'Villain Mode',
@@ -63,101 +161,6 @@ const playlist: Song[] = [
     id: 'dr-frankenstein-theme-1',
     title: 'Dr Frankenstein\'s Theme I',
     src: '/audio/Dr Frankenstein\'s Theme 1_1756864222833.mp3'
-  },
-  {
-    id: 'rug-hunter-club-mix',
-    title: 'Rug Hunter Club Mix',
-    src: '/audio/Rug Hunter club mix_1757382875327.mp3'
-  },
-  {
-    id: 'rug-hunter',
-    title: 'Rug Hunter',
-    src: '/audio/Rug Hunter_1757382875336.mp3'
-  },
-  {
-    id: '10x-100x-1000x-remix',
-    title: '10x 100x 1000x Remix',
-    src: '/audio/10x 100x 1000x remix_1757382875344.mp3'
-  },
-  {
-    id: '10x-100x-1000x-mix',
-    title: '10x 100x 1000x Mix',
-    src: '/audio/10x 100x 1000x mix_1757382875353.mp3'
-  },
-  {
-    id: '10x-100x-real',
-    title: '10x 100x Real',
-    src: '/audio/10x 100x real_1757382875361.mp3'
-  },
-  {
-    id: '10x-100x-raw',
-    title: '10x 100x Raw',
-    src: '/audio/10x 100x raw_1757382875370.mp3'
-  },
-  {
-    id: 'ten-x-style',
-    title: 'Ten X Style',
-    src: '/audio/Ten x style_1757382875379.mp3'
-  },
-  {
-    id: 'ten-x',
-    title: 'Ten X',
-    src: '/audio/Ten x_1757382875387.mp3'
-  },
-  {
-    id: 'champagne-dreams-duet',
-    title: 'Champagne Dreams Duet',
-    src: '/audio/champagne dreams duet _1757382875396.mp3'
-  },
-  {
-    id: 'champagne-dreams',
-    title: 'Champagne Dreams',
-    src: '/audio/champagne dreams_1757383060150.mp3'
-  },
-  {
-    id: 'villain-creed',
-    title: 'Villain Creed',
-    src: '/audio/Villian creed _1757383060158.mp3'
-  },
-  {
-    id: 'chaos-amplified',
-    title: 'Chaos Amplified',
-    src: '/audio/Chaos amplified _1757383060165.mp3'
-  },
-  {
-    id: 'straight-out-da-trenches-remix-wav',
-    title: 'Straight Out Da Trenches Remix',
-    src: '/audio/Straight out Da Trenches remix_1757383060172.wav'
-  },
-  {
-    id: 'straight-out-da-trenches',
-    title: 'Straight Out Da Trenches',
-    src: '/audio/Straight out Da Trenches _1757383060179.mp3'
-  },
-  {
-    id: 'straight-out-da-trenches-remix',
-    title: 'Straight Out Da Trenches Remix',
-    src: '/audio/Straight out Da Trenches remix_1757383060186.mp3'
-  },
-  {
-    id: 'villain-revolution-remix',
-    title: 'Villain Revolution Remix',
-    src: '/audio/Villian Revolution remix_1757383060192.mp3'
-  },
-  {
-    id: 'villain-revolution-1',
-    title: 'Villain Revolution I',
-    src: '/audio/Villian Revolution 1_1757383060200.mp3'
-  },
-  {
-    id: 'gen-z-stand-up-remix',
-    title: 'Gen Z Stand Up Remix',
-    src: '/audio/Gen Z Stand up remix_1757383060208.mp3'
-  },
-  {
-    id: 'gen-z-stand-up',
-    title: 'Gen Z Stand Up!!',
-    src: '/audio/Gez Z Stand Up!!_1757383060216.mp3'
   }
 ];
 

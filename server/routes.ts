@@ -1214,6 +1214,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Serve audio files from attached_assets
+  app.get("/api/audio/:filename", (req, res) => {
+    try {
+      const filename = req.params.filename;
+      const audioPath = path.join(process.cwd(), 'attached_assets', filename);
+      
+      if (existsSync(audioPath)) {
+        // Set proper headers for audio files
+        const ext = path.extname(filename).toLowerCase();
+        const mimeTypes: { [key: string]: string } = {
+          '.mp3': 'audio/mpeg',
+          '.wav': 'audio/wav',
+          '.ogg': 'audio/ogg',
+          '.m4a': 'audio/mp4'
+        };
+        
+        const contentType = mimeTypes[ext] || 'audio/mpeg';
+        res.setHeader('Content-Type', contentType);
+        res.setHeader('Accept-Ranges', 'bytes');
+        res.sendFile(audioPath);
+      } else {
+        res.status(404).json({ error: "Audio file not found" });
+      }
+    } catch (error) {
+      console.error('Error serving audio:', error);
+      res.status(500).json({ error: "Failed to serve audio" });
+    }
+  });
+
   // Serve telegram stickers
   app.get("/api/stickers/:filename", (req, res) => {
     try {
