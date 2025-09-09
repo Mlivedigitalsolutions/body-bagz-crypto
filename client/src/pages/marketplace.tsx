@@ -501,6 +501,52 @@ export default function Marketplace() {
         </div>
       </main>
 
+      {/* Report Modal */}
+      <Dialog open={reportModalOpen} onOpenChange={setReportModalOpen}>
+        <DialogContent className="bg-onyx border-blood-red">
+          <DialogHeader>
+            <DialogTitle className="text-blood-red font-brand">Report Listing</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="report-reason" className="text-ash-white">
+                Why are you reporting this listing?
+              </Label>
+              <Textarea
+                id="report-reason"
+                value={reportReason}
+                onChange={(e) => setReportReason(e.target.value)}
+                placeholder="Please describe the issue with this listing..."
+                className="bg-jet-black border-dim-gray text-ash-white mt-2"
+                rows={4}
+                data-testid="report-reason-textarea"
+              />
+            </div>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setReportModalOpen(false);
+                setReportReason('');
+              }}
+              className="border-dim-gray text-dim-gray hover:bg-dim-gray hover:text-jet-black"
+              data-testid="report-cancel-button"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={submitReport}
+              disabled={!reportReason.trim()}
+              className="bg-blood-red hover:bg-red-600 text-white"
+              data-testid="report-submit-button"
+            >
+              Submit Report
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Footer */}
       <footer className="relative z-10 py-8 border-t border-dim-gray/30">
         <div className="max-w-6xl mx-auto text-center px-4">
