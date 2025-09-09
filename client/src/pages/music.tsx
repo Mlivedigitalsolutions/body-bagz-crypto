@@ -427,19 +427,145 @@ export default function MusicPage() {
           </div>
         </div>
 
-        {/* Video Player Section (Placeholder) */}
+        {/* Video Player Section with YouTube */}
         <div className="mt-12">
           <h2 className="text-4xl font-bold text-center text-toxic-green mb-8 font-anton">
-            MUSIC VIDEOS
+            MUSIC VIDEOS & CONTENT
           </h2>
+          
+          <div className="grid lg:grid-cols-2 gap-8 mb-8">
+            {/* YouTube Channel Embed */}
+            <Card className="bg-onyx border-blood-red">
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-bold text-toxic-green mb-4 text-center">
+                  Official YouTube Channel
+                </h3>
+                <div className="aspect-video bg-jet-black rounded-lg overflow-hidden border border-dim-gray">
+                  <div className="w-full h-full bg-jet-black border border-dim-gray rounded-lg flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-6xl text-red-500 mb-4">📺</div>
+                      <h3 className="text-xl text-ash-white mb-2">YouTube Channel</h3>
+                      <p className="text-dim-gray mb-4">
+                        Watch our latest videos and subscribe for epic content!
+                      </p>
+                      <a
+                        href="https://www.youtube.com/@BodyBagzOfficial"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-ash-white rounded-lg font-semibold transition-all duration-200 cyber-button"
+                        data-testid="youtube-visit-button"
+                      >
+                        📺 Visit Channel
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-center mt-4">
+                  <a
+                    href="https://www.youtube.com/@BodyBagzOfficial"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-blood-red hover:bg-red-600 text-ash-white rounded-lg font-semibold transition-all duration-200 cyber-button"
+                    data-testid="youtube-channel-link"
+                  >
+                    📺 Watch All Videos
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Social Media Links */}
+            <Card className="bg-onyx border-blood-red">
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-bold text-toxic-green mb-4 text-center">
+                  Follow The Villain Era
+                </h3>
+                <div className="space-y-4">
+                  <a
+                    href="https://www.youtube.com/@BodyBagzOfficial"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 bg-jet-black border border-dim-gray rounded-lg hover:border-blood-red transition-all duration-200 group"
+                    data-testid="social-youtube"
+                  >
+                    <div className="text-2xl">📺</div>
+                    <div>
+                      <div className="text-ash-white font-semibold group-hover:text-toxic-green">YouTube</div>
+                      <div className="text-sm text-dim-gray">@BodyBagzOfficial</div>
+                    </div>
+                  </a>
+                  
+                  <a
+                    href="https://www.instagram.com/bodybagzofficial?igsh=MThlcXYwaW5yd3V2Yw=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 bg-jet-black border border-dim-gray rounded-lg hover:border-blood-red transition-all duration-200 group"
+                    data-testid="social-instagram"
+                  >
+                    <div className="text-2xl">📸</div>
+                    <div>
+                      <div className="text-ash-white font-semibold group-hover:text-toxic-green">Instagram</div>
+                      <div className="text-sm text-dim-gray">@bodybagzofficial</div>
+                    </div>
+                  </a>
+                  
+                  <a
+                    href="https://www.tiktok.com/@bodybagzofficial?_t=ZP-8zY3pODNues&_r=1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 bg-jet-black border border-dim-gray rounded-lg hover:border-blood-red transition-all duration-200 group"
+                    data-testid="social-tiktok"
+                  >
+                    <div className="text-2xl">🎵</div>
+                    <div>
+                      <div className="text-ash-white font-semibold group-hover:text-toxic-green">TikTok</div>
+                      <div className="text-sm text-dim-gray">@bodybagzofficial</div>
+                    </div>
+                  </a>
+                </div>
+                
+                <div className="mt-6 p-4 bg-gradient-to-r from-blood-red/20 to-toxic-green/20 border border-dim-gray rounded-lg">
+                  <div className="text-center">
+                    <div className="text-sm text-ash-white mb-2">
+                      🔥 <strong>Join the villain collective!</strong> 🔥
+                    </div>
+                    <div className="text-xs text-dim-gray">
+                      Follow for exclusive content, behind-the-scenes, and villain era updates
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Music Video Grid Placeholder */}
           <Card className="bg-onyx border-blood-red">
-            <CardContent className="p-8 text-center">
-              <div className="bg-jet-black border border-dim-gray rounded-lg p-12 mb-4">
-                <div className="text-6xl text-dim-gray mb-4">🎬</div>
-                <h3 className="text-xl text-ash-white mb-2">Coming Soon</h3>
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-center text-ash-white mb-6">
+                Featured Music Videos
+              </h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3].map((index) => (
+                  <div
+                    key={index}
+                    className="aspect-video bg-jet-black border border-dim-gray rounded-lg flex items-center justify-center hover:border-toxic-green transition-all duration-200 cursor-pointer group"
+                    data-testid={`video-placeholder-${index}`}
+                  >
+                    <div className="text-center">
+                      <div className="text-4xl text-dim-gray group-hover:text-toxic-green transition-colors mb-2">
+                        ▶️
+                      </div>
+                      <div className="text-sm text-dim-gray group-hover:text-ash-white">
+                        Coming Soon
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="text-center mt-6">
                 <p className="text-dim-gray">
                   Epic music videos for your favorite Body Bagz tracks are in production.
-                  Stay tuned for cyberpunk visuals that match the villain era energy!
+                  Subscribe to our YouTube channel to be notified when they drop! 🚀
                 </p>
               </div>
             </CardContent>

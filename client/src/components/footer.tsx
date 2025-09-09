@@ -13,11 +13,12 @@ export default function Footer() {
         <div className="font-tech text-toxic-green mb-6">THE VILLAIN ERA HAS BEGUN</div>
         
         {/* Contact & Social Links */}
-        <div className="flex justify-center space-x-6 mb-8">
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
           <a 
             href="mailto:team@bodybagz.org" 
             className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-blue-glow transition-all duration-200 group"
             data-testid="footer-email"
+            title="Email"
           >
             <svg className="w-6 h-6 text-blue-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -25,11 +26,42 @@ export default function Footer() {
             </svg>
           </a>
           <a 
+            href="https://www.youtube.com/@BodyBagzOfficial" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-red-glow transition-all duration-200 group"
+            data-testid="footer-youtube"
+            title="YouTube"
+          >
+            <span className="text-red-500 group-hover:scale-110 transition-transform text-xl">📺</span>
+          </a>
+          <a 
+            href="https://www.instagram.com/bodybagzofficial?igsh=MThlcXYwaW5yd3V2Yw==" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-pink-glow transition-all duration-200 group"
+            data-testid="footer-instagram"
+            title="Instagram"
+          >
+            <span className="text-pink-500 group-hover:scale-110 transition-transform text-xl">📸</span>
+          </a>
+          <a 
+            href="https://www.tiktok.com/@bodybagzofficial?_t=ZP-8zY3pODNues&_r=1" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-purple-glow transition-all duration-200 group"
+            data-testid="footer-tiktok"
+            title="TikTok"
+          >
+            <span className="text-purple-500 group-hover:scale-110 transition-transform text-xl">🎵</span>
+          </a>
+          <a 
             href="https://t.me/BodyBagzs" 
             target="_blank" 
             rel="noopener noreferrer"
             className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-green-glow transition-all duration-200 group"
             data-testid="footer-telegram"
+            title="Telegram"
           >
             <TelegramChaosIcon className="w-6 h-6 text-toxic-green group-hover:scale-110 transition-transform" />
           </a>
@@ -39,6 +71,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-red-glow transition-all duration-200 group"
             data-testid="footer-x-official"
+            title="X Official"
           >
             <XChaosIcon className="w-6 h-6 text-blood-red group-hover:scale-110 transition-transform" />
           </a>
@@ -48,6 +81,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="p-3 rounded-lg bg-jet-black border border-dim-gray hover:shadow-purple-glow transition-all duration-200 group"
             data-testid="footer-x-community"
+            title="X Community"
           >
             <XChaosIcon className="w-6 h-6 text-glitch-purple group-hover:scale-110 transition-transform" />
           </a>

@@ -148,13 +148,44 @@ export default function Home() {
             </button>
             
             {/* Social Links */}
-            <div className="hidden lg:flex items-center space-x-3">
+            <div className="hidden lg:flex items-center space-x-2 xl:space-x-3">
+              <a 
+                href="https://www.youtube.com/@BodyBagzOfficial" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-red-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
+                data-testid="nav-youtube"
+                title="YouTube"
+              >
+                <span className="text-red-500 group-hover:scale-110 transition-transform text-lg">📺</span>
+              </a>
+              <a 
+                href="https://www.instagram.com/bodybagzofficial?igsh=MThlcXYwaW5yd3V2Yw==" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-pink-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
+                data-testid="nav-instagram"
+                title="Instagram"
+              >
+                <span className="text-pink-500 group-hover:scale-110 transition-transform text-lg">📸</span>
+              </a>
+              <a 
+                href="https://www.tiktok.com/@bodybagzofficial?_t=ZP-8zY3pODNues&_r=1" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-purple-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
+                data-testid="nav-tiktok"
+                title="TikTok"
+              >
+                <span className="text-purple-500 group-hover:scale-110 transition-transform text-lg">🎵</span>
+              </a>
               <a 
                 href="https://t.me/BodyBagzs" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-green-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
                 data-testid="nav-telegram"
+                title="Telegram"
               >
                 <TelegramChaosIcon className="w-5 h-5 text-toxic-green group-hover:scale-110 transition-transform" />
               </a>
@@ -164,6 +195,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-purple-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
                 data-testid="nav-x-community"
+                title="X Community"
               >
                 <XChaosIcon className="w-5 h-5 text-glitch-purple group-hover:scale-110 transition-transform" />
               </a>
@@ -214,13 +246,44 @@ export default function Home() {
             </a>
           </div>
           
-          <div className="flex justify-center space-x-4 mt-8">
+          <div className="flex justify-center space-x-3 mt-8">
+            <a 
+              href="https://www.youtube.com/@BodyBagzOfficial" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="p-3 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-red-glow transition-all duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+              title="YouTube"
+            >
+              <span className="text-red-500 text-xl">📺</span>
+            </a>
+            <a 
+              href="https://www.instagram.com/bodybagzofficial?igsh=MThlcXYwaW5yd3V2Yw==" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="p-3 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-pink-glow transition-all duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+              title="Instagram"
+            >
+              <span className="text-pink-500 text-xl">📸</span>
+            </a>
+            <a 
+              href="https://www.tiktok.com/@bodybagzofficial?_t=ZP-8zY3pODNues&_r=1" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="p-3 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-purple-glow transition-all duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+              title="TikTok"
+            >
+              <span className="text-purple-500 text-xl">🎵</span>
+            </a>
             <a 
               href="https://t.me/BodyBagzs" 
               target="_blank" 
               rel="noopener noreferrer"
               className="p-3 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-green-glow transition-all duration-200"
               onClick={() => setMobileMenuOpen(false)}
+              title="Telegram"
             >
               <TelegramChaosIcon className="w-6 h-6 text-toxic-green" />
             </a>
@@ -230,6 +293,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="p-3 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-purple-glow transition-all duration-200"
               onClick={() => setMobileMenuOpen(false)}
+              title="X Community"
             >
               <XChaosIcon className="w-6 h-6 text-glitch-purple" />
             </a>
