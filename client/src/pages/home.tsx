@@ -88,7 +88,9 @@ export default function Home() {
               <a href="#vision" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-vision">VISION</a>
               <a href="#tokens" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tokens">TOKENS</a>
               <a href="/stake" className="text-ash-white hover:text-glitch-purple transition-colors font-semibold" data-testid="nav-stake">STAKE</a>
-              <a href="/music" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-music">MUSIC</a>
+              <a href="/music" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-music">
+                <span>🎵</span> MUSIC
+              </a>
               <a href="/tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">CHAOS TOOLS</a>
               <a href="/merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
               <a href="/leaderboard" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
@@ -179,7 +181,7 @@ export default function Home() {
                 data-testid="nav-tiktok"
                 title="TikTok"
               >
-                <span className="text-purple-500 group-hover:scale-110 transition-transform text-lg">🎵</span>
+                <span className="text-purple-500 group-hover:scale-110 transition-transform text-lg">📱</span>
               </a>
               <a 
                 href="https://t.me/BodyBagzs" 
@@ -221,6 +223,9 @@ export default function Home() {
             <a href="#vision" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>VISION</a>
             <a href="#tokens" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>TOKENS</a>
             <a href="/stake" className="block text-ash-white hover:text-glitch-purple transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-nav-stake">STAKE</a>
+            <a href="/music" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-nav-music">
+              <span>🎵</span> MUSIC
+            </a>
             <a href="/tools" className="block text-ash-white hover:text-toxic-green transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>CHAOS TOOLS</a>
             <a href="/merch" className="block text-ash-white hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>MERCH</a>
             <a href="#leaderboard" className="block text-ash-white hover:text-blood-red transition-colors font-semibold text-lg" onClick={() => setMobileMenuOpen(false)}>LEADERBOARD</a>
@@ -277,7 +282,7 @@ export default function Home() {
               onClick={() => setMobileMenuOpen(false)}
               title="TikTok"
             >
-              <span className="text-purple-500 text-xl">🎵</span>
+              <span className="text-purple-500 text-xl">📱</span>
             </a>
             <a 
               href="https://t.me/BodyBagzs" 
