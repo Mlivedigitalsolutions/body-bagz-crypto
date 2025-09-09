@@ -63,6 +63,51 @@ const playlist: Song[] = [
     id: 'dr-frankenstein-theme-1',
     title: 'Dr Frankenstein\'s Theme I',
     src: '/audio/Dr Frankenstein\'s Theme 1_1756864222833.mp3'
+  },
+  {
+    id: 'rug-hunter-club-mix',
+    title: 'Rug Hunter Club Mix',
+    src: '/audio/Rug Hunter club mix_1757382875327.mp3'
+  },
+  {
+    id: 'rug-hunter',
+    title: 'Rug Hunter',
+    src: '/audio/Rug Hunter_1757382875336.mp3'
+  },
+  {
+    id: '10x-100x-1000x-remix',
+    title: '10x 100x 1000x Remix',
+    src: '/audio/10x 100x 1000x remix_1757382875344.mp3'
+  },
+  {
+    id: '10x-100x-1000x-mix',
+    title: '10x 100x 1000x Mix',
+    src: '/audio/10x 100x 1000x mix_1757382875353.mp3'
+  },
+  {
+    id: '10x-100x-real',
+    title: '10x 100x Real',
+    src: '/audio/10x 100x real_1757382875361.mp3'
+  },
+  {
+    id: '10x-100x-raw',
+    title: '10x 100x Raw',
+    src: '/audio/10x 100x raw_1757382875370.mp3'
+  },
+  {
+    id: 'ten-x-style',
+    title: 'Ten X Style',
+    src: '/audio/Ten x style_1757382875379.mp3'
+  },
+  {
+    id: 'ten-x',
+    title: 'Ten X',
+    src: '/audio/Ten x_1757382875387.mp3'
+  },
+  {
+    id: 'champagne-dreams-duet',
+    title: 'Champagne Dreams Duet',
+    src: '/audio/champagne dreams duet _1757382875396.mp3'
   }
 ];
 
