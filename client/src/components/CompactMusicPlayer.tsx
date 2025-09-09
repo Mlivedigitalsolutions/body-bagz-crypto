@@ -108,6 +108,56 @@ const playlist: Song[] = [
     id: 'champagne-dreams-duet',
     title: 'Champagne Dreams Duet',
     src: '/audio/champagne dreams duet _1757382875396.mp3'
+  },
+  {
+    id: 'champagne-dreams',
+    title: 'Champagne Dreams',
+    src: '/audio/champagne dreams_1757383060150.mp3'
+  },
+  {
+    id: 'villain-creed',
+    title: 'Villain Creed',
+    src: '/audio/Villian creed _1757383060158.mp3'
+  },
+  {
+    id: 'chaos-amplified',
+    title: 'Chaos Amplified',
+    src: '/audio/Chaos amplified _1757383060165.mp3'
+  },
+  {
+    id: 'straight-out-da-trenches-remix-wav',
+    title: 'Straight Out Da Trenches Remix',
+    src: '/audio/Straight out Da Trenches remix_1757383060172.wav'
+  },
+  {
+    id: 'straight-out-da-trenches',
+    title: 'Straight Out Da Trenches',
+    src: '/audio/Straight out Da Trenches _1757383060179.mp3'
+  },
+  {
+    id: 'straight-out-da-trenches-remix',
+    title: 'Straight Out Da Trenches Remix',
+    src: '/audio/Straight out Da Trenches remix_1757383060186.mp3'
+  },
+  {
+    id: 'villain-revolution-remix',
+    title: 'Villain Revolution Remix',
+    src: '/audio/Villian Revolution remix_1757383060192.mp3'
+  },
+  {
+    id: 'villain-revolution-1',
+    title: 'Villain Revolution I',
+    src: '/audio/Villian Revolution 1_1757383060200.mp3'
+  },
+  {
+    id: 'gen-z-stand-up-remix',
+    title: 'Gen Z Stand Up Remix',
+    src: '/audio/Gen Z Stand up remix_1757383060208.mp3'
+  },
+  {
+    id: 'gen-z-stand-up',
+    title: 'Gen Z Stand Up!!',
+    src: '/audio/Gez Z Stand Up!!_1757383060216.mp3'
   }
 ];
 
