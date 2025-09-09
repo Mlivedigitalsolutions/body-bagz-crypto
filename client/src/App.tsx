@@ -18,6 +18,7 @@ import Tokenomics from "@/pages/tokenomics";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
 import StakePage from "@/pages/stake";
+import MusicPage from "@/pages/music";
 import { BannerDemo } from "@/pages/banner-demo";
 import { LogoShowcase } from "@/pages/logo-showcase";
 import NotFound from "@/pages/not-found";
@@ -36,6 +37,7 @@ function Router() {
       <Route path="/market" component={Marketplace}/>
       <Route path="/tokenomics" component={Tokenomics}/>
       <Route path="/stake" component={StakePage}/>
+      <Route path="/music" component={MusicPage}/>
       <Route path="/privacy" component={Privacy}/>
       <Route path="/terms" component={Terms}/>
       <Route path="/banner" component={BannerDemo}/>
