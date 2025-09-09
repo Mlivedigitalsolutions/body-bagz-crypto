@@ -141,6 +141,8 @@ export default function Home() {
               className="lg:hidden hamburger" 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               data-testid="mobile-menu-toggle"
+              aria-label={mobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+              aria-expanded={mobileMenuOpen}
             >
               <span></span>
               <span></span>

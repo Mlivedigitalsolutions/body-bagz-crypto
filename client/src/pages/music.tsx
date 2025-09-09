@@ -7,6 +7,45 @@ import { Slider } from '@/components/ui/slider';
 import { playlist, getCategorizedPlaylist, type Song } from '@/data/playlist';
 
 export default function MusicPage() {
+  // SEO Optimization
+  useEffect(() => {
+    document.title = "Body Bagz Music | 30 Epic Villain Era Tracks";
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Stream 30 epic Body Bagz tracks including villain anthems, crypto songs, and revolution beats. Full music library with enhanced player and social content.');
+    }
+
+    // Update canonical URL
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute('href', 'https://bodybagz.org/music');
+    }
+
+    // Add Open Graph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]') || document.createElement('meta');
+    ogTitle.setAttribute('property', 'og:title');
+    ogTitle.setAttribute('content', 'Body Bagz Music | Epic Villain Era Tracks');
+    if (!document.querySelector('meta[property="og:title"]')) {
+      document.head.appendChild(ogTitle);
+    }
+
+    const ogDescription = document.querySelector('meta[property="og:description"]') || document.createElement('meta');
+    ogDescription.setAttribute('property', 'og:description');
+    ogDescription.setAttribute('content', '30 cyberpunk tracks, music videos, and villain era soundtracks. Stream now!');
+    if (!document.querySelector('meta[property="og:description"]')) {
+      document.head.appendChild(ogDescription);
+    }
+
+    const ogUrl = document.querySelector('meta[property="og:url"]') || document.createElement('meta');
+    ogUrl.setAttribute('property', 'og:url');
+    ogUrl.setAttribute('content', 'https://bodybagz.org/music');
+    if (!document.querySelector('meta[property="og:url"]')) {
+      document.head.appendChild(ogUrl);
+    }
+  }, []);
+
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);

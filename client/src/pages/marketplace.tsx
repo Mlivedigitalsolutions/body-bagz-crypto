@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { 
   ShoppingBag, 
   Plus, 
@@ -43,6 +45,9 @@ export default function Marketplace() {
   
   const [showComposer, setShowComposer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [reportModalOpen, setReportModalOpen] = useState(false);
+  const [reportingListingId, setReportingListingId] = useState<string>('');
+  const [reportReason, setReportReason] = useState('');
   const [categoryFilter, setCategoryFilter] = useState("");
   const [hasImagesFilter, setHasImagesFilter] = useState(false);
   const [sortBy, setSortBy] = useState("newest");
@@ -169,9 +174,19 @@ export default function Marketplace() {
   };
 
   const handleReportListing = (listingId: string) => {
-    const reason = prompt("Please describe why you're reporting this listing:");
-    if (reason && reason.trim()) {
-      reportListingMutation.mutate({ listingId, reason: reason.trim() });
+    setReportingListingId(listingId);
+    setReportModalOpen(true);
+  };
+
+  const submitReport = () => {
+    if (reportReason.trim()) {
+      reportListingMutation.mutate({ 
+        listingId: reportingListingId, 
+        reason: reportReason.trim() 
+      });
+      setReportModalOpen(false);
+      setReportReason('');
+      setReportingListingId('');
     }
   };
 

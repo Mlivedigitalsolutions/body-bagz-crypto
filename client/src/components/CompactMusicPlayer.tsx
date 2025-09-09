@@ -9,6 +9,7 @@ export function CompactMusicPlayer() {
   const [isMuted, setIsMuted] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [showInteractionHint, setShowInteractionHint] = useState(true);
   
   const audioRef = useRef<HTMLAudioElement>(null);
   const currentSong = playlist[currentSongIndex];
@@ -18,6 +19,7 @@ export function CompactMusicPlayer() {
     const handleUserInteraction = () => {
       if (!userInteracted) {
         setUserInteracted(true);
+        setShowInteractionHint(false);
         console.log('User interaction detected, enabling audio');
       }
       document.removeEventListener('click', handleUserInteraction);
