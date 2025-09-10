@@ -706,26 +706,85 @@ export default function ToolsSection() {
       setIsGeneratingMeme(true);
       
       try {
-        // For image-based templates, use the image directly
-        const imageUrl = template.imageUrl;
-        setGeneratedMemeImage(imageUrl);
+        // Create complete meme with text overlays on image templates
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error('Canvas context not available');
         
-        toast({
-          title: "Meme Ready!",
-          description: user ? "Your bullish reaper meme is ready to download (+4 points!)" : "Your bullish reaper meme is ready to download",
-        });
+        canvas.width = 600;
+        canvas.height = 600;
         
-        if (user) {
-          trackAction('meme_generated');
-        }
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        
+        img.onload = () => {
+          // Draw base image
+          ctx.drawImage(img, 0, 0, 600, 600);
+          
+          // Add text overlays with cyberpunk styling
+          ctx.textAlign = 'center';
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 4;
+          
+          // Top text
+          if (topText) {
+            ctx.font = 'bold 36px Arial Black, sans-serif';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.strokeText(topText.toUpperCase(), 300, 60);
+            ctx.fillText(topText.toUpperCase(), 300, 60);
+          }
+          
+          // Center text
+          if (centerText) {
+            ctx.font = 'bold 42px Arial Black, sans-serif';
+            ctx.fillStyle = '#39FF14';
+            ctx.strokeText(centerText.toUpperCase(), 300, 320);
+            ctx.fillText(centerText.toUpperCase(), 300, 320);
+          }
+          
+          // Bottom text
+          if (bottomText) {
+            ctx.font = 'bold 36px Arial Black, sans-serif';
+            ctx.fillStyle = '#FFFFFF';
+            ctx.strokeText(bottomText.toUpperCase(), 300, 560);
+            ctx.fillText(bottomText.toUpperCase(), 300, 560);
+          }
+          
+          // Convert to image and set
+          const memeDataUrl = canvas.toDataURL('image/png');
+          setGeneratedMemeImage(memeDataUrl);
+          
+          toast({
+            title: "🔥 Complete Meme Generated!",
+            description: user ? "Your viral meme with text overlays is ready! (+4 points!)" : "Your viral meme with text overlays is ready!",
+          });
+          
+          if (user) {
+            trackAction('meme_generated');
+          }
+          
+          setIsGeneratingMeme(false);
+        };
+        
+        img.onerror = () => {
+          // Fallback: use image directly if canvas fails
+          setGeneratedMemeImage(template.imageUrl);
+          toast({
+            title: "Meme Ready!",
+            description: "Template loaded (add text for overlays)",
+          });
+          setIsGeneratingMeme(false);
+        };
+        
+        img.src = template.imageUrl;
+        
       } catch (error) {
-        console.error('Error loading meme:', error);
+        console.error('Error generating meme:', error);
         toast({
-          title: "Loading Error",
-          description: "Failed to load meme template. Try again.",
+          title: "Generation Error",
+          description: "Failed to generate meme. Try again.",
           variant: "destructive"
         });
-      } finally {
         setIsGeneratingMeme(false);
       }
       return;
