@@ -753,97 +753,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // 🚀 REVOLUTIONARY AI MEME SUGGESTIONS API
-  app.post("/api/ai/meme-suggestions", strictLimiter, async (req, res) => {
-    try {
-      const { textType, currentTexts, template, userId } = req.body;
-      
-      let suggestions = [];
-      let chaosScore = 0;
-      
-      try {
-        // Call OpenAI for intelligent meme text suggestions
-        const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-        
-        const prompt = `Generate 6 viral cyberpunk meme ${textType} text suggestions for Body Bagz ($BAGZ) crypto token.
-        Current context:
-        - Top text: "${currentTexts?.topText || ''}"
-        - Bottom text: "${currentTexts?.bottomText || ''}"
-        - Center text: "${currentTexts?.centerText || ''}"
-        - Template: ${template}
-        
-        Style: Cyberpunk villain era, crypto trading humor, street culture, chaos aesthetic.
-        Keywords to include: $BAGZ, villain era, chaos, gains, stack, bag, street, cyber, toxic.
-        
-        Return 6 short, punchy ${textType} text suggestions (max 20 characters each) that would go viral.
-        Focus on crypto trading psychology, meme culture, and villain aesthetics.`;
-        
-        const completion = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: prompt }],
-          temperature: 0.9,
-          max_tokens: 200
-        });
-        
-        const aiResponse = completion.choices[0]?.message?.content || '';
-        suggestions = aiResponse.split('\n')
-          .map(s => s.replace(/^\d+\.?\s*/, '').replace(/^["-]\s*/, '').trim())
-          .filter(s => s.length > 0 && s.length <= 25)
-          .slice(0, 6);
-          
-        // Calculate chaos score based on suggestion quality
-        chaosScore = Math.min(95, 60 + Math.floor(Math.random() * 35));
-        
-      } catch (aiError) {
-        console.error('AI suggestion generation failed, using enhanced fallbacks:', aiError);
-        
-        // Enhanced fallback suggestions by type
-        const fallbackSuggestions = {
-          top: [
-            "WHEN YOU", "VILLAIN MODE", "CHAOS TIME", "$BAGZ GANG", "STREET CODE", "TOXIC VIBES"
-          ],
-          center: [
-            "ACTIVATED", "RISING", "$BAGZ POWER", "VILLAIN ERA", "CHAOS MODE", "STREET WINS"
-          ],
-          bottom: [
-            "HITS DIFFERENT", "STACK $BAGZ", "VILLAIN ERA", "CHAOS PROFITS", "NEVER ENDS", "GAINS ONLY"
-          ]
-        };
-        
-        suggestions = fallbackSuggestions[textType as keyof typeof fallbackSuggestions] || fallbackSuggestions.top;
-        chaosScore = Math.floor(Math.random() * 25) + 65; // 65-90% for fallback
-      }
-      
-      // Track AI suggestion usage if userId provided
-      if (userId) {
-        try {
-          const now = new Date();
-          const estDate = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
-          const monthYear = `${estDate.getFullYear()}-${String(estDate.getMonth() + 1).padStart(2, '0')}`;
-          
-          await storage.addLeaderboardEntry({
-            userId,
-            actionType: 'ai_suggestion',
-            points: 2,
-            monthYear
-          });
-          clearLeaderboardCache();
-        } catch (trackError) {
-          console.error('Error tracking AI suggestion:', trackError);
-        }
-      }
-      
-      res.json({ 
-        suggestions,
-        chaosScore,
-        textType,
-        timestamp: Date.now()
-      });
-    } catch (error) {
-      console.error('Error generating AI suggestions:', error);
-      res.status(500).json({ error: 'Failed to generate suggestions' });
-    }
-  });
 
   // 🎤 REVOLUTIONARY VOICE-TO-MEME API  
   app.post("/api/ai/voice-to-meme", strictLimiter, async (req, res) => {
@@ -913,7 +822,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   quality: "standard",
                 });
                 
-                generatedImageUrl = imageResponse.data[0]?.url || '';
+                generatedImageUrl = imageResponse.data?.[0]?.url || '';
               } catch (imageError) {
                 console.error('Image generation failed:', imageError);
                 // Continue with text generation even if image fails
@@ -940,7 +849,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
                 messages: [{ role: "user", content: memePrompt }],
                 temperature: 0.8,
-                max_tokens: 150
+                max_completion_tokens: 150
               });
               
               const memeResponse = memeCompletion.choices[0]?.message?.content || '';

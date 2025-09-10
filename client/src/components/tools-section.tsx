@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/contexts/UserContext";
 import { apiRequest } from "@/lib/queryClient";
-import { Save, Mic, MicOff, Sparkles, Zap, Wand2, Palette, MessageSquare, Image, User } from "lucide-react";
+import { Save, Mic, MicOff, Palette, MessageSquare, Image, User } from "lucide-react";
 import pfpHeaderImg from "@assets/generated_images/Cyberpunk_PFP_Generator_header_fad9f426.png";
 import tweetHeaderImg from "@assets/generated_images/Cyberpunk_Tweet_Generator_header_85711bc6.png";
 import memeHeaderImg from "@assets/generated_images/Cyberpunk_Meme_Creator_header_95968e4a.png";
@@ -540,9 +540,6 @@ export default function ToolsSection() {
   const [isSavingContent, setIsSavingContent] = useState(false);
   
   // 🚀 AI-Powered Chaos Features
-  const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
-  const [isLoadingAiSuggestions, setIsLoadingAiSuggestions] = useState(false);
-  const [chaosScore, setChaosScore] = useState<number>(0);
   
   // 🎤 Voice-to-Meme Features
   const [isRecording, setIsRecording] = useState(false);
@@ -1062,48 +1059,6 @@ export default function ToolsSection() {
     }
   };
 
-  // 🚀 AI-POWERED CHAOS FUNCTIONS
-  const generateAiSuggestions = async (type: 'top' | 'bottom' | 'center') => {
-    setIsLoadingAiSuggestions(true);
-    try {
-      const response = await fetch('/api/ai/meme-suggestions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          textType: type,
-          currentTexts: { topText, bottomText, centerText },
-          template: selectedTemplate,
-          userId: user?.id
-        }),
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        setAiSuggestions(data.suggestions);
-        setChaosScore(data.chaosScore);
-        toast({
-          title: "🤖 AI Chaos Unlocked!",
-          description: `Got ${data.suggestions.length} viral suggestions (Chaos Score: ${data.chaosScore}%)`,
-        });
-      } else {
-        // Fallback suggestions
-        const fallbackSuggestions = [
-          "WHEN THE DIP", "HITS DIFFERENT", "VILLAIN MODE ON",
-          "CHAOS IS PROFIT", "$BAGZ RISING", "DIAMOND HANDS ONLY"
-        ];
-        setAiSuggestions(fallbackSuggestions);
-        setChaosScore(Math.floor(Math.random() * 40) + 60);
-      }
-    } catch (error) {
-      toast({
-        title: "AI Offline",
-        description: "Using chaos fallback mode",
-        variant: "destructive"
-      });
-    } finally {
-      setIsLoadingAiSuggestions(false);
-    }
-  };
 
   // 🎤 VOICE-TO-MEME FUNCTIONS
   const startVoiceRecording = async () => {
@@ -1162,19 +1117,18 @@ export default function ToolsSection() {
         setTopText(data.topText || '');
         setBottomText(data.bottomText || '');
         setCenterText(data.centerText || '');
-        setChaosScore(data.chaosScore);
         
         // If a new image was generated, use it
         if (data.generatedImageUrl) {
           setGeneratedMemeImage(data.generatedImageUrl);
           toast({
             title: "🔥🎤 Voice-to-Image Generated!",
-            description: `AI created a custom meme image from your voice! (Chaos: ${data.chaosScore}%)`,
+            description: "AI created a custom meme image from your voice!",
           });
         } else {
           toast({
             title: "🎤✨ Voice Decoded!",
-            description: `Your chaos voice converted to meme text (Chaos: ${data.chaosScore}%)`,
+            description: "Your chaos voice converted to meme text",
           });
         }
       } else {
@@ -1569,7 +1523,7 @@ export default function ToolsSection() {
                     >
                       {isProcessingVoice ? (
                         <>
-                          <Zap className="w-4 h-4 mr-2 animate-spin" />
+                          <Mic className="w-4 h-4 mr-2 animate-spin" />
                           PROCESSING...
                         </>
                       ) : isRecording ? (
