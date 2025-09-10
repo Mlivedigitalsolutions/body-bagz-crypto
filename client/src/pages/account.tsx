@@ -51,7 +51,17 @@ export default function AccountPage() {
   });
 
   const savedContent: SavedContent[] = contentData?.content || [];
-  const preferences: UserPreferences = preferencesData?.preferences;
+  const preferences: UserPreferences = preferencesData?.preferences || {
+    autoSaveContent: true,
+    defaultPfpStyle: "cyberpunk",
+    preferredTweetTone: "bullish",
+    notifications: {
+      newContent: true,
+      leaderboard: true,
+      rewards: true
+    },
+    theme: "cyberpunk"
+  };
 
   const toggleFavorite = async (contentId: string, isFavorite: boolean) => {
     if (!user) return;
