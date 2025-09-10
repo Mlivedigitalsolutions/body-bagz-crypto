@@ -1471,22 +1471,31 @@ export default function ToolsSection() {
                   )}
                 </div>
 
-                {/* 🎤 VOICE-TO-MEME FEATURE */}
-                <div className="mb-4 p-4 bg-gradient-to-r from-blood-red/10 to-glitch-purple/10 rounded-lg border border-blood-red/30">
-                  <label className="text-blood-red text-sm font-bold flex items-center mb-3">
-                    <Mic className="w-4 h-4 mr-2" />
-                    VOICE-TO-MEME MAGIC
-                  </label>
+                {/* 🎤 REVOLUTIONARY VOICE-TO-MEME FEATURE */}
+                <div className="mb-6 p-6 bg-gradient-to-r from-blood-red/20 to-glitch-purple/20 rounded-xl border-2 border-blood-red/50 relative overflow-hidden">
+                  {/* Emphasize this is a cutting-edge feature */}
+                  <div className="absolute top-2 right-2 text-xs font-bold text-toxic-green bg-jet-black px-2 py-1 rounded-full border border-toxic-green/30">
+                    FIRST IN CRYPTO
+                  </div>
                   
-                  <div className="flex items-center gap-3">
+                  <label className="text-blood-red text-lg font-bold flex items-center mb-4">
+                    <Mic className="w-6 h-6 mr-3 animate-pulse" />
+                    🎤 VOICE-TO-MEME MAGIC
+                  </label>
+                  <p className="text-ash-white/80 text-sm mb-4 leading-relaxed">
+                    Revolutionary AI-powered voice conversion that transforms your spoken chaos into instant meme text. 
+                    <span className="text-toxic-green font-semibold"> Industry-first technology!</span>
+                  </p>
+                  
+                  <div className="flex items-center gap-4">
                     <Button 
                       type="button"
                       onClick={isRecording ? stopVoiceRecording : startVoiceRecording}
                       disabled={isProcessingVoice}
-                      className={`py-3 px-4 font-bold tracking-wide rounded-lg transition-all duration-200 border ${
+                      className={`py-4 px-6 font-bold tracking-wide rounded-xl transition-all duration-200 border-2 shadow-lg ${
                         isRecording 
-                          ? 'bg-gradient-to-r from-blood-red to-blood-red/80 text-white border-blood-red animate-pulse' 
-                          : 'bg-gradient-to-r from-blood-red/20 to-blood-red/10 hover:from-blood-red/30 hover:to-blood-red/20 text-blood-red border-blood-red/30'
+                          ? 'bg-gradient-to-r from-blood-red to-blood-red/80 text-white border-blood-red animate-pulse shadow-red-glow' 
+                          : 'bg-gradient-to-r from-blood-red/30 to-blood-red/20 hover:from-blood-red/50 hover:to-blood-red/40 text-white border-blood-red/50 hover:shadow-red-glow'
                       }`}
                       data-testid="button-voice-to-meme"
                     >
