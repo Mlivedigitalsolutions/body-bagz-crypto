@@ -25,6 +25,8 @@ import { LogoShowcase } from "@/pages/logo-showcase";
 import WhitepaperGerman from "@/pages/WhitepaperGerman";
 import WhitepaperArabic from "@/pages/WhitepaperArabic";
 import WhitepaperMandarin from "@/pages/WhitepaperMandarin";
+import WhitepaperTurkish from "@/pages/WhitepaperTurkish";
+import WhitepaperHindi from "@/pages/WhitepaperHindi";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -49,6 +51,8 @@ function Router() {
       <Route path="/whitepaper/de" component={WhitepaperGerman}/>
       <Route path="/whitepaper/ar" component={WhitepaperArabic}/>
       <Route path="/whitepaper/zh" component={WhitepaperMandarin}/>
+      <Route path="/whitepaper/tr" component={WhitepaperTurkish}/>
+      <Route path="/whitepaper/hi" component={WhitepaperHindi}/>
       <Route component={NotFound} />
     </Switch>
   );

@@ -147,6 +147,24 @@ export default function Footer() {
               <span className="text-lg mr-2 group-hover:scale-110 transition-transform">🇨🇳</span>
               中文
             </Link>
+            <Link 
+              href="/whitepaper/tr" 
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-500 to-white rounded-lg font-tech text-white hover:shadow-red-glow transition-all duration-200 group text-sm"
+              data-testid="footer-whitepaper-turkish"
+              title="Turkish Whitepaper"
+            >
+              <span className="text-lg mr-2 group-hover:scale-110 transition-transform">🇹🇷</span>
+              TÜRKÇE
+            </Link>
+            <Link 
+              href="/whitepaper/hi" 
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-500 to-green-600 rounded-lg font-tech text-white hover:shadow-orange-glow transition-all duration-200 group text-sm"
+              data-testid="footer-whitepaper-hindi"
+              title="Hindi Whitepaper"
+            >
+              <span className="text-lg mr-2 group-hover:scale-110 transition-transform">🇮🇳</span>
+              हिंदी
+            </Link>
           </div>
         </div>
 
