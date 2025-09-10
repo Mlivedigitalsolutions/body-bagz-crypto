@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/contexts/UserContext";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { apiRequest } from "@/lib/queryClient";
 import { UserIcon, LogOutIcon, Settings, User } from "lucide-react";
 import { Link } from "wouter";
 
@@ -201,6 +203,17 @@ export function UserAuth({ open, onOpenChange }: UserAuthProps) {
               >
                 {isLoading ? "LOGGING IN..." : "ENTER THE CHAOS"}
               </Button>
+              
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowPasswordReset(true)}
+                  className="text-dim-gray hover:text-toxic-green transition-colors text-sm underline"
+                  data-testid="link-forgot-password"
+                >
+                  Forgot your password?
+                </button>
+              </div>
             </form>
           </TabsContent>
           
@@ -294,6 +307,271 @@ export function UserAuth({ open, onOpenChange }: UserAuthProps) {
             </form>
           </TabsContent>
         </Tabs>
+      </DialogContent>
+      
+      {/* Password Reset Dialog */}
+      <PasswordResetDialog 
+        open={showPasswordReset}
+        onOpenChange={setShowPasswordReset}
+      />
+    </Dialog>
+  );
+}
+
+// Password Reset Dialog Component
+function PasswordResetDialog({ 
+  open, 
+  onOpenChange 
+}: { 
+  open: boolean; 
+  onOpenChange: (open: boolean) => void;
+}) {
+  const [step, setStep] = useState<'request' | 'verify'>('request');
+  const [resetData, setResetData] = useState({
+    username: '',
+    method: 'email' as 'email' | 'sms',
+    contact: '',
+    token: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handleResetRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!resetData.username || !resetData.contact) {
+      toast({
+        title: "Missing Info",
+        description: "Username and contact method are required",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await apiRequest("POST", "/api/auth/password-reset/request", {
+        username: resetData.username,
+        method: resetData.method,
+        contact: resetData.contact
+      });
+      
+      const data = await response.json();
+      
+      if (data.devToken) {
+        // In development, auto-fill the token
+        setResetData(prev => ({ ...prev, token: data.devToken }));
+      }
+      
+      setStep('verify');
+      toast({
+        title: "Reset Instructions Sent",
+        description: data.message,
+      });
+    } catch (error) {
+      toast({
+        title: "Reset Request Failed",
+        description: error instanceof Error ? error.message : "Failed to send reset instructions",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePasswordReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!resetData.token || !resetData.newPassword || !resetData.confirmPassword) {
+      toast({
+        title: "Missing Info",
+        description: "All fields are required",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (resetData.newPassword !== resetData.confirmPassword) {
+      toast({
+        title: "Password Mismatch",
+        description: "Passwords do not match",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (resetData.newPassword.length < 6) {
+      toast({
+        title: "Weak Password",
+        description: "Password must be at least 6 characters",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await apiRequest("POST", "/api/auth/password-reset/verify", {
+        token: resetData.token,
+        newPassword: resetData.newPassword
+      });
+      
+      const data = await response.json();
+      
+      toast({
+        title: "Password Updated",
+        description: "Your password has been successfully updated",
+      });
+      
+      onOpenChange(false);
+      setStep('request');
+      setResetData({
+        username: '',
+        method: 'email',
+        contact: '',
+        token: '',
+        newPassword: '',
+        confirmPassword: ''
+      });
+    } catch (error) {
+      toast({
+        title: "Reset Failed",
+        description: error instanceof Error ? error.message : "Failed to reset password",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="bg-jet-black border-dim-gray max-w-md">
+        <DialogHeader>
+          <DialogTitle className="text-ash-white text-center text-2xl font-bold">
+            {step === 'request' ? 'Reset Password' : 'Enter New Password'}
+          </DialogTitle>
+          <DialogDescription className="text-dim-gray text-center">
+            {step === 'request' 
+              ? 'Enter your username and contact method to receive reset instructions'
+              : 'Enter the token from your email/SMS and choose a new password'
+            }
+          </DialogDescription>
+        </DialogHeader>
+
+        {step === 'request' ? (
+          <form onSubmit={handleResetRequest} className="space-y-4">
+            <div>
+              <Label className="text-ash-white font-semibold">Username</Label>
+              <Input
+                type="text"
+                placeholder="Your username"
+                value={resetData.username}
+                onChange={(e) => setResetData(prev => ({ ...prev, username: e.target.value }))}
+                className="cyber-input mt-1"
+                data-testid="input-reset-username"
+              />
+            </div>
+            
+            <div>
+              <Label className="text-ash-white font-semibold">Reset Method</Label>
+              <Select 
+                value={resetData.method} 
+                onValueChange={(value: 'email' | 'sms') => setResetData(prev => ({ ...prev, method: value }))}
+              >
+                <SelectTrigger className="cyber-input mt-1" data-testid="select-reset-method">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-jet-black border-dim-gray">
+                  <SelectItem value="email">Email</SelectItem>
+                  <SelectItem value="sms">SMS</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div>
+              <Label className="text-ash-white font-semibold">
+                {resetData.method === 'email' ? 'Email Address' : 'Phone Number'}
+              </Label>
+              <Input
+                type={resetData.method === 'email' ? 'email' : 'tel'}
+                placeholder={resetData.method === 'email' ? 'your@email.com' : '+1234567890'}
+                value={resetData.contact}
+                onChange={(e) => setResetData(prev => ({ ...prev, contact: e.target.value }))}
+                className="cyber-input mt-1"
+                data-testid="input-reset-contact"
+              />
+            </div>
+            
+            <Button 
+              type="submit" 
+              className="cyber-button w-full"
+              disabled={isLoading}
+              data-testid="button-request-reset"
+            >
+              {isLoading ? "SENDING..." : "SEND RESET INSTRUCTIONS"}
+            </Button>
+          </form>
+        ) : (
+          <form onSubmit={handlePasswordReset} className="space-y-4">
+            <div>
+              <Label className="text-ash-white font-semibold">Reset Token</Label>
+              <Input
+                type="text"
+                placeholder="Enter the token from your email/SMS"
+                value={resetData.token}
+                onChange={(e) => setResetData(prev => ({ ...prev, token: e.target.value }))}
+                className="cyber-input mt-1"
+                data-testid="input-reset-token"
+              />
+            </div>
+            
+            <div>
+              <Label className="text-ash-white font-semibold">New Password</Label>
+              <Input
+                type="password"
+                placeholder="Enter new password"
+                value={resetData.newPassword}
+                onChange={(e) => setResetData(prev => ({ ...prev, newPassword: e.target.value }))}
+                className="cyber-input mt-1"
+                data-testid="input-new-password"
+              />
+            </div>
+            
+            <div>
+              <Label className="text-ash-white font-semibold">Confirm Password</Label>
+              <Input
+                type="password"
+                placeholder="Confirm new password"
+                value={resetData.confirmPassword}
+                onChange={(e) => setResetData(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                className="cyber-input mt-1"
+                data-testid="input-confirm-password"
+              />
+            </div>
+            
+            <div className="flex gap-2">
+              <Button 
+                type="button"
+                onClick={() => setStep('request')}
+                className="cyber-button-secondary flex-1"
+                data-testid="button-back"
+              >
+                BACK
+              </Button>
+              <Button 
+                type="submit" 
+                className="cyber-button flex-1"
+                disabled={isLoading}
+                data-testid="button-reset-password"
+              >
+                {isLoading ? "UPDATING..." : "UPDATE PASSWORD"}
+              </Button>
+            </div>
+          </form>
+        )}
       </DialogContent>
     </Dialog>
   );
