@@ -1164,10 +1164,19 @@ export default function ToolsSection() {
         setCenterText(data.centerText || '');
         setChaosScore(data.chaosScore);
         
-        toast({
-          title: "🎤✨ Voice Decoded!",
-          description: `Your chaos voice converted to meme text (Chaos: ${data.chaosScore}%)`,
-        });
+        // If a new image was generated, use it
+        if (data.generatedImageUrl) {
+          setGeneratedMemeImage(data.generatedImageUrl);
+          toast({
+            title: "🔥🎤 Voice-to-Image Generated!",
+            description: `AI created a custom meme image from your voice! (Chaos: ${data.chaosScore}%)`,
+          });
+        } else {
+          toast({
+            title: "🎤✨ Voice Decoded!",
+            description: `Your chaos voice converted to meme text (Chaos: ${data.chaosScore}%)`,
+          });
+        }
       } else {
         throw new Error('Voice processing failed');
       }

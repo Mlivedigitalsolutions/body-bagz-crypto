@@ -874,6 +874,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const userId = req.body.userId;
           let topText = '', bottomText = '', centerText = '';
           let chaosScore = 0;
+          let generatedImageUrl = '';
           
           // Convert audio to text using OpenAI Whisper
           const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -893,6 +894,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
             fs.unlinkSync(tempAudioPath);
             
             if (transcript && transcript.length > 0) {
+              // Generate actual meme image using DALL-E based on voice input
+              const imagePrompt = `Create a cyberpunk meme image based on this spoken content: "${transcript}". 
+              Style: Dark cyberpunk aesthetic, neon colors (toxic green, blood red, purple), futuristic cityscape background. 
+              Include Body Bagz ($BAGZ) crypto villain era theme. 
+              Dark atmosphere with dramatic lighting, suitable for meme format. 
+              No text overlays - clean image for text overlay. 
+              Cyberpunk villain aesthetic, trading/crypto themed elements if relevant.`;
+              
+              let generatedImageUrl = '';
+              
+              try {
+                const imageResponse = await openai.images.generate({
+                  model: "dall-e-3",
+                  prompt: imagePrompt,
+                  n: 1,
+                  size: "1024x1024",
+                  quality: "standard",
+                });
+                
+                generatedImageUrl = imageResponse.data[0]?.url || '';
+              } catch (imageError) {
+                console.error('Image generation failed:', imageError);
+                // Continue with text generation even if image fails
+              }
+              
               // Use AI to convert speech to meme format
               const memePrompt = `Convert this spoken text into viral meme format for Body Bagz ($BAGZ) crypto:
               
@@ -911,7 +937,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               BOTTOM: [text]`;
               
               const memeCompletion = await openai.chat.completions.create({
-                model: "gpt-3.5-turbo",
+                model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
                 messages: [{ role: "user", content: memePrompt }],
                 temperature: 0.8,
                 max_tokens: 150
@@ -975,6 +1001,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             centerText,
             bottomText,
             chaosScore,
+            generatedImageUrl: generatedImageUrl || '', // Include the generated image
             timestamp: Date.now(),
             success: true
           });
