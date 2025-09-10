@@ -1230,6 +1230,14 @@ export default function ToolsSection() {
               <h3 className="font-tech text-xl text-toxic-green ml-4 tracking-wide font-semibold">TWEET GENERATOR</h3>
             </div>
             <div className="space-y-4">
+              {/* CLEAR FUNCTIONALITY DESCRIPTION */}
+              <div className="mb-4 p-4 bg-toxic-green/10 rounded-lg border border-toxic-green/30">
+                <p className="text-ash-white text-sm leading-relaxed">
+                  <span className="text-toxic-green font-bold">🎯 FUNCTION:</span> AI generates complete viral tweets optimized for crypto engagement. 
+                  Uses advanced prompts to create bullish, shareable content that drives community growth.
+                </p>
+              </div>
+              
               <div className="bg-jet-black p-6 rounded-lg border border-dim-gray min-h-[140px] relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-8 h-8 bg-toxic-green opacity-5 rounded-full blur-md"></div>
                 <p className="text-ash-white text-sm leading-relaxed font-medium relative z-10" data-testid="generated-tweet">
@@ -1723,13 +1731,21 @@ export default function ToolsSection() {
               <h3 className="font-tech text-xl text-glitch-purple ml-4 tracking-wide font-semibold">PFP CHAOS</h3>
             </div>
             <div className="space-y-4">
+              {/* CLEAR FUNCTIONALITY DESCRIPTION */}
+              <div className="mb-4 p-4 bg-glitch-purple/10 rounded-lg border border-glitch-purple/30">
+                <p className="text-ash-white text-sm leading-relaxed">
+                  <span className="text-glitch-purple font-bold">🎯 FUNCTION:</span> AI generates premium cyberpunk profile pictures with custom traits and rarity levels. 
+                  Each PFP includes unique attributes and can be saved to your vault.
+                </p>
+              </div>
+              
               <div className="bg-jet-black p-6 rounded-lg border border-dim-gray">
-                <div className="w-36 h-36 mx-auto bg-gradient-to-br from-glitch-purple/20 to-jet-black rounded-lg flex items-center justify-center mb-4 border border-glitch-purple border-opacity-30 relative overflow-hidden">
-                  {generatedPfpImage ? (
+                <div className="w-48 h-48 mx-auto bg-gradient-to-br from-glitch-purple/20 to-jet-black rounded-lg flex items-center justify-center mb-4 border border-glitch-purple border-opacity-30 relative overflow-hidden">
+                  {generatedPfpImage || currentPfp.image ? (
                     <img 
-                      src={generatedPfpImage} 
+                      src={generatedPfpImage || currentPfp.image} 
                       alt={currentPfp.name}
-                      className="w-full h-full object-cover object-center rounded-lg"
+                      className="w-full h-full object-contain rounded-lg"
                       data-testid="generated-pfp-image"
                     />
                   ) : (
