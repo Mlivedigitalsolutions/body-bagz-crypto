@@ -1147,10 +1147,10 @@ export default function ToolsSection() {
   return (
     <section id="tools-section" className="relative z-10 py-12 px-6">
       <div className="max-w-6xl mx-auto">
-        {/* EPIC BODY BAGZ SKULL BRANDING */}
-        <div className="mb-8 flex justify-center">
+        {/* STREAMLINED BODY BAGZ SKULL BRANDING */}
+        <div className="mb-6 flex justify-center">
           <div className="relative animate-pulse-glow">
-            <div className="w-full max-w-xl rounded-xl overflow-hidden neon-card border border-blood-red/30">
+            <div className="w-full max-w-lg rounded-lg overflow-hidden neon-card border border-blood-red/30">
               <img 
                 src={epicSkullImg}
                 alt="Body Bagz Epic Skull - Villain Era Branding"
@@ -1159,18 +1159,18 @@ export default function ToolsSection() {
               />
             </div>
             {/* Epic glow effects */}
-            <div className="absolute -inset-2 bg-gradient-to-r from-blood-red/20 via-toxic-green/20 to-glitch-purple/20 rounded-2xl blur-lg -z-10"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-blood-red/15 via-toxic-green/15 to-glitch-purple/15 rounded-lg blur-md -z-10"></div>
           </div>
         </div>
 
-        <h2 className="font-brand text-3xl md:text-4xl text-center text-blood-red mb-8" data-testid="tools-title">
+        <h2 className="font-brand text-2xl md:text-3xl text-center text-blood-red mb-6" data-testid="tools-title">
           CHAOS TOOLS
         </h2>
         
-        {/* Tab Navigation */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-jet-black/50 border border-dim-gray/50 rounded-xl p-2 backdrop-blur-sm">
-            <div className="grid grid-cols-3 gap-2">
+        {/* Streamlined Tab Navigation */}
+        <div className="flex justify-center mb-6">
+          <div className="bg-jet-black/60 border border-dim-gray/40 rounded-lg p-1 backdrop-blur-sm">
+            <div className="grid grid-cols-3 gap-1">
               <button
                 onClick={() => setActiveTab('tweet')}
                 className={`px-6 py-3 rounded-lg font-tech text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
