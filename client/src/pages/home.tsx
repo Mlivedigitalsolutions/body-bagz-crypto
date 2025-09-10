@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "wouter";
 import HeroSection from "@/components/hero-section";
 import VideoShowcase from "@/components/video-showcase";
 import VisionSection from "@/components/vision-section";
@@ -93,7 +94,7 @@ export default function Home() {
               </a>
               <a href="/tools" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-tools">CHAOS TOOLS</a>
               <a href="/merch" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-merch">MERCH</a>
-              <a href="/leaderboard" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</a>
+              <Link href="/leaderboard" className="text-ash-white hover:text-blood-red transition-colors font-semibold" data-testid="nav-leaderboard">LEADERBOARD</Link>
               <a href="#community" className="text-ash-white hover:text-toxic-green transition-colors font-semibold" data-testid="nav-community">COMMUNITY</a>
             </div>
             
