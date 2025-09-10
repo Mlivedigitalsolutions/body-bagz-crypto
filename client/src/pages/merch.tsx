@@ -50,8 +50,6 @@ export default function MerchPage() {
 
       <Footer />
       
-      {/* Compact Music Player */}
-      <CompactMusicPlayer />
     </div>
   );
 }

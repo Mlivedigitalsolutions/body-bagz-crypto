@@ -12,7 +12,6 @@ import Footer from "@/components/footer";
 import { UserButton } from "@/components/UserAuth";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
 import { TrophyIcon, Users } from "lucide-react";
-import { CompactMusicPlayer } from "@/components/CompactMusicPlayer";
 import mainBrandLogo from "@assets/generated_images/Official_Body_Bagz_brand_logo_94353dbf.png";
 
 export default function Home() {
