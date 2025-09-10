@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChainLinkIcon, BodyBagIcon, GasMaskIcon } from "@/components/icons";
@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/contexts/UserContext";
 import { apiRequest } from "@/lib/queryClient";
-import { Save } from "lucide-react";
+import { Save, Mic, MicOff, Sparkles, Zap, Wand2, Palette } from "lucide-react";
 import pfpHeaderImg from "@assets/generated_images/Cyberpunk_PFP_Generator_header_fad9f426.png";
 import tweetHeaderImg from "@assets/generated_images/Cyberpunk_Tweet_Generator_header_85711bc6.png";
 import memeHeaderImg from "@assets/generated_images/Cyberpunk_Meme_Creator_header_95968e4a.png";
@@ -507,6 +507,23 @@ export default function ToolsSection() {
   const [isGeneratingMeme, setIsGeneratingMeme] = useState(false);
   const [isGeneratingTweet, setIsGeneratingTweet] = useState(false);
   const [isSavingContent, setIsSavingContent] = useState(false);
+  
+  // 🚀 AI-Powered Chaos Features
+  const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
+  const [isLoadingAiSuggestions, setIsLoadingAiSuggestions] = useState(false);
+  const [chaosScore, setChaosScore] = useState<number>(0);
+  
+  // 🎤 Voice-to-Meme Features
+  const [isRecording, setIsRecording] = useState(false);
+  const [isProcessingVoice, setIsProcessingVoice] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  
+  // 🎨 Advanced Image Effects
+  const [selectedFilter, setSelectedFilter] = useState('none');
+  const [imageOpacity, setImageOpacity] = useState(100);
+  const [glitchIntensity, setGlitchIntensity] = useState(0);
+  
   const { toast } = useToast();
   const { user, trackAction } = useUser();
 
@@ -740,6 +757,11 @@ export default function ToolsSection() {
           // Draw uploaded image as background
           ctx.drawImage(uploadedImg, 0, 0, 400, 300);
           
+          // Apply advanced filters
+          if (selectedFilter !== 'none') {
+            applyImageFilter(canvas, ctx);
+          }
+          
           // Add text overlays with cyberpunk styling
           ctx.textAlign = 'center';
           ctx.strokeStyle = '#000000';
@@ -810,6 +832,11 @@ export default function ToolsSection() {
       
       img.onload = () => {
         ctx.drawImage(img, 0, 0);
+        
+        // Apply advanced filters to SVG templates too
+        if (selectedFilter !== 'none') {
+          applyImageFilter(canvas, ctx);
+        }
         
         const pngDataUrl = canvas.toDataURL('image/png');
         setGeneratedMemeImage(pngDataUrl);
@@ -943,6 +970,175 @@ export default function ToolsSection() {
         description: "Your meme is saved",
       });
     }
+  };
+
+  // 🚀 AI-POWERED CHAOS FUNCTIONS
+  const generateAiSuggestions = async (type: 'top' | 'bottom' | 'center') => {
+    setIsLoadingAiSuggestions(true);
+    try {
+      const response = await fetch('/api/ai/meme-suggestions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          textType: type,
+          currentTexts: { topText, bottomText, centerText },
+          template: selectedTemplate,
+          userId: user?.id
+        }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setAiSuggestions(data.suggestions);
+        setChaosScore(data.chaosScore);
+        toast({
+          title: "🤖 AI Chaos Unlocked!",
+          description: `Got ${data.suggestions.length} viral suggestions (Chaos Score: ${data.chaosScore}%)`,
+        });
+      } else {
+        // Fallback suggestions
+        const fallbackSuggestions = [
+          "WHEN THE DIP", "HITS DIFFERENT", "VILLAIN MODE ON",
+          "CHAOS IS PROFIT", "$BAGZ RISING", "DIAMOND HANDS ONLY"
+        ];
+        setAiSuggestions(fallbackSuggestions);
+        setChaosScore(Math.floor(Math.random() * 40) + 60);
+      }
+    } catch (error) {
+      toast({
+        title: "AI Offline",
+        description: "Using chaos fallback mode",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoadingAiSuggestions(false);
+    }
+  };
+
+  // 🎤 VOICE-TO-MEME FUNCTIONS
+  const startVoiceRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorderRef.current = new MediaRecorder(stream);
+      audioChunksRef.current = [];
+      
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
+      
+      mediaRecorderRef.current.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        await processVoiceToMeme(audioBlob);
+        stream.getTracks().forEach(track => track.stop());
+      };
+      
+      mediaRecorderRef.current.start();
+      setIsRecording(true);
+      
+      toast({
+        title: "🎤 Recording Started",
+        description: "Speak your meme chaos into existence!",
+      });
+    } catch (error) {
+      toast({
+        title: "Mic Access Denied",
+        description: "Enable microphone access for voice-to-meme magic",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const stopVoiceRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+      setIsProcessingVoice(true);
+    }
+  };
+
+  const processVoiceToMeme = async (audioBlob: Blob) => {
+    try {
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'voice-meme.wav');
+      formData.append('userId', user?.id || 'anonymous');
+      
+      const response = await fetch('/api/ai/voice-to-meme', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setTopText(data.topText || '');
+        setBottomText(data.bottomText || '');
+        setCenterText(data.centerText || '');
+        setChaosScore(data.chaosScore);
+        
+        toast({
+          title: "🎤✨ Voice Decoded!",
+          description: `Your chaos voice converted to meme text (Chaos: ${data.chaosScore}%)`,
+        });
+      } else {
+        throw new Error('Voice processing failed');
+      }
+    } catch (error) {
+      toast({
+        title: "Voice Processing Failed",
+        description: "Try speaking more clearly or check your connection",
+        variant: "destructive"
+      });
+    } finally {
+      setIsProcessingVoice(false);
+    }
+  };
+
+  // 🎨 ADVANCED IMAGE FILTER FUNCTIONS
+  const applyImageFilter = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+    
+    switch (selectedFilter) {
+      case 'cyberpunk':
+        // Enhance reds and greens, reduce blues
+        for (let i = 0; i < data.length; i += 4) {
+          data[i] = Math.min(255, data[i] * 1.3);     // Red
+          data[i + 1] = Math.min(255, data[i + 1] * 1.1); // Green  
+          data[i + 2] = data[i + 2] * 0.7;           // Blue
+        }
+        break;
+        
+      case 'glitch':
+        // Add random color displacement
+        for (let i = 0; i < data.length; i += 4) {
+          if (Math.random() < glitchIntensity / 100) {
+            const offset = Math.floor(Math.random() * 10) - 5;
+            const sourceIndex = Math.max(0, Math.min(data.length - 4, i + offset * 4));
+            data[i] = data[sourceIndex];
+            data[i + 1] = data[sourceIndex + 1];
+            data[i + 2] = data[sourceIndex + 2];
+          }
+        }
+        break;
+        
+      case 'neon':
+        // Increase saturation and add glow effect
+        for (let i = 0; i < data.length; i += 4) {
+          const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+          data[i] = Math.min(255, avg + (data[i] - avg) * 1.5);
+          data[i + 1] = Math.min(255, avg + (data[i + 1] - avg) * 1.5);
+          data[i + 2] = Math.min(255, avg + (data[i + 2] - avg) * 1.5);
+        }
+        break;
+    }
+    
+    // Apply opacity
+    if (imageOpacity < 100) {
+      for (let i = 3; i < data.length; i += 4) {
+        data[i] = data[i] * (imageOpacity / 100);
+      }
+    }
+    
+    ctx.putImageData(imageData, 0, 0);
   };
 
   return (
@@ -1159,6 +1355,119 @@ export default function ToolsSection() {
                   </div>
                 </div>
 
+                {/* 🚀 AI-POWERED TEXT GENERATION */}
+                <div className="mb-4 p-4 bg-gradient-to-r from-toxic-green/10 to-glitch-purple/10 rounded-lg border border-toxic-green/30">
+                  <div className="flex items-center justify-between mb-3">
+                    <label className="text-toxic-green text-sm font-bold flex items-center">
+                      <Sparkles className="w-4 h-4 mr-2" />
+                      AI CHAOS INTELLIGENCE
+                    </label>
+                    {chaosScore > 0 && (
+                      <div className="text-xs bg-glitch-purple/20 text-glitch-purple px-2 py-1 rounded-full border border-glitch-purple/30">
+                        Chaos Score: {chaosScore}%
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-2 mb-3">
+                    <Button 
+                      type="button"
+                      onClick={() => generateAiSuggestions('top')}
+                      disabled={isLoadingAiSuggestions}
+                      className="py-2 text-xs bg-gradient-to-r from-toxic-green/20 to-toxic-green/10 hover:from-toxic-green/30 hover:to-toxic-green/20 text-toxic-green border border-toxic-green/30 rounded-lg transition-all duration-200"
+                      data-testid="button-ai-suggest-top"
+                    >
+                      {isLoadingAiSuggestions ? <Zap className="w-3 h-3 animate-spin" /> : <Wand2 className="w-3 h-3" />}
+                      AI Top
+                    </Button>
+                    <Button 
+                      type="button"
+                      onClick={() => generateAiSuggestions('center')}
+                      disabled={isLoadingAiSuggestions}
+                      className="py-2 text-xs bg-gradient-to-r from-glitch-purple/20 to-glitch-purple/10 hover:from-glitch-purple/30 hover:to-glitch-purple/20 text-glitch-purple border border-glitch-purple/30 rounded-lg transition-all duration-200"
+                      data-testid="button-ai-suggest-center"
+                    >
+                      {isLoadingAiSuggestions ? <Zap className="w-3 h-3 animate-spin" /> : <Wand2 className="w-3 h-3" />}
+                      AI Center
+                    </Button>
+                    <Button 
+                      type="button"
+                      onClick={() => generateAiSuggestions('bottom')}
+                      disabled={isLoadingAiSuggestions}
+                      className="py-2 text-xs bg-gradient-to-r from-blood-red/20 to-blood-red/10 hover:from-blood-red/30 hover:to-blood-red/20 text-blood-red border border-blood-red/30 rounded-lg transition-all duration-200"
+                      data-testid="button-ai-suggest-bottom"
+                    >
+                      {isLoadingAiSuggestions ? <Zap className="w-3 h-3 animate-spin" /> : <Wand2 className="w-3 h-3" />}
+                      AI Bottom
+                    </Button>
+                  </div>
+                  
+                  {/* AI Suggestions Display */}
+                  {aiSuggestions.length > 0 && (
+                    <div className="grid grid-cols-2 gap-2 mb-3">
+                      {aiSuggestions.slice(0, 6).map((suggestion, index) => (
+                        <button
+                          key={index}
+                          onClick={() => {
+                            if (index < 2) setTopText(suggestion);
+                            else if (index < 4) setCenterText(suggestion);
+                            else setBottomText(suggestion);
+                          }}
+                          className="p-2 text-xs bg-jet-black/50 hover:bg-jet-black/70 text-ash-white border border-dim-gray/30 hover:border-toxic-green/50 rounded transition-all duration-200 text-left"
+                        >
+                          ✨ {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* 🎤 VOICE-TO-MEME FEATURE */}
+                <div className="mb-4 p-4 bg-gradient-to-r from-blood-red/10 to-glitch-purple/10 rounded-lg border border-blood-red/30">
+                  <label className="text-blood-red text-sm font-bold flex items-center mb-3">
+                    <Mic className="w-4 h-4 mr-2" />
+                    VOICE-TO-MEME MAGIC
+                  </label>
+                  
+                  <div className="flex items-center gap-3">
+                    <Button 
+                      type="button"
+                      onClick={isRecording ? stopVoiceRecording : startVoiceRecording}
+                      disabled={isProcessingVoice}
+                      className={`py-3 px-4 font-bold tracking-wide rounded-lg transition-all duration-200 border ${
+                        isRecording 
+                          ? 'bg-gradient-to-r from-blood-red to-blood-red/80 text-white border-blood-red animate-pulse' 
+                          : 'bg-gradient-to-r from-blood-red/20 to-blood-red/10 hover:from-blood-red/30 hover:to-blood-red/20 text-blood-red border-blood-red/30'
+                      }`}
+                      data-testid="button-voice-to-meme"
+                    >
+                      {isProcessingVoice ? (
+                        <>
+                          <Zap className="w-4 h-4 mr-2 animate-spin" />
+                          PROCESSING...
+                        </>
+                      ) : isRecording ? (
+                        <>
+                          <MicOff className="w-4 h-4 mr-2" />
+                          STOP RECORDING
+                        </>
+                      ) : (
+                        <>
+                          <Mic className="w-4 h-4 mr-2" />
+                          SPEAK YOUR MEME
+                        </>
+                      )}
+                    </Button>
+                    
+                    {isRecording && (
+                      <div className="flex items-center text-blood-red text-sm font-medium">
+                        <div className="w-2 h-2 bg-blood-red rounded-full animate-pulse mr-2"></div>
+                        Recording...
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 {/* Text Inputs */}
                 <div className="grid grid-cols-1 gap-3 mb-4">
                   <Input 
@@ -1185,6 +1494,59 @@ export default function ToolsSection() {
                     className="cyber-input w-full px-4 py-3 text-ash-white placeholder-dim-gray rounded-lg font-medium" 
                     data-testid="input-meme-bottom-text"
                   />
+                </div>
+
+                {/* 🎨 ADVANCED IMAGE EFFECTS */}
+                <div className="mb-4 p-4 bg-gradient-to-r from-glitch-purple/10 to-toxic-green/10 rounded-lg border border-glitch-purple/30">
+                  <label className="text-glitch-purple text-sm font-bold flex items-center mb-3">
+                    <Palette className="w-4 h-4 mr-2" />
+                    CHAOS VISUAL EFFECTS
+                  </label>
+                  
+                  <div className="grid grid-cols-2 gap-3 mb-3">
+                    <div>
+                      <label className="text-ash-white text-xs font-medium mb-1 block">Filter Style</label>
+                      <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                        <SelectTrigger className="cyber-input text-ash-white" data-testid="select-image-filter">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-jet-black border border-dim-gray">
+                          <SelectItem value="none" className="text-ash-white hover:bg-dim-gray">None</SelectItem>
+                          <SelectItem value="cyberpunk" className="text-ash-white hover:bg-dim-gray">🔴 Cyberpunk</SelectItem>
+                          <SelectItem value="glitch" className="text-ash-white hover:bg-dim-gray">⚡ Glitch</SelectItem>
+                          <SelectItem value="neon" className="text-ash-white hover:bg-dim-gray">💚 Neon</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div>
+                      <label className="text-ash-white text-xs font-medium mb-1 block">Opacity: {imageOpacity}%</label>
+                      <input
+                        type="range"
+                        min="10"
+                        max="100"
+                        value={imageOpacity}
+                        onChange={(e) => setImageOpacity(Number(e.target.value))}
+                        className="w-full h-2 bg-dim-gray rounded-lg appearance-none cursor-pointer slider-thumb"
+                        data-testid="slider-image-opacity"
+                      />
+                    </div>
+                  </div>
+                  
+                  {selectedFilter === 'glitch' && (
+                    <div>
+                      <label className="text-ash-white text-xs font-medium mb-1 block">Glitch Intensity: {glitchIntensity}%</label>
+                      <input
+                        type="range"
+                        min="0"
+                        max="50"
+                        value={glitchIntensity}
+                        onChange={(e) => setGlitchIntensity(Number(e.target.value))}
+                        className="w-full h-2 bg-dim-gray rounded-lg appearance-none cursor-pointer slider-thumb"
+                        data-testid="slider-glitch-intensity"
+                      />
+                    </div>
+                  )}
                 </div>
                 {/* Quick Actions */}
                 <div className="grid grid-cols-2 gap-3 mb-4">
