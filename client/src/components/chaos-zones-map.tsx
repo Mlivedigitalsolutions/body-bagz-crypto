@@ -23,7 +23,7 @@ export default function ChaosZonesMap() {
 
   useEffect(() => {
     const loadGoogleMaps = () => {
-      if (window.google || !import.meta.env.VITE_GOOGLE_MAPS_API_KEY) {
+      if ((window as any).google || !import.meta.env.VITE_GOOGLE_MAPS_API_KEY) {
         initializeMap();
         return;
       }
