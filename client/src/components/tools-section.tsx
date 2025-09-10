@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/contexts/UserContext";
 import { apiRequest } from "@/lib/queryClient";
-import { Save, Mic, MicOff, Sparkles, Zap, Wand2, Palette } from "lucide-react";
+import { Save, Mic, MicOff, Sparkles, Zap, Wand2, Palette, MessageSquare, Image, User } from "lucide-react";
 import pfpHeaderImg from "@assets/generated_images/Cyberpunk_PFP_Generator_header_fad9f426.png";
 import tweetHeaderImg from "@assets/generated_images/Cyberpunk_Tweet_Generator_header_85711bc6.png";
 import memeHeaderImg from "@assets/generated_images/Cyberpunk_Meme_Creator_header_95968e4a.png";
@@ -492,6 +492,9 @@ const memeTemplates: Record<string, MemeTemplate> = {
 // Legacy AI prompts replaced with premium pre-made collection
 
 export default function ToolsSection() {
+  // Tab state for clean UI navigation
+  const [activeTab, setActiveTab] = useState<'tweet' | 'meme' | 'pfp'>('tweet');
+  
   const [generatedTweet, setGeneratedTweet] = useState("");
   const [topText, setTopText] = useState("");
   const [bottomText, setBottomText] = useState("");
@@ -1142,31 +1145,76 @@ export default function ToolsSection() {
   };
 
   return (
-    <section id="tools-section" className="relative z-10 py-20 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section id="tools-section" className="relative z-10 py-12 px-6">
+      <div className="max-w-6xl mx-auto">
         {/* EPIC BODY BAGZ SKULL BRANDING */}
-        <div className="mb-12 flex justify-center">
+        <div className="mb-8 flex justify-center">
           <div className="relative animate-pulse-glow">
-            <div className="w-full max-w-2xl rounded-2xl overflow-hidden neon-card border border-blood-red/30">
+            <div className="w-full max-w-xl rounded-xl overflow-hidden neon-card border border-blood-red/30">
               <img 
                 src={epicSkullImg}
                 alt="Body Bagz Epic Skull - Villain Era Branding"
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-contain"
                 data-testid="epic-skull-banner"
               />
             </div>
             {/* Epic glow effects */}
-            <div className="absolute -inset-2 bg-gradient-to-r from-blood-red/20 via-toxic-green/20 to-glitch-purple/20 rounded-3xl blur-lg -z-10"></div>
+            <div className="absolute -inset-2 bg-gradient-to-r from-blood-red/20 via-toxic-green/20 to-glitch-purple/20 rounded-2xl blur-lg -z-10"></div>
           </div>
         </div>
 
-        <h2 className="font-brand text-4xl md:text-5xl text-center text-blood-red mb-16" data-testid="tools-title">
+        <h2 className="font-brand text-3xl md:text-4xl text-center text-blood-red mb-8" data-testid="tools-title">
           CHAOS TOOLS
         </h2>
         
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Premium Tweet Generator */}
-          <div className="neon-card p-8 rounded-xl group" data-testid="tweet-generator">
+        {/* Tab Navigation */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-jet-black/50 border border-dim-gray/50 rounded-xl p-2 backdrop-blur-sm">
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                onClick={() => setActiveTab('tweet')}
+                className={`px-6 py-3 rounded-lg font-tech text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                  activeTab === 'tweet'
+                    ? 'bg-gradient-to-r from-toxic-green to-toxic-green/80 text-jet-black shadow-green-glow'
+                    : 'text-ash-white hover:text-toxic-green hover:bg-jet-black/30'
+                }`}
+                data-testid="tab-tweet-generator"
+              >
+                <MessageSquare className="w-4 h-4" />
+                TWEET GEN
+              </button>
+              <button
+                onClick={() => setActiveTab('meme')}
+                className={`px-6 py-3 rounded-lg font-tech text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                  activeTab === 'meme'
+                    ? 'bg-gradient-to-r from-blood-red to-blood-red/80 text-white shadow-red-glow'
+                    : 'text-ash-white hover:text-blood-red hover:bg-jet-black/30'
+                }`}
+                data-testid="tab-meme-factory"
+              >
+                <Image className="w-4 h-4" />
+                MEME FACTORY
+              </button>
+              <button
+                onClick={() => setActiveTab('pfp')}
+                className={`px-6 py-3 rounded-lg font-tech text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                  activeTab === 'pfp'
+                    ? 'bg-gradient-to-r from-glitch-purple to-glitch-purple/80 text-white shadow-purple-glow'
+                    : 'text-ash-white hover:text-glitch-purple hover:bg-jet-black/30'
+                }`}
+                data-testid="tab-pfp-generator"
+              >
+                <User className="w-4 h-4" />
+                PFP CHAOS
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Tab Content */}
+        <div className="max-w-4xl mx-auto">
+          {activeTab === 'tweet' && (
+            <div className="neon-card p-8 rounded-xl group" data-testid="tweet-generator">
             <div className="relative mb-6 overflow-hidden rounded-lg">
               <img 
                 src={tweetHeaderImg} 
@@ -1227,8 +1275,9 @@ export default function ToolsSection() {
               </div>
             </div>
           </div>
+          )}
 
-          {/* Premium Meme Factory */}
+          {activeTab === 'meme' && (
           <div className="neon-card p-8 rounded-xl group" data-testid="meme-generator">
             <div className="relative mb-6 overflow-hidden rounded-lg">
               <img 
@@ -1616,8 +1665,9 @@ export default function ToolsSection() {
               </div>
             </div>
           </div>
+          )}
 
-          {/* Premium PFP Chaos */}
+          {activeTab === 'pfp' && (
           <div className="neon-card p-8 rounded-xl group" data-testid="pfp-generator">
             <div className="relative mb-6 overflow-hidden rounded-lg">
               <img 
@@ -1722,6 +1772,7 @@ export default function ToolsSection() {
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
     </section>
