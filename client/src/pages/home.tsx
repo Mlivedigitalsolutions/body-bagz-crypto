@@ -9,6 +9,8 @@ import roadmapBanner from "@assets/generated_images/Cyberpunk_roadmap_banner_b0b
 import TradingDataSection from "@/components/trading-data-section";
 import CommunitySection from "@/components/community-section";
 import Footer from "@/components/footer";
+import ChaosZonesMap from "@/components/chaos-zones-map";
+import YoutubeSection from "@/components/youtube-section";
 import { UserButton } from "@/components/UserAuth";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
 import { TrophyIcon, Users } from "lucide-react";
@@ -476,6 +478,12 @@ export default function Home() {
           </div>
         </section>
         <CommunitySection />
+        
+        {/* Global Chaos Zones Map */}
+        <ChaosZonesMap />
+        
+        {/* YouTube Content Section */}
+        <YoutubeSection />
       </main>
 
       <Footer />
