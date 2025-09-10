@@ -25,6 +25,11 @@ import reaperApprovalMeme from "@assets/generated_images/Reaper_approval_wealth_
 import reaperRocketMeme from "@assets/generated_images/Reaper_rocket_moon_meme_ef7d2642.png";
 import reaperStrengthMeme from "@assets/generated_images/Reaper_strength_gains_meme_e94151d5.png";
 
+// Import blank meme templates (no existing text)
+import blankCyberpunkTemplate from "@assets/generated_images/Blank_cyberpunk_meme_template_e4634d07.png";
+import blankTradingTemplate from "@assets/generated_images/Blank_crypto_trading_template_22de2acb.png";
+import blankVillainTemplate from "@assets/generated_images/Blank_villain_meme_template_526b2f75.png";
+
 // Import 20 pre-made PFP collection
 import pfp01 from "@assets/generated_images/Toxic_Green_Cyber_Assassin_d59133d7.png";
 import pfp02 from "@assets/generated_images/Blood_Red_Android_Profile_70411c89.png";
@@ -486,6 +491,29 @@ const memeTemplates: Record<string, MemeTemplate> = {
     isImage: true,
     imageUrl: reaperStrengthMeme,
     generate: () => reaperStrengthMeme
+  },
+  
+  // Blank templates for clean text overlays
+  'blank-cyberpunk': {
+    name: 'Clean Cyberpunk City',
+    icon: '🏙️',
+    isImage: true,
+    imageUrl: blankCyberpunkTemplate,
+    generate: () => blankCyberpunkTemplate
+  },
+  'blank-trading': {
+    name: 'Clean Trading Charts',
+    icon: '📊',
+    isImage: true,
+    imageUrl: blankTradingTemplate,
+    generate: () => blankTradingTemplate
+  },
+  'blank-villain': {
+    name: 'Clean Villain Silhouette',
+    icon: '🦹',
+    isImage: true,
+    imageUrl: blankVillainTemplate,
+    generate: () => blankVillainTemplate
   }
 };
 
