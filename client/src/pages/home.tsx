@@ -148,7 +148,7 @@ export default function Home() {
             <div className="hidden md:flex items-center space-x-2 bg-jet-black/50 border border-dim-gray/50 rounded-md px-3 py-2 backdrop-blur-sm">
               <Users className="w-4 h-4 text-toxic-green" />
               <span className="text-ash-white text-sm font-medium">
-                {userCountData?.userCount || 0} Users
+                {(userCountData as any)?.userCount || 0} Users
               </span>
             </div>
 
@@ -437,50 +437,42 @@ export default function Home() {
           </div>
         </section>
         {/* Leaderboard Preview */}
-        <section id="leaderboard" className="relative z-10 py-20 px-6">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="font-brand text-4xl md:text-5xl text-blood-red mb-6" data-testid="leaderboard-preview-title">
-              CHAOS LEADERBOARD
+        <section id="leaderboard" className="relative z-10 py-12 px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="font-brand text-3xl md:text-4xl text-blood-red mb-4" data-testid="leaderboard-preview-title">
+              Monthly Competition
             </h2>
-            <p className="text-ash-white/90 text-lg font-medium mb-8">
-              Compete for monthly rewards. Top performers earn up to <span className="text-toxic-green font-bold">10,000 $BAGZ tokens</span>
+            <p className="text-ash-white/90 text-base font-medium mb-6">
+              Earn points by creating content, sharing tweets, and engaging with the community.
             </p>
             
-            <div className="neon-card p-8 rounded-xl hover:shadow-red-glow transition-all duration-200 max-w-2xl mx-auto">
-              <div className="flex items-center justify-center mb-6">
-                <TrophyIcon className="w-12 h-12 text-blood-red mr-4" />
-                <div className="text-left">
-                  <h3 className="font-tech text-2xl text-blood-red mb-2">Monthly Competition</h3>
-                  <p className="text-ash-white">Earn points by creating content, sharing tweets, and engaging with the community.</p>
+            <div className="neon-card p-6 rounded-xl hover:shadow-red-glow transition-all duration-200 max-w-xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                <div className="text-center">
+                  <div className="text-toxic-green font-bold text-base">6 pts</div>
+                  <div className="text-ash-white/80 text-xs">Share Tweet</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-blood-red font-bold text-base">5 pts</div>
+                  <div className="text-ash-white/80 text-xs">Generate Tweet</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-glitch-purple font-bold text-base">4 pts</div>
+                  <div className="text-ash-white/80 text-xs">Create Meme</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-yellow-400 font-bold text-base">3 pts</div>
+                  <div className="text-ash-white/80 text-xs">Download PFP</div>
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="text-center">
-                  <div className="text-toxic-green font-bold text-lg">6 pts</div>
-                  <div className="text-ash-white/80 text-sm">Share Tweet</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-blood-red font-bold text-lg">5 pts</div>
-                  <div className="text-ash-white/80 text-sm">Generate Tweet</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-glitch-purple font-bold text-lg">4 pts</div>
-                  <div className="text-ash-white/80 text-sm">Create Meme</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-yellow-400 font-bold text-lg">3 pts</div>
-                  <div className="text-ash-white/80 text-sm">Download PFP</div>
-                </div>
-              </div>
-              
-              <a 
+              <Link 
                 href="/leaderboard"
                 className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blood-red to-red-600 rounded-lg font-tech text-white hover:shadow-red-glow transition-all duration-200 text-lg"
                 data-testid="view-full-leaderboard"
               >
                 View Full Leaderboard →
-              </a>
+              </Link>
             </div>
           </div>
         </section>
