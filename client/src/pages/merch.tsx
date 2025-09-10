@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import MerchSection from "@/components/merch-section";
 import Footer from "@/components/footer";
 import { UserButton } from "@/components/UserAuth";
-import { CompactMusicPlayer } from "@/components/CompactMusicPlayer";
 import mainBrandLogo from "@assets/generated_images/Official_Body_Bagz_brand_logo_94353dbf.png";
 
 export default function MerchPage() {

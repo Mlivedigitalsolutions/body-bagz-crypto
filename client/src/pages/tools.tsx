@@ -51,8 +51,6 @@ export default function ToolsPage() {
 
       <Footer />
       
-      {/* Compact Music Player */}
-      <CompactMusicPlayer />
     </div>
   );
 }

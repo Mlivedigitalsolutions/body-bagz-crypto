@@ -481,8 +481,6 @@ export default function Home() {
 
       <Footer />
       
-      {/* Compact Music Player */}
-      <CompactMusicPlayer />
 
     </div>
   );
