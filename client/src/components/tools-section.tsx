@@ -1219,7 +1219,7 @@ export default function ToolsSection() {
               <img 
                 src={tweetHeaderImg} 
                 alt="Cyberpunk Tweet Generator" 
-                className="w-full h-32 object-cover border border-toxic-green/30"
+                className="w-full h-32 object-contain border border-toxic-green/30 bg-jet-black/30"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-toxic-green/20 to-transparent"></div>
             </div>
@@ -1283,7 +1283,7 @@ export default function ToolsSection() {
               <img 
                 src={memeHeaderImg} 
                 alt="Cyberpunk Meme Creator" 
-                className="w-full h-32 object-cover border border-blood-red/30"
+                className="w-full h-32 object-contain border border-blood-red/30 bg-jet-black/30"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-blood-red/20 to-transparent"></div>
             </div>
@@ -1673,7 +1673,7 @@ export default function ToolsSection() {
               <img 
                 src={pfpHeaderImg} 
                 alt="Cyberpunk PFP Generator" 
-                className="w-full h-32 object-cover border border-glitch-purple/30"
+                className="w-full h-32 object-contain border border-glitch-purple/30 bg-jet-black/30"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-glitch-purple/20 to-transparent"></div>
             </div>
