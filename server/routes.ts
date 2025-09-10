@@ -810,7 +810,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           ]
         };
         
-        suggestions = fallbackSuggestions[textType] || fallbackSuggestions.top;
+        suggestions = fallbackSuggestions[textType as keyof typeof fallbackSuggestions] || fallbackSuggestions.top;
         chaosScore = Math.floor(Math.random() * 25) + 65; // 65-90% for fallback
       }
       
@@ -1275,6 +1275,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error tracking action:', error);
       res.status(500).json({ error: "Failed to track action" });
+    }
+  });
+
+  // User count API - Simple counter for registered users
+  app.get("/api/user-count", generalLimiter, async (req, res) => {
+    try {
+      const stats = await storage.getAdminStats();
+      res.json({ 
+        userCount: Number(stats.totalUsers) || 0,
+        timestamp: Date.now()
+      });
+    } catch (error) {
+      console.error('Error fetching user count:', error);
+      res.status(500).json({ error: 'Failed to fetch user count' });
     }
   });
   

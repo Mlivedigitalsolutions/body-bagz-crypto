@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import HeroSection from "@/components/hero-section";
 import VideoShowcase from "@/components/video-showcase";
 import VisionSection from "@/components/vision-section";
@@ -10,13 +11,20 @@ import CommunitySection from "@/components/community-section";
 import Footer from "@/components/footer";
 import { UserButton } from "@/components/UserAuth";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
-import { TrophyIcon } from "lucide-react";
+import { TrophyIcon, Users } from "lucide-react";
 import { CompactMusicPlayer } from "@/components/CompactMusicPlayer";
 import mainBrandLogo from "@assets/generated_images/Official_Body_Bagz_brand_logo_94353dbf.png";
 
 export default function Home() {
   const mainTitleRef = useRef<HTMLHeadingElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Fetch user count
+  const { data: userCountData } = useQuery({
+    queryKey: ["/api/user-count"],
+    refetchInterval: 60000, // Refresh every minute
+    retry: 1,
+  });
 
   useEffect(() => {
     // Glitch effect on scroll
@@ -136,6 +144,14 @@ export default function Home() {
               </a>
             </div>
             
+            {/* User Count Display */}
+            <div className="hidden md:flex items-center space-x-2 bg-jet-black/50 border border-dim-gray/50 rounded-md px-3 py-2 backdrop-blur-sm">
+              <Users className="w-4 h-4 text-toxic-green" />
+              <span className="text-ash-white text-sm font-medium">
+                {userCountData?.userCount || 0} Users
+              </span>
+            </div>
+
             {/* User Auth */}
             <UserButton />
             
@@ -160,7 +176,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-red-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
                 data-testid="nav-youtube"
-                title="YouTube"
+                title="YouTube Channel"
               >
                 <span className="text-red-500 group-hover:scale-110 transition-transform text-lg">📺</span>
               </a>
@@ -170,7 +186,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-pink-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
                 data-testid="nav-instagram"
-                title="Instagram"
+                title="Instagram Page"
               >
                 <span className="text-pink-500 group-hover:scale-110 transition-transform text-lg">📸</span>
               </a>
@@ -180,7 +196,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-purple-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
                 data-testid="nav-tiktok"
-                title="TikTok"
+                title="TikTok Account"
               >
                 <span className="text-purple-500 group-hover:scale-110 transition-transform text-lg">📱</span>
               </a>
@@ -190,7 +206,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-green-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
                 data-testid="nav-telegram"
-                title="Telegram"
+                title="Telegram Community"
               >
                 <TelegramChaosIcon className="w-5 h-5 text-toxic-green group-hover:scale-110 transition-transform" />
               </a>
@@ -200,7 +216,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="p-2 rounded-md bg-jet-black/50 border border-dim-gray/50 hover:shadow-purple-glow hover:bg-jet-black transition-all duration-200 group backdrop-blur-sm"
                 data-testid="nav-x-community"
-                title="X Community"
+                title="X/Twitter Community"
               >
                 <XChaosIcon className="w-5 h-5 text-glitch-purple group-hover:scale-110 transition-transform" />
               </a>
