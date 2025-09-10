@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Bagz ($BAGZ) Whitepaper - Deutsche Version</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton:wght@400&family=Bebas+Neue&family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .cover-page {
+            height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 2rem;
+        }
+        
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 4rem;
+            color: #dc2626;
+            text-shadow: 0 0 20px #dc2626;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+        
+        .tagline {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #22c55e;
+            text-shadow: 0 0 10px #22c55e;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a855f7;
+            margin-bottom: 2rem;
+        }
+        
+        .version {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-family: 'Orbitron', monospace;
+            color: #666;
+        }
+        
+        .page {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            page-break-before: always;
+        }
+        
+        .page:first-child {
+            page-break-before: auto;
+        }
+        
+        h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            color: #dc2626;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            border-bottom: 3px solid #22c55e;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: #a855f7;
+            margin: 2rem 0 1rem 0;
+            font-weight: 700;
+        }
+        
+        h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            color: #333;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 700;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .villain-text {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border: 2px solid #22c55e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #dc2626;
+            font-weight: 900;
+        }
+        
+        .stat-label {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.2rem;
+            color: #333;
+            margin-top: 0.5rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            border: 2px solid #a855f7;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: #fafafa;
+        }
+        
+        .feature-title {
+            font-family: 'Orbitron', monospace;
+            color: #a855f7;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .checkmark {
+            color: #22c55e;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .table th {
+            background: #22c55e;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+        }
+        
+        .roadmap-phase {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-left: 5px solid #22c55e;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .phase-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 2rem 0;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .download-btn:hover {
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+        }
+        
+        @media print {
+            .page {
+                page-break-inside: avoid;
+            }
+            .cover-page {
+                page-break-after: always;
+            }
+            .download-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <div class="cover-content">
+            <div class="logo">BODY BAGZ</div>
+            <div class="tagline">DIE SCHURKEN-ÄRA HAT BEGONNEN</div>
+            <div class="title">WHITEPAPER</div>
+            <div class="subtitle">Das ultimative Cyberpunk-Meme-Ökosystem</div>
+            <p style="color: #666; margin-top: 2rem; font-family: 'Orbitron', monospace;">
+                🇩🇪 Deutsche Version • Version 1.0 • September 2025
+            </p>
+        </div>
+        <div class="version">Version 1.0 | 10. September 2025</div>
+    </div>
+
+    <!-- Download Section -->
+    <div class="page" style="text-align: center; padding: 3rem 2rem;">
+        <h1 style="border: none;">📄 WHITEPAPER HERUNTERLADEN</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Das komplette Body Bagz Whitepaper ist jetzt in deutscher Sprache verfügbar!</p>
+        
+        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border: 2px solid #22c55e; border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+            <h2 style="color: #dc2626; margin-bottom: 1rem;">📋 Whitepaper-Inhalt</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; text-align: left;">
+                <div>
+                    <h3>🎯 Projekt-Übersicht</h3>
+                    <ul>
+                        <li>Zusammenfassung</li>
+                        <li>Vision & Mission</li>
+                        <li>Grundwerte</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>💰 Tokenomics</h3>
+                    <ul>
+                        <li>Token-Details</li>
+                        <li>Verteilungsmodell</li>
+                        <li>Transparente Launch-Strategie</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>⚡ Ökosystem</h3>
+                    <ul>
+                        <li>Meme-Fabrik</li>
+                        <li>PFP-Generator</li>
+                        <li>Chaos-Bestenliste</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🔧 Technik</h3>
+                    <ul>
+                        <li>Architektur</li>
+                        <li>Roadmap</li>
+                        <li>Community-Links</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #1e1b4b; color: white; border-radius: 12px; padding: 2rem; margin: 3rem 0;">
+            <h2 style="color: #a855f7; margin-bottom: 1rem;">🚀 Jetzt als HTML verfügbar</h2>
+            <p style="margin-bottom: 2rem;">Das deutsche Whitepaper ist als vollständige HTML-Version verfügbar und kann über Ihren Browser als PDF gedruckt werden.</p>
+            <p style="color: #22c55e; font-family: 'Orbitron', monospace; font-size: 1.1rem;">
+                <strong>So drucken Sie als PDF:</strong><br>
+                Strg+P → Ziel: "Als PDF speichern" → Drucken
+            </p>
+        </div>
+    </div>
+
+    <!-- Executive Summary -->
+    <div class="page">
+        <h1>⚡ ZUSAMMENFASSUNG</h1>
+        <p>Body Bagz ($BAGZ) ist mehr als ein Meme-Token — es ist eine <span class="highlight">Cyberpunk-Kulturbewegung</span>. Auf Solana aufgebaut, durch Chaos angetrieben und für Community-Engagement konzipiert, verwandelt $BAGZ die Meme-Kultur in ein lebendiges Ökosystem aus Tools, Wettbewerben und Belohnungen.</p>
+        
+        <p>Durch unsere <span class="villain-text">Meme-Fabrik</span>, den <span class="villain-text">PFP-Generator</span> und die <span class="villain-text">Chaos-Bestenliste</span> ermöglicht Body Bagz Inhabern, virale Inhalte zu erstellen, um Belohnungen zu kämpfen und ihre digitalen Schurken-Identitäten aufzubauen. Mit Gebührenbeteiligung und Gamification als Kern ist Body Bagz die <span class="highlight">nächste Evolution der Meme-Kriegsführung</span>.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">11</div>
+                <div class="stat-label">Meme-Vorlagen</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">20</div>
+                <div class="stat-label">Premium-PFPs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Chaos-Potenzial</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Vision -->
+    <div class="page">
+        <h1>⚡ PROJEKTVISION</h1>
+        
+        <h2>Mission</h2>
+        <p>Das ultimative schurken-thematische Krypto-Ökosystem schaffen, das Inhaber befähigt, Chaos zu umarmen und gleichzeitig echten Wert durch Inhalte, Kultur und Gemeinschaft zu schaffen.</p>
+        
+        <h2>Vision</h2>
+        <p>$BAGZ als <span class="highlight">globales Zentrum der Meme-Kriegsführung</span> etablieren, wo Teilnahme Belohnungen bedeutet, Chaos Kultur bedeutet und Schurken zuerst essen.</p>
+        
+        <h2>Grundwerte</h2>
+        <ul>
+            <li><strong>Chaos als Währung:</strong> Belohnung von Störung und kreativer Zerstörung</li>
+            <li><strong>Community zuerst:</strong> Jede Entscheidung kommt dem Schurken-Kollektiv zugute</li>
+            <li><strong>Qualität vor Quantität:</strong> Professionelle Tools und Assets</li>
+            <li><strong>Transparenz:</strong> Offene Entwicklung und Community-Governance</li>
+            <li><strong>Innovation:</strong> Die Grenzen der Meme-Token-Nutzung erweitern</li>
+        </ul>
+    </div>
+
+    <!-- Tokenomics -->
+    <div class="page">
+        <h1>⚡ TOKENOMICS</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Token-Name</div>
+                <div class="stat-number" style="font-size: 1.5rem;">Body Bagz</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Symbol</div>
+                <div class="stat-number">$BAGZ</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Blockchain</div>
+                <div class="stat-number" style="font-size: 1.5rem;">Solana</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Typ</div>
+                <div class="stat-number" style="font-size: 1rem;">Meme + Nutzen</div>
+            </div>
+        </div>
+
+        <h2>Transparente Launch-Philosophie</h2>
+        <div style="background: #f0f9ff; border: 1px solid #22c55e; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
+            <p><strong>Moonshot $BAGZ wurde ohne Presale und ohne Team-Allokation gestartet.</strong> Der Großteil des Angebots wird transparent über Moonshots Bonding-Kurve und automatisches Verbrennungssystem verteilt.</p>
+            <p>Das Body Bagz-Ökosystem wird durch eine langfristige Reserve von 20M BAGZ unterstützt, die bis März 2026 gesperrt ist, und ein Treasury-Wallet von 36M BAGZ für Ökosystem-Wachstum und Belohnungen. Die Liquidität ist dauerhaft durch Moonshots LP-Verbrennungsprozess gesichert, sobald das Bonding abgeschlossen ist.</p>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Zuteilung</th>
+                    <th>Menge</th>
+                    <th>Zweck</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Community-Verteilung</td>
+                    <td>Dynamisch (Mehrheit)</td>
+                    <td>Verteilt über Moonshots Bonding-Kurven-Mechanik. Die endgültige zirkulierende Menge hängt von der Marktbeteiligung und automatischen Angebotsverbrennung ab.</td>
+                </tr>
+                <tr>
+                    <td>Langfristige Reserve</td>
+                    <td>20M BAGZ</td>
+                    <td><strong>Gesperrt bis 18. März 2026</strong> über Streamflow für Ökosystem-Stabilität.</td>
+                </tr>
+                <tr>
+                    <td>Treasury-Wallet</td>
+                    <td>36M BAGZ</td>
+                    <td>Aktive Mittel für Ökosystem-Wachstum, Staking-Belohnungen, Rückkäufe, Wettbewerbe, Marketing und Entwicklung.</td>
+                </tr>
+                <tr style="background: #fffbeb;">
+                    <td>Liquidität</td>
+                    <td>Dauerhaft Gesperrt</td>
+                    <td><strong>Automatisch über Moonshot gesperrt</strong> - Sobald das Bonding-Cap erreicht ist, erstellt Moonshot einen Raydium-Pool und verbrennt LP-Token, wodurch die Liquidität dauerhaft gesichert wird.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Ecosystem Features -->
+    <div class="page">
+        <h1>⚡ ÖKOSYSTEM-FUNKTIONEN</h1>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-title">1. Meme-Fabrik</div>
+                <ul>
+                    <li>11 benutzerdefinierte "Bullish Reaper"-Vorlagen</li>
+                    <li>Viral-bereit, optimiert für soziale Medien</li>
+                    <li>Chaos & Reaper-thematische Meme-Bibliothek</li>
+                    <li>Sofortige Generierung mit benutzerdefiniertem Text</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">2. Tweet-Generator</div>
+                <ul>
+                    <li>KI-gesteuerte Schurken-Stimme-Tweets</li>
+                    <li>Aggressiv/strategisch/chaos Tonarten</li>
+                    <li>Für Viralität auf X konzipiert</li>
+                    <li>Optimierte Engagement-Algorithmen</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">3. Premium-PFP-Sammlung</div>
+                <ul>
+                    <li>20 hochwertige Cyberpunk-Schurken-PFPs</li>
+                    <li>Seltenheitsstufen: Gewöhnlich, Selten, Legendär</li>
+                    <li>NFT-bereit für zukünftige Integration</li>
+                    <li>Sofortiger Download, keine KI-Verzögerungen</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-title">4. Chaos-Bestenliste</div>
+                <ul>
+                    <li>Meme-Erstellung → 4 Punkte</li>
+                    <li>Tweet-Generierung → 5 Punkte</li>
+                    <li>PFP-Download → 3 Punkte</li>
+                    <li>Meme-Teilen → 6 Punkte</li>
+                    <li>Monatliche Wettbewerbe mit 10K $BAGZ-Belohnungen</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technical Architecture -->
+    <div class="page">
+        <h1>⚡ TECHNISCHE ARCHITEKTUR</h1>
+        
+        <h2>Frontend-Technologie-Stack</h2>
+        <ul>
+            <li><strong>Framework:</strong> React + TypeScript für Typsicherheit</li>
+            <li><strong>Build-Tool:</strong> Vite für optimierte Leistung</li>
+            <li><strong>UI-Bibliothek:</strong> Radix UI mit shadcn-Komponenten</li>
+            <li><strong>Styling:</strong> Tailwind CSS mit Cyberpunk-Theme</li>
+            <li><strong>State-Management:</strong> TanStack Query für Server-State</li>
+            <li><strong>Routing:</strong> Wouter für leichtgewichtige Navigation</li>
+        </ul>
+        
+        <h2>Backend-Infrastruktur</h2>
+        <ul>
+            <li><strong>Server:</strong> Express.js mit TypeScript</li>
+            <li><strong>Datenbank:</strong> PostgreSQL mit Drizzle ORM</li>
+            <li><strong>Authentifizierung:</strong> Replit Auth-Integration</li>
+            <li><strong>Caching:</strong> Node-cache für Leistungsoptimierung</li>
+            <li><strong>Sicherheit:</strong> Express-rate-limit und helmet</li>
+        </ul>
+        
+        <h2>Design-System</h2>
+        <ul>
+            <li><strong>Farbpalette:</strong> Schwarz / Blutrot / Toxisch Grün / Glitch Lila</li>
+            <li><strong>Typografie:</strong> Anton, Bebas Neue, Orbitron (Schurken-Ära-Schriften)</li>
+            <li><strong>Animationen:</strong> CSS-basierte Glitch-Effekte und Neon-Glows</li>
+            <li><strong>Responsiv:</strong> Mobile-First-Design-Ansatz</li>
+        </ul>
+    </div>
+
+    <!-- Roadmap -->
+    <div class="page">
+        <h1>⚡ ROADMAP</h1>
+        
+        <div class="roadmap-phase">
+            <div class="phase-title">Phase 1: Fundament (Abgeschlossen)</div>
+            <ul>
+                <li><span class="checkmark">✅</span> Meme-Fabrik (11 Vorlagen)</li>
+                <li><span class="checkmark">✅</span> PFP-Sammlung (20 Assets, Seltenheit)</li>
+                <li><span class="checkmark">✅</span> Chaos-Bestenlisten-Gamification</li>
+                <li><span class="checkmark">✅</span> Community-Plattformen live</li>
+                <li><span class="checkmark">✅</span> Echtzeit-Handelssimulation</li>
+            </ul>
+        </div>
+        
+        <div class="roadmap-phase">
+            <div class="phase-title">Phase 2: Expansion (Aktuell)</div>
+            <ul>
+                <li>🔜 Erweiterte Analyse-Dashboard</li>
+                <li>🔜 Mobile-First-Upgrades</li>
+                <li>🔜 Verbesserte soziale Integrationen</li>
+                <li>🔜 Community-Governance-Funktionen</li>
+                <li>🔜 Genesis Villain Pool Staking</li>
+            </ul>
+        </div>
+        
+        <div class="roadmap-phase">
+            <div class="phase-title">Phase 3: Dominanz (Q1 2025)</div>
+            <ul>
+                <li>⚡ NFT-Marktplatz-Integration</li>
+                <li>⚡ Erweiterte Meme-Tools</li>
+                <li>⚡ Multi-Chain-Brücke</li>
+                <li>⚡ Merchandise-Shop</li>
+                <li>⚡ Mobile App Beta</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Risk Disclosure -->
+    <div class="page">
+        <h1>⚡ RISIKOHINWEIS</h1>
+        
+        <div style="background: #fef2f2; border: 2px solid #dc2626; border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+            <h2 style="color: #dc2626; margin-bottom: 1rem;">⚠️ WICHTIGE RISIKOHINWEISE</h2>
+            
+            <p><strong>Kryptowährungen sind hochvolatil und risikoreich.</strong> Body Bagz ($BAGZ) ist ein experimenteller Meme-Token ohne Garantie für Wert oder Ertrag.</p>
+            
+            <h3>Hauptrisiken:</h3>
+            <ul>
+                <li><strong>Vollständiger Wertverlust:</strong> Der Token-Wert kann auf null fallen</li>
+                <li><strong>Regulatorische Risiken:</strong> Gesetze können sich ändern und das Projekt beeinträchtigen</li>
+                <li><strong>Technische Risiken:</strong> Smart-Contract-Fehler oder Exploits möglich</li>
+                <li><strong>Marktrisiken:</strong> Extreme Preisschwankungen sind normal</li>
+                <li><strong>Liquiditätsrisiken:</strong> Möglicherweise schwer handelbar</li>
+            </ul>
+            
+            <p><strong>Investieren Sie nur, was Sie sich leisten können zu verlieren. Dies ist keine Finanzberatung.</strong></p>
+        </div>
+    </div>
+
+    <!-- Community -->
+    <div class="page">
+        <h1>⚡ COMMUNITY & KONTAKTE</h1>
+        
+        <div class="feature-grid">
+            <div class="feature-card" style="background: #1da1f2; color: white; border: none;">
+                <div class="feature-title" style="color: white;">🐦 Twitter/X</div>
+                <p style="color: white;">Folgen Sie uns für tägliche Updates, Meme-Wettbewerbe und Community-Ankündigungen.</p>
+                <p style="font-family: monospace; color: #87ceeb;">@BodyBagzToken</p>
+            </div>
+            
+            <div class="feature-card" style="background: #0088cc; color: white; border: none;">
+                <div class="feature-title" style="color: white;">💬 Telegram</div>
+                <p style="color: white;">Treten Sie unserem aktiven Telegram bei für Echtzeit-Chat und Community-Events.</p>
+                <p style="font-family: monospace; color: #87ceeb;">t.me/BodyBagzOfficial</p>
+            </div>
+            
+            <div class="feature-card" style="background: #7289da; color: white; border: none;">
+                <div class="feature-title" style="color: white;">🎮 Discord</div>
+                <p style="color: white;">Community-Hub für Diskussionen, Meme-Teilen und exklusive Events.</p>
+                <p style="font-family: monospace; color: #87ceeb;">discord.gg/BodyBagz</p>
+            </div>
+            
+            <div class="feature-card" style="background: #333; color: white; border: none;">
+                <div class="feature-title" style="color: white;">🌐 Website</div>
+                <p style="color: white;">Greifen Sie auf alle Tools zu, verfolgen Sie die Bestenliste und bleiben Sie über Updates auf dem Laufenden.</p>
+                <p style="font-family: monospace; color: #87ceeb;">bodybagz.app</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 4rem; padding: 2rem; background: #0a0a0a; color: white; border-radius: 8px;">
+            <h2 style="color: #dc2626; font-family: 'Anton', sans-serif; font-size: 2rem;">WILLKOMMEN IN DER SCHURKEN-ÄRA</h2>
+            <p style="color: #22c55e; font-family: 'Orbitron', monospace; font-size: 1.2rem; margin-top: 1rem;">
+                CHAOS. KULTUR. COMMUNITY.
+            </p>
+            <p style="color: #a855f7; font-size: 1.1rem; margin-top: 1rem;">
+                Body Bagz ($BAGZ) - Wo Schurken gedeihen
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

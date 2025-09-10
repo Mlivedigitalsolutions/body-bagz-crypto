@@ -1791,6 +1791,85 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // German Whitepaper PDF generation route
+  app.get("/api/whitepaper/download-german", async (req, res) => {
+    try {
+      const puppeteer = await import('puppeteer');
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      console.log('Starting German whitepaper generation...');
+      
+      // Read the German HTML template
+      const templatePath = path.join(process.cwd(), 'server', 'templates', 'whitepaper-german.html');
+      let htmlContent = fs.readFileSync(templatePath, 'utf8');
+      
+      // Replace placeholders
+      const coverImagePath = path.join(process.cwd(), 'attached_assets', 'generated_images', 'Professional_whitepaper_cover_design_e5d7badf.png');
+      const coverImageUrl = `file://${coverImagePath}`;
+      const currentDate = new Date().toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' });
+      
+      htmlContent = htmlContent.replace('{{COVER_IMAGE_URL}}', coverImageUrl);
+      htmlContent = htmlContent.replace('{{DATE}}', currentDate);
+      
+      console.log('Launching browser for German PDF...');
+      
+      // Launch puppeteer and generate PDF
+      const browser = await puppeteer.launch({
+        headless: true,
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-accelerated-2d-canvas',
+          '--no-first-run',
+          '--no-zygote',
+          '--single-process',
+          '--disable-gpu',
+          '--disable-background-timer-throttling',
+          '--disable-backgrounding-occluded-windows',
+          '--disable-renderer-backgrounding'
+        ]
+      });
+      
+      const page = await browser.newPage();
+      await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+      
+      console.log('Generating German PDF...');
+      const pdf = await page.pdf({
+        format: 'A4',
+        printBackground: true,
+        margin: {
+          top: '1in',
+          right: '1in',
+          bottom: '1in',
+          left: '1in'
+        }
+      });
+      
+      await browser.close();
+      
+      // Also save to attached_assets for future access
+      const outputPath = path.join(process.cwd(), 'attached_assets', 'Body_Bagz_Whitepaper_German.pdf');
+      fs.writeFileSync(outputPath, pdf);
+      
+      console.log(`✅ German whitepaper generated: ${outputPath}`);
+      console.log(`📄 File size: ${(pdf.length / 1024 / 1024).toFixed(2)} MB`);
+      
+      // Set response headers for PDF download
+      res.set({
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="Body_Bagz_Whitepaper_German.pdf"',
+        'Content-Length': pdf.length
+      });
+      
+      res.send(pdf);
+    } catch (error) {
+      console.error('❌ Error generating German whitepaper:', error);
+      res.status(500).json({ error: "Failed to generate German whitepaper PDF" });
+    }
+  });
+
   // Admin endpoints (requires admin privileges)
   const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
     try {
