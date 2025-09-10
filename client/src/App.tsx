@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserProvider } from "@/contexts/UserContext";
+import { CompactMusicPlayer } from "@/components/CompactMusicPlayer";
 import Home from "@/pages/home";
 import AccountPage from "@/pages/account";
 import ToolsPage from "@/pages/tools";
@@ -55,6 +56,8 @@ function App() {
           <TooltipProvider>
             <Toaster />
             <Router />
+            {/* Global Music Player - Persists across all page navigation */}
+            <CompactMusicPlayer />
           </TooltipProvider>
         </UserProvider>
       </QueryClientProvider>
