@@ -118,6 +118,20 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
+  async updateUserSecurity(
+    userId: string, 
+    data: { 
+      loginAttempts?: number; 
+      lockedUntil?: Date | null; 
+      lastLoginAt?: Date 
+    }
+  ): Promise<void> {
+    await db
+      .update(users)
+      .set(data)
+      .where(eq(users.id, userId));
+  }
+
   async updateUser(id: string, userData: Partial<InsertUser>): Promise<User> {
     const [user] = await db
       .update(users)

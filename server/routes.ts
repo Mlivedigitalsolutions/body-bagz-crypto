@@ -20,6 +20,8 @@ import {
   errorLogger,
   errorHandler
 } from "./middleware/security";
+import bcrypt from "bcrypt";
+import { body, validationResult } from "express-validator";
 import { cacheMiddleware, clearLeaderboardCache } from "./middleware/cache";
 
 // Generate epic 3D cyberpunk villain PFP that matches Body Bagz brand
@@ -1009,6 +1011,90 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // === LEADERBOARD SYSTEM APIs ===
   
   // User registration/profile management
+  // Validation middleware for login
+  const validateLogin = [
+    body('username')
+      .isLength({ min: 3, max: 20 })
+      .matches(/^[a-zA-Z0-9_]+$/)
+      .withMessage('Invalid username format'),
+    body('password')
+      .isLength({ min: 1 })
+      .withMessage('Password is required'),
+    (req: Request, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          error: 'Validation failed',
+          details: errors.array()
+        });
+      }
+      next();
+    }
+  ];
+
+  // Secure authentication endpoint
+  app.post("/api/auth/login", strictLimiter, validateLogin, async (req: Request, res: Response) => {
+    try {
+      const { username, password } = req.body;
+      
+      // Get user by username
+      const user = await storage.getUserByUsername(username);
+      if (!user) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+      
+      // Check if account is locked
+      if (user.lockedUntil && new Date() < user.lockedUntil) {
+        const lockTime = Math.ceil((user.lockedUntil.getTime() - Date.now()) / 60000);
+        return res.status(423).json({ 
+          error: `Account locked. Try again in ${lockTime} minutes.`
+        });
+      }
+      
+      // Verify password
+      const isValidPassword = await bcrypt.compare(password, user.password);
+      
+      if (!isValidPassword) {
+        // Increment login attempts
+        const attempts = (user.loginAttempts || 0) + 1;
+        const lockUntil = attempts >= 5 ? new Date(Date.now() + 30 * 60 * 1000) : null; // 30 minute lock
+        
+        await storage.updateUserSecurity(user.id, {
+          loginAttempts: attempts,
+          lockedUntil: lockUntil
+        });
+        
+        if (lockUntil) {
+          return res.status(423).json({ 
+            error: "Account locked due to too many failed attempts. Try again in 30 minutes."
+          });
+        }
+        
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+      
+      // Successful login - reset attempts and update last login
+      await storage.updateUserSecurity(user.id, {
+        loginAttempts: 0,
+        lockedUntil: null,
+        lastLoginAt: new Date()
+      });
+      
+      res.json({ 
+        user: { 
+          id: user.id, 
+          username: user.username, 
+          xUsername: user.xUsername, 
+          telegramUsername: user.telegramUsername, 
+          solanaWallet: user.solanaWallet 
+        } 
+      });
+    } catch (error) {
+      console.error('Login error:', error);
+      res.status(500).json({ error: "Authentication failed" });
+    }
+  });
+
   app.post("/api/users/register", registrationLimiter, validateRegistration, async (req: Request, res: Response) => {
     try {
       const validData = insertUserSchema.parse(req.body);
@@ -1018,7 +1104,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Username already exists" });
       }
       
-      const user = await storage.createUser(validData);
+      // Hash password before creating user
+      const hashedPassword = await bcrypt.hash(validData.password, 12);
+      const user = await storage.createUser({
+        ...validData,
+        password: hashedPassword
+      });
       res.json({ user: { id: user.id, username: user.username, xUsername: user.xUsername, telegramUsername: user.telegramUsername, solanaWallet: user.solanaWallet } });
     } catch (error) {
       console.error('Registration error:', error);
