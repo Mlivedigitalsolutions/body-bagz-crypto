@@ -13,6 +13,7 @@ import ChaosZonesMap from "@/components/chaos-zones-map";
 import YoutubeSection from "@/components/youtube-section";
 import { UserButton } from "@/components/UserAuth";
 import LanguageSwitcher from "@/components/language-switcher";
+import { enhancedAnalytics } from "@/lib/enhanced-analytics";
 import { SkullIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
 import { TrophyIcon, Users } from "lucide-react";
 import mainBrandLogo from "@assets/generated_images/Official_Body_Bagz_brand_logo_94353dbf.png";
