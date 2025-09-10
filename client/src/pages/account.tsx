@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Heart, Download, Trash2, Star, Twitter, Image as ImageIcon, User } from "lucide-react";
+import { Heart, Download, Trash2, Star, Twitter, Image as ImageIcon, User, Home, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { UserPreferences } from "@/components/UserPreferences";
+import { Link } from "wouter";
 
 interface SavedContent {
   id: string;
@@ -143,9 +144,21 @@ export default function AccountPage() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="font-brand text-4xl text-blood-red mb-4" data-testid="account-title">
-            VILLAIN VAULT
-          </h1>
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="font-brand text-4xl text-blood-red" data-testid="account-title">
+              VILLAIN VAULT
+            </h1>
+            <Link href="/">
+              <Button 
+                variant="outline" 
+                className="cyber-button bg-gradient-to-r from-blood-red/20 to-blood-red/10 border-blood-red/50 hover:border-blood-red text-ash-white hover:bg-blood-red/30"
+                data-testid="button-back-to-home"
+              >
+                <Home className="w-4 h-4 mr-2" />
+                Back to Home
+              </Button>
+            </Link>
+          </div>
           <p className="text-dim-enhanced font-medium">
             Welcome back, <span className="text-toxic-green font-semibold">{user.username}</span>. 
             Manage your generated content and customize your chaos.
