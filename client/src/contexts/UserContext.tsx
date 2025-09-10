@@ -25,7 +25,7 @@ interface UserContextType {
     telegramUsername?: string;
     solanaWallet?: string;
   }) => Promise<void>;
-  login: (username: string) => Promise<void>;
+  login: (username: string, password: string) => Promise<void>;
   logout: () => void;
   trackAction: (actionType: string) => Promise<void>;
 }
@@ -129,10 +129,13 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const login = async (username: string) => {
+  const login = async (username: string, password: string) => {
     setIsLoading(true);
     try {
-      const response = await apiRequest("GET", `/api/users/${username}`);
+      const response = await apiRequest("POST", "/api/auth/login", {
+        username,
+        password
+      });
       const data = await response.json();
       setUser(data.user);
       localStorage.setItem("bagz_user", JSON.stringify(data.user));

@@ -24,6 +24,8 @@ export function UserAuth({ open, onOpenChange }: UserAuthProps) {
     solanaWallet: "",
   });
   const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [showPasswordReset, setShowPasswordReset] = useState(false);
   
   const { register, login, isLoading } = useUser();
   const { toast } = useToast();
@@ -123,17 +125,17 @@ export function UserAuth({ open, onOpenChange }: UserAuthProps) {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!loginUsername) {
+    if (!loginUsername || !loginPassword) {
       toast({
-        title: "Enter Username",
-        description: "Username is required to login",
+        title: "Missing Info",
+        description: "Username and password are required",
         variant: "destructive"
       });
       return;
     }
 
     try {
-      await login(loginUsername);
+      await login(loginUsername, loginPassword);
       
       toast({
         title: "Welcome Back!",
@@ -142,10 +144,11 @@ export function UserAuth({ open, onOpenChange }: UserAuthProps) {
       
       onOpenChange(false);
       setLoginUsername("");
+      setLoginPassword("");
     } catch (error: any) {
       toast({
         title: "Login Failed",
-        description: "User not found",
+        description: error instanceof Error ? error.message : "Invalid credentials or account locked",
         variant: "destructive"
       });
     }
@@ -177,6 +180,17 @@ export function UserAuth({ open, onOpenChange }: UserAuthProps) {
                   onChange={(e) => setLoginUsername(e.target.value)}
                   className="cyber-input mt-1"
                   data-testid="input-login-username"
+                />
+              </div>
+              <div>
+                <Label className="text-ash-white font-semibold">Password</Label>
+                <Input
+                  type="password"
+                  placeholder="Enter your password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  className="cyber-input mt-1"
+                  data-testid="input-login-password"
                 />
               </div>
               <Button 
