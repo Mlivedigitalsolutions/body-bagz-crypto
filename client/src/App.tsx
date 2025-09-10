@@ -22,6 +22,9 @@ import StakePage from "@/pages/stake";
 import MusicPage from "@/pages/music";
 import { BannerDemo } from "@/pages/banner-demo";
 import { LogoShowcase } from "@/pages/logo-showcase";
+import WhitepaperGerman from "@/pages/WhitepaperGerman";
+import WhitepaperArabic from "@/pages/WhitepaperArabic";
+import WhitepaperMandarin from "@/pages/WhitepaperMandarin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -43,6 +46,9 @@ function Router() {
       <Route path="/terms" component={Terms}/>
       <Route path="/banner" component={BannerDemo}/>
       <Route path="/logos" component={LogoShowcase}/>
+      <Route path="/whitepaper/de" component={WhitepaperGerman}/>
+      <Route path="/whitepaper/ar" component={WhitepaperArabic}/>
+      <Route path="/whitepaper/zh" component={WhitepaperMandarin}/>
       <Route component={NotFound} />
     </Switch>
   );

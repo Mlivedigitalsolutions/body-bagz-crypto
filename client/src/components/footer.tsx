@@ -1,4 +1,5 @@
 import { BarcodeIcon, TelegramChaosIcon, XChaosIcon } from "@/components/icons";
+import { Link } from "wouter";
 
 export default function Footer() {
   return (
@@ -111,6 +112,42 @@ export default function Footer() {
             </svg>
             DOWNLOAD PDF
           </a>
+        </div>
+
+        {/* Multilingual Whitepapers */}
+        <div className="mb-8">
+          <div className="text-toxic-green font-tech text-lg mb-4 text-center">
+            🌍 GLOBAL WHITEPAPERS
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link 
+              href="/whitepaper/de" 
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-yellow-600 to-red-600 rounded-lg font-tech text-white hover:shadow-yellow-glow transition-all duration-200 group text-sm"
+              data-testid="footer-whitepaper-german"
+              title="German Whitepaper"
+            >
+              <span className="text-lg mr-2 group-hover:scale-110 transition-transform">🇩🇪</span>
+              DEUTSCH
+            </Link>
+            <Link 
+              href="/whitepaper/ar" 
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg font-tech text-white hover:shadow-green-glow transition-all duration-200 group text-sm"
+              data-testid="footer-whitepaper-arabic"
+              title="Arabic Whitepaper"
+            >
+              <span className="text-lg mr-2 group-hover:scale-110 transition-transform">🇸🇦</span>
+              العربية
+            </Link>
+            <Link 
+              href="/whitepaper/zh" 
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-600 to-yellow-500 rounded-lg font-tech text-white hover:shadow-red-glow transition-all duration-200 group text-sm"
+              data-testid="footer-whitepaper-mandarin"
+              title="Mandarin Chinese Whitepaper"
+            >
+              <span className="text-lg mr-2 group-hover:scale-110 transition-transform">🇨🇳</span>
+              中文
+            </Link>
+          </div>
         </div>
 
         {/* Trading Links */}
