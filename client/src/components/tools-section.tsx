@@ -1538,72 +1538,6 @@ export default function ToolsSection() {
                   </div>
                 </div>
 
-                {/* 🚀 AI-POWERED TEXT GENERATION */}
-                <div className="mb-4 p-4 bg-gradient-to-r from-toxic-green/10 to-glitch-purple/10 rounded-lg border border-toxic-green/30">
-                  <div className="flex items-center justify-between mb-3">
-                    <label className="text-toxic-green text-sm font-bold flex items-center">
-                      <Sparkles className="w-4 h-4 mr-2" />
-                      AI CHAOS INTELLIGENCE
-                    </label>
-                    {chaosScore > 0 && (
-                      <div className="text-xs bg-glitch-purple/20 text-glitch-purple px-2 py-1 rounded-full border border-glitch-purple/30">
-                        Chaos Score: {chaosScore}%
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="grid grid-cols-3 gap-2 mb-3">
-                    <Button 
-                      type="button"
-                      onClick={() => generateAiSuggestions('top')}
-                      disabled={isLoadingAiSuggestions}
-                      className="py-2 text-xs bg-gradient-to-r from-toxic-green/20 to-toxic-green/10 hover:from-toxic-green/30 hover:to-toxic-green/20 text-toxic-green border border-toxic-green/30 rounded-lg transition-all duration-200"
-                      data-testid="button-ai-suggest-top"
-                    >
-                      {isLoadingAiSuggestions ? <Zap className="w-3 h-3 animate-spin" /> : <Wand2 className="w-3 h-3" />}
-                      AI Top
-                    </Button>
-                    <Button 
-                      type="button"
-                      onClick={() => generateAiSuggestions('center')}
-                      disabled={isLoadingAiSuggestions}
-                      className="py-2 text-xs bg-gradient-to-r from-glitch-purple/20 to-glitch-purple/10 hover:from-glitch-purple/30 hover:to-glitch-purple/20 text-glitch-purple border border-glitch-purple/30 rounded-lg transition-all duration-200"
-                      data-testid="button-ai-suggest-center"
-                    >
-                      {isLoadingAiSuggestions ? <Zap className="w-3 h-3 animate-spin" /> : <Wand2 className="w-3 h-3" />}
-                      AI Center
-                    </Button>
-                    <Button 
-                      type="button"
-                      onClick={() => generateAiSuggestions('bottom')}
-                      disabled={isLoadingAiSuggestions}
-                      className="py-2 text-xs bg-gradient-to-r from-blood-red/20 to-blood-red/10 hover:from-blood-red/30 hover:to-blood-red/20 text-blood-red border border-blood-red/30 rounded-lg transition-all duration-200"
-                      data-testid="button-ai-suggest-bottom"
-                    >
-                      {isLoadingAiSuggestions ? <Zap className="w-3 h-3 animate-spin" /> : <Wand2 className="w-3 h-3" />}
-                      AI Bottom
-                    </Button>
-                  </div>
-                  
-                  {/* AI Suggestions Display */}
-                  {aiSuggestions.length > 0 && (
-                    <div className="grid grid-cols-2 gap-2 mb-3">
-                      {aiSuggestions.slice(0, 6).map((suggestion, index) => (
-                        <button
-                          key={index}
-                          onClick={() => {
-                            if (index < 2) setTopText(suggestion);
-                            else if (index < 4) setCenterText(suggestion);
-                            else setBottomText(suggestion);
-                          }}
-                          className="p-2 text-xs bg-jet-black/50 hover:bg-jet-black/70 text-ash-white border border-dim-gray/30 hover:border-toxic-green/50 rounded transition-all duration-200 text-left"
-                        >
-                          ✨ {suggestion}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
 
                 {/* 🎤 REVOLUTIONARY VOICE-TO-MEME FEATURE */}
                 <div className="mb-6 p-6 bg-gradient-to-r from-blood-red/20 to-glitch-purple/20 rounded-xl border-2 border-blood-red/50 relative overflow-hidden">
@@ -1652,9 +1586,8 @@ export default function ToolsSection() {
                     </Button>
                     
                     {isRecording && (
-                      <div className="flex items-center text-blood-red text-sm font-medium">
-                        <div className="w-2 h-2 bg-blood-red rounded-full animate-pulse mr-2"></div>
-                        Recording...
+                      <div className="text-blood-red text-xs font-medium animate-pulse">
+                        ● REC
                       </div>
                     )}
                   </div>
@@ -1830,8 +1763,8 @@ export default function ToolsSection() {
               {/* CLEAR FUNCTIONALITY DESCRIPTION */}
               <div className="mb-4 p-4 bg-glitch-purple/10 rounded-lg border border-glitch-purple/30">
                 <p className="text-ash-white text-sm leading-relaxed">
-                  <span className="text-glitch-purple font-bold">🎯 FUNCTION:</span> AI generates premium cyberpunk profile pictures with custom traits and rarity levels. 
-                  Each PFP includes unique attributes and can be saved to your vault.
+                  <span className="text-glitch-purple font-bold">🎯 FUNCTION:</span> Curated collection of 20 premium cyberpunk profile pictures with different rarity levels. 
+                  Each PFP features unique villain era traits and can be saved to your vault.
                 </p>
               </div>
               
