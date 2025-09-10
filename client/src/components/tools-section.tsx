@@ -1295,26 +1295,56 @@ export default function ToolsSection() {
             </div>
             <div className="space-y-4">
               <div className="bg-jet-black p-6 rounded-lg border border-dim-gray text-center">
-                <div className="w-full h-48 bg-gradient-to-br from-dim-gray to-jet-black rounded-lg flex items-center justify-center mb-4 relative border border-blood-red border-opacity-30 overflow-hidden">
+                {/* CLEAR FUNCTIONALITY DESCRIPTION */}
+                <div className="mb-4 p-4 bg-blood-red/10 rounded-lg border border-blood-red/30">
+                  <p className="text-ash-white text-sm leading-relaxed">
+                    <span className="text-blood-red font-bold">🎯 FUNCTION:</span> AI generates complete memes with text overlays on viral templates. 
+                    Upload your own image or use our viral templates with AI-generated text suggestions.
+                  </p>
+                </div>
+
+                <div className="w-full h-64 bg-gradient-to-br from-dim-gray to-jet-black rounded-lg flex items-center justify-center mb-4 relative border border-blood-red border-opacity-30 overflow-hidden">
                   {generatedMemeImage ? (
                     <img 
                       src={generatedMemeImage} 
                       alt="Generated meme"
-                      className="w-full h-full object-cover object-center rounded-lg"
+                      className="w-full h-full object-contain rounded-lg"
                       data-testid="generated-meme-image"
                     />
                   ) : (
                     (() => {
                       const template = memeTemplates[selectedTemplate as keyof typeof memeTemplates];
                       if (template && 'isImage' in template && template.isImage) {
-                        // For image-based templates, show the image directly
+                        // For image-based templates, show the image with text overlay preview
                         return (
-                          <img 
-                            src={template.imageUrl} 
-                            alt={template.name}
-                            className="w-full h-full object-cover object-center rounded-lg"
-                            data-testid="meme-preview-image"
-                          />
+                          <div className="relative w-full h-full">
+                            <img 
+                              src={template.imageUrl} 
+                              alt={template.name}
+                              className="w-full h-full object-contain rounded-lg"
+                              data-testid="meme-preview-image"
+                            />
+                            {/* Text overlays for preview */}
+                            {(topText || bottomText || centerText) && (
+                              <>
+                                {topText && (
+                                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-white text-lg font-black bg-black/70 px-3 py-1 rounded text-center max-w-[90%]">
+                                    {topText}
+                                  </div>
+                                )}
+                                {centerText && (
+                                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-xl font-black bg-black/70 px-4 py-2 rounded text-center max-w-[90%]">
+                                    {centerText}
+                                  </div>
+                                )}
+                                {bottomText && (
+                                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white text-lg font-black bg-black/70 px-3 py-1 rounded text-center max-w-[90%]">
+                                    {bottomText}
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </div>
                         );
                       } else {
                         // For SVG templates, render the SVG content
