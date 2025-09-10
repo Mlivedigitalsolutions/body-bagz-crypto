@@ -17,6 +17,8 @@ import {
   type InsertListing,
   type Report,
   type InsertReport,
+  type PasswordResetToken,
+  type InsertPasswordResetToken,
   users,
   leaderboardEntries,
   monthlyRewards,
@@ -25,7 +27,8 @@ import {
   meetups,
   meetupRsvps,
   listings,
-  reports
+  reports,
+  passwordResetTokens
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -37,6 +40,14 @@ export interface IStorage {
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   updateUser(id: string, user: Partial<InsertUser>): Promise<User>;
+  updateUserSecurity(
+    userId: string, 
+    data: { 
+      loginAttempts?: number; 
+      lockedUntil?: Date | null; 
+      lastLoginAt?: Date 
+    }
+  ): Promise<void>;
   
   // Leaderboard operations
   addLeaderboardEntry(entry: InsertLeaderboardEntry): Promise<LeaderboardEntry>;
@@ -93,6 +104,11 @@ export interface IStorage {
 
   // Convenience alias for leaderboard actions
   trackAction(entry: InsertLeaderboardEntry): Promise<LeaderboardEntry>;
+
+  // Password reset operations
+  createPasswordResetToken(token: InsertPasswordResetToken): Promise<PasswordResetToken>;
+  getPasswordResetToken(token: string): Promise<PasswordResetToken | undefined>;
+  markPasswordResetTokenUsed(token: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -424,6 +440,30 @@ export class DatabaseStorage implements IStorage {
   // Convenience alias for leaderboard actions
   async trackAction(entry: InsertLeaderboardEntry): Promise<LeaderboardEntry> {
     return this.addLeaderboardEntry(entry);
+  }
+
+  // Password reset operations
+  async createPasswordResetToken(tokenData: InsertPasswordResetToken): Promise<PasswordResetToken> {
+    const [token] = await db
+      .insert(passwordResetTokens)
+      .values(tokenData)
+      .returning();
+    return token;
+  }
+
+  async getPasswordResetToken(token: string): Promise<PasswordResetToken | undefined> {
+    const [resetToken] = await db
+      .select()
+      .from(passwordResetTokens)
+      .where(eq(passwordResetTokens.token, token));
+    return resetToken || undefined;
+  }
+
+  async markPasswordResetTokenUsed(token: string): Promise<void> {
+    await db
+      .update(passwordResetTokens)
+      .set({ used: true })
+      .where(eq(passwordResetTokens.token, token));
   }
 }
 

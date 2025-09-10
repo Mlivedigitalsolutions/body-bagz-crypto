@@ -50,8 +50,8 @@ export default function AccountPage() {
     enabled: !!user?.id,
   });
 
-  const savedContent: SavedContent[] = contentData?.content || [];
-  const preferences: UserPreferences = preferencesData?.preferences || {
+  const savedContent: SavedContent[] = contentData && 'content' in contentData ? contentData.content : [];
+  const preferences: UserPreferences = preferencesData && 'preferences' in preferencesData ? preferencesData.preferences : {
     autoSaveContent: true,
     defaultPfpStyle: "cyberpunk",
     preferredTweetTone: "bullish",

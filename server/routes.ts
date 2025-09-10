@@ -1095,6 +1095,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Password reset endpoints
+  app.post("/api/auth/password-reset/request", strictLimiter, [
+    body('username').isLength({ min: 3, max: 20 }).withMessage('Valid username required'),
+    body('method').isIn(['email', 'sms']).withMessage('Method must be email or sms'),
+    body('contact').isLength({ min: 1 }).withMessage('Contact (email/phone) required'),
+    (req: Request, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          error: 'Validation failed',
+          details: errors.array()
+        });
+      }
+      next();
+    }
+  ], async (req: Request, res: Response) => {
+    try {
+      const { username, method, contact } = req.body;
+      
+      // Find user
+      const user = await storage.getUserByUsername(username);
+      if (!user) {
+        // Don't reveal user doesn't exist - return success anyway for security
+        return res.json({ success: true, message: "If user exists, reset instructions sent" });
+      }
+      
+      // Generate secure random token
+      const token = crypto.randomBytes(32).toString('hex');
+      const expiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+      
+      // Save token to database
+      await storage.createPasswordResetToken({
+        userId: user.id,
+        token,
+        method,
+        contact,
+        expiresAt
+      });
+      
+      // TODO: Send email/SMS with token
+      // For now, we'll just log it (in production, integrate with email/SMS service)
+      console.log(`Password reset token for ${username}: ${token}`);
+      console.log(`Reset link: /reset-password?token=${token}`);
+      
+      res.json({ 
+        success: true, 
+        message: `Reset instructions sent to your ${method}`,
+        // Remove in production
+        devToken: process.env.NODE_ENV === 'development' ? token : undefined
+      });
+    } catch (error) {
+      console.error('Password reset request error:', error);
+      res.status(500).json({ error: "Failed to process reset request" });
+    }
+  });
+
+  app.post("/api/auth/password-reset/verify", strictLimiter, [
+    body('token').isLength({ min: 1 }).withMessage('Token required'),
+    body('newPassword').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+    (req: Request, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          error: 'Validation failed',
+          details: errors.array()
+        });
+      }
+      next();
+    }
+  ], async (req: Request, res: Response) => {
+    try {
+      const { token, newPassword } = req.body;
+      
+      // Find and validate token
+      const resetToken = await storage.getPasswordResetToken(token);
+      if (!resetToken || resetToken.used || new Date() > resetToken.expiresAt) {
+        return res.status(400).json({ error: "Invalid or expired reset token" });
+      }
+      
+      // Hash new password
+      const hashedPassword = await bcrypt.hash(newPassword, 12);
+      
+      // Update user password and mark token as used
+      await storage.updateUser(resetToken.userId, { password: hashedPassword });
+      await storage.markPasswordResetTokenUsed(token);
+      
+      res.json({ success: true, message: "Password updated successfully" });
+    } catch (error) {
+      console.error('Password reset verify error:', error);
+      res.status(500).json({ error: "Failed to reset password" });
+    }
+  });
+
   app.post("/api/users/register", registrationLimiter, validateRegistration, async (req: Request, res: Response) => {
     try {
       const validData = insertUserSchema.parse(req.body);
