@@ -711,7 +711,7 @@ export default function ToolsSection() {
       return;
     }
     
-    // Original logic for SVG-based templates
+    // Check for content
     if (!topText && !bottomText && !centerText && !uploadedImage) {
       toast({
         title: "Add content!",
@@ -724,22 +724,92 @@ export default function ToolsSection() {
     setIsGeneratingMeme(true);
     
     try {
-      // Generate SVG meme using selected template
-      const svgContent = template.generate(topText, bottomText, centerText);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Canvas context not available');
       
-      // Convert SVG to data URL
+      canvas.width = 400;
+      canvas.height = 300;
+      
+      // If user uploaded an image, use it as background
+      if (uploadedImage) {
+        const uploadedImageUrl = URL.createObjectURL(uploadedImage);
+        const uploadedImg = new Image();
+        
+        uploadedImg.onload = () => {
+          // Draw uploaded image as background
+          ctx.drawImage(uploadedImg, 0, 0, 400, 300);
+          
+          // Add text overlays with cyberpunk styling
+          ctx.textAlign = 'center';
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 3;
+          
+          // Top text
+          if (topText) {
+            ctx.font = 'bold 28px Arial Black, sans-serif';
+            ctx.fillStyle = '#BDC1C6';
+            ctx.strokeText(topText.toUpperCase(), 200, 40);
+            ctx.fillText(topText.toUpperCase(), 200, 40);
+          }
+          
+          // Center text  
+          if (centerText) {
+            ctx.font = 'bold 20px Arial Black, sans-serif';
+            ctx.fillStyle = '#39FF14';
+            ctx.strokeText(centerText.toUpperCase(), 200, 160);
+            ctx.fillText(centerText.toUpperCase(), 200, 160);
+          }
+          
+          // Bottom text
+          if (bottomText) {
+            ctx.font = 'bold 28px Arial Black, sans-serif';
+            ctx.fillStyle = '#BDC1C6';
+            ctx.strokeText(bottomText.toUpperCase(), 200, 280);
+            ctx.fillText(bottomText.toUpperCase(), 200, 280);
+          }
+          
+          // Add Body Bagz watermark
+          ctx.font = 'bold 12px Arial Black, sans-serif';
+          ctx.fillStyle = '#E7352C';
+          ctx.strokeStyle = '#000000';
+          ctx.lineWidth = 1;
+          ctx.strokeText('BODY BAGZ', 350, 290);
+          ctx.fillText('BODY BAGZ', 350, 290);
+          
+          const pngDataUrl = canvas.toDataURL('image/png');
+          setGeneratedMemeImage(pngDataUrl);
+          URL.revokeObjectURL(uploadedImageUrl);
+          
+          toast({
+            title: "Custom Meme Created!",
+            description: user ? "Your custom meme is ready to download (+4 points!)" : "Your custom meme is ready to download",
+          });
+          
+          if (user) {
+            trackAction('meme_generated');
+          }
+          setIsGeneratingMeme(false);
+        };
+        
+        uploadedImg.onerror = () => {
+          URL.revokeObjectURL(uploadedImageUrl);
+          throw new Error('Failed to load uploaded image');
+        };
+        
+        uploadedImg.src = uploadedImageUrl;
+        return;
+      }
+      
+      // Use SVG template if no uploaded image
+      const svgContent = template.generate(topText, bottomText, centerText);
       const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' });
       const svgUrl = URL.createObjectURL(svgBlob);
       
-      // Create canvas to convert SVG to PNG for better compatibility
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
       const img = new Image();
       
       img.onload = () => {
-        canvas.width = 400;
-        canvas.height = 300;
-        ctx?.drawImage(img, 0, 0);
+        ctx.drawImage(img, 0, 0);
         
         const pngDataUrl = canvas.toDataURL('image/png');
         setGeneratedMemeImage(pngDataUrl);
@@ -1068,6 +1138,25 @@ export default function ToolsSection() {
                         ))}
                     </SelectContent>
                   </Select>
+                </div>
+
+                {/* Custom Image Upload */}
+                <div className="mb-4">
+                  <label className="text-ash-white text-sm font-semibold mb-2 block">UPLOAD YOUR IMAGE (OPTIONAL)</label>
+                  <div className="relative">
+                    <Input 
+                      type="file" 
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="cyber-input w-full px-4 py-3 text-ash-white placeholder-dim-gray rounded-lg font-medium file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-toxic-green file:text-jet-black hover:file:bg-toxic-green/80" 
+                      data-testid="input-upload-image"
+                    />
+                    {uploadedImage && (
+                      <div className="mt-2 p-2 bg-jet-black/50 rounded-lg border border-toxic-green/30">
+                        <p className="text-toxic-green text-xs font-medium">✓ Image uploaded: {uploadedImage.name}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Text Inputs */}
