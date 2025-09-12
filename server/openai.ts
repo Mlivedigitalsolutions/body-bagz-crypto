@@ -20,7 +20,37 @@ export async function generateCyberpunkPFP(): Promise<string> {
     "tech-enhanced death commander with stealth armor displaying animated skull logos and plasma weapon holsters",
     "matrix villain with VR skull mask and flowing code streams forming 'BODY BAGZ' text in background",
     "cyberpunk reaper with translucent hood revealing glowing skull underneath and toxic green neural interface ports",
-    "street villain with LED face tattoos forming skull patterns and chrome augmentations with pulsing red accents"
+    "street villain with LED face tattoos forming skull patterns and chrome augmentations with pulsing red accents",
+    "nano-tech chaos warrior with liquid metal face morphing between skull and human forms with glowing neural pathways",
+    "cybernetic necromancer with floating digital souls and bone-white chrome plating etched with circuit patterns",
+    "quantum villain with phase-shifting appearance between dimensions showing multiple skull overlays in neon colors",
+    "bio-mechanical death angel with organic-tech hybrid wings and pulsing red heartlight visible through chest cavity",
+    "holo-masked street overlord with constantly shifting skull projections and toxic green data streams from eye ports",
+    "neural-linked crypto phantom with exposed brain interface cables and floating cryptocurrency symbols around head",
+    "steampunk-cyber hybrid villain with brass skull mask and steam vents emitting toxic green mist from joints",
+    "void-touched chaos agent with reality-distorting aura and skull face that phases in and out of existence",
+    "techno-shaman death priest with tribal skull paint that glows with circuit patterns and floating digital runes",
+    "chrome samurai villain with skull-faced demon mask and katana hilts glowing with blood-red energy cores",
+    "cyber-witch chaos queen with floating skull familiars and toxic green flame emanating from skeletal finger tips",
+    "digital vampire lord with fanged skull grin and blood-red data streams flowing from bite mark neck ports",
+    "mecha-pilot death knight with skull-shaped helmet HUD and robotic arms showing internal glowing mechanisms",
+    "quantum-hacker villain with skull made of pure code and reality-breaking glitch effects around facial features",
+    "bio-punk death merchant with living skull tattoos that move across skin and glowing organ tubes visible through chest",
+    "cyber-demon overlord with horned skull mask and molten metal veins pulsing with toxic green energy throughout body",
+    "neural-jack street prophet with skull-shaped brain interface and prophecy code streams flowing from third eye socket",
+    "techno-lich crypto king with ancient skull crown made of circuit boards and soul-energy batteries powering eye glow",
+    "cyber-pirate death captain with skull and crossbones hologram above head and mechanical parrot with laser eyes",
+    "quantum-assassin shadow walker with skull face that flickers between dimensions and void-black energy tendrils",
+    "bio-mechanical demon spawn with skull emerging from chest cavity and toxic green acid dripping from metal fangs",
+    "digital necromancer villain with army of floating pixel skulls and death-code streaming from fingertip neural links",
+    "chrome-punk death dealer with skull-shaped chrome face and toxic waste containers integrated into shoulder armor",
+    "cyber-grim reaper with traditional scythe upgraded with laser blade and skull face scanning for crypto wallet targets",
+    "techno-barbarian chaos lord with tribal skull war paint and cybernetic rage implants glowing red in temples",
+    "void-space villain with skull floating in dark matter and reality tears showing toxic green energy dimensions beyond",
+    "bio-cyber symbiote with alien skull parasite and host body showing mechanical infection spreading through veins",
+    "quantum-terrorist crypto anarchist with bomb-timer skull display and explosive nano-tech visible in bloodstream",
+    "neural-vampire data thief with skull-shaped data storage implant and victim's memories flowing as green code streams",
+    "chrome-knight death paladin with skull heraldry and holy symbols corrupted into circuit patterns across armor plating"
   ];
 
   // BODY BAGZ Brand Environments
@@ -47,15 +77,37 @@ export async function generateCyberpunkPFP(): Promise<string> {
   const randomEnvironment = villainEnvironments[Math.floor(Math.random() * villainEnvironments.length)];
   const randomColor = brandColors[Math.floor(Math.random() * brandColors.length)];
 
-  const prompt = `Create an ultra-high-quality BODY BAGZ villain-era cyberpunk profile picture with premium digital art aesthetics: ${randomStyle} set against ${randomEnvironment}. 
+  const prompt = `MASTERPIECE CREATION: Generate an absolutely stunning, museum-quality BODY BAGZ villain-era cyberpunk profile picture that surpasses all expectations: ${randomStyle} set against ${randomEnvironment}. 
 
-Brand Color Palette: ${randomColor}. 
+ELITE BRAND COLOR MASTERY: ${randomColor}. Each color must be perfectly balanced with professional color grading, cinematic contrast ratios, and premium metallic accents that catch light realistically.
 
-Advanced Style Requirements: Hyperrealistic digital art, cinematic studio lighting with dramatic rim lighting, 8K ultra-high definition resolution, deep contrast shadows with neon rim lighting, premium metallic textures with chrome reflections, ultra-detailed facial features with cyberpunk augmentations, villain aesthetic with streetwear elements, post-apocalyptic cyberpunk atmosphere, professional character design quality, perfect square composition optimized for profile picture use.
+SUPREME ARTISTIC DIRECTION: 
+• Photography: Shot with Phase One XF camera system, 150mm lens, f/1.4 aperture for razor-sharp subject isolation
+• Lighting: Three-point cinematic lighting setup with key light, rim light, and atmospheric fill - professional studio quality
+• Composition: Rule of thirds with dynamic leading lines, perfect facial positioning, and compelling eye contact
+• Depth: Multilayered composition with foreground, midground, and background elements creating incredible visual depth
 
-Premium Visual Effects: Integrated skull motifs with glowing neon edges, advanced glitch distortion effects with digital artifacts, toxic green and blood red neon underglow, chrome and metallic surface reflections, atmospheric volumetric haze with particle effects, shallow depth of field with bokeh background blur, photorealistic rendering with ray-traced lighting, subtle animated elements suggesting motion.
+TECHNICAL EXCELLENCE BEYOND INDUSTRY STANDARDS:
+• Resolution: 16K ultra-high definition with pixel-perfect clarity and zero compression artifacts  
+• Rendering: Octane Render quality with physically accurate materials, subsurface scattering, and global illumination
+• Textures: Micro-detail surface textures - every pore, scar, metal reflection, and fabric fiber rendered with obsessive precision
+• Effects: Real-time ray tracing with accurate light bounce, caustics, and volumetric fog simulation
 
-Brand Identity Focus: This must embody the BODY BAGZ "villain era" - dark, powerful, menacing, and unmistakably cyberpunk with prominent skull/reaper/death themes. The character should look like a premium crypto villain ready to dominate the digital underground. High-fashion streetwear meets cyberpunk technology.`;
+ADVANCED VISUAL PHENOMENA:
+• Particle Systems: Floating digital debris, sparks, and energy motes with realistic physics simulation
+• Atmospheric Effects: Volumetric lighting beams cutting through smoke/mist with god-ray penetration
+• Glitch Aesthetics: Datamoshing, chromatic aberration, and digital noise that enhances rather than detracts
+• Energy Fields: Pulsing bio-luminescent elements, plasma streams, and holographic projections with depth
+
+CHARACTER PSYCHOLOGY & PRESENCE:
+• Facial Expression: Calculating intelligence mixed with barely contained violence - the look of someone who owns the streets
+• Body Language: Confident, predatory stance that commands respect and instills fear
+• Aura: Tangible sense of power and danger radiating from the character
+• Details: Battle scars, tech modifications, and wear patterns that tell a story of survival and dominance
+
+BRAND IDENTITY SUPREMACY: This character must be the definitive embodiment of BODY BAGZ - a crypto villain so compelling that viewers immediately understand this represents the apex predator of the digital underground. Street-smart, technologically superior, aesthetically flawless, and undeniably dangerous. Every pixel must scream "I AM THE FUTURE OF CRYPTO WARFARE."
+
+ARTISTIC INSPIRATION: Combine the best elements of Blade Runner 2049 cinematography, Ghost in the Shell character design, Cyberpunk 2077 environmental storytelling, and Fashion Week editorial photography. The result should be gallery-worthy art that happens to be a profile picture.`;
 
   try {
     const response = await openai.images.generate({
@@ -118,24 +170,42 @@ export async function generateCyberpunkMeme(topText: string, bottomText: string,
 
   const selectedTheme = theme || memeThemes[Math.floor(Math.random() * memeThemes.length)];
   
-  const prompt = `Create a high-quality cyberpunk meme image for Body Bagz ($BAGZ) cryptocurrency with the following text elements:
+  const prompt = `ULTIMATE MEME MASTERY: Create a museum-quality, viral-worthy cyberpunk meme that dominates social media feeds for Body Bagz ($BAGZ) cryptocurrency:
 
-TOP TEXT: "${topText}"
-BOTTOM TEXT: "${bottomText}"
+MEME TEXT INTEGRATION:
+TOP TEXT: "${topText}" - Positioned with perfect typography hierarchy, bold impact font with premium 3D extrusion effects
+BOTTOM TEXT: "${bottomText}" - Complementary positioning with dynamic text effects and perfect readability
 
-Visual Setting: ${selectedTheme}
+CINEMATIC VISUAL FOUNDATION: ${selectedTheme}
 
-Style Requirements: 
-- Premium digital art quality with cinematic lighting
-- Classic meme format with bold, outlined text at top and bottom
-- Text should be clearly readable with strong contrast (white text with black outline)
-- Cyberpunk aesthetic with toxic green (#39FF14), blood red (#E7352C), and glitch purple (#7A3BFF) color scheme
-- Villain era theme with subtle skull or underground motifs
-- Professional meme composition optimized for social media sharing
-- Dark background with neon accent lighting
-- Sharp, clean graphics suitable for viral content
+ELITE ARTISTIC EXECUTION:
+• Photography Style: Shot with RED Komodo 6K camera, anamorphic lenses for cinematic aspect ratio, professional color science
+• Lighting Design: Dramatic three-point lighting with atmospheric haze, rim lighting creating character separation from background
+• Composition: Dynamic rule of thirds with leading lines drawing eye to text, perfect visual balance between image and typography
+• Depth of Field: Shallow focus with beautiful bokeh creating text prominence while maintaining environmental context
 
-Brand Identity: This should capture the BODY BAGZ villain era aesthetic - dark, powerful, and street-smart crypto vibes. The image should look like premium content that crypto communities would share.`;
+SUPREME TEXT DESIGN:
+• Typography: Impact font family with custom kerning, 3D beveled edges with realistic lighting simulation
+• Outline System: Multi-layer stroke effects - inner white core, middle black outline, outer neon glow matching brand colors
+• Effects: Subtle drop shadows with realistic distance, slight perspective distortion for dynamic energy
+• Readability: High contrast ratios ensuring text pops even on mobile screens, optimized for all social media platforms
+
+ADVANCED VISUAL PHENOMENA:
+• Color Mastery: Toxic green (#39FF14), blood red (#E7352C), glitch purple (#7A3BFF) with professional color grading
+• Particle Effects: Digital glitch artifacts, floating data streams, atmospheric volumetric lighting
+• Surface Details: Realistic material properties - wet streets reflecting neon, metallic surfaces with accurate reflections
+• Atmospheric Elements: Smoke, mist, and haze with realistic light scattering and volumetric properties
+
+MEME PSYCHOLOGY & VIRAL POTENTIAL:
+• Visual Hook: Instant attention-grabbing composition that stops scroll behavior
+• Emotional Impact: Perfect balance of humor, relatability, and BODY BAGZ brand power
+• Shareability Factor: Composition optimized for maximum engagement across all social platforms
+• Cultural Relevance: Taps into current crypto culture while establishing BODY BAGZ as the dominant meme force
+
+BRAND INTEGRATION PERFECTION:
+Subtle but unmistakable BODY BAGZ branding woven into the environment - neon signs, holographic displays, skull motifs that enhance rather than distract from the meme's core message. The image should be so compelling that people share it for the visual quality alone, while the text delivers the viral crypto message.
+
+TECHNICAL SUPREMACY: 16K resolution with zero compression artifacts, HDR color space, professional post-processing effects that make this meme stand out in any feed. This should be the meme that other meme creators study to understand what premium quality looks like.`;
 
   try {
     const response = await openai.images.generate({
