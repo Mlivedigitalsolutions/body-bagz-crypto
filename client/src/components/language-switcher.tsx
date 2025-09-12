@@ -27,7 +27,25 @@ export default function LanguageSwitcher() {
   useEffect(() => {
     const initializeGoogleTranslate = () => {
       if (!import.meta.env.VITE_GOOGLE_TRANSLATE_API_KEY) {
-        console.warn('Google Translate API key not found');
+        // Fallback: Use free Google Translate widget (no API key required)
+        console.info('Using free Google Translate widget for language support');
+        
+        // Load Google Translate script (free widget)
+        const script = document.createElement('script');
+        script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        script.async = true;
+        
+        // Initialize callback
+        (window as any).googleTranslateElementInit = () => {
+          new (window as any).google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: languages.map(lang => lang.code).join(','),
+            layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+          }, 'google_translate_element');
+        };
+
+        document.head.appendChild(script);
         return;
       }
 
@@ -64,17 +82,14 @@ export default function LanguageSwitcher() {
     setCurrentLanguage(language);
 
     try {
-      // Use Google Translate API for translation
-      if (import.meta.env.VITE_GOOGLE_TRANSLATE_API_KEY) {
-        // Trigger Google Translate widget
-        const translateElement = document.getElementById('google_translate_element');
-        if (translateElement && (window as any).google?.translate) {
-          // Find and click the language option
-          const selectElement = translateElement.querySelector('select');
-          if (selectElement) {
-            selectElement.value = language.code;
-            selectElement.dispatchEvent(new Event('change'));
-          }
+      // Trigger Google Translate widget (works with free widget too)
+      const translateElement = document.getElementById('google_translate_element');
+      if (translateElement && (window as any).google?.translate) {
+        // Find and click the language option
+        const selectElement = translateElement.querySelector('select');
+        if (selectElement) {
+          selectElement.value = language.code;
+          selectElement.dispatchEvent(new Event('change'));
         }
       }
 

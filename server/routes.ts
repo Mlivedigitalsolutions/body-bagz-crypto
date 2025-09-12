@@ -850,7 +850,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               const memeCompletion = await openai.chat.completions.create({
                 model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
                 messages: [{ role: "user", content: memePrompt }],
-                temperature: 0.8,
+                temperature: 1.0, // gpt-5 only supports default temperature
                 max_completion_tokens: 150
               });
               

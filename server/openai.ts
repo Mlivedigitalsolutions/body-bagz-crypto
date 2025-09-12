@@ -93,8 +93,8 @@ export async function generateBullishTweet(): Promise<string> {
     const response = await openai.chat.completions.create({
       model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 100,
-      temperature: 0.9, // High creativity
+      max_completion_tokens: 100,
+      temperature: 1.0, // gpt-5 only supports default temperature
     });
 
     return response.choices[0].message.content?.trim() || "The streets chose $BAGZ for a reason 🔥 Villain era never ends #BAGZ #CryptoVillain #StreetSmart #ChaosProfit #UndergroundGains";
@@ -171,8 +171,8 @@ export async function generateMemeText(): Promise<{ topText: string; bottomText:
     const response = await openai.chat.completions.create({
       model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 80,
-      temperature: 0.8,
+      max_completion_tokens: 80,
+      temperature: 1.0, // gpt-5 only supports default temperature
       response_format: { type: "json_object" }
     });
 
