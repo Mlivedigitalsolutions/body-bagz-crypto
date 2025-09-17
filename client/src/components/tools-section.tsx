@@ -739,7 +739,7 @@ export default function ToolsSection() {
         canvas.width = 600;
         canvas.height = 600;
         
-        const img = new Image();
+        const img = document.createElement('img');
         img.crossOrigin = 'anonymous';
         
         img.onload = () => {
@@ -838,7 +838,7 @@ export default function ToolsSection() {
       // If user uploaded an image, use it as background
       if (uploadedImage) {
         const uploadedImageUrl = URL.createObjectURL(uploadedImage);
-        const uploadedImg = new Image();
+        const uploadedImg = document.createElement('img');
         
         uploadedImg.onload = () => {
           // Draw uploaded image as background
@@ -915,7 +915,7 @@ export default function ToolsSection() {
       const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' });
       const svgUrl = URL.createObjectURL(svgBlob);
       
-      const img = new Image();
+      const img = document.createElement('img');
       
       img.onload = () => {
         ctx.drawImage(img, 0, 0);
