@@ -30,6 +30,8 @@ const WhitepaperArabic = lazy(() => import("@/pages/WhitepaperArabic"));
 const WhitepaperMandarin = lazy(() => import("@/pages/WhitepaperMandarin"));
 const WhitepaperTurkish = lazy(() => import("@/pages/WhitepaperTurkish"));
 const WhitepaperHindi = lazy(() => import("@/pages/WhitepaperHindi"));
+const GamingPage = lazy(() => import("@/pages/gaming"));
+const CommunityPage = lazy(() => import("@/pages/community"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 // Loading component with cyberpunk styling
@@ -67,6 +69,8 @@ function Router() {
         <Route path="/whitepaper/zh" component={WhitepaperMandarin}/>
         <Route path="/whitepaper/tr" component={WhitepaperTurkish}/>
         <Route path="/whitepaper/hi" component={WhitepaperHindi}/>
+        <Route path="/gaming" component={GamingPage}/>
+        <Route path="/community" component={CommunityPage}/>
         <Route component={NotFound} />
       </Switch>
     </Suspense>
