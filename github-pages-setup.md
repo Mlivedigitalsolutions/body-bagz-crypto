@@ -26,12 +26,12 @@ Your Body Bagz website is now configured for GitHub Pages deployment. The GitHub
 
 ### 1. Create GitHub Repository
 
-1. Create a new repository on GitHub named `body-bagz`
-2. Push your code to the repository:
+1. Your repository is already connected to `Mlivedigitalsolutions/body-bagz-crypto`
+2. Simply push your code to update:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/body-bagz.git
-   git branch -M main
-   git push -u origin main
+   git add .
+   git commit -m "Add GitHub Pages deployment"
+   git push origin main
    ```
 
 ### 2. Enable GitHub Pages
@@ -42,16 +42,16 @@ Your Body Bagz website is now configured for GitHub Pages deployment. The GitHub
 
 ### 3. Repository Name Configuration
 
-The current configuration assumes your repository is named `body-bagz`. If you use a different name:
+The configuration is set for your repository `body-bagz-crypto`. If you ever rename the repository:
 
 1. Update line 40 in `.github/workflows/deploy.yml`
-2. Change `base: '/body-bagz/',` to `base: '/your-repo-name/',`
+2. Change `base: '/body-bagz-crypto/',` to match the new repo name
 
 ### 4. Access Your Site
 
 Once deployed, your site will be available at:
 ```
-https://YOUR_USERNAME.github.io/body-bagz/
+https://Mlivedigitalsolutions.github.io/body-bagz-crypto/
 ```
 
 ## File Changes Made

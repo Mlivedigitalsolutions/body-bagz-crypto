@@ -46,7 +46,7 @@ const PageLoader = () => (
 
 function AppRouter() {
   // GitHub Pages base path configuration - uses Vite's BASE_URL
-  const basePath = import.meta.env.VITE_GITHUB_PAGES === 'true' ? '/body-bagz' : '';
+  const basePath = import.meta.env.VITE_GITHUB_PAGES === 'true' ? '/body-bagz-crypto' : '';
   
   return (
     <Router base={basePath}>

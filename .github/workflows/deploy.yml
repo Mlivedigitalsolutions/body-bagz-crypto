@@ -38,7 +38,7 @@ jobs:
           import path from "path";
 
           export default defineConfig({
-            base: '/body-bagz/',
+            base: '/body-bagz-crypto/',
             plugins: [react()],
             resolve: {
               alias: {
