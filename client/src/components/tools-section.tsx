@@ -1670,7 +1670,12 @@ export default function ToolsSection() {
                   disabled={isGeneratingMeme}
                   data-testid="button-create-meme"
                 >
-                  {isGeneratingMeme ? "CREATING..." : "CREATE MEME"}
+                  {isGeneratingMeme ? (
+                    <>
+                      <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2 inline-block"></div>
+                      CREATING...
+                    </>
+                  ) : "CREATE MEME"}
                 </Button>
                 {generatedMemeImage && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1785,7 +1790,12 @@ export default function ToolsSection() {
                   disabled={isGeneratingPfp}
                   data-testid="button-generate-pfp"
                 >
-                  {isGeneratingPfp ? "GENERATING..." : "GENERATE PFP"}
+                  {isGeneratingPfp ? (
+                    <>
+                      <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2 inline-block"></div>
+                      GENERATING...
+                    </>
+                  ) : "GENERATE PFP"}
                 </Button>
                 {generatedPfpImage && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

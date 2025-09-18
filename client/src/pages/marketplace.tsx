@@ -139,6 +139,10 @@ export default function Marketplace() {
         title: "Report Submitted",
         description: "Thank you for helping keep our marketplace safe.",
       });
+      // Close modal and reset state on success
+      setReportModalOpen(false);
+      setReportReason('');
+      setReportingListingId('');
     },
     onError: (error) => {
       if (isUnauthorizedError(error)) {
@@ -184,9 +188,7 @@ export default function Marketplace() {
         listingId: reportingListingId, 
         reason: reportReason.trim() 
       });
-      setReportModalOpen(false);
-      setReportReason('');
-      setReportingListingId('');
+      // Don't close modal immediately - let onSuccess handle it
     }
   };
 
@@ -266,9 +268,17 @@ export default function Marketplace() {
                     placeholder="Villain Era Digital Art Collection"
                     value={newListing.title}
                     onChange={(e) => setNewListing(prev => ({ ...prev, title: e.target.value }))}
+                    className={`${!newListing.title.trim() && newListing.title !== '' ? 'border-blood-red/50 focus:border-blood-red' : 'border-toxic-green/30 focus:border-toxic-green'}`}
                     maxLength={100}
                     data-testid="listing-title-input"
+                    aria-invalid={!newListing.title.trim()}
+                    aria-describedby={!newListing.title.trim() ? "title-error" : undefined}
                   />
+                  {!newListing.title.trim() && newListing.title !== '' && (
+                    <p id="title-error" className="text-blood-red text-sm mt-1 animate-pulse" role="alert">
+                      Title is required
+                    </p>
+                  )}
                 </div>
                 
                 <div className="grid md:grid-cols-2 gap-4">
@@ -304,10 +314,21 @@ export default function Marketplace() {
                     placeholder="Detailed description of what you're offering. Include any terms, conditions, or special requirements..."
                     value={newListing.description}
                     onChange={(e) => setNewListing(prev => ({ ...prev, description: e.target.value }))}
+                    className={`${!newListing.description.trim() && newListing.description !== '' ? 'border-blood-red/50 focus:border-blood-red' : 'border-toxic-green/30 focus:border-toxic-green'}`}
                     maxLength={2000}
                     rows={5}
                     data-testid="listing-description-input"
+                    aria-invalid={!newListing.description.trim()}
+                    aria-describedby={!newListing.description.trim() ? "description-error" : undefined}
                   />
+                  {!newListing.description.trim() && newListing.description !== '' && (
+                    <p id="description-error" className="text-blood-red text-sm mt-1 animate-pulse" role="alert">
+                      Description is required
+                    </p>
+                  )}
+                  <div className="text-right text-dim-gray text-xs mt-1">
+                    {newListing.description.length}/2000
+                  </div>
                 </div>
                 
                 <div>
@@ -427,8 +448,9 @@ export default function Marketplace() {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleReportListing(listing.id)}
-                          className="text-dim-gray hover:text-blood-red p-1"
+                          className="text-dim-gray hover:text-blood-red p-1 transition-colors duration-200"
                           data-testid={`report-button-${listing.id}`}
+                          title="Report this listing"
                         >
                           <Flag className="w-4 h-4" />
                         </Button>
@@ -537,11 +559,16 @@ export default function Marketplace() {
             </Button>
             <Button
               onClick={submitReport}
-              disabled={!reportReason.trim()}
+              disabled={!reportReason.trim() || reportListingMutation.isPending}
               className="bg-blood-red hover:bg-red-600 text-white"
               data-testid="report-submit-button"
             >
-              Submit Report
+              {reportListingMutation.isPending ? (
+                <>
+                  <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2 inline-block"></div>
+                  Submitting...
+                </>
+              ) : "Submit Report"}
             </Button>
           </DialogFooter>
         </DialogContent>
