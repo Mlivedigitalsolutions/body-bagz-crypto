@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Bagz Brand Guidelines</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0.5in;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: white;
+            color: #000;
+            line-height: 1.4;
+            font-size: 11pt;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #66FF33;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .header h2 {
+            font-size: 14pt;
+            color: #000;
+            font-weight: normal;
+        }
+        
+        .copyright {
+            text-align: center;
+            font-size: 9pt;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+        
+        .section h3 {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #000;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .color-chip {
+            text-align: center;
+            border: 1px solid #000;
+            padding: 10px;
+        }
+        
+        .color-chip .swatch {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
+            border: 2px solid #000;
+        }
+        
+        .color-chip h4 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .color-chip .hex {
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            color: #666;
+        }
+        
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .logo-example {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 15px;
+            background: #f9f9f9;
+        }
+        
+        .logo-example img {
+            max-width: 100%;
+            height: auto;
+            max-height: 120px;
+            margin-bottom: 10px;
+            background: #000;
+            padding: 10px;
+        }
+        
+        .logo-example h4 {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .logo-example p {
+            font-size: 9pt;
+            color: #666;
+        }
+        
+        .clearspace-diagram {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .clearspace-box {
+            display: inline-block;
+            border: 2px dashed #666;
+            padding: 40px;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .clearspace-inner {
+            border: 1px solid #000;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .do-dont {
+            padding: 15px;
+            border: 2px solid;
+        }
+        
+        .do {
+            border-color: #00AA00;
+            background: #f0fff0;
+        }
+        
+        .dont {
+            border-color: #AA0000;
+            background: #fff0f0;
+        }
+        
+        .do h4, .dont h4 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .do h4 {
+            color: #00AA00;
+        }
+        
+        .dont h4 {
+            color: #AA0000;
+        }
+        
+        ul {
+            margin-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+            font-size: 10pt;
+        }
+        
+        .contact-info {
+            background: #f0f0f0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .trademark-notice {
+            font-size: 8pt;
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        /* Color swatches */
+        .neon-green { background-color: #00FF66; }
+        .toxic-green { background-color: #66FF33; }
+        .visor-teal { background-color: #2BD4D4; }
+        .circuit-purple { background-color: #8A2BE2; }
+        .bone { background-color: #D6C6A8; }
+        .near-white { background-color: #F8FAFC; border-color: #ccc; }
+        .jet-black { background-color: #000000; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Body Bagz</h1>
+        <h2>Brand Guidelines & Standards</h2>
+        <div class="copyright">© 2025 Body Bagz. All rights reserved.</div>
+    </div>
+
+    <div class="section">
+        <h3>Official Color Palette</h3>
+        <div class="color-grid">
+            <div class="color-chip">
+                <div class="swatch neon-green"></div>
+                <h4>Neon Green</h4>
+                <div class="hex">#00FF66</div>
+                <p>Eyes, glow effects</p>
+            </div>
+            <div class="color-chip">
+                <div class="swatch toxic-green"></div>
+                <h4>Toxic Green</h4>
+                <div class="hex">#66FF33</div>
+                <p>BODY BAGZ wordmark</p>
+            </div>
+            <div class="color-chip">
+                <div class="swatch visor-teal"></div>
+                <h4>Visor Teal</h4>
+                <div class="hex">#2BD4D4</div>
+                <p>Visor frame, HUD</p>
+            </div>
+            <div class="color-chip">
+                <div class="swatch circuit-purple"></div>
+                <h4>Circuit Purple</h4>
+                <div class="hex">#8A2BE2</div>
+                <p>Circuit halo</p>
+            </div>
+            <div class="color-chip">
+                <div class="swatch bone"></div>
+                <h4>Bone</h4>
+                <div class="hex">#D6C6A8</div>
+                <p>Skull base color</p>
+            </div>
+            <div class="color-chip">
+                <div class="swatch near-white"></div>
+                <h4>Near White</h4>
+                <div class="hex">#F8FAFC</div>
+                <p>Secondary text</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Primary Logo Configurations</h3>
+        <div class="logo-grid">
+            <div class="logo-example">
+                <img src="../masters/png/bodybagz_primary_stacked_png3000.png" alt="Primary Stacked">
+                <h4>Primary Stacked</h4>
+                <p>Standard vertical layout for most applications</p>
+            </div>
+            <div class="logo-example">
+                <img src="../masters/png/bodybagz_primary_skullonly_png3000.png" alt="Skull Icon">
+                <h4>Skull Icon Only</h4>
+                <p>For avatars, favicons, and compact spaces</p>
+            </div>
+            <div class="logo-example">
+                <img src="../masters/png/bodybagz_primary_horizontal_png3000.png" alt="Horizontal Layout">
+                <h4>Horizontal Layout</h4>
+                <p>For wide format applications and headers</p>
+            </div>
+            <div class="logo-example">
+                <img src="../masters/png/bodybagz_wordmark_png3000.png" alt="Wordmark Only">
+                <h4>Wordmark Only</h4>
+                <p>Typography-focused applications</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Clearspace Requirements</h3>
+        <div class="clearspace-diagram">
+            <div class="clearspace-box">
+                <div class="clearspace-inner">
+                    <strong>BODY BAGZ LOGO</strong>
+                </div>
+            </div>
+            <p><strong>Minimum clearspace = height of letter "B" in wordmark</strong></p>
+            <p>Maintain 8% safe margins around all applications</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Usage Guidelines</h3>
+        <div class="rules-grid">
+            <div class="do">
+                <h4>✓ DO</h4>
+                <ul>
+                    <li>Use approved color combinations only</li>
+                    <li>Maintain proper clearspace and margins</li>
+                    <li>Preserve aspect ratios when scaling</li>
+                    <li>Use high-resolution files for print</li>
+                    <li>Ensure adequate contrast on backgrounds</li>
+                </ul>
+            </div>
+            <div class="dont">
+                <h4>✗ DON'T</h4>
+                <ul>
+                    <li>Alter or modify brand colors</li>
+                    <li>Stretch, skew, or distort logos</li>
+                    <li>Add unauthorized effects or shadows</li>
+                    <li>Place on busy backgrounds without proper contrast</li>
+                    <li>Use low-resolution files for professional applications</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Specialized Applications</h3>
+        <div class="logo-grid">
+            <div class="logo-example">
+                <img src="../masters/png/bodybagz_onecolor_green_png3000.png" alt="One Color">
+                <h4>One-Color Version</h4>
+                <p>For embroidery, laser cutting, single-color printing</p>
+            </div>
+            <div class="logo-example">
+                <img src="../masters/png/bodybagz_monochrome_bw_png3000.png" alt="Monochrome">
+                <h4>Monochrome</h4>
+                <p>Black and white printing applications</p>
+            </div>
+            <div class="logo-example">
+                <img src="../masters/png/bodybagz_coin_round_png3000.png" alt="Coin Emblem">
+                <h4>Coin Emblem</h4>
+                <p>Premium badges, seals, and medallions</p>
+            </div>
+            <div class="logo-example">
+                <img src="../masters/png/bodybagz_hex_bb_png3000.png" alt="Hex Monogram">
+                <h4>Hex Monogram</h4>
+                <p>Compact applications, favicons, small badges</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-info">
+        <h4>Brand Usage Inquiries</h4>
+        <p><strong>Email:</strong> team@bodybagz.org</p>
+        <p><strong>License:</strong> Standard brand-use license. No third-party use without written permission.</p>
+    </div>
+
+    <div class="trademark-notice">
+        <p>This brand guidelines document prepared for trademark and copyright filing purposes.<br>
+        All logos, wordmarks, and brand elements are proprietary to Body Bagz.<br>
+        Unauthorized use is strictly prohibited.</p>
+    </div>
+</body>
+</html>
