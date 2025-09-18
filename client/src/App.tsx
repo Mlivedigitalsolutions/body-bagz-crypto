@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Router, Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -44,10 +44,14 @@ const PageLoader = () => (
   </div>
 );
 
-function Router() {
+function AppRouter() {
+  // GitHub Pages base path configuration - uses Vite's BASE_URL
+  const basePath = import.meta.env.VITE_GITHUB_PAGES === 'true' ? '/body-bagz' : '';
+  
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Switch>
+    <Router base={basePath}>
+      <Suspense fallback={<PageLoader />}>
+        <Switch>
         <Route path="/" component={Home}/>
         <Route path="/account" component={AccountPage}/>
         <Route path="/tools" component={ToolsPage}/>
@@ -72,8 +76,9 @@ function Router() {
         <Route path="/gaming" component={GamingPage}/>
         <Route path="/community" component={CommunityPage}/>
         <Route component={NotFound} />
-      </Switch>
-    </Suspense>
+        </Switch>
+      </Suspense>
+    </Router>
   );
 }
 
@@ -84,7 +89,7 @@ function App() {
         <UserProvider>
           <TooltipProvider>
             <Toaster />
-            <Router />
+            <AppRouter />
             {/* Global Music Player - Persists across all page navigation */}
             <CompactMusicPlayer />
           </TooltipProvider>
