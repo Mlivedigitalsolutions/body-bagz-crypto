@@ -1,0 +1,32 @@
+BRAND SHEET PDF CONVERSION INSTRUCTIONS
+=======================================
+
+To create the required brand_sheet.pdf for trademark filing:
+
+METHOD 1: Browser Print to PDF (Recommended)
+1. Open brand/output/docs/brand_sheet.html in any web browser
+2. Press Ctrl+P (Windows) or Cmd+P (Mac) to print
+3. Select "Save as PDF" or "Microsoft Print to PDF" as destination
+4. Choose settings:
+   - Paper Size: A4 or Letter
+   - Margins: Minimum
+   - Scale: Fit to page
+   - Background graphics: Include
+5. Save as "brand_sheet.pdf" in the brand/output/docs/ folder
+
+METHOD 2: Professional PDF Conversion
+Use tools like:
+- Adobe Acrobat Pro
+- Chrome/Edge built-in PDF export
+- Online converters (HTML to PDF)
+
+METHOD 3: Command Line (if available)
+wkhtmltopdf brand_sheet.html brand_sheet.pdf
+
+TRADEMARK FILING NOTES:
+- The PDF will contain all required elements for trademark applications
+- Color specifications are embedded in the document
+- Clearspace diagrams and usage guidelines included
+- Copyright notices and contact information present
+
+Once converted, update the ZIP package to include the PDF file.
