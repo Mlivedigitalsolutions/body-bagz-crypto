@@ -45,8 +45,20 @@ const PageLoader = () => (
 );
 
 function AppRouter() {
-  // GitHub Pages base path configuration - uses Vite's BASE_URL
-  const basePath = import.meta.env.VITE_GITHUB_PAGES === 'true' ? '/body-bagz-crypto' : '';
+  // GitHub Pages base path configuration - detect environment more reliably
+  const isGitHubPages = import.meta.env.VITE_GITHUB_PAGES === true || 
+                       import.meta.env.VITE_GITHUB_PAGES === 'true' ||
+                       window.location.hostname.includes('github.io');
+  
+  const basePath = isGitHubPages ? '/body-bagz-crypto' : '';
+  
+  console.log('GitHub Pages detection:', {
+    VITE_GITHUB_PAGES: import.meta.env.VITE_GITHUB_PAGES,
+    hostname: window.location.hostname,
+    isGitHubPages,
+    basePath,
+    currentPath: window.location.pathname
+  });
   
   return (
     <Router base={basePath}>
