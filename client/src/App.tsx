@@ -6,55 +6,70 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserProvider } from "@/contexts/UserContext";
 import { CompactMusicPlayer } from "@/components/CompactMusicPlayer";
-import Home from "@/pages/home";
-import AccountPage from "@/pages/account";
-import ToolsPage from "@/pages/tools";
-import MerchPage from "@/pages/merch";
-import LeaderboardPage from "@/pages/leaderboard";
-import AdminPage from "@/pages/admin";
-import Mission from "@/pages/mission";
-import Meetups from "@/pages/meetups";
-import Marketplace from "@/pages/marketplace";
-import Tokenomics from "@/pages/tokenomics";
-import Privacy from "@/pages/privacy";
-import Terms from "@/pages/terms";
-import StakePage from "@/pages/stake";
-import MusicPage from "@/pages/music";
-import { BannerDemo } from "@/pages/banner-demo";
-import { LogoShowcase } from "@/pages/logo-showcase";
-import WhitepaperGerman from "@/pages/WhitepaperGerman";
-import WhitepaperArabic from "@/pages/WhitepaperArabic";
-import WhitepaperMandarin from "@/pages/WhitepaperMandarin";
-import WhitepaperTurkish from "@/pages/WhitepaperTurkish";
-import WhitepaperHindi from "@/pages/WhitepaperHindi";
-import NotFound from "@/pages/not-found";
+import { Suspense, lazy } from "react";
+
+// Code splitting: Lazy load pages for better performance
+const Home = lazy(() => import("@/pages/home"));
+const AccountPage = lazy(() => import("@/pages/account"));
+const ToolsPage = lazy(() => import("@/pages/tools"));
+const MerchPage = lazy(() => import("@/pages/merch"));
+const LeaderboardPage = lazy(() => import("@/pages/leaderboard"));
+const AdminPage = lazy(() => import("@/pages/admin"));
+const Mission = lazy(() => import("@/pages/mission"));
+const Meetups = lazy(() => import("@/pages/meetups"));
+const Marketplace = lazy(() => import("@/pages/marketplace"));
+const Tokenomics = lazy(() => import("@/pages/tokenomics"));
+const Privacy = lazy(() => import("@/pages/privacy"));
+const Terms = lazy(() => import("@/pages/terms"));
+const StakePage = lazy(() => import("@/pages/stake"));
+const MusicPage = lazy(() => import("@/pages/music"));
+const BannerDemo = lazy(() => import("@/pages/banner-demo").then(m => ({ default: m.BannerDemo })));
+const LogoShowcase = lazy(() => import("@/pages/logo-showcase").then(m => ({ default: m.LogoShowcase })));
+const WhitepaperGerman = lazy(() => import("@/pages/WhitepaperGerman"));
+const WhitepaperArabic = lazy(() => import("@/pages/WhitepaperArabic"));
+const WhitepaperMandarin = lazy(() => import("@/pages/WhitepaperMandarin"));
+const WhitepaperTurkish = lazy(() => import("@/pages/WhitepaperTurkish"));
+const WhitepaperHindi = lazy(() => import("@/pages/WhitepaperHindi"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+// Loading component with cyberpunk styling
+const PageLoader = () => (
+  <div className="min-h-screen bg-black flex items-center justify-center">
+    <div className="text-center space-y-4">
+      <div className="w-12 h-12 border-4 border-toxic-green border-t-transparent rounded-full animate-spin mx-auto"></div>
+      <p className="text-ash-white font-tech">LOADING...</p>
+    </div>
+  </div>
+);
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home}/>
-      <Route path="/account" component={AccountPage}/>
-      <Route path="/tools" component={ToolsPage}/>
-      <Route path="/merch" component={MerchPage}/>
-      <Route path="/leaderboard" component={LeaderboardPage}/>
-      <Route path="/admin" component={AdminPage}/>
-      <Route path="/mission" component={Mission}/>
-      <Route path="/meetups" component={Meetups}/>
-      <Route path="/market" component={Marketplace}/>
-      <Route path="/tokenomics" component={Tokenomics}/>
-      <Route path="/stake" component={StakePage}/>
-      <Route path="/music" component={MusicPage}/>
-      <Route path="/privacy" component={Privacy}/>
-      <Route path="/terms" component={Terms}/>
-      <Route path="/banner" component={BannerDemo}/>
-      <Route path="/logos" component={LogoShowcase}/>
-      <Route path="/whitepaper/de" component={WhitepaperGerman}/>
-      <Route path="/whitepaper/ar" component={WhitepaperArabic}/>
-      <Route path="/whitepaper/zh" component={WhitepaperMandarin}/>
-      <Route path="/whitepaper/tr" component={WhitepaperTurkish}/>
-      <Route path="/whitepaper/hi" component={WhitepaperHindi}/>
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<PageLoader />}>
+      <Switch>
+        <Route path="/" component={Home}/>
+        <Route path="/account" component={AccountPage}/>
+        <Route path="/tools" component={ToolsPage}/>
+        <Route path="/merch" component={MerchPage}/>
+        <Route path="/leaderboard" component={LeaderboardPage}/>
+        <Route path="/admin" component={AdminPage}/>
+        <Route path="/mission" component={Mission}/>
+        <Route path="/meetups" component={Meetups}/>
+        <Route path="/market" component={Marketplace}/>
+        <Route path="/tokenomics" component={Tokenomics}/>
+        <Route path="/stake" component={StakePage}/>
+        <Route path="/music" component={MusicPage}/>
+        <Route path="/privacy" component={Privacy}/>
+        <Route path="/terms" component={Terms}/>
+        <Route path="/banner" component={BannerDemo}/>
+        <Route path="/logos" component={LogoShowcase}/>
+        <Route path="/whitepaper/de" component={WhitepaperGerman}/>
+        <Route path="/whitepaper/ar" component={WhitepaperArabic}/>
+        <Route path="/whitepaper/zh" component={WhitepaperMandarin}/>
+        <Route path="/whitepaper/tr" component={WhitepaperTurkish}/>
+        <Route path="/whitepaper/hi" component={WhitepaperHindi}/>
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 

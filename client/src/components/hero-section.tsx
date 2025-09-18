@@ -36,6 +36,8 @@ export default function HeroSection({ titleRef }: HeroSectionProps) {
                   src={heroBanner}
                   alt="Body Bagz - Villain Era Cyberpunk Crypto"
                   className="w-full h-auto object-cover premium-banner-effect"
+                  fetchpriority="high"
+                  decoding="async"
                   data-testid="hero-banner"
                 />
               </div>

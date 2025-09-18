@@ -21,9 +21,9 @@ export default function TradingDataSection() {
   // Fetch live trading data from our backend API
   const { data: liveData, isLoading, error } = useQuery({
     queryKey: ["/api/trading-data"],
-    refetchInterval: 60000, // Refetch every minute
-    retry: 2,
-    staleTime: 30000, // Keep data fresh for 30 seconds
+    refetchInterval: 300000, // Refetch every 5 minutes for better performance
+    retry: 1, // Reduce retries to avoid unnecessary network calls
+    staleTime: 240000, // Keep data fresh for 4 minutes
   });
 
   const formatTokenDisplay = (tokenData: TokenData | undefined) => {
@@ -48,8 +48,9 @@ export default function TradingDataSection() {
     };
   };
 
-  const moonshotData = formatTokenDisplay(liveData?.moonshot);
-  const pumpfunData = formatTokenDisplay(liveData?.pumpfun);
+  const typedLiveData = liveData as TradingData | undefined;
+  const moonshotData = formatTokenDisplay(typedLiveData?.moonshot);
+  const pumpfunData = formatTokenDisplay(typedLiveData?.pumpfun);
 
   return (
     <section className="relative z-10 py-20 px-6">
@@ -74,7 +75,7 @@ export default function TradingDataSection() {
             </div>
           </div>
           <p className="text-ash-white text-sm text-center mt-2">
-            {isLoading ? "🔄 Fetching live data from both tokens..." : error ? "⚠️ Data temporarily unavailable - check DexScreener for live charts" : "📊 Live data from DexScreener - updates every minute"}
+            {isLoading ? "🔄 Fetching live data from both tokens..." : error ? "⚠️ Data temporarily unavailable - check DexScreener for live charts" : "📊 Live data from DexScreener - updates every 5 minutes"}
           </p>
         </div>
         
